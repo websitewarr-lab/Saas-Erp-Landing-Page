@@ -6,6 +6,7 @@ import PlatformModulesShowcase from "./components/PlatformModulesShowcase";
 import ProductShowcase from "./components/ProductShowcase";
 import IndustrySolutions from "./components/IndustrySolutions";
 import ConnectedWorkflow from "./components/ConnectedWorkflow";
+import IntegrationsEcosystem from "./components/IntegrationsEcosystem";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import {
@@ -72,7 +73,7 @@ const plans = [
 
 const faqs = [
   ["What is an ERP?", "An ERP is a connected business platform that brings core operations like finance, people, sales, inventory and reporting into one shared system."],
-  ["Which business modules are included?", "Warrgyizmorsch is designed around finance, HR and payroll, CRM and sales, purchasing, inventory, manufacturing, projects, reporting and integrations."],
+  ["Which business modules are included?", "MossiERP is designed around finance, HR and payroll, CRM and sales, purchasing, inventory, manufacturing, projects, reporting and integrations."],
   ["Can the ERP be customized?", "Yes. Workflows, fields, permissions and connected processes can be shaped around your business requirements."],
   ["Can existing data be migrated?", "Yes. Data migration is part of the implementation process and is planned around the systems and records you already use."],
   ["Does the ERP support multiple branches?", "The platform is designed to support multi-company and multi-branch operating models where required."],
@@ -104,12 +105,12 @@ export default function HomePage() {
             {/* Main Headline from Zoho screenshot 2 */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] max-w-5xl mx-auto mb-5">
               A new era of ERP software<br className="hidden sm:inline" />{" "}
-              from Warrgyizmorsch
+              from MossiERP
             </h1>
 
             {/* Subtitle from Zoho screenshot 2 */}
             <p className="text-[16px] sm:text-[17.5px] text-[#475569] max-w-2xl mx-auto leading-relaxed mb-8">
-              Warrgyizmorsch ERP keeps pace with your technological transformation helping you become operationally faster, leaner, innovative, resilient, and more relevant.
+              MossiERP keeps pace with your technological transformation helping you become operationally faster, leaner, innovative, resilient, and more relevant.
             </p>
 
             {/* Action Buttons from Zoho screenshot 2 */}
@@ -153,7 +154,7 @@ export default function HomePage() {
         
         <section className="section section-benefits">
           <div className="container">
-            <SectionIntro eyebrow="Why Warrgyizmorsch" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
+            <SectionIntro eyebrow="Why MossiERP" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
             <div className="benefits-grid">
               {benefits.map(({ title, description, icon: Icon, tone }) => (
                 <article className="benefit-card" key={title}>
@@ -173,6 +174,9 @@ export default function HomePage() {
 
         {/* Connected Workflow Interactive Engine */}
         <ConnectedWorkflow />
+
+        {/* Built-in Ecosystem & Live Integration Circuit Matrix */}
+        <IntegrationsEcosystem />
 
         <section className="section capabilities-section" id="features">
           <div className="container capabilities-grid">
@@ -298,8 +302,8 @@ export default function HomePage() {
                 <h2>Ready to bring your business together?</h2>
                 <p>Discover how a connected ERP platform can simplify your operations and help your business grow with confidence.</p>
                 <div className="hero-actions">
-                  <a className="button button-light" href="mailto:hello@warrgyizmorsch-erp.example">Book a Demo <ArrowRight /></a>
-                  <a className="button button-ghost-light" href="mailto:hello@warrgyizmorsch-erp.example">Request a Quote</a>
+                  <a className="button button-light" href="mailto:hello@mossierp.com">Book a Demo <ArrowRight /></a>
+                  <a className="button button-ghost-light" href="mailto:hello@mossierp.com">Request a Quote</a>
                 </div>
               </div>
               <div className="cta-signal" aria-hidden="true"><span /><span /><span /><span /></div>

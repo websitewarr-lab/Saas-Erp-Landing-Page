@@ -64,7 +64,7 @@
   --shadow-soft: 0 20px 60px -36px oklch(0.25 0.08 250 / 34%);
   --shadow-card: 0 10px 34px -24px oklch(0.25 0.08 250 / 28%);
   --shadow-blue: 0 18px 44px -24px oklch(0.5 0.2 255 / 44%);
-  --ease-warrgyizmorsch: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-mossierp: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -332,7 +332,7 @@
   border-radius: 11px;
   font-size: 13px;
   font-weight: 700;
-  transition: transform .25s var(--ease-warrgyizmorsch), background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  transition: transform .25s var(--ease-mossierp), background .25s ease, border-color .25s ease, box-shadow .25s ease;
   cursor: pointer;
 }
 
@@ -1122,7 +1122,7 @@
   border-radius: 14px;
   background: color-mix(in oklab, var(--surface-raised) 79%, transparent);
   box-shadow: var(--shadow-card);
-  transition: transform .3s var(--ease-warrgyizmorsch), box-shadow .3s ease;
+  transition: transform .3s var(--ease-mossierp), box-shadow .3s ease;
 }
 
 .benefit-card:hover,
@@ -1236,7 +1236,7 @@
   border-radius: 14px;
   background: var(--surface-raised);
   box-shadow: var(--shadow-card);
-  transition: transform .3s var(--ease-warrgyizmorsch), box-shadow .3s ease;
+  transition: transform .3s var(--ease-mossierp), box-shadow .3s ease;
 }
 
 .module-icon {
@@ -1465,7 +1465,7 @@
   border-radius: 14px;
   background: var(--surface-raised);
   box-shadow: var(--shadow-card);
-  transition: transform .3s var(--ease-warrgyizmorsch), box-shadow .3s ease;
+  transition: transform .3s var(--ease-mossierp), box-shadow .3s ease;
 }
 
 .industry-card:nth-child(5) {
@@ -1818,12 +1818,18 @@
 }
 
 .ai-tab-nav {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 8px;
   margin-bottom: 22px;
+}
+
+@media (min-width: 768px) {
+  .ai-tab-nav {
+    display: flex;
+  }
 }
 
 .ai-tab-pill {
@@ -1973,9 +1979,15 @@
   border: 1px solid #E2E8F0;
   background: #F8FAFC;
   box-shadow: 0 10px 28px -8px rgba(15, 23, 42, 0.08);
-  display: flex;
+  display: none;
   flex-direction: column;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .ai-preview-shell {
+    display: flex;
+  }
 }
 
 .ai-preview-board {
@@ -2236,7 +2248,7 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--background);
-  transition: transform .3s var(--ease-warrgyizmorsch), box-shadow .3s ease;
+  transition: transform .3s var(--ease-mossierp), box-shadow .3s ease;
 }
 
 .story-top {
@@ -2451,7 +2463,7 @@
 .faq-answer {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows .35s var(--ease-warrgyizmorsch);
+  transition: grid-template-rows .35s var(--ease-mossierp);
 }
 
 .faq-answer p {
@@ -2657,7 +2669,7 @@
 }
 
 .reveal-up {
-  animation: rise-in .75s var(--ease-warrgyizmorsch) both;
+  animation: rise-in .75s var(--ease-mossierp) both;
 }
 
 .reveal-delay {

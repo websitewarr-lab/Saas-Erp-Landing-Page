@@ -47,7 +47,7 @@ export function LogoMark({ compact = false }: { compact?: boolean }) {
   return (
     <img
       src={compact ? "/images/logo/warrgyizmorsch-logo.png" : "/images/logo/WARR LOGO.webp"}
-      alt="Warrgyizmorsch Logo"
+      alt="MossiERP Logo"
       className={compact ? "h-6 w-auto object-contain" : "h-9 w-auto object-contain"}
     />
   );
@@ -69,10 +69,10 @@ export default function SiteHeader() {
   return (
     <header className={scrolled ? "site-header site-header-scrolled" : "site-header"}>
       <div className="container nav-inner">
-        <Link className="brand flex items-center py-1" href="/" onClick={closeMenu} aria-label="Warrgyizmorsch ERP home">
+        <Link className="brand flex items-center py-1" href="/" onClick={closeMenu} aria-label="MossiERP home">
           <img
             src="/images/logo/WARR LOGO.webp"
-            alt="Warrgyizmorsch ERP"
+            alt="MossiERP"
             className="h-9 w-auto object-contain max-w-[220px]"
           />
         </Link>

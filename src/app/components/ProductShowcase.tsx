@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -15,6 +15,8 @@ import {
   ArrowRight,
   ArrowUpRight,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Sparkles,
   Settings2,
 } from "lucide-react";
@@ -321,7 +323,7 @@ function LogoMarkCompact() {
   return (
     <img
       src="/images/logo/warrgyizmorsch-logo.png"
-      alt="Warrgyizmorsch Logo"
+      alt="MossiERP Logo"
       className="h-6 w-auto object-contain"
     />
   );
@@ -329,6 +331,7 @@ function LogoMarkCompact() {
 
 export default function ProductShowcase() {
   const [activeTabId, setActiveTabId] = useState<string>("dashboard");
+  const tabListRef = useRef<HTMLDivElement>(null);
 
   const currentTab =
     SHOWCASE_TABS.find((t) => t.id === activeTabId) ?? SHOWCASE_TABS[0];
@@ -345,6 +348,22 @@ export default function ProductShowcase() {
     ReceiptText,
   ];
 
+  const handleScroll = (direction: "left" | "right") => {
+    if (tabListRef.current) {
+      const scrollAmount = direction === "left" ? -150 : 150;
+      tabListRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    if (tabListRef.current) {
+      const activeEl = tabListRef.current.querySelector<HTMLElement>(".ai-tab-pill.active");
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+  }, [activeTabId]);
+
   return (
     <section className="ai-showcase-section" id="showcase">
       {/* Top Ambient Radial Glow */}
@@ -359,7 +378,7 @@ export default function ProductShowcase() {
           </p>
         </div>
 
-        {/* Tab Pills Row */}
+        {/* Desktop Tab Pills Row (Hidden on Smartphone < 768px) */}
         <div className="ai-tab-nav" role="tablist" aria-label="Product modules">
           {SHOWCASE_TABS.map((tab) => {
             const TabIcon = tab.icon;
@@ -378,6 +397,54 @@ export default function ProductShowcase() {
               </button>
             );
           })}
+        </div>
+
+        {/* Smartphone Tab Pills Slider with Left/Right Arrows (Visible ONLY on Smartphone < 768px) */}
+        <div className="md:hidden relative flex items-center gap-1.5 w-full mb-6 px-1">
+          {/* Left Arrow Button */}
+          <button
+            type="button"
+            onClick={() => handleScroll("left")}
+            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-300 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+            aria-label="Previous module"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Touch-Swipable Horizontal Scroll Area */}
+          <div
+            ref={tabListRef}
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth w-full py-1.5 px-0.5 snap-x snap-mandatory touch-pan-x"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {SHOWCASE_TABS.map((tab) => {
+              const TabIcon = tab.icon;
+              const isActive = tab.id === activeTabId;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveTabId(tab.id)}
+                  className={`ai-tab-pill whitespace-nowrap shrink-0 snap-center ${isActive ? "active" : ""}`}
+                >
+                  <TabIcon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Arrow Button */}
+          <button
+            type="button"
+            onClick={() => handleScroll("right")}
+            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-300 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+            aria-label="Next module"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Main 2-Column Showcase Card */}
@@ -430,7 +497,7 @@ export default function ProductShowcase() {
 
               {/* Dashboard Body with Sidebar and Content */}
               <div className="dashboard-body">
-                <aside className="dashboard-sidebar" aria-label="Product navigation">
+                <aside className="dashboard-sidebar hidden sm:flex" aria-label="Product navigation">
                   <div className="sidebar-brand">
                     <LogoMarkCompact />
                   </div>
@@ -511,7 +578,7 @@ export default function ProductShowcase() {
                       </div>
                     </div>
 
-                    <div className="dashboard-panel activity-panel">
+                    <div className="dashboard-panel activity-panel hidden sm:block">
                       <div className="panel-heading">
                         <strong>Recent activity</strong>
                         <ArrowUpRight className="w-3 h-3" />
@@ -532,7 +599,7 @@ export default function ProductShowcase() {
                   </div>
 
                   {/* Dashboard Footer Row */}
-                  <div className="dashboard-footer-row">
+                  <div className="dashboard-footer-row hidden sm:flex">
                     <div>
                       <span className="mini-label">Team capacity</span>
                       <strong>{currentTab.capacity}</strong>

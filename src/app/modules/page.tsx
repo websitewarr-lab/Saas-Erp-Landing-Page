@@ -166,7 +166,7 @@ export default function ModulesHubPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Explore Warrgyizmorsch&apos;s suite of 8 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
+              Explore MossiERP&apos;s suite of 8 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
             </p>
           </div>
         </section>
@@ -233,7 +233,7 @@ export default function ModulesHubPage() {
                 Ready to transform your business operations?
               </h2>
               <p className="text-base text-blue-100 leading-relaxed">
-                Connect your team with a personalized walkthrough of Warrgyizmorsch ERP tailored to your operational workflows.
+                Connect your team with a personalized walkthrough of MossiERP tailored to your operational workflows.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link

@@ -34,7 +34,7 @@ export default function CancellationPolicyPage() {
                 1. Subscription Cancellation Notice
               </h2>
               <p>
-                At <strong>Warrgyizmorsch ERP</strong>, we aim to provide flexible SaaS subscription terms. You can request cancellation of your monthly or annual subscription at any time directly through your tenant account portal or by contacting your dedicated account manager.
+                At <strong>MossiERP</strong>, we aim to provide flexible SaaS subscription terms. You can request cancellation of your monthly or annual subscription at any time directly through your tenant account portal or by contacting your dedicated account manager.
               </p>
               <ul className="list-disc pl-5 space-y-2 text-slate-600">
                 <li>
@@ -72,7 +72,7 @@ export default function CancellationPolicyPage() {
                 3. Data Export & Post-Cancellation Retention
               </h2>
               <p>
-                Upon subscription termination, Warrgyizmorsch provides a <strong>60-day grace period</strong> during which your system administrator can export complete database backups in standard SQL, CSV, or JSON formats at no additional cost. After 60 days, database instances are safely purged from cloud servers according to compliance standards.
+                Upon subscription termination, MossiERP provides a <strong>60-day grace period</strong> during which your system administrator can export complete database backups in standard SQL, CSV, or JSON formats at no additional cost. After 60 days, database instances are safely purged from cloud servers according to compliance standards.
               </p>
             </section>
 
@@ -85,7 +85,7 @@ export default function CancellationPolicyPage() {
                 To initiate a cancellation or request a refund under our guarantee policy, please submit a request to our Billing Operations department:
               </p>
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs font-mono space-y-1 text-slate-700">
-                <p><strong>Support Email:</strong> billing@warrgyizmorsch.com</p>
+                <p><strong>Support Email:</strong> billing@mossierp.com</p>
                 <p><strong>Response Time:</strong> Within 1 business day</p>
                 <p><strong>Portal:</strong> Admin Dashboard &gt; Settings &gt; Billing &amp; Subscription</p>
               </div>

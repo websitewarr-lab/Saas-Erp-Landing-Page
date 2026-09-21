@@ -34,7 +34,7 @@ export default function TermsAndConditionsPage() {
                 1. Acceptance of Terms
               </h2>
               <p>
-                By accessing, registering for, or using the <strong>Warrgyizmorsch ERP platform</strong>, modules, mobile apps, or associated APIs (collectively, the &ldquo;Services&rdquo;), you agree to be bound by these Terms & Conditions. If you are entering into this agreement on behalf of a corporation or entity, you represent that you have legal authorization to bind such entity.
+                By accessing, registering for, or using the <strong>MossiERP platform</strong>, modules, mobile apps, or associated APIs (collectively, the &ldquo;Services&rdquo;), you agree to be bound by these Terms & Conditions. If you are entering into this agreement on behalf of a corporation or entity, you represent that you have legal authorization to bind such entity.
               </p>
             </section>
 
@@ -44,7 +44,7 @@ export default function TermsAndConditionsPage() {
                 2. Subscription & Tenant License Grant
               </h2>
               <p>
-                Subject to compliance with these terms and payment of applicable license fees, Warrgyizmorsch grants your organization a non-exclusive, non-transferable, global subscription license to utilize the subscribed ERP modules (CRM, Sales, Purchase, Inventory, Production, Accounting, HRMS, Project Management) for internal business operations.
+                Subject to compliance with these terms and payment of applicable license fees, MossiERP grants your organization a non-exclusive, non-transferable, global subscription license to utilize the subscribed ERP modules (CRM, Sales, Purchase, Inventory, Production, Accounting, HRMS, Project Management) for internal business operations.
               </p>
             </section>
 
@@ -58,7 +58,7 @@ export default function TermsAndConditionsPage() {
                   You are responsible for maintaining confidentiality of admin credentials and multi-factor authentication setup.
                 </li>
                 <li>
-                  You agree not to reverse-engineer, decompile, or attempt to extract source code or core models of Warrgyizmorsch ERP.
+                  You agree not to reverse-engineer, decompile, or attempt to extract source code or core models of MossiERP.
                 </li>
                 <li>
                   You agree not to store unlawful, fraudulent, or malicious payloads within system database fields.
@@ -71,7 +71,7 @@ export default function TermsAndConditionsPage() {
                 4. Service Level Commitment (SLA) & Maintenance
               </h2>
               <p>
-                Warrgyizmorsch guarantees a monthly uptime service level of <strong>99.9%</strong> for cloud-hosted enterprise tenants, excluding scheduled zero-downtime maintenance windows communicated 48 hours in advance.
+                MossiERP guarantees a monthly uptime service level of <strong>99.9%</strong> for cloud-hosted enterprise tenants, excluding scheduled zero-downtime maintenance windows communicated 48 hours in advance.
               </p>
             </section>
 
@@ -80,7 +80,7 @@ export default function TermsAndConditionsPage() {
                 5. Limitation of Liability
               </h2>
               <p>
-                To the maximum extent permitted by applicable law, Warrgyizmorsch Systems shall not be liable for any indirect, incidental, consequential, or punitive damages arising from temporary network disruptions, third-party internet outages, or user input data entry errors.
+                To the maximum extent permitted by applicable law, MossiERP Systems shall not be liable for any indirect, incidental, consequential, or punitive damages arising from temporary network disruptions, third-party internet outages, or user input data entry errors.
               </p>
             </section>
 

@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Warrgyizmorsch ERP | One calm platform for your whole business",
+  title: "MossiERP | One calm platform for your whole business",
   description: "Connect finance, HR, sales, inventory, operations and reporting in one intelligent ERP platform built for growing businesses.",
 };
 

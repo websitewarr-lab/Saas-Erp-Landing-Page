@@ -33,15 +33,15 @@ export default function SiteFooter() {
           
           {/* Brand Column (Span 4) */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-block py-1" aria-label="Warrgyizmorsch ERP home">
+            <Link href="/" className="inline-block py-1" aria-label="MossiERP home">
               <img
                 src="/images/logo/WARR LOGO.webp"
-                alt="Warrgyizmorsch ERP"
+                alt="MossiERP"
                 className="h-10 w-auto object-contain brightness-0 invert max-w-[240px]"
               />
             </Link>
             <p className="text-sm sm:text-base leading-relaxed text-white/95 max-w-sm">
-              Welcome to Warrgyizmorsch, your number one source for all your enterprise ERP and automation needs. We&apos;re dedicated to providing you the very best of calm, connected operational software with an emphasis on meeting deadlines, satisfactory service, and 24x7 support.
+              Welcome to MossiERP, your number one source for all your enterprise ERP and automation needs. We&apos;re dedicated to providing you the very best of calm, connected operational software with an emphasis on meeting deadlines, satisfactory service, and 24x7 support.
             </p>
             <div className="flex items-center gap-4 text-white pt-2">
               {/* LinkedIn */}
@@ -165,7 +165,7 @@ export default function SiteFooter() {
                     <Mail className="w-5 h-5 text-[#006fc9]" />
                   </div>
                   <p className="text-sm font-semibold text-white">
-                    info@warrgyizmorsch.com
+                    info@mossierp.com
                   </p>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function SiteFooter() {
       {/* Bottom Copyright Bar */}
       <div className="border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/95 font-medium">
-          <p>Copyright &copy; 2026 Warrgyizmorsch. All Rights Reserved.</p>
+          <p>Copyright &copy; 2026 MossiERP. All Rights Reserved.</p>
           <div className="flex items-center gap-6 text-sm">
             <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
             <Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link>

@@ -355,7 +355,7 @@ export default function HeroLaptopShowcase() {
                   <div className="flex items-center gap-1.5 font-bold tracking-tight text-white">
                     <img
                       src="/images/logo/Wlogo.webp"
-                      alt="Warrgyizmorsch Logo"
+                      alt="MossiERP Logo"
                       className="h-4.5 w-auto object-contain"
                     />
                     <span className="text-[12px] font-extrabold tracking-wider text-slate-100">ERP</span>

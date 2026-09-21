@@ -100,7 +100,7 @@ const INDUSTRIES: IndustryItem[] = [
 
 export default function IndustrySolutions() {
   return (
-    <section className="py-6 bg-[#F8FAFC] relative overflow-hidden" id="industries">
+    <section className="py-[15px] bg-[#F8FAFC] relative overflow-hidden" id="industries">
       {/* Ambient background tints */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-10 left-10 w-96 h-96 bg-blue-100/30 rounded-full blur-[100px]" />
@@ -124,9 +124,6 @@ export default function IndustrySolutions() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center mx-auto mb-8 sm:mb-10 max-w-2xl"
         >
-          <div className="inline-flex items-center justify-center px-3.5 py-1 rounded-full bg-[#EBF3FF] text-[#2563EB] text-[11px] font-bold tracking-widest uppercase mb-4">
-            Industry Solutions
-          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
             Built for the way{" "}
             <br className="hidden sm:inline" />

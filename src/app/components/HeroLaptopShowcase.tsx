@@ -151,15 +151,15 @@ export default function HeroLaptopShowcase() {
   const [activeRange, setActiveRange] = useState("This Year");
 
   return (
-    <div className="relative w-full max-w-[1440px] mx-auto pt-2 pb-6 sm:pb-8 select-none overflow-x-auto lg:overflow-x-visible">
+    <div className="relative w-full max-w-[1440px] mx-auto pt-2 pb-6 sm:pb-8 select-none overflow-hidden md:overflow-visible">
       {/* 5-Element Panoramic Horizon: [Card 1] [Card 2] [CENTER LAPTOP] [Card 3] [Card 4] */}
-      <div className="flex items-center justify-center min-w-[1140px] lg:min-w-0 gap-3 xl:gap-4 px-2">
+      <div className="flex items-center justify-center w-full gap-3 xl:gap-4 px-2">
         
         {/* ========================================================================= */}
-        {/* LEFT SIDE: 2 Squarish Glassmorphic Cards (Exact Replica from Reference)   */}
+        {/* LEFT SIDE: 2 Squarish Glassmorphic Cards (Hidden on Mobile)               */}
         {/* ========================================================================= */}
         <div
-          className="flex items-center gap-3 shrink-0"
+          className="hidden md:flex items-center gap-3 shrink-0"
           style={{
             transform: "perspective(1200px) rotateY(15deg) rotateX(2deg)",
             transformOrigin: "right center",
@@ -330,7 +330,7 @@ export default function HeroLaptopShowcase() {
         {/* ========================================================================= */}
         {/* CENTER: REALISTIC MACBOOK PRO SPACE BLACK (Front View from Reference)     */}
         {/* ========================================================================= */}
-        <div className="w-[510px] xl:w-[540px] shrink-0 flex flex-col items-center z-10 select-none">
+        <div className="w-[510px] xl:w-[540px] shrink-0 flex flex-col items-center z-10 select-none scale-[0.58] xs:scale-[0.7] sm:scale-[0.85] md:scale-100 origin-center -my-20 xs:-my-14 sm:-my-6 md:my-0">
           
           {/* LAPTOP SCREEN LID (Precision Apple Pro Display enclosure) */}
           <div className="w-full bg-[#18191E] rounded-t-[14px] sm:rounded-t-[16px] p-[4px] sm:p-[5px] pb-0 shadow-[0_22px_45px_-12px_rgba(0,0,0,0.55)] border-t border-x border-[#383B44]/80 relative">
@@ -594,10 +594,10 @@ export default function HeroLaptopShowcase() {
         </div>
 
         {/* ========================================================================= */}
-        {/* RIGHT SIDE: 2 Squarish Glassmorphic Cards (Matching Reference Style)      */}
+        {/* RIGHT SIDE: 2 Squarish Glassmorphic Cards (Hidden on Mobile)              */}
         {/* ========================================================================= */}
         <div
-          className="flex items-center gap-3 shrink-0"
+          className="hidden md:flex items-center gap-3 shrink-0"
           style={{
             transform: "perspective(1200px) rotateY(-15deg) rotateX(2deg)",
             transformOrigin: "left center",

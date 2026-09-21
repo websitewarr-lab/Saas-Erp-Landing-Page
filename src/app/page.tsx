@@ -78,10 +78,9 @@ const faqs = [
   ["Does the ERP support multiple branches?", "The platform is designed to support multi-company and multi-branch operating models where required."],
 ];
 
-function SectionIntro({ eyebrow, title, description, align = "left" }: { eyebrow: string; title: string; description?: string; align?: "left" | "center" }) {
+function SectionIntro({ title, description, align = "left" }: { eyebrow?: string; title: string; description?: string; align?: "left" | "center" }) {
   return (
     <div className={align === "center" ? "section-intro section-intro-center" : "section-intro"}>
-      <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       {description ? <p className="section-description">{description}</p> : null}
     </div>
@@ -101,10 +100,6 @@ export default function HomePage() {
           <HeroBackground />
 
           <div className="w-full max-w-[1440px] px-4 sm:px-6 mx-auto relative z-10 flex flex-col items-center text-center">
-            {/* Eyebrow badge from Zoho screenshot 2 */}
-            <div className="inline-flex items-center justify-center tracking-[0.24em] text-[11px] sm:text-[12px] font-semibold text-slate-500 uppercase mb-4">
-              - SECURE, SCALABLE &amp; COMPLIANT -
-            </div>
 
             {/* Main Headline from Zoho screenshot 2 */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] max-w-5xl mx-auto mb-5">
@@ -142,7 +137,6 @@ export default function HomePage() {
 
         <section className="trust-strip" aria-label="Trusted by growing businesses">
           <div className="container">
-            <p className="eyebrow trust-label">Trusted by growing businesses</p>
             <div className="logo-row">
               <span><b className="logo-glyph">n</b> Northwind</span>
               <span><b className="logo-glyph logo-glyph-round">b</b> Bluepeak</span>
@@ -153,7 +147,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-
+        
+        {/* AI-Powered Enterprise Product Showcase */}
+        <ProductShowcase />
+        
         <section className="section section-benefits">
           <div className="container">
             <SectionIntro eyebrow="Why Warrgyizmorsch" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
@@ -169,8 +166,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* AI-Powered Enterprise Product Showcase */}
-        <ProductShowcase />
+        
         
         {/* 8-Card Interactive Platform Modules Deck */}
         <PlatformModulesShowcase />
@@ -242,13 +238,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="py-6 bg-white relative overflow-hidden" id="faq">
-          <div className="container mx-auto px-6 max-w-[1100px] relative z-10 pt-10 pb-16">
+        <section className="py-[15px] bg-white relative overflow-hidden" id="faq">
+          <div className="container mx-auto px-6 max-w-[1100px] relative z-10 py-0">
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
               {/* Left Column */}
               <div className="lg:w-1/3">
                 <div className="sticky top-28">
-                  <span className="inline-block text-[#2563EB] text-[11px] font-bold tracking-[0.25em] uppercase mb-4">Questions, Answered</span>
                   <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight mb-6 leading-[1.1]">
                     A clearer start begins here.
                   </h2>
@@ -300,7 +295,6 @@ export default function HomePage() {
             <div className="final-cta">
               <div className="cta-grid-lines" aria-hidden="true" />
               <div className="cta-content">
-                <p className="eyebrow eyebrow-light">Ready when you are</p>
                 <h2>Ready to bring your business together?</h2>
                 <p>Discover how a connected ERP platform can simplify your operations and help your business grow with confidence.</p>
                 <div className="hero-actions">

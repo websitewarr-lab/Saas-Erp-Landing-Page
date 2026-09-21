@@ -444,7 +444,7 @@ export default function IntegrationsEcosystem() {
   const isHighlighted = (_cat?: string) => true;
 
   return (
-    <section className="py-6 bg-white relative overflow-hidden" id="integrations">
+    <section className="py-[15px] bg-white relative overflow-hidden" id="integrations">
       {/* CSS Keyframes for a stable hub aura, thin dashed-line pulse & synchronized section glow */}
       <style>{`
         @keyframes circuitPulseHalo {
@@ -569,10 +569,6 @@ export default function IntegrationsEcosystem() {
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-600 text-[11px] font-bold tracking-widest uppercase mb-3">
-              <Sparkles className="w-3 h-3 text-blue-600" />
-              Built-in Connected Ecosystem
-            </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
               Built-in ecosystem on which <br className="hidden sm:inline" />
               your business is <span className="text-blue-600">built-on</span>.

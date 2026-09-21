@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
-import ModuleFeatureShowcase from "./modules/showcase/ModuleFeatureShowcase";
+import ModuleFeatureWalkthrough from "./modules/walkthrough/ModuleFeatureWalkthrough";
+import CrmFeatureShowcase from "./modules/crm/CrmFeatureShowcase";
 
 export interface ModuleFeature {
   title: string;
@@ -80,11 +81,6 @@ export default function ModuleDetailTemplate({ data }: { data: ModuleDetailData 
         <section className="relative py-16 lg:py-20 bg-gradient-to-b from-blue-50/80 via-slate-50 to-white border-b border-slate-200/80 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-3xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-xs font-extrabold tracking-widest uppercase">
-                <Sparkles className="w-3.5 h-3.5" />
-                {data.badge}
-              </div>
-
               <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
                 {data.title}
               </h1>
@@ -116,8 +112,9 @@ export default function ModuleDetailTemplate({ data }: { data: ModuleDetailData 
           </div>
         </section>
 
-        {/* NEW FEATURE SHOWCASE SECTION (DARK B2B SAAS MASONRY) */}
-        <ModuleFeatureShowcase moduleSlug={data.slug} />
+        {/* CENTERED MODULE PRODUCT WALKTHROUGH PREVIEW */}
+        <ModuleFeatureWalkthrough moduleSlug={data.slug} />
+
 
         {/* SECTION 2: PROBLEM IT SOLVES */}
         {painPoints.length > 0 && (

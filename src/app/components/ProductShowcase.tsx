@@ -353,7 +353,6 @@ export default function ProductShowcase() {
       <div className="ai-showcase-container">
         {/* Section Header */}
         <div className="ai-showcase-header">
-          <span className="ai-showcase-eyebrow">PRODUCT SHOWCASE</span>
           <h2 className="ai-showcase-title">Powerful tools. Simple experience.</h2>
           <p className="ai-showcase-subtitle">
             Switch modules in place — the same connected data, reframed for each team&apos;s day.

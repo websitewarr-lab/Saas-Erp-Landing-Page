@@ -266,7 +266,7 @@ export default function ConnectedWorkflow() {
   const ActiveIcon = activeStage.icon;
 
   return (
-    <section className="py-6 bg-[#FAFBFD] relative overflow-hidden border-y border-slate-200/80" id="workflow">
+    <section className="py-[15px] bg-[#FAFBFD] relative overflow-hidden border-y border-slate-200/80" id="workflow">
       {/* Ambient background lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[340px] bg-gradient-to-b from-blue-100/40 via-sky-50/20 to-transparent blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-[10%] w-[500px] h-[300px] bg-indigo-50/30 blur-[90px] pointer-events-none" />
@@ -288,10 +288,6 @@ export default function ConnectedWorkflow() {
             transition={{ duration: 0.5 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-600 text-[11px] font-bold tracking-widest uppercase mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
-              Connected Workflow Engine
-            </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
               One flow, from lead to report.
             </h2>

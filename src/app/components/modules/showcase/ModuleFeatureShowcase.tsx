@@ -133,7 +133,7 @@ export default function ModuleFeatureShowcase({ moduleSlug }: { moduleSlug: stri
 
   if (showcaseItems.length === 0) {
     return (
-      <section className="py-20 bg-[#0B0F17] text-white">
+      <section className="py-[15px] bg-[#0B0F17] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-slate-400">
             Project capabilities are being structured to support connected planning, execution, and reporting.
@@ -144,7 +144,7 @@ export default function ModuleFeatureShowcase({ moduleSlug }: { moduleSlug: stri
   }
 
   return (
-    <section className="relative py-24 bg-[#0B0F17] text-slate-100 overflow-hidden select-none border-b border-slate-800">
+    <section className="relative py-[15px] bg-[#0B0F17] text-slate-100 overflow-hidden select-none border-b border-slate-800">
       {/* Background Ambient Glow & Grid Lines */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-blue-600/10 via-indigo-600/5 to-transparent blur-[140px] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px] opacity-40 pointer-events-none" />
@@ -153,11 +153,6 @@ export default function ModuleFeatureShowcase({ moduleSlug }: { moduleSlug: stri
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-bold tracking-widest uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
-            POWERFUL CAPABILITIES
-          </div>
-
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
             Everything your business needs.<br className="hidden sm:inline" /> In one connected platform.
           </h2>

@@ -161,23 +161,17 @@ export default function ModulesHubPage() {
         {/* Intro Hero Header */}
         <section className="relative py-20 bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-xs font-extrabold tracking-widest uppercase">
-              <Sparkles className="w-3.5 h-3.5" />
-              Warrgyizmorsch ERP Modules Directory
-            </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
               One ERP, every department.
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Explore Warrgyizmorsch&apos;s suite of 9 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
               Explore Warrgyizmorsch&apos;s suite of 8 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
             </p>
           </div>
         </section>
 
-        {/* 9 Modules Grid */}
+     
         {/* 8 Modules Grid */}
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

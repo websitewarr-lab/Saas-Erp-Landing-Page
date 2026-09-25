@@ -71,10 +71,7 @@ export function CrmMockup() {
             <div className="w-6 h-6 rounded-full bg-purple-600 text-white font-extrabold text-[10px] flex items-center justify-center shadow-xs">
               K
             </div>
-            <div className="hidden xl:block text-left leading-tight">
-              <div className="font-bold text-slate-900 text-[10px]">Kapil Menaria</div>
-              <div className="text-[9px] text-slate-500">Sales Head</div>
-            </div>
+          
           </div>
 
           <button type="button" className="px-2.5 py-1 rounded-md bg-blue-600 text-white text-[10px] font-bold flex items-center gap-1 shadow-xs hover:bg-blue-700 transition-colors">
@@ -444,10 +441,7 @@ export function InventoryDashboardPreview() {
             <div className="w-6 h-6 rounded-full bg-purple-600 text-white font-extrabold text-[10px] flex items-center justify-center shadow-xs">
               K
             </div>
-            <div className="hidden xl:block text-left leading-tight">
-              <div className="font-bold text-slate-900 text-[10px]">Kapil Menaria</div>
-              <div className="text-[9px] text-slate-500">Inventory Manager</div>
-            </div>
+           
           </div>
 
           <button type="button" className="px-2.5 py-1 rounded-md bg-blue-600 text-white text-[10px] font-bold flex items-center gap-1 shadow-xs hover:bg-blue-700 transition-colors">

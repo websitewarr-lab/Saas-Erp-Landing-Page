@@ -322,7 +322,7 @@ const SHOWCASE_TABS: ShowcaseTabItem[] = [
 function LogoMarkCompact() {
   return (
     <img
-      src="/images/logo/warrgyizmorsch-logo.png"
+      src="/images/logo/mossierplogo"
       alt="MossiERP Logo"
       className="h-6 w-auto object-contain"
     />

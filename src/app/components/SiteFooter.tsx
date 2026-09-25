@@ -33,12 +33,15 @@ export default function SiteFooter() {
           
           {/* Brand Column (Span 4) */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-block py-1" aria-label="MossiERP home">
+            <Link href="/" className="inline-flex items-center gap-2.5 py-1" aria-label="MossiERP home">
               <img
-                src="/images/logo/WARR LOGO.webp"
-                alt="MossiERP"
-                className="h-10 w-auto object-contain brightness-0 invert max-w-[240px]"
+                src="/images/logo/mossierplogo"
+                alt="MossiERP Logo"
+                className="h-9 w-auto object-contain brightness-0 invert"
               />
+              <span className="font-black tracking-tight text-white text-xl leading-none">
+                Mossi<span className="text-blue-200">ERP</span>
+              </span>
             </Link>
             <p className="text-sm sm:text-base leading-relaxed text-white/95 max-w-sm">
               Welcome to MossiERP, your number one source for all your enterprise ERP and automation needs. We&apos;re dedicated to providing you the very best of calm, connected operational software with an emphasis on meeting deadlines, satisfactory service, and 24x7 support.

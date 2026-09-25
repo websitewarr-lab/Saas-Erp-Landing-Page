@@ -694,7 +694,7 @@ export default function IntegrationsEcosystem() {
                   title="MossiERP Platform"
                 >
                   <img
-                    src="/images/logo/warrgyizmorsch-logo.png"
+                    src="/images/logo/mossierplogo"
                     alt="MossiERP Platform"
                     className="h-10 w-auto object-contain"
                   />

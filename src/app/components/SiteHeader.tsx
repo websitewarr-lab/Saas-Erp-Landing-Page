@@ -45,11 +45,16 @@ export const headerIndustries = [
 
 export function LogoMark({ compact = false }: { compact?: boolean }) {
   return (
-    <img
-      src={compact ? "/images/logo/warrgyizmorsch-logo.png" : "/images/logo/WARR LOGO.webp"}
-      alt="MossiERP Logo"
-      className={compact ? "h-6 w-auto object-contain" : "h-9 w-auto object-contain"}
-    />
+    <div className="flex items-center gap-2.5">
+      <img
+        src="/images/logo/mossierplogo"
+        alt="MossiERP Logo"
+        className={compact ? "h-7 w-auto object-contain" : "h-9 w-auto object-contain"}
+      />
+      <span className="font-black tracking-tight text-slate-900 text-xl leading-none">
+        Mossi<span className="text-blue-600">ERP</span>
+      </span>
+    </div>
   );
 }
 
@@ -70,11 +75,7 @@ export default function SiteHeader() {
     <header className={scrolled ? "site-header site-header-scrolled" : "site-header"}>
       <div className="container nav-inner">
         <Link className="brand flex items-center py-1" href="/" onClick={closeMenu} aria-label="MossiERP home">
-          <img
-            src="/images/logo/WARR LOGO.webp"
-            alt="MossiERP"
-            className="h-9 w-auto object-contain max-w-[220px]"
-          />
+          <LogoMark />
         </Link>
         <nav className={menuOpen ? "main-nav main-nav-open" : "main-nav"} aria-label="Primary navigation">
           <Link href="/#solutions" onClick={closeMenu}>

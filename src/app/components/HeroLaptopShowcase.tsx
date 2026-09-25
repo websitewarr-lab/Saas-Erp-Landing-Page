@@ -354,7 +354,7 @@ export default function HeroLaptopShowcase() {
                 <div className="flex items-center gap-2.5 flex-1 pr-12">
                   <div className="flex items-center gap-1.5 font-bold tracking-tight text-white">
                     <img
-                      src="/images/logo/Wlogo.webp"
+                      src="/images/logo/mossierplogo"
                       alt="MossiERP Logo"
                       className="h-4.5 w-auto object-contain"
                     />
@@ -563,15 +563,7 @@ export default function HeroLaptopShowcase() {
                     </div>
                   </div>
 
-                  {/* Round Black Play Demo Button */}
-                  <button
-                    type="button"
-                    onClick={() => setIsPlayingDemo(!isPlayingDemo)}
-                    className="absolute right-1 -bottom-1 w-6.5 h-6.5 rounded-full bg-slate-950 text-white flex items-center justify-center shadow-md hover:scale-105 hover:bg-blue-600 transition-all cursor-pointer z-20 group"
-                    aria-label="Play interactive tour"
-                  >
-                    <Play className="w-2.5 h-2.5 ml-0.5 fill-current text-white" />
-                  </button>
+                 
                 </div>
 
               </div>

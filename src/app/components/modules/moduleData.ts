@@ -34,12 +34,28 @@ export interface TestimonialData {
   userInitials: string;
 }
 
+export interface FloatingFeaturePill {
+  label: string;
+  iconName: string;
+}
+
+export const DEFAULT_FLOATING_PILLS: FloatingFeaturePill[] = [
+  { label: "Automate", iconName: "Settings2" },
+  { label: "Analyze", iconName: "BarChart3" },
+  { label: "Collaborate", iconName: "Users" },
+  { label: "Scale", iconName: "Rocket" },
+  { label: "Secure", iconName: "ShieldCheck" },
+  { label: "Integrate", iconName: "Zap" },
+];
+
 export interface ModulePageConfig {
   slug: string;
   badgeLabel: string;
   heroHeadline: string;
+  heroHeadlineHighlight?: string;
   heroDescription: string;
   heroBenefits: [string, string, string];
+  floatingFeatures?: FloatingFeaturePill[];
   mockupAnnotation: string;
   keyFeaturesEyebrow: string;
   keyFeaturesTitle: string;

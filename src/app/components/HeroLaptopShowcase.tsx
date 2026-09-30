@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   Search,
   Bell,
-  Play,
   Calendar,
   ChevronDown,
 } from "lucide-react";
@@ -147,7 +146,6 @@ function MacbookBaseDeck() {
 }
 
 export default function HeroLaptopShowcase() {
-  const [isPlayingDemo, setIsPlayingDemo] = useState(false);
   const [activeRange, setActiveRange] = useState("This Year");
 
   return (

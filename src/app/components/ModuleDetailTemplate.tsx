@@ -1,601 +1,779 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  Sparkles,
-  Users,
-  Target,
-  Building2,
-  FileSpreadsheet,
-  Sliders,
-  CheckSquare,
-  UserPlus,
-  Filter,
-  FileText,
-  CheckCircle2,
-  TrendingUp,
-  BarChart3,
-  Zap,
-  Lock,
-  DollarSign,
-  ShoppingCart,
-  Boxes,
-  ReceiptText,
-  UsersRound,
-  FolderKanban,
-  ShoppingBag,
-  Factory,
-  ShieldCheck,
-  Truck,
-  Layers,
-  Cpu,
-  Fingerprint,
-  Building,
-  QrCode,
-  ShieldAlert,
-  ClipboardList,
-  GitCompare,
-  Calculator,
-  CheckCheck,
-  ClipboardCheck,
-  Calendar,
   Search,
-  PieChart,
-  Gauge,
-  BookOpen,
-  Receipt,
-  FileBarChart,
-  Clock,
-  Globe,
-  UserCheck,
-  Award,
-  CreditCard,
-  Rocket,
-  Lightbulb,
-  Trophy,
-  Database,
-  Settings2,
+  X,
+  ChevronDown,
 } from "lucide-react";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
-import { ModulePageConfig, DEFAULT_FLOATING_PILLS } from "./modules/moduleData";
-import { GenericModuleMockup, SalesAnalyticsWidget } from "./modules/ModuleMockupPreviews";
-import { ERPPreviewLaptop } from "./modules/ERPPreviewLaptop";
-import ModuleFeatureShowcase from "./modules/ModuleFeatureShowcase";
-
-// Helper map for dynamic Lucide icon rendering
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Users,
-  Target,
-  Building2,
-  FileSpreadsheet,
-  Sliders,
-  CheckSquare,
-  UserPlus,
-  Filter,
-  FileText,
-  CheckCircle2,
-  TrendingUp,
-  BarChart3,
-  Zap,
-  Lock,
-  DollarSign,
-  ShoppingCart,
-  Boxes,
-  ReceiptText,
-  UsersRound,
-  FolderKanban,
-  ShoppingBag,
-  Factory,
-  ShieldCheck,
-  Truck,
-  Layers,
-  Cpu,
-  Fingerprint,
-  Building,
-  QrCode,
-  ShieldAlert,
-  ClipboardList,
-  GitCompare,
-  Calculator,
-  CheckCheck,
-  ClipboardCheck,
-  Calendar,
-  Search,
-  PieChart,
-  Gauge,
-  BookOpen,
-  Receipt,
-  FileBarChart,
-  Clock,
-  Globe,
-  UserCheck,
-  Award,
-  CreditCard,
-  Rocket,
-  Lightbulb,
-  Trophy,
-  Database,
-  Settings2,
-};
-
-function DynamicIcon({ name, className }: { name: string; className?: string }) {
-  const IconComp = ICON_MAP[name] || Sparkles;
-  return <IconComp className={className || "w-5 h-5"} />;
-}
+import {
+  MODULES_DATA,
+  ModulePageConfig,
+} from "./modules/moduleData";
 
 export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig }) {
-  // Extract pills for hero floating badges (3 on left, 3 on right)
-  const pills =
-    data.floatingFeatures && data.floatingFeatures.length >= 6
-      ? data.floatingFeatures
-      : DEFAULT_FLOATING_PILLS;
-  const leftPills = pills.slice(0, 3);
-  const rightPills = pills.slice(3, 6);
-  const allPills = pills.slice(0, 6);
+  // Look up tailored preview configuration, fallback to CRM if not found
+  const config: ModulePageConfig =
+    (data && data.heroHeadline ? data : MODULES_DATA[data?.slug]) || MODULES_DATA.crm;
 
-  // Dynamic Headline Parsing: Highlight phrase
-  let headlinePart1 = data.heroHeadline;
-  let headlinePart2 = "";
+  // Interactive States
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeWorkflowStep, setActiveWorkflowStep] = useState<number>(1);
+  const [sentinelApproved, setSentinelApproved] = useState<boolean>(false);
+  const [showAllSuperpowers, setShowAllSuperpowers] = useState<boolean>(false);
 
-  if (data.heroHeadlineHighlight && data.heroHeadline.includes(data.heroHeadlineHighlight)) {
-    const parts = data.heroHeadline.split(data.heroHeadlineHighlight);
-    headlinePart1 = parts[0].trim();
-    headlinePart2 = data.heroHeadlineHighlight.trim();
-  } else {
-    const words = data.heroHeadline.split(" ");
-    if (words.length > 3) {
-      headlinePart1 = words.slice(0, Math.ceil(words.length / 2)).join(" ");
-      headlinePart2 = words.slice(Math.ceil(words.length / 2)).join(" ");
+  // Sliced superpowers to keep default 2x2 grid layout (4 cards), expanding to all when requested
+  const displayedSuperpowers = useMemo(() => {
+    if (showAllSuperpowers || config.edge.superpowers.length <= 4) {
+      return config.edge.superpowers;
     }
-  }
+    return config.edge.superpowers.slice(0, 4);
+  }, [config.edge.superpowers, showAllSuperpowers]);
+
+  // Filter features by active tab and search query
+  const filteredFeatures = useMemo(() => {
+    return config.featuresCatalog.items.filter((item) => {
+      const matchesCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
+      const query = searchQuery.trim().toLowerCase();
+      const matchesQuery =
+        query === "" ||
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.categoryLabel.toLowerCase().includes(query) ||
+        item.bullets.some((b) => b.toLowerCase().includes(query));
+
+      return matchesCategory && matchesQuery;
+    });
+  }, [config.featuresCatalog.items, selectedCategory, searchQuery]);
+
+  // Current active step in connected workflow
+  const currentStep = useMemo(() => {
+    return (
+      config.workflow.steps.find((s) => s.stepNumber === activeWorkflowStep) ||
+      config.workflow.steps[0]
+    );
+  }, [config.workflow.steps, activeWorkflowStep]);
 
   return (
-    <div className="erp-site min-h-screen bg-[#FDFDFE] text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="erp-site min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
       {/* Global Site Header */}
       <SiteHeader />
 
       <main>
         {/* ========================================================================= */}
-        {/* SECTION 1: HERO SECTION (CENTERED LAPTOP + 6 FLOATING PILLS)              */}
+        {/* 1. HIGH-IMPACT COMPACT HERO WITH INTERACTIVE MOCKUP                      */}
         {/* ========================================================================= */}
-        <section className="relative pt-12 pb-16 lg:pt-16 lg:pb-24 bg-gradient-to-b from-[#F0F6FF] via-[#F8FAFC] to-[#EDF4FF] overflow-hidden border-b border-slate-200/60 text-center">
-          {/* Top-Center Ambient Blue Flare */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-blue-200/50 via-sky-100/30 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <section className="relative module-detail-section bg-gradient-to-br from-[#F8FAFC] via-[#EDF5FF] to-[#E2EFFF] overflow-hidden border-b border-slate-200/70">
+          {/* Ambient Blur Lighting Accents */}
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/80 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 right-[5%] w-[450px] h-[450px] bg-gradient-to-br from-blue-300/30 via-indigo-300/20 to-purple-300/10 rounded-full blur-3xl pointer-events-none pulse-glow" />
 
-          {/* Large Abstract Flowing Blue Shapes & Soft Glows */}
-          <div className="absolute -top-24 -left-20 w-[420px] h-[420px] bg-gradient-to-br from-blue-300/25 via-sky-200/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] bg-gradient-to-bl from-blue-300/30 via-indigo-200/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-
-          {/* Upward/Forward Arrow-like Abstract Shape on Right Flank */}
-          <div className="absolute right-[2%] sm:right-[5%] top-[12%] sm:top-[16%] w-[260px] sm:w-[380px] lg:w-[480px] pointer-events-none opacity-40 select-none hidden md:block">
-            <svg viewBox="0 0 400 400" fill="none" className="w-full h-full drop-shadow-[0_20px_40px_rgba(37,99,235,0.15)]">
-              <path
-                d="M 60 340 L 260 140 L 220 140 L 320 40 L 340 160 L 300 160 L 110 350 Z"
-                fill="url(#heroArrowGrad1)"
-                opacity="0.75"
-              />
-              <path
-                d="M 130 360 L 300 190 L 265 190 L 360 95 L 380 205 L 345 205 L 180 370 Z"
-                fill="url(#heroArrowGrad2)"
-                opacity="0.4"
-              />
-              <defs>
-                <linearGradient id="heroArrowGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.1" />
-                  <stop offset="60%" stopColor="#2563EB" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.85" />
-                </linearGradient>
-                <linearGradient id="heroArrowGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#818CF8" stopOpacity="0.05" />
-                  <stop offset="70%" stopColor="#3B82F6" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="#93C5FD" stopOpacity="0.65" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Perspective Grid Floor Beneath the Laptop */}
-          <div className="absolute bottom-0 left-0 right-0 h-80 pointer-events-none overflow-hidden select-none">
-            <div
-              className="w-[180%] -left-[40%] h-[500px] absolute bottom-0 bg-[linear-gradient(to_right,#3B82F6_1px,transparent_1px),linear-gradient(to_bottom,#3B82F6_1px,transparent_1px)] bg-[size:48px_48px] opacity-[0.14] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_70%,#000_70%,transparent_100%)]"
-              style={{
-                transform: "perspective(500px) rotateX(65deg)",
-                transformOrigin: "bottom center",
-              }}
-            />
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[700px] h-32 bg-blue-500/15 blur-3xl rounded-full" />
-          </div>
-
-          {/* Main Hero Content Container */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            
-            {/* Top Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-blue-200/90 shadow-2xs text-slate-800 text-xs font-bold tracking-tight backdrop-blur-md mb-5">
-              <div className="w-4.5 h-4.5 rounded-md bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-[10px] font-extrabold shadow-2xs">
-                <Boxes className="w-3 h-3" />
-              </div>
-              <span>{data.badgeLabel} Module</span>
-            </div>
-
-            {/* Main Centered Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-black text-[#0B1B3A] tracking-[-0.035em] leading-[1.12] max-w-4xl mx-auto mb-4">
-              {headlinePart1}{" "}
-              {headlinePart2 && (
-                <span className="text-[#1677FF] block sm:inline">
-                  {headlinePart2}
-                </span>
-              )}
-            </h1>
-
-            {/* Supporting Paragraph */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal mb-8">
-              {data.heroDescription}
-            </p>
-
-            {/* Two Primary CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-3.5 mb-12 sm:mb-16">
-              <Link
-                href="/#contact"
-                className="px-7 py-3 rounded-full bg-[#1677FF] hover:bg-blue-600 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/30 transition-all inline-flex items-center gap-2 active:scale-98"
-              >
-                <span>Start Free Trial</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Breadcrumb + Module Tag */}
+            <div className="flex items-center gap-2 mb-4">
               <Link
                 href="/modules"
-                className="px-7 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm sm:text-base transition-all shadow-xs inline-flex items-center gap-1.5 backdrop-blur-sm"
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
               >
-                <span>Request a Demo</span>
+                Modules
               </Link>
+              <span className="text-slate-400 text-xs">/</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-extrabold shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-blue-600" />
+                {config.badge}
+              </span>
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
+                ✓ Verified Real-Time Sync
+              </span>
             </div>
 
-            {/* Laptop Showcase Assembly with 6 Small Floating Feature Pills */}
-            <div className="relative max-w-5xl mx-auto pt-2">
-              
-              {/* Left 3 Floating Feature Pills (Desktop) */}
-              <div className="hidden lg:flex flex-col gap-4 absolute -left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-20">
-                {leftPills.map((pill, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_10px_25px_rgba(15,23,42,0.08)] hover:shadow-md hover:border-blue-300 transition-all group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-blue-50 text-[#1677FF] border border-blue-100 flex items-center justify-center shrink-0 group-hover:bg-[#1677FF] group-hover:text-white transition-colors">
-                      <DynamicIcon name={pill.iconName} className="w-4 h-4" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Copy & Value Proposition */}
+              <div className="lg:col-span-6 space-y-6 text-left">
+                <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-black text-slate-900 tracking-[-0.035em] leading-[1.12]">
+                  {config.heroHeadline}
+                  <span className="text-blue-600 underline decoration-blue-300 decoration-wavy decoration-2">
+                    {config.heroHighlight}
+                  </span>
+                </h1>
+
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
+                  {config.heroDescription}
+                </p>
+
+                {/* 3 Quick Value Chips */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                  <div className="flex items-center gap-2 bg-white/90 p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                    <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
+                      ✦
                     </div>
-                    <span className="text-sm font-bold text-slate-800 tracking-tight pr-1">
-                      {pill.label}
-                    </span>
+                    <span className="text-xs font-bold text-slate-800">{config.chip1}</span>
                   </div>
-                ))}
-              </div>
-
-              {/* Centerpiece Laptop Mockup Display */}
-              <div className="relative z-10 mx-auto w-full px-2 sm:px-4">
-                <ERPPreviewLaptop>
-                  <GenericModuleMockup slug={data.slug} badge={data.badgeLabel} />
-                </ERPPreviewLaptop>
-              </div>
-
-              {/* Right 3 Floating Feature Pills (Desktop) */}
-              <div className="hidden lg:flex flex-col gap-4 absolute -right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-20">
-                {rightPills.map((pill, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_10px_25px_rgba(15,23,42,0.08)] hover:shadow-md hover:border-blue-300 transition-all group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-blue-50 text-[#1677FF] border border-blue-100 flex items-center justify-center shrink-0 group-hover:bg-[#1677FF] group-hover:text-white transition-colors">
-                      <DynamicIcon name={pill.iconName} className="w-4 h-4" />
+                  <div className="flex items-center gap-2 bg-white/90 p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">
+                      ⚡
                     </div>
-                    <span className="text-sm font-bold text-slate-800 tracking-tight pr-1">
-                      {pill.label}
-                    </span>
+                    <span className="text-xs font-bold text-slate-800">{config.chip2}</span>
                   </div>
-                ))}
-              </div>
-
-              {/* Mobile / Tablet 6 Feature Pills Bar */}
-              <div className="flex lg:hidden flex-wrap items-center justify-center gap-2.5 mt-8 px-2 relative z-20">
-                {allPills.map((pill, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xs"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-blue-50 text-[#1677FF] flex items-center justify-center shrink-0">
-                      <DynamicIcon name={pill.iconName} className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 bg-white/90 p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                    <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs shrink-0">
+                      ∞
                     </div>
-                    <span className="text-xs font-bold text-slate-800 tracking-tight">
-                      {pill.label}
-                    </span>
+                    <span className="text-xs font-bold text-slate-800">{config.chip3}</span>
                   </div>
-                ))}
+                </div>
+
+                {/* CTAs */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Link
+                    href="/#contact"
+                    className="px-7 py-3 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-extrabold text-sm shadow-md shadow-blue-600/25 transition-all inline-flex items-center gap-2 active:scale-95"
+                  >
+                    <span>Start 14-Day Free Sandbox</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a
+                    href="#features-matrix"
+                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2"
+                  >
+                    <span>Explore All {config.featuresCatalog.items.length} Features</span>
+                    <ArrowRight className="w-4 h-4 text-slate-500 rotate-90" />
+                  </a>
+                </div>
+
+                {/* Hero Metrics */}
+                <div className="pt-4 border-t border-slate-200/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div>
+                    {/* <div className="text-xl font-black text-slate-900 tracking-tight font-mono">
+                      {config.heroMetrics.stat1.value}
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium">
+                      {config.heroMetrics.stat1.label}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-black text-slate-900 tracking-tight font-mono">
+                      {config.heroMetrics.stat2.value}
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium">
+                      {config.heroMetrics.stat2.label}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-black text-slate-900 tracking-tight font-mono">
+                      {config.heroMetrics.stat3.value}
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium">
+                      {config.heroMetrics.stat3.label}
+                    </div> */}
+                  {/* </div>
+                  <div>
+                    <div className="text-xl font-black text-slate-900 tracking-tight font-mono">
+                      {config.heroMetrics.stat4.value}
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium">
+                      {config.heroMetrics.stat4.label}
+                    </div> */}
+                  </div>
+                </div>
               </div>
 
+              {/* Right Column: Interactive Live Dashboard Mockup */}
+              <div className="lg:col-span-6 relative">
+                {/* Dot matrix background pattern */}
+                <div className="absolute -top-6 -left-6 w-36 h-36 bg-dot-matrix opacity-40 pointer-events-none hidden sm:block" />
+                <div className="absolute -bottom-6 -right-6 w-36 h-36 bg-dot-matrix opacity-40 pointer-events-none hidden sm:block" />
+
+                {/* The Glass Window Container */}
+                <div className="relative z-10 bg-white rounded-2xl border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.08)] overflow-hidden max-w-xl mx-auto lg:max-w-none">
+                  {/* Window Title Bar */}
+                  <div className="bg-slate-900 px-3 py-1.5 flex items-center justify-between border-b border-slate-800">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-rose-500 inline-block" />
+                      <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                      <span className="text-slate-400 text-[10px] font-mono ml-1.5 truncate">
+                        {config.mockup.windowTitle}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="px-1.5 py-0.5 rounded text-[8px] font-mono bg-emerald-500/20 text-emerald-300 font-bold">
+                        {config.mockup.liveBadge}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Dashboard Mock Content */}
+                  <div className="p-2.5 sm:p-3 bg-slate-50 space-y-2">
+                    {/* Top Metrics */}
+                    <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+                      {config.mockup.topMetrics.map((tm, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/80 shadow-2xs"
+                        >
+                          <div className="text-[9px] text-slate-500 font-medium truncate leading-tight">{tm.label}</div>
+                          <div className="text-sm sm:text-base font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5">{tm.value}</div>
+                          <div className={`text-[8px] leading-tight truncate font-medium ${tm.subColor}`}>{tm.sub}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Interactive Kanban Simulator */}
+                    <div className="bg-white p-2 sm:p-2.5 rounded-xl border border-slate-200/80 shadow-2xs space-y-1.5">
+                      <div className="flex items-center justify-between text-[10px] pb-1 border-b border-slate-100">
+                        <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                          <span className="truncate">{config.mockup.kanbanTitle}</span>
+                        </span>
+                        <span className="text-[9px] text-slate-400 font-mono shrink-0 ml-2">
+                          {config.mockup.kanbanSubtitle}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-1.5 text-left">
+                        {config.mockup.columns.map((col, idx) => (
+                          <div
+                            key={idx}
+                            className={`p-1.5 rounded-lg border space-y-1 ${
+                              col.isHighlighted
+                                ? "bg-slate-50 border-slate-200/60"
+                                : idx === 2
+                                ? "bg-emerald-50/50 border-emerald-200/70"
+                                : "bg-slate-50 border-slate-200/60"
+                            }`}
+                          >
+                            <div className="text-[8.5px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-1">
+                              <span className="truncate">{col.stageName}</span>
+                              <span className="font-mono shrink-0">{col.amount}</span>
+                            </div>
+                            <div
+                              className={`bg-white p-1.5 rounded-md border shadow-2xs space-y-0.5 ${
+                                col.isHighlighted
+                                  ? "border-blue-300 ring-1 ring-blue-400/20"
+                                  : idx === 2
+                                  ? "border-emerald-300"
+                                  : "border-slate-200"
+                              }`}
+                            >
+                              <div className="text-[10px] font-bold text-slate-900 leading-tight truncate">{col.cardTitle}</div>
+                              <div className="text-[8px] text-slate-400 leading-tight truncate">{col.cardDesc}</div>
+                              <span
+                                className={`inline-block px-1 py-0.2 rounded text-[7.5px] font-extrabold leading-none ${col.cardTagStyle}`}
+                              >
+                                {col.cardTag}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Automated Activity Feed with Interactive Sentinel */}
+                    <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/80 text-[10px] flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-[8px] shrink-0">
+                          AI
+                        </span>
+                        <span className="text-slate-700 font-medium text-[10px] truncate">
+                          {config.mockup.alertText}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => setSentinelApproved(true)}
+                        className={`px-2 py-0.5 rounded font-bold text-[9px] transition-all shrink-0 active:scale-95 ${
+                          sentinelApproved
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-blue-50 hover:bg-blue-100 text-blue-700"
+                        }`}
+                      >
+                        {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 2: INTERACTIVE MODULE FEATURE SHOWCASE (REPLACES OLD KEY FEATURES) */}
+        {/* 2. "THE MOSSIERP EDGE": WHAT EXTRA WE PROVIDE / WHY WE ARE BETTER        */}
         {/* ========================================================================= */}
-        <ModuleFeatureShowcase moduleSlug={data.slug} />
+        <section
+          id="edge-section"
+          className="module-detail-section bg-white relative border-b border-slate-200/80"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Section Intro */}
+            <div className="text-center max-w-3xl mx-auto module-section-header space-y-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                {config.edge.title}
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  {config.edge.titleHighlight}
+                </span>
+              </h2>
+              <p className="text-base text-slate-600 leading-relaxed font-normal">
+                {config.edge.description}
+              </p>
+            </div>
+
+            {/* Superpower Cards Grid: Strict 2x2 layout (4 cards) by default, expanding to all when requested */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+              {displayedSuperpowers.map((sp) => (
+                <div
+                  key={sp.id}
+                  className="gradient-border-card p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div
+                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${sp.gradient} text-white flex items-center justify-center font-black text-xl shadow-md ${sp.shadowColor} group-hover:scale-105 transition-transform`}
+                      >
+                        {sp.icon}
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-[11px] font-extrabold border ${sp.tagBg}`}
+                      >
+                        {sp.id.toUpperCase().replace("-", " #")}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                      {sp.title}
+                    </h3>
+
+                    <p className="text-sm text-slate-600 leading-relaxed">{sp.description}</p>
+
+                    {/* Before vs After Comparison Strip */}
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
+                      <div className="flex items-start gap-2 text-slate-500">
+                        <span className="text-rose-500 font-bold shrink-0">✕ Legacy ERPs:</span>
+                        <span>{sp.legacyComparison.replace("✕ Legacy ERPs:", "").trim()}</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-slate-800 font-medium">
+                        <span className="text-emerald-600 font-bold shrink-0">✓ MossiERP:</span>
+                        <span>{sp.mossiComparison.replace("✓ MossiERP:", "").trim()}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-500">Impact Metric:</span>
+                    <span className={`font-extrabold font-mono ${sp.impactColor}`}>
+                      {sp.impactMetric}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Expand / Collapse Toggle if more than 4 superpowers exist */}
+            {config.edge.superpowers.length > 4 && (
+              <div className="mt-10 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllSuperpowers((prev) => !prev)}
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-xl transition-all duration-200 group active:scale-95 cursor-pointer"
+                >
+                  <span>
+                    {showAllSuperpowers ? "Show Less" : "Show More"}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      showAllSuperpowers ? "rotate-180" : "group-hover:translate-y-0.5"
+                    }`}
+                  />
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 3: HOW IT WORKS                                                   */}
+        {/* 3. HEAD-TO-HEAD COMPETITIVE COMPARISON MATRIX                            */}
         {/* ========================================================================= */}
-        <section className="py-7 lg:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Left Column: Heading + 5 Process Steps Horizontal Flow */}
-            <div className="lg:col-span-6 space-y-5">
-              
-              {/* Section Header */}
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 text-blue-600 font-bold text-xs tracking-wider uppercase">
-                  <span className="w-4 h-0.5 bg-blue-600 rounded-full" />
-                  <span>{data.workflowEyebrow}</span>
+        <section
+          id="comparison-section"
+          className="module-detail-section bg-slate-50 relative border-b border-slate-200/80"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto module-section-header space-y-2">
+              <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">
+                {config.comparison.eyebrow}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                {config.comparison.title}
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600">
+                {config.comparison.subtitle}
+              </p>
+            </div>
+
+            {/* Comparison Table Card */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-slate-200 bg-slate-100/70 text-xs text-slate-700">
+                      <th className="p-4 sm:p-5 font-extrabold w-1/3">Evaluation Metric</th>
+                      <th className="p-4 sm:p-5 font-black text-blue-700 bg-blue-50/80 w-1/4 border-x border-blue-200/80">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                          <span>MossiERP</span>
+                          <span className="ml-auto text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">
+                            WINNER
+                          </span>
+                        </div>
+                      </th>
+                      <th className="p-4 sm:p-5 font-bold text-slate-500 w-1/5">
+                        {config.comparison.competitor1Name}
+                      </th>
+                      <th className="p-4 sm:p-5 font-bold text-slate-500 w-1/5">
+                        {config.comparison.competitor2Name}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+                    {config.comparison.rows.map((row, idx) => (
+                      <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="p-4 sm:p-5 font-bold text-slate-900">
+                          {row.metric}
+                          <div className="text-[11px] text-slate-500 font-normal">
+                            {row.metricDesc}
+                          </div>
+                        </td>
+                        <td className="p-4 sm:p-5 bg-blue-50/40 border-x border-blue-100">
+                          <div className="font-black text-emerald-700 text-xs sm:text-sm">
+                            {row.mossi.highlight}
+                          </div>
+                          <div className="text-[11px] text-slate-600 font-medium mt-0.5">
+                            {row.mossi.detail}
+                          </div>
+                        </td>
+                        <td className="p-4 sm:p-5">
+                          <div className="font-bold text-slate-700 text-xs sm:text-sm">
+                            {row.legacy.highlight}
+                          </div>
+                          <div className="text-[11px] text-slate-500 mt-0.5">{row.legacy.detail}</div>
+                        </td>
+                        <td className="p-4 sm:p-5">
+                          <div className="font-bold text-slate-700 text-xs sm:text-sm">
+                            {row.pointSolution.highlight}
+                          </div>
+                          <div className="text-[11px] text-slate-500 mt-0.5">
+                            {row.pointSolution.detail}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 4. "ALL FEATURES" CATEGORIZED MATRIX (TABBED & SEARCHABLE)               */}
+        {/* ========================================================================= */}
+        <section
+          id="features-matrix"
+          className="module-detail-section bg-white relative border-b border-slate-200/80"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 module-section-header">
+              <div className="space-y-2 max-w-xl">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 uppercase tracking-wider">
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                  <span>{config.featuresCatalog.eyebrow}</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
-                  {data.workflowTitle}
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                  {config.featuresCatalog.title}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 font-normal">
-                  {data.workflowSubtitle}
-                </p>
+                <p className="text-sm text-slate-600">{config.featuresCatalog.subtitle}</p>
               </div>
 
-              {/* Top Icons Row + Arrow Connectors */}
-              <div className="flex items-center justify-between gap-1 overflow-x-auto pb-1 pt-1">
-                {data.workflowSteps.map((step, idx) => {
-                  const circleTones = [
-                    { outer: "bg-blue-50 border-blue-200/60", inner: "bg-white text-blue-600 border-blue-200 shadow-xs" },
-                    { outer: "bg-purple-50 border-purple-200/60", inner: "bg-white text-purple-600 border-purple-200 shadow-xs" },
-                    { outer: "bg-emerald-50 border-emerald-200/60", inner: "bg-white text-emerald-600 border-emerald-200 shadow-xs" },
-                    { outer: "bg-amber-50 border-amber-200/60", inner: "bg-white text-amber-600 border-amber-200 shadow-xs" },
-                    { outer: "bg-sky-50 border-sky-200/60", inner: "bg-white text-sky-600 border-sky-200 shadow-xs" },
-                  ];
-                  const tone = circleTones[idx % circleTones.length];
+              {/* Live Search Bar */}
+              <div className="w-full md:w-80">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search features (e.g. Kanban, GST, Quote)..."
+                    className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 shadow-2xs"
+                  />
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Filter Category Tabs */}
+            <div className="flex flex-wrap items-center gap-2 mb-8 pb-3 border-b border-slate-200">
+              {config.featuresCatalog.categories.map((cat) => {
+                const isActive = selectedCategory === cat.id;
+                const count =
+                  cat.id === "all"
+                    ? config.featuresCatalog.items.length
+                    : config.featuresCatalog.items.filter((i) => i.category === cat.id).length;
+
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      isActive
+                        ? "tab-active"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
+                  >
+                    {cat.label} ({count})
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Features Cards Grid */}
+            {filteredFeatures.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredFeatures.map((feat) => (
+                  <div
+                    key={feat.id}
+                    className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all space-y-4 flex flex-col justify-between"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div
+                          className={`w-10 h-10 rounded-xl ${feat.iconBg} flex items-center justify-center font-bold text-lg`}
+                        >
+                          {feat.icon}
+                        </div>
+                        <span
+                          className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${feat.tagTone}`}
+                        >
+                          {feat.categoryLabel}
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-base font-extrabold text-slate-900">{feat.title}</h4>
+                        <p className="text-xs text-slate-500 mt-1">{feat.description}</p>
+                      </div>
+                      <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                        {feat.bullets.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-1.5">
+                            <span className="text-blue-600 font-bold shrink-0">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                <p className="text-sm font-semibold text-slate-600">
+                  No features matched &quot;{searchQuery}&quot; in this category.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory("all");
+                  }}
+                  className="px-4 py-2 rounded-lg bg-blue-600 text-white text-xs font-bold cursor-pointer"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 5. CONNECTED WORKFLOW (THE ERP NETWORK EFFECT)                           */}
+        {/* ========================================================================= */}
+        <section
+          id="workflow-section"
+          className="module-detail-section bg-slate-50 relative border-b border-slate-200/80"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto module-section-header space-y-2">
+              <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">
+                {config.workflow.eyebrow}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                {config.workflow.title}
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600">{config.workflow.subtitle}</p>
+            </div>
+
+            {/* Connected Flow Visualizer */}
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-8">
+              <div
+                className={`grid grid-cols-1 ${
+                  config.workflow.steps.length === 6
+                    ? "sm:grid-cols-3 lg:grid-cols-6"
+                    : "sm:grid-cols-5"
+                } gap-4 relative`}
+              >
+                {config.workflow.steps.map((st) => {
+                  const isCurrent = activeWorkflowStep === st.stepNumber;
 
                   return (
-                    <React.Fragment key={idx}>
-                      <div className="flex flex-col items-center text-center space-y-1.5 min-w-[65px]">
-                        {/* Dual-layer Icon Badge */}
-                        <div className={`w-14 h-14 rounded-full ${tone.outer} border flex items-center justify-center hover:scale-105 transition-transform`}>
-                          <div className={`w-9 h-9 rounded-xl ${tone.inner} flex items-center justify-center`}>
-                            <DynamicIcon name={step.iconName} className="w-5 h-5" />
-                          </div>
-                        </div>
+                    <div
+                      key={st.stepNumber}
+                      onClick={() => setActiveWorkflowStep(st.stepNumber)}
+                      className={`cursor-pointer p-4 rounded-xl border-2 transition-all text-center space-y-2 select-none ${
+                        isCurrent
+                          ? "border-blue-600 bg-blue-50/60 shadow-2xs"
+                          : "border-slate-200 hover:border-blue-400 bg-white"
+                      }`}
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-full font-black text-xs mx-auto flex items-center justify-center transition-colors ${
+                          isCurrent
+                            ? "bg-blue-600 text-white"
+                            : "bg-slate-200 text-slate-700"
+                        }`}
+                      >
+                        {st.stepNumber}
                       </div>
-
-                      {/* Right Arrow Connector */}
-                      {idx < data.workflowSteps.length - 1 && (
-                        <ArrowRight className="w-4.5 h-4.5 text-blue-500 opacity-80 shrink-0 select-none" />
-                      )}
-                    </React.Fragment>
+                      <h5 className="text-xs font-extrabold text-slate-900">{st.title}</h5>
+                      <p className="text-[11px] text-slate-500">{st.subtitle}</p>
+                    </div>
                   );
                 })}
               </div>
 
-              {/* Bottom Step Titles & Bullet Descriptions */}
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2">
-                {data.workflowSteps.map((step, idx) => (
-                  <div key={idx} className="space-y-1 text-left">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-4.5 h-4.5 rounded-full bg-blue-600 text-white font-extrabold text-[10.5px] flex items-center justify-center shrink-0 shadow-2xs">
-                        {step.stepNumber}
-                      </span>
-                      <h4 className="font-extrabold text-slate-900 text-[13px] sm:text-[13.5px] leading-tight">
-                        {step.title}
-                      </h4>
+              {/* Dynamic Step Inspector Box */}
+              <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-blue-600" />
+                    <span>{currentStep.detailTitle}</span>
+                  </div>
+                  <p className="text-slate-600 text-xs">{currentStep.detailDescription}</p>
+                </div>
+                <div className="shrink-0 font-mono text-[11px] bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-blue-600 font-bold">
+                  Latency: {currentStep.latency}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 6. REAL SWITCHER TESTIMONIAL & QUANTIFIABLE ROI PROOF                    */}
+        {/* ========================================================================= */}
+        <section className="module-detail-section bg-white border-b border-slate-200/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left: Switcher Quote */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-extrabold border border-emerald-200">
+                  <span>{config.testimonialAndRoi.testimonial.badge}</span>
+                </div>
+
+                <blockquote className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug tracking-tight">
+                  &ldquo;{config.testimonialAndRoi.testimonial.quote}&rdquo;
+                </blockquote>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
+                    {config.testimonialAndRoi.testimonial.initials}
+                  </div>
+                  <div>
+                    <div className="text-sm font-extrabold text-slate-900">
+                      {config.testimonialAndRoi.testimonial.userName}
                     </div>
-                    <p className="text-xs text-slate-500 leading-snug font-normal pl-6 sm:pl-0">
-                      {step.description}
-                    </p>
+                    <div className="text-xs text-slate-500 font-medium">
+                      {config.testimonialAndRoi.testimonial.userRole},{" "}
+                      {config.testimonialAndRoi.testimonial.userCompany}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Quantified Impact Cards */}
+              {/* <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                {config.testimonialAndRoi.impactCards.map((card, idx) => (
+                  <div
+                    key={idx}
+                    className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1"
+                  >
+                    <div className={`text-3xl font-black font-mono ${card.color}`}>
+                      {card.value}
+                    </div>
+                    <div className="text-xs font-bold text-slate-900">{card.label}</div>
+                    <div className="text-[11px] text-slate-500">{card.description}</div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
-
-            {/* Right Column: Light Blue Container */}
-            <div className="lg:col-span-6 bg-blue-50/70 p-5 sm:p-6 rounded-3xl border border-blue-100/90 shadow-2xs flex flex-col justify-between overflow-hidden">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-tight tracking-tight mb-3">
-                &ldquo;Get complete visibility of your business operations&rdquo;
-              </h3>
-
-              {/* Render Light Sales Analytics Widget */}
-              <div className="w-full">
-                <SalesAnalyticsWidget />
-              </div>
-            </div>
-
           </div>
-
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 4: WHY CHOOSE THIS MODULE?                                       */}
+        {/* 7. HIGH-CONVERTING FINAL CTA SECTION                                      */}
         {/* ========================================================================= */}
-        <section className="py-7 lg:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
-          
-          <div className="space-y-1 mb-6">
-            <div className="inline-flex items-center gap-2 text-blue-600 font-bold text-xs tracking-wider uppercase">
-              <span className="w-4 h-0.5 bg-blue-600 rounded-full" />
-              <span>{data.whyChooseEyebrow}</span>
+        <section
+          id="contact"
+          className="module-detail-section bg-gradient-to-br from-[#0C1E38] via-[#0F294D] to-[#0A1728] text-white relative overflow-hidden"
+        >
+          {/* Ambient tech circles */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-extrabold text-xs border border-blue-400/30">
+              <span>{config.cta.pill}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
-              {data.whyChooseTitle}
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              {config.cta.title}
             </h2>
-          </div>
 
-          {/* 4 Benefit Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {data.whyChooseBenefits.map((benefit, idx) => {
-              const toneBg: Record<string, string> = {
-                purple: "bg-purple-50 text-purple-600 border-purple-200",
-                blue: "bg-blue-50 text-blue-600 border-blue-200",
-                sky: "bg-sky-50 text-sky-600 border-sky-200",
-                cyan: "bg-cyan-50 text-cyan-600 border-cyan-200",
-                emerald: "bg-emerald-50 text-emerald-600 border-emerald-200",
-                amber: "bg-amber-50 text-amber-600 border-amber-200",
-                indigo: "bg-indigo-50 text-indigo-600 border-indigo-200",
-                rose: "bg-rose-50 text-rose-600 border-rose-200",
-              };
-
-              return (
-                <div
-                  key={idx}
-                  className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-2.5"
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${toneBg[benefit.tone] || toneBg.blue}`}>
-                    <DynamicIcon name={benefit.iconName} className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-extrabold text-slate-900">{benefit.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">{benefit.description}</p>
-                </div>
-              );
-            })}
-          </div>
-
-        </section>
-
-        {/* ========================================================================= */}
-        {/* SECTION 5: ERP ECOSYSTEM INTEGRATION                                     */}
-        {/* ========================================================================= */}
-        <section className="py-7 lg:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
-          
-          <div className="space-y-1 mb-6">
-            <div className="inline-flex items-center gap-2 text-blue-600 font-bold text-xs tracking-wider uppercase">
-              <span className="w-4 h-0.5 bg-blue-600 rounded-full" />
-              <span>{data.integrationEyebrow}</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
-              {data.integrationTitle}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-normal">
-              {data.integrationSubtitle}
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              {config.cta.description}
             </p>
-          </div>
 
-          {/* Connected Module Cards Row */}
-          <div className="pt-2">
-            <div className="flex flex-wrap items-center gap-3">
-              {data.connectedModules.map((mod, idx) => {
-                const iconTileTones = [
-                  "bg-blue-50 text-blue-600 border-blue-100",
-                  "bg-amber-50 text-amber-600 border-amber-100",
-                  "bg-emerald-50 text-emerald-600 border-emerald-100",
-                  "bg-rose-50 text-rose-600 border-rose-100",
-                  "bg-purple-50 text-purple-600 border-purple-100",
-                  "bg-sky-50 text-sky-600 border-sky-100",
-                  "bg-indigo-50 text-indigo-600 border-indigo-100",
-                ];
-                const tileTone = iconTileTones[idx % iconTileTones.length];
-
-                return (
-                  <Link
-                    key={idx}
-                    href={`/modules/${mod.slug}`}
-                    className="px-4 py-3 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-300 text-xs font-bold text-slate-800 flex items-center gap-3 shadow-2xs hover:shadow-md transition-all group"
-                  >
-                    <div className={`w-9 h-9 rounded-xl ${tileTone} border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}>
-                      <DynamicIcon name={mod.iconName} className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="font-extrabold text-slate-900 text-xs">{mod.name}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-
-        </section>
-
-        {/* ========================================================================= */}
-        {/* SECTION 6: TRUSTED BUSINESSES / SOCIAL PROOF                             */}
-        {/* ========================================================================= */}
-        <section className="py-7 lg:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left Column: Trusted Logo Strip */}
-            <div className="lg:col-span-7 space-y-4">
-              <div>
-                <h3 className="text-xl font-black text-slate-900 tracking-tight">Trusted by Growing Businesses</h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Join companies that are already transforming their operations with our ERP.
-                </p>
-              </div>
-
-              {/* Logo Grid */}
-              <div className="grid grid-cols-4 gap-3 opacity-80">
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">TATA</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">Infosys</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">Mahindra</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">Adani</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">Reliance</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">L&T</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">Godrej</div>
-                <div className="p-2.5 bg-slate-100/80 rounded-xl flex items-center justify-center font-black text-slate-700 text-xs">JSW</div>
-              </div>
-            </div>
-
-            {/* Right Column: Customer Testimonial Card */}
-            <div className="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm space-y-3">
-              <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed font-medium">
-                &ldquo;{data.testimonial.quote}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-2.5 pt-2 border-t border-slate-100">
-                <div className="w-8 h-8 rounded-full bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
-                  {data.testimonial.userInitials}
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-slate-900 text-xs">{data.testimonial.userName}</h4>
-                  <p className="text-[10px] text-slate-500 font-medium">
-                    {data.testimonial.userRole}, {data.testimonial.userCompany}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* ========================================================================= */}
-        {/* SECTION 7: FINAL CTA                                                     */}
-        {/* ========================================================================= */}
-        <section className="py-7 lg:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-r from-blue-50 via-indigo-50/60 to-purple-50/40 border border-blue-100 p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-            <div className="space-y-2 max-w-xl text-center md:text-left">
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
-                {data.ctaTitle}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                {data.ctaDescription}
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Link
                 href="/#contact"
-                className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all inline-flex items-center gap-2"
+                className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-sm shadow-xl shadow-blue-500/30 transition-all inline-flex items-center gap-2 active:scale-95"
               >
-                <span>Book a Demo</span>
+                <span>{config.cta.primaryCtaText}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/#contact"
-                className="px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-xs sm:text-sm transition-all shadow-2xs"
+                href="/modules"
+                className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
               >
-                <span>Contact Sales</span>
+                <span>{config.cta.secondaryCtaText}</span>
               </Link>
+            </div>
+
+            <div className="pt-8 text-xs text-slate-400 flex items-center justify-center gap-6">
+              <span>✓ No credit card required</span>
+              <span>✓ 14-day full feature sandbox</span>
+              <span>✓ Zero-lockin data export</span>
             </div>
           </div>
         </section>
-
       </main>
 
       {/* Global Site Footer */}

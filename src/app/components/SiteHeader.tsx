@@ -157,14 +157,14 @@ export default function SiteHeader() {
               <div className="bg-white/98 backdrop-blur-xl rounded-[20px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4">
                 <div className="px-2.5 py-1.5 mb-2 border-b border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
-                    Industry Solutions
+                    Industry we serve
                   </span>
                   <Link
                     href="/#industries"
                     onClick={closeMenu}
                     className="text-[11px] text-blue-600 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full border border-blue-100 transition-colors flex items-center gap-1"
                   >
-                    <span>View All Solutions</span>
+                    <span>View All Industries</span>
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>

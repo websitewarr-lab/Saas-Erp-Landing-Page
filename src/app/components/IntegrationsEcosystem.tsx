@@ -2,9 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-} from "lucide-react";
 
 interface PartnerApp {
   name: string;
@@ -441,7 +438,7 @@ export default function IntegrationsEcosystem() {
     };
   }, [calculateConnectionPaths]);
 
-  const isHighlighted = (_cat?: string) => true;
+  const isHighlighted = (category?: string) => Boolean(category || true);
 
   return (
     <section className="py-[15px] bg-white relative overflow-hidden" id="integrations">

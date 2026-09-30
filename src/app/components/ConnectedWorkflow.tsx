@@ -263,7 +263,6 @@ export default function ConnectedWorkflow() {
   }, []);
 
   const activeStage = OPERATIONS_STAGES[activeStepIndex];
-  const ActiveIcon = activeStage.icon;
 
   return (
     <section className="py-[15px] bg-[#FAFBFD] relative overflow-hidden border-y border-slate-200/80" id="workflow">
@@ -432,7 +431,7 @@ export default function ConnectedWorkflow() {
             {/* ACTIVE STAGE DETAIL CALLOUT CARD (Live Real-Time Automation Preview)      */}
             {/* ========================================================================= */}
             <AnimatePresence mode="wait">
-              <motion.div
+               <motion.div
                 key={activeStage.id}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -515,7 +514,7 @@ export default function ConnectedWorkflow() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-              {PEOPLE_STAGES.map((item, idx) => {
+              {PEOPLE_STAGES.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div

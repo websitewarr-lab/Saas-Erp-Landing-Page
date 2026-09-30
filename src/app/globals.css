@@ -3349,3 +3349,64 @@
     border-color: var(--border);
   }
 }
+
+/* Next-Gen Module Details Preview Utilities */
+.bg-dot-matrix {
+  background-image: radial-gradient(#3B82F6 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+.gradient-border-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 1.25rem;
+}
+
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 1.35rem;
+  background: linear-gradient(135deg, rgba(37,99,235,0.4), rgba(139,92,246,0.2), rgba(245,158,11,0.3));
+  z-index: -1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border-card:hover::before {
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(37,99,235,0.7), rgba(139,92,246,0.5), rgba(245,158,11,0.6));
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.tab-active {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+/* ========================================================================= */
+/* MODULE DETAILS PAGE - GLOBAL SECTION SPACING CONFIGURATION                */
+/* Total vertical space between any 2 sections = 30px max (15px pb + 15px pt) */
+/* Modify --module-section-py to change spacing across all module detail pages */
+/* ========================================================================= */
+:root {
+  --module-section-py: 15px; /* 15px top + 15px bottom = 30px max gap between 2 sections */
+  --module-section-pt: var(--module-section-py);
+  --module-section-pb: var(--module-section-py);
+  --module-section-header-mb: 20px;
+}
+
+.module-detail-section {
+  padding-top: var(--module-section-pt) !important;
+  padding-bottom: var(--module-section-pb) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.module-section-header {
+  margin-bottom: var(--module-section-header-mb) !important;
+}

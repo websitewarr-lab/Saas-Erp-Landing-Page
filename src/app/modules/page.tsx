@@ -9,11 +9,9 @@ import {
   Boxes,
   Factory,
   BarChart3,
-  TrendingUp,
   UsersRound,
   FolderKanban,
   ArrowRight,
-  Sparkles,
   Check,
 } from "lucide-react";
 import SiteHeader from "@/app/components/SiteHeader";
@@ -39,18 +37,6 @@ const modulesList: ModuleHubItem[] = [
       "AI Predictive Lead Scoring & Territory Routing",
       "Omnichannel Email, Call & WhatsApp Sync",
       "1-Click Proposal to Sales Order Bridge",
-    ],
-  },
-  {
-    slug: "inventory",
-    name: "Inventory Management",
-    badge: "Stock & Warehouses",
-    description: "Multi-location warehouse control, real-time stock tracking, and reorder alerts.",
-    icon: Boxes,
-    features: [
-      "Real-Time Serial, Batch & Expiry Traceability",
-      "Automated Reorder Triggers & Safety Stock Alerts",
-      "Mobile Barcode Scanning & Cycle Count Audits",
     ],
   },
   {
@@ -114,18 +100,6 @@ const modulesList: ModuleHubItem[] = [
     ],
   },
   {
-    slug: "finance",
-    name: "Finance & Treasury",
-    badge: "Treasury & FX",
-    description: "Corporate treasury management, cash flow forecasting, and FX risk hedging.",
-    icon: TrendingUp,
-    features: [
-      "Real-Time Multi-Bank Treasury Consolidation",
-      "Predictive Cash Flow Forecasting Engine",
-      "Foreign Exchange (FX) & Hedging Risk Control",
-    ],
-  },
-  {
     slug: "hrms",
     name: "HRMS & Payroll",
     badge: "Workforce & Payroll",
@@ -179,7 +153,7 @@ export default function ModulesHubPage() {
               const IconComp = mod.icon;
               return (
                 <div
-                  key={mod.slug}
+                  key={`module-card-${mod.slug}`}
                   className="p-7 rounded-3xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xl transition-all duration-200 flex flex-col justify-between group space-y-6"
                 >
                   <div className="space-y-4">
@@ -202,7 +176,7 @@ export default function ModulesHubPage() {
 
                     <div className="space-y-2 pt-2 border-t border-slate-100">
                       {mod.features.map((feat, fIdx) => (
-                        <div key={fIdx} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
+                        <div key={`${mod.slug}-feature-${fIdx}`} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
                           <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>

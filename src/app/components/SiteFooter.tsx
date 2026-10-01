@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 
@@ -33,18 +32,18 @@ export default function SiteFooter() {
           
           {/* Brand Column (Span 4) */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-flex items-center gap-2.5 py-1" aria-label="MossiERP home">
+            <Link href="/" className="inline-flex items-center gap-2.5 py-1" aria-label="Mossie ERP home">
               <img
                 src="/images/logo/mossierplogo"
-                alt="MossiERP Logo"
+                alt="Mossie ERP Logo"
                 className="h-9 w-auto object-contain brightness-0 invert"
               />
               <span className="font-black tracking-tight text-white text-xl leading-none">
-                Mossi<span className="text-blue-200">ERP</span>
+                Mossie <span className="text-blue-200">ERP</span>
               </span>
             </Link>
             <p className="text-sm sm:text-base leading-relaxed text-white/95 max-w-sm">
-              Welcome to MossiERP, your number one source for all your enterprise ERP and automation needs. We&apos;re dedicated to providing you the very best of calm, connected operational software with an emphasis on meeting deadlines, satisfactory service, and 24x7 support.
+              Welcome to Mossie ERP, your number one source for all your enterprise ERP and automation needs. We&apos;re dedicated to providing you the very best of calm, connected operational software with an emphasis on meeting deadlines, satisfactory service, and 24x7 support.
             </p>
             <div className="flex items-center gap-4 text-white pt-2">
               {/* LinkedIn */}
@@ -181,7 +180,7 @@ export default function SiteFooter() {
       {/* Bottom Copyright Bar */}
       <div className="border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/95 font-medium">
-          <p>Copyright &copy; 2026 MossiERP. All Rights Reserved.</p>
+          <p>Copyright &copy; 2026 Mossie ERP. All Rights Reserved.</p>
           <div className="flex items-center gap-6 text-sm">
             <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
             <Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link>

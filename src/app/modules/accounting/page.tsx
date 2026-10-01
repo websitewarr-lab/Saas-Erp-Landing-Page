@@ -3,9 +3,9 @@ import ModuleDetailTemplate from "@/app/components/ModuleDetailTemplate";
 import { MODULES_DATA } from "@/app/components/modules/moduleData";
 
 export const metadata: Metadata = {
-  title: "Accounting & Financial General Ledger | MossiERP",
+  title: "Accounting & Financial General Ledger | Mossie ERP",
   description:
-    "One ERP, One Ledger. Double-entry general ledger, fixed asset depreciation, bank reconciliation, GST returns, and audit trails in MossiERP Accounting.",
+    "One ERP, One Ledger. Double-entry general ledger, fixed asset depreciation, bank reconciliation, GST returns, and audit trails in Mossie ERP Accounting.",
 };
 
 export default function AccountingModulePage() {

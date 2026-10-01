@@ -1,5 +1,3 @@
-import React from "react";
-
 // Precomputed clean static values to prevent SSR/client floating-point precision hydration discrepancies
 const PERSPECTIVE_RAYS = [
   { xBottom: -300, strokeWidth: "1.2" },

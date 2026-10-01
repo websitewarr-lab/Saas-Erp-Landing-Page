@@ -15,7 +15,6 @@ import {
   BarChart3,
   Bell,
   BriefcaseBusiness,
-  Check,
   ChevronDown,
   CloudCog,
   Code2,
@@ -65,15 +64,9 @@ const stories = [
   { company: "Customer story", industry: "Professional Services", challenge: "Project work, people capacity and billing lived in separate places.", solution: "One flow for projects, time, people and finance.", result: "Customer Result" },
 ];
 
-const plans = [
-  { name: "Starter", description: "For small teams", features: ["Core business modules", "Essential dashboards", "Guided onboarding"], recommended: false },
-  { name: "Business", description: "For growing businesses", features: ["All core modules", "Workflow automation", "Priority support"], recommended: true },
-  { name: "Enterprise", description: "For advanced requirements", features: ["Custom workflows", "Multi-company setup", "Dedicated success support"], recommended: false },
-];
-
 const faqs = [
   ["What is an ERP?", "An ERP is a connected business platform that brings core operations like finance, people, sales, inventory and reporting into one shared system."],
-  ["Which business modules are included?", "MossiERP is designed around finance, HR and payroll, CRM and sales, purchasing, inventory, manufacturing, projects, reporting and integrations."],
+  ["Which business modules are included?", "Mossie ERP is designed around finance, HR and payroll, CRM and sales, purchasing, inventory, manufacturing, projects, reporting and integrations."],
   ["Can the ERP be customized?", "Yes. Workflows, fields, permissions and connected processes can be shaped around your business requirements."],
   ["Can existing data be migrated?", "Yes. Data migration is part of the implementation process and is planned around the systems and records you already use."],
   ["Does the ERP support multiple branches?", "The platform is designed to support multi-company and multi-branch operating models where required."],
@@ -105,12 +98,12 @@ export default function HomePage() {
             {/* Main Headline from Zoho screenshot 2 */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] max-w-5xl mx-auto mb-5">
               A new era of ERP software<br className="hidden sm:inline" />{" "}
-              from MossiERP
+              from Mossie ERP
             </h1>
 
             {/* Subtitle from Zoho screenshot 2 */}
             <p className="text-[16px] sm:text-[17.5px] text-[#475569] max-w-2xl mx-auto leading-relaxed mb-8">
-              MossiERP keeps pace with your technological transformation helping you become operationally faster, leaner, innovative, resilient, and more relevant.
+              Mossie ERP keeps pace with your technological transformation helping you become operationally faster, leaner, innovative, resilient, and more relevant.
             </p>
 
             {/* Action Buttons from Zoho screenshot 2 */}
@@ -154,7 +147,7 @@ export default function HomePage() {
         
         <section className="section section-benefits">
           <div className="container">
-            <SectionIntro eyebrow="Why MossiERP" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
+            <SectionIntro eyebrow="Why Mossie ERP" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
             <div className="benefits-grid">
               {benefits.map(({ title, description, icon: Icon, tone }) => (
                 <article className="benefit-card" key={title}>
@@ -212,30 +205,6 @@ export default function HomePage() {
                     <div><dt>Solution</dt><dd>{story.solution}</dd></div>
                   </dl>
                   <div className="story-result"><span>{story.result}</span><ArrowUpRight /></div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section pricing-section" id="pricing">
-          <div className="container">
-            <SectionIntro eyebrow="Plans" title="Pricing that grows with you." description="Start with the right foundation and shape the setup around what your business needs." align="center" />
-            <div className="pricing-grid">
-              {plans.map((plan) => (
-                <article className={plan.recommended ? "pricing-card pricing-card-featured" : "pricing-card"} key={plan.name}>
-                  {plan.recommended ? <span className="recommended">Recommended</span> : null}
-                  <h3>{plan.name}</h3>
-                  <p>{plan.description}</p>
-                  <strong className="custom-price">Custom Pricing</strong>
-                  <ul>
-                    {plan.features.map((feature) => (
-                      <li key={feature}><Check /> {feature}</li>
-                    ))}
-                  </ul>
-                  <a className={plan.recommended ? "button button-light" : "button button-secondary button-full"} href="#contact">
-                    {plan.recommended ? "Book a Demo" : "Request a Quote"} <ArrowRight />
-                  </a>
                 </article>
               ))}
             </div>

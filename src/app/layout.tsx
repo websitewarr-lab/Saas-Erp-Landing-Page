@@ -18,8 +18,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MossiERP | One calm platform for your whole business",
+  title: "Mossie ERP | One calm platform for your whole business",
   description: "Connect finance, HR, sales, inventory, operations and reporting in one intelligent ERP platform built for growing businesses.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

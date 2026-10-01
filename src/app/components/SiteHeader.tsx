@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Target,
@@ -48,11 +48,11 @@ export function LogoMark({ compact = false }: { compact?: boolean }) {
     <div className="flex items-center gap-2.5">
       <img
         src="/images/logo/mossierplogo"
-        alt="MossiERP Logo"
+        alt="Mossie ERP Logo"
         className={compact ? "h-7 w-auto object-contain" : "h-9 w-auto object-contain"}
       />
       <span className="font-black tracking-tight text-slate-900 text-xl leading-none">
-        Mossi<span className="text-blue-600">ERP</span>
+        Mossie <span className="text-blue-600">ERP</span>
       </span>
     </div>
   );
@@ -74,7 +74,7 @@ export default function SiteHeader() {
   return (
     <header className={scrolled ? "site-header site-header-scrolled" : "site-header"}>
       <div className="container nav-inner">
-        <Link className="brand flex items-center py-1" href="/" onClick={closeMenu} aria-label="MossiERP home">
+        <Link className="brand flex items-center py-1" href="/" onClick={closeMenu} aria-label="Mossie ERP home">
           <LogoMark />
         </Link>
         <nav className={menuOpen ? "main-nav main-nav-open" : "main-nav"} aria-label="Primary navigation">
@@ -202,9 +202,6 @@ export default function SiteHeader() {
 
           <Link href="/#features" onClick={closeMenu}>
             Features
-          </Link>
-          <Link href="/#pricing" onClick={closeMenu}>
-            Pricing
           </Link>
         </nav>
         <div className="nav-actions">

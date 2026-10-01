@@ -1,7 +1,7 @@
-# GEMINI.md - MossiERP Landing Page & Platform Showcase
+# GEMINI.md - Mossie ERP Landing Page & Platform Showcase
 
 ## Project Overview
-This repository contains the marketing, landing page, and product module showcase for **MossiERP** ("One calm platform for your whole business"), a unified SaaS ERP solution integrating Finance, HRMS, CRM, Inventory, Production, Projects, Sales, and Purchasing.
+This repository contains the marketing, landing page, and product module showcase for **Mossie ERP** ("One calm platform for your whole business"), a unified SaaS ERP solution integrating Finance, HRMS, CRM, Inventory, Production, Projects, Sales, and Purchasing.
 
 - **Repository**: `kapilmenaria/Saas-Erp-Landing-Page`
 - **Application Type**: Next.js App Router marketing & product discovery application

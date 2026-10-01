@@ -76,7 +76,7 @@ const OPERATIONS_STAGES: WorkflowStage[] = [
     color: "text-emerald-600",
     glowColor: "rgba(16, 185, 129, 0.25)",
     detail: {
-      tag: "Dynamic Pricing Engine",
+      tag: "Dynamic Quotation Engine",
       headline: "Instant margin-safe quote generation",
       description:
         "Apply custom client discount tiers, tax profiles, and margin protection rules without leaving the customer conversation.",

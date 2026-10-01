@@ -7,10 +7,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
-# GEMINI.md - MossiERP Landing Page & Platform Showcase
+# GEMINI.md - Mossie ERP Landing Page & Platform Showcase
 
 ## Project Overview
-This repository contains the marketing, landing page, and product module showcase for **MossiERP** ("One calm platform for your whole business"), a unified SaaS ERP solution integrating Finance, HRMS, CRM, Inventory, Production, Projects, Sales, and Purchasing.
+This repository contains the marketing, landing page, and product module showcase for **Mossie ERP** ("One calm platform for your whole business"), a unified SaaS ERP solution integrating Finance, HRMS, CRM, Inventory, Production, Projects, Sales, and Purchasing.
 
 - **Repository**: `kapilmenaria/Saas-Erp-Landing-Page`
 - **Application Type**: Next.js App Router marketing & product discovery application

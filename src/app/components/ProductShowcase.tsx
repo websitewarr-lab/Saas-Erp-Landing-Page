@@ -11,6 +11,7 @@ import {
   Factory,
   FolderKanban,
   ReceiptText,
+  UsersRound,
   Check,
   ArrowRight,
   ArrowUpRight,
@@ -163,7 +164,7 @@ const SHOWCASE_TABS: ShowcaseTabItem[] = [
     bullets: [
       "Automated purchase order generation based on min-max inventory triggers",
       "3-way matching connecting purchase orders, goods receipts, and vendor bills",
-      "Vendor performance scorecards tracking lead times, pricing, and compliance",
+      "Vendor performance scorecards tracking lead times, costs, and compliance",
     ],
     ctaText: "Explore Procurement Suite",
     link: "/modules/purchase",
@@ -192,9 +193,9 @@ const SHOWCASE_TABS: ShowcaseTabItem[] = [
     navIndex: 4,
     title: "Sales Orders & Revenue Operations",
     description:
-      "Convert quotes to sales orders instantly, manage customer pricing tiers, and track revenue delivery effortlessly.",
+      "Convert quotes to sales orders instantly, manage customer account tiers, and track revenue delivery effortlessly.",
     bullets: [
-      "Instant quotation-to-sales-order conversion with dynamic pricing rules",
+      "Instant quotation-to-sales-order conversion with dynamic commercial rules",
       "Multi-channel sales aggregation across B2B portals, direct reps, and e-commerce",
       "Automated credit limits, discount approval gates, and invoicing triggers",
     ],
@@ -317,13 +318,46 @@ const SHOWCASE_TABS: ShowcaseTabItem[] = [
     copilotPrompt:
       "Run a balance reconciliation check across bank accounts and flag any unmatched ledger transactions above $1,000.",
   },
+  {
+    id: "hrms",
+    label: "HRMS",
+    icon: UsersRound,
+    navIndex: 8,
+    title: "HRMS, Payroll & People Operations",
+    description:
+      "Automate biometric attendance tracking, shift rosters, employee lifecycle, statutory tax compliance, and 1-click payroll disbursements.",
+    bullets: [
+      "1-click statutory payroll processing with automated PF, ESI, TDS, and PT tax deductions",
+      "Biometric attendance sync, shift scheduling, and geo-fenced mobile self-service check-in",
+      "Self-service employee portal for leave applications, reimbursement claims, and payslip access",
+    ],
+    ctaText: "Explore HRMS Suite",
+    link: "/modules/hrms",
+    mockupLabel: "HRMS & Payroll engine",
+    metric: "380",
+    metricLabel: "Active workforce",
+    secondary: "99.2% attendance logged",
+    accent: "blue",
+    metric2: { label: "Payroll status", value: "Ready", secondary: "10-minute automated run", accent: "mint" },
+    metric3: { label: "Leave approvals", value: "8", secondary: "Pending supervisor signoff", accent: "amber" },
+    chart: { title: "Workforce & attendance", yAxis: ["400", "300", "200", "0"], data: [68, 74, 71, 80, 78, 86, 82, 91, 88, 96] },
+    activities: [
+      { title: "Monthly payroll run", desc: "Operations · 12 min ago", status: "Prepared", color: "mint" },
+      { title: "Biometric sync complete", desc: "All terminals · 35 min ago", status: "Synced", color: "blue" },
+      { title: "Leave request approved", desc: "Engineering · 1 hr ago", status: "Approved", color: "violet" },
+    ],
+    capacity: "96%",
+    approvals: 8,
+    copilotPrompt:
+      "Run a pre-payroll statutory check for this month and flag any missing tax declarations or biometric punch discrepancies.",
+  },
 ];
 
 function LogoMarkCompact() {
   return (
     <img
       src="/images/logo/mossierplogo"
-      alt="MossiERP Logo"
+      alt="Mossie ERP Logo"
       className="h-6 w-auto object-contain"
     />
   );
@@ -346,6 +380,7 @@ export default function ProductShowcase() {
     Factory,
     FolderKanban,
     ReceiptText,
+    UsersRound,
   ];
 
   const handleScroll = (direction: "left" | "right") => {

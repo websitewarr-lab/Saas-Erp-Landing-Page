@@ -1,7 +1,7 @@
 // Comprehensive Data Store for Next-Gen Module Details Pages
 // Recreating the exact UX architecture, proprietary edge features,
 // competitive benchmarks, categorized feature matrix, and connected workflows
-// from module-details-preview.html across all 8 MossiERP modules.
+// from module-details-preview.html across all 8 Mossie ERP modules.
 
 export type FeatureIconName =
   | "messages" | "activity" | "files" | "scan" | "building" | "calendar"
@@ -209,7 +209,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "0", label: "Duplicate Collisions (Fuzzy)" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // crm-deal-automations",
+      windowTitle: "mossie-erp // crm-deal-automations",
       liveBadge: "● REALTIME PIPELINE ACTIVE",
       topMetrics: [
         { label: "Active Pipeline", value: "₹4.82 Cr", sub: "↑ 18.4% this month", subColor: "text-emerald-600 font-bold" },
@@ -252,7 +252,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Sales & Deal Automations",
       description:
-        "Most CRM tools are glorified address books where deals stall unnoticed, duplicate entries cause territory wars, and negotiation revisions get lost. MossiERP arms your revenue team with 4 proprietary sales superpowers.",
+        "Most CRM tools are glorified address books where deals stall unnoticed, duplicate entries cause territory wars, and negotiation revisions get lost. Mossie ERP arms your revenue team with 4 proprietary sales superpowers.",
       superpowers: [
         {
           summary: "Share quotes and get client approvals instantly via WhatsApp or email.",
@@ -269,7 +269,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy CRM: Sales reps chase clients across multiple phone calls and manually update quotation statuses, causing lost momentum and delayed order handoffs.",
           mossiComparison:
-            '✓ MossiERP: "1-Click Client Quotation Approval via WhatsApp & Email." Instant automated deal conversion upon client mobile tap.',
+            '✓ Mossie ERP: "1-Click Client Quotation Approval via WhatsApp & Email." Instant automated deal conversion upon client mobile tap.',
           impactMetric: "1-Click Client Approval via WhatsApp",
           impactColor: "text-blue-600",
         },
@@ -288,13 +288,13 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy CRM: Deals rot in pipelines unnoticed until month-end reviews when revenue targets have already been missed.",
           mossiComparison:
-            '✓ MossiERP: "Never lose a deal — Smart Deal Health scores & proactive stalled lead alerts." Real-time critical alerts at day 5 prompt immediate intervention.',
+            '✓ Mossie ERP: "Never lose a deal — Smart Deal Health scores & proactive stalled lead alerts." Real-time critical alerts at day 5 prompt immediate intervention.',
           impactMetric: "Zero Cold Deals (>5 Day Alert)",
           impactColor: "text-amber-700",
         },
         {
           summary: "Keep every quote revision, compare changes, and preserve negotiation history.",
-          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised pricing","Version comparison"]},
+          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised quote","Version comparison"]},
           id: "sp-3",
           number: 3,
           icon: "📑",
@@ -303,11 +303,11 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           tagBg: "bg-emerald-50 text-emerald-800 border-emerald-200",
           title: "Multi-Revision Quotation Trail (-R1, -R2)",
           description:
-            "When a client negotiates pricing or quantities, original quotes are never overwritten. The system automatically creates a parent-child versioned quote (QT-2026-0001-R1), giving you a side-by-side comparison of original vs revised numbers in one click.",
+            "When a client negotiates quotes or quantities, original quotes are never overwritten. The system automatically creates a parent-child versioned quote (QT-2026-0001-R1), giving you a side-by-side comparison of original vs revised numbers in one click.",
           legacyComparison:
-            "✕ Legacy CRM: Reps overwrite spreadsheets or create disjointed PDF files, losing pricing negotiation history and margin visibility.",
+            "✕ Legacy CRM: Reps overwrite spreadsheets or create disjointed PDF files, losing quote negotiation history and margin visibility.",
           mossiComparison:
-            '✓ MossiERP: "Full Negotiation Audit Trail with Multi-Version Quotes." Instant side-by-side comparison of original vs revised quotes.',
+            '✓ Mossie ERP: "Full Negotiation Audit Trail with Multi-Version Quotes." Instant side-by-side comparison of original vs revised quotes.',
           impactMetric: "Complete Negotiation Audit Trail",
           impactColor: "text-emerald-700",
         },
@@ -326,7 +326,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy CRM: Reps fight over duplicated accounts and clients receive embarrassing duplicate cold calls from multiple reps.",
           mossiComparison:
-            '✓ MossiERP: "Smart Duplicate Blocker — Clean CRM data with zero team conflict." Intelligent fuzzy matching stops duplicates before entry.',
+            '✓ Mossie ERP: "Smart Duplicate Blocker — Clean CRM data with zero team conflict." Intelligent fuzzy matching stops duplicates before entry.',
           impactMetric: "Zero Duplicate Conflicts",
           impactColor: "text-purple-700",
         },
@@ -334,7 +334,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP CRM Compares to the Competition",
+      title: "How Mossie ERP CRM Compares to the Competition",
       subtitle: "Compare our automated quotation and deal engine against traditional legacy ERP suites and fragmented standalone sales apps.",
       competitor1Name: "Legacy ERPs (SAP CRM / NetSuite)",
       competitor2Name: "Fragmented Point Apps (Zoho / HubSpot)",
@@ -373,7 +373,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           metric: "Multi-Revision Quotation Trail (-R1, -R2)",
-          metricDesc: "Preserving pricing negotiation history without overwriting data.",
+          metricDesc: "Preserving quote negotiation history without overwriting data.",
           mossi: {
             highlight: "✓ Parent-Child Versioning",
             detail: "Auto-creates versioned quotes (-R1, -R2) with 1-click side-by-side comparison of original vs revised numbers",
@@ -485,7 +485,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
-          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised pricing","Version comparison"]},
+          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised quote","Version comparison"]},
           id: "crm-f4",
           category: "conversion",
           categoryLabel: "Conversion & Orders",
@@ -496,7 +496,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description: "Full Negotiation Audit Trail with Multi-Version Quotes.",
           bullets: [
             "Parent-child versioned quote generation (e.g. QT-2026-0001-R1, -R2)",
-            "Side-by-side comparison of original vs revised pricing, quantities, and terms",
+            "Side-by-side comparison of original vs revised quotes, quantities, and terms",
             "Never overwrites original proposals; protects complete audit integrity",
           ],
         },
@@ -535,7 +535,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Lead Ingestion to Closed-Won Cash",
       subtitle: "Click any step below to see how our unified sales automation eliminates friction.",
       steps: [
@@ -595,7 +595,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM ORACLE NETSUITE",
         quote:
-          "We spent 9 painful months struggling with NetSuite’s clunky UI and endless consultant bills. Moving to MossiERP took less than 3 weeks. Our sales team actually logs their daily deals now, and the automated stock check on quotation creation saved us from two major fulfillment disasters last quarter.",
+          "We spent 9 painful months struggling with NetSuite’s clunky UI and endless consultant bills. Moving to Mossie ERP took less than 3 weeks. Our sales team actually logs their daily deals now, and the automated stock check on quotation creation saved us from two major fulfillment disasters last quarter.",
         userName: "Vikramaditya Roy",
         userRole: "Chief Operating Officer",
         userCompany: "Zenith Industrial Systems (Turnover ₹120 Cr)",
@@ -605,7 +605,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         {
           value: "42%",
           label: "Faster Quote Generation",
-          description: "From 45 mins to under 3 mins with dynamic pricing rules.",
+          description: "From 45 mins to under 3 mins with automated quotation rules.",
           color: "text-blue-600",
         },
         {
@@ -630,7 +630,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     cta: {
       pill: "READY FOR A NEW STANDARD OF ERP?",
-      title: "See Why Fast-Growing Teams Are Upgrading to MossiERP",
+      title: "See Why Fast-Growing Teams Are Upgrading to Mossie ERP",
       description:
         "Experience a 20-minute tailored walkthrough of our CRM and operational modules. We'll show you the exact automated flow configured for your industry.",
       primaryCtaText: "Schedule a 20-Min Architecture Demo",
@@ -659,7 +659,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "Zero-Touch", label: "Double-Entry Ledger" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // sales-fulfillment-engine",
+      windowTitle: "mossie-erp // sales-fulfillment-engine",
       liveBadge: "● ORDER STREAM SYNCHRONIZED",
       topMetrics: [
         { label: "Today's Orders", value: "₹28.4L", sub: "Auto-Routed & Balanced", subColor: "text-emerald-600 font-bold" },
@@ -702,7 +702,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Smart Logistics & GST Billing",
       description:
-        "Standard sales tools take orders and leave stock shortages, GST compliance, and dispatch disputes to manual spreadsheets. MossiERP automates shortage routing, government billing, and digital doorstep POD.",
+        "Standard sales tools take orders and leave stock shortages, GST compliance, and dispatch disputes to manual spreadsheets. Mossie ERP automates shortage routing, government billing, and digital doorstep POD.",
       superpowers: [
         {
           summary: "Turn stock shortages into purchase or production requests in one click.",
@@ -719,7 +719,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Requires manual stock inquiries with warehouse managers, leading to overselling, delayed production orders, and frequent cancellations.",
           mossiComparison:
-            '✓ MossiERP: "Instant Stock Shortage Detection with 1-Click Auto-Routing." Auto-reserves stock, creates trading PRs, or triggers manufacturing MOs instantly.',
+            '✓ Mossie ERP: "Instant Stock Shortage Detection with 1-Click Auto-Routing." Auto-reserves stock, creates trading PRs, or triggers manufacturing MOs instantly.',
           impactMetric: "Instant Shortage Detection & Auto-Routing",
           impactColor: "text-blue-600",
         },
@@ -738,7 +738,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Require paid third-party middleware (ClearTax, Tally plugins, or manual CSV uploads) with high integration costs and frequent portal errors.",
           mossiComparison:
-            '✓ MossiERP: "Built-in Indian GST E-Invoice & E-Way Bill Engine in 1-Click." Direct government NIC API generation in < 2 seconds at zero plugin cost.',
+            '✓ Mossie ERP: "Built-in Indian GST E-Invoice & E-Way Bill Engine in 1-Click." Direct government NIC API generation in < 2 seconds at zero plugin cost.',
           impactMetric: "< 2s Native GST E-Invoice & E-Way Bill",
           impactColor: "text-emerald-700",
         },
@@ -757,7 +757,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Logistics visibility ends when goods leave the loading dock. Lost paper delivery challans result in disputed invoices and delayed payments.",
           mossiComparison:
-            '✓ MossiERP: "Complete Dispatch Tracking from Warehouse to Customer Doorstep." Drivers or dispatch teams upload signed POD photos directly to the order.',
+            '✓ Mossie ERP: "Complete Dispatch Tracking from Warehouse to Customer Doorstep." Drivers or dispatch teams upload signed POD photos directly to the order.',
           impactMetric: "End-to-End Dispatch & Digital POD",
           impactColor: "text-purple-700",
         },
@@ -776,7 +776,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Billing invoices sit in queues until accounting staff manually key in voucher entries, resulting in discrepancies and delayed financial closes.",
           mossiComparison:
-            '✓ MossiERP: "Automated Bookkeeping — Sales invoices instantly generate balanced ledger entries." Complete double-entry posting with zero human re-keying.',
+            '✓ Mossie ERP: "Automated Bookkeeping — Sales invoices instantly generate balanced ledger entries." Complete double-entry posting with zero human re-keying.',
           impactMetric: "Zero-Touch Double-Entry Posting",
           impactColor: "text-amber-700",
         },
@@ -784,7 +784,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Sales Compares to the Market",
+      title: "How Mossie ERP Sales Compares to the Market",
       subtitle: "Compare our automated fulfillment suite against legacy ERP tools and basic invoicing apps.",
       competitor1Name: "Legacy ERPs (SAP SD / NetSuite)",
       competitor2Name: "Basic Invoicing (Zoho Books / Tally)",
@@ -951,7 +951,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Sales Order to Doorstep Cash",
       subtitle: "Connected fulfillment eliminates errors between sales, warehouse, logistics, and accounting.",
       steps: [
@@ -1011,7 +1011,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM TALLY + EXCEL",
         quote:
-          "Before MossiERP, our sales reps had to call the warehouse five times a day to confirm whether stock was actually available. Now the second an order is approved, stock is locked and E-Way bills are ready before the truck arrives.",
+          "Before Mossie ERP, our sales reps had to call the warehouse five times a day to confirm whether stock was actually available. Now the second an order is approved, stock is locked and E-Way bills are ready before the truck arrives.",
         userName: "Suresh Kulkarni",
         userRole: "VP Commercial & Supply Chain",
         userCompany: "Prism Polymers & Packaging (Turnover ₹85 Cr)",
@@ -1027,7 +1027,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "UPGRADE YOUR SALES FULFILLMENT",
       title: "Eliminate Order Bottlenecks & Accelerate Cash Collection",
-      description: "Schedule a live 20-minute demonstration of MossiERP's unified sales and dispatch platform.",
+      description: "Schedule a live 20-minute demonstration of Mossie ERP's unified sales and dispatch platform.",
       primaryCtaText: "Book an Order Flow Demo",
       secondaryCtaText: "Explore Inventory Sync",
     },
@@ -1054,7 +1054,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "Sub-Sec", label: "Multi-Location Sync" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // warehouse-stock-grid",
+      windowTitle: "mossie-erp // warehouse-stock-grid",
       liveBadge: "● 14 WAREHOUSES CONNECTED",
       topMetrics: [
         { label: "Total Valuation", value: "₹18.4 Cr", sub: "FIFO Landed Cost", subColor: "text-blue-600 font-bold" },
@@ -1097,7 +1097,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Predictive Warehouse Precision",
       description:
-        "Forget outdated stocktaking spreadsheets. MossiERP monitors consumption velocity, seasonal lead times, and landed costs down to individual serial numbers.",
+        "Forget outdated stocktaking spreadsheets. Mossie ERP monitors consumption velocity, seasonal lead times, and landed costs down to individual serial numbers.",
       superpowers: [
         {
           summary: "See on-hand, reserved, and available stock across your entire operation.",
@@ -1112,7 +1112,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Instant multi-facility visibility across available, reserved, incoming, and critical low-stock inventory with live telemetry.",
           legacyComparison: "✕ Legacy ERPs: Periodic spreadsheet updates and delayed batches cause overselling and critical stockouts.",
-          mossiComparison: "✓ MossiERP: Sub-second telemetry locks physical stock instantly upon order confirmation across every node.",
+          mossiComparison: "✓ Mossie ERP: Sub-second telemetry locks physical stock instantly upon order confirmation across every node.",
           impactMetric: "Sub-Second Stock Telemetry",
           impactColor: "text-blue-600",
         },
@@ -1129,7 +1129,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Algorithmic safety buffers dynamically monitor supplier lead times and consumption velocity to auto-generate replenishment purchase orders.",
           legacyComparison: "✕ Legacy ERPs: Static min/max formulas fail to adjust when lead times spike, causing factory halts.",
-          mossiComparison: "✓ MossiERP: Dynamic predictive triggers auto-draft POs before stock hits critical safety thresholds.",
+          mossiComparison: "✓ Mossie ERP: Dynamic predictive triggers auto-draft POs before stock hits critical safety thresholds.",
           impactMetric: "100% Stockout Prevention",
           impactColor: "text-amber-700",
         },
@@ -1146,7 +1146,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Centralized multi-hub governance with automated inter-warehouse transfer orders, in-transit telemetry, and bin-level synchronization.",
           legacyComparison: "✕ Legacy ERPs: Disconnected warehouse silos require manual phone calls and spreadsheet consolidation.",
-          mossiComparison: "✓ MossiERP: Unified multi-facility orchestration with 1-click inter-warehouse transfer orders and live tracking.",
+          mossiComparison: "✓ Mossie ERP: Unified multi-facility orchestration with 1-click inter-warehouse transfer orders and live tracking.",
           impactMetric: "Zero Cross-Hub Discrepancy",
           impactColor: "text-purple-700",
         },
@@ -1163,7 +1163,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Strict First-Expired-First-Out (FEFO) automated dispatch, granular batch genealogy, and automated quarantine locks for expiring goods.",
           legacyComparison: "✕ Legacy ERPs: Expired lots shipped accidentally due to manual paper-based batch logging and FIFO picking.",
-          mossiComparison: "✓ MossiERP: Algorithmic FEFO routing locks expiring batches and isolates non-compliant lots automatically.",
+          mossiComparison: "✓ Mossie ERP: Algorithmic FEFO routing locks expiring batches and isolates non-compliant lots automatically.",
           impactMetric: "Zero Expired Dispatches",
           impactColor: "text-rose-700",
         },
@@ -1180,7 +1180,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Perpetual real-time FIFO and weighted average valuation with automatic proportional landed cost (LCV) freight and customs capitalization.",
           legacyComparison: "✕ Legacy ERPs: Freight, customs, and demurrage dumped into generic overhead accounts, skewing profitability.",
-          mossiComparison: "✓ MossiERP: True landed cost automatically apportioned into individual unit valuations in real time.",
+          mossiComparison: "✓ Mossie ERP: True landed cost automatically apportioned into individual unit valuations in real time.",
           impactMetric: "100% True Landed Margin",
           impactColor: "text-emerald-700",
         },
@@ -1188,7 +1188,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Inventory Compares to Legacy Solutions",
+      title: "How Mossie ERP Inventory Compares to Legacy Solutions",
       subtitle: "Compare our modern warehouse management suite against legacy ERP modules and standalone inventory apps.",
       competitor1Name: "Legacy ERPs (SAP MM / NetSuite)",
       competitor2Name: "Standalone WMS / Tally Add-ons",
@@ -1437,7 +1437,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Goods Receipt to Consumption",
       subtitle: "Seamless inventory lifecycle connecting suppliers, warehouses, and shop floors.",
       steps: [
@@ -1465,7 +1465,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           title: "3. Put-Away",
           subtitle: "Optimized bin assignment",
           detailTitle: "Stage 3: Automated Bin Suggestion & Put-Away",
-          detailDescription: "MossiERP directs warehouse operators to optimal bin locations based on item dimensions and turnover velocity.",
+          detailDescription: "Mossie ERP directs warehouse operators to optimal bin locations based on item dimensions and turnover velocity.",
           latency: "< 150ms",
         },
         {
@@ -1492,7 +1492,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM SAP MM",
         quote:
-          "SAP was an administrative nightmare for our warehouse operators. They spent 20 minutes keying in one GRN transaction. MossiERP's mobile scanner app cut receiving time by 70%, and we haven't had a single stockout crisis in 14 months.",
+          "SAP was an administrative nightmare for our warehouse operators. They spent 20 minutes keying in one GRN transaction. Mossie ERP's mobile scanner app cut receiving time by 70%, and we haven't had a single stockout crisis in 14 months.",
         userName: "Gautam Singhania",
         userRole: "Director of Operations",
         userCompany: "Apex Electrical Assemblies (Turnover ₹110 Cr)",
@@ -1508,7 +1508,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "TAKE TOTAL CONTROL OF STOCK",
       title: "Gain Real-Time Multi-Warehouse Visibility Today",
-      description: "Experience a live walkthrough of MossiERP's intelligent inventory and warehouse management engine.",
+      description: "Experience a live walkthrough of Mossie ERP's intelligent inventory and warehouse management engine.",
       primaryCtaText: "Schedule a Warehouse Demo",
       secondaryCtaText: "Review Manufacturing Module",
     },
@@ -1535,7 +1535,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "100%", label: "Audit & GST Traceable" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // financial-ledger-core",
+      windowTitle: "mossie-erp // financial-ledger-core",
       liveBadge: "● GENERAL LEDGER RECONCILED",
       topMetrics: [
         { label: "Net Revenue (YTD)", value: "₹24.8 Cr", sub: "↑ 22% vs budget", subColor: "text-emerald-600 font-bold" },
@@ -1578,7 +1578,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Continuous Close Architecture",
       description:
-        "Tally and basic accounting tools require tedious manual voucher entries and end-of-month panic. MossiERP's reactive event bus posts ledger journals in real time.",
+        "Tally and basic accounting tools require tedious manual voucher entries and end-of-month panic. Mossie ERP's reactive event bus posts ledger journals in real time.",
       superpowers: [
         {
           summary: "Bring every department’s transactions into one continuously updated ledger.",
@@ -1593,7 +1593,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Central General Ledger receiving animated, continuous transaction streams from Sales, Purchase, Inventory, Production, and Payroll.",
           legacyComparison: "✕ Legacy Accounting: Operational transactions sit in holding queues or require manual re-keying into Tally.",
-          mossiComparison: "✓ MossiERP: Single unified ledger updates instantaneously across the enterprise with zero manual journal typing.",
+          mossiComparison: "✓ Mossie ERP: Single unified ledger updates instantaneously across the enterprise with zero manual journal typing.",
           impactMetric: "Sub-Second Ledger Sync",
           impactColor: "text-blue-600",
         },
@@ -1610,7 +1610,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Every warehouse dispatch, GRN receipt, depreciation run, and payroll cycle triggers an automatic, balanced double-entry voucher.",
           legacyComparison: "✕ Legacy Accounting: Tedious manual voucher typing and end-of-month panic with missed accruals.",
-          mossiComparison: "✓ MossiERP: Reactive event bus posts balanced journal vouchers in the background with zero latency.",
+          mossiComparison: "✓ Mossie ERP: Reactive event bus posts balanced journal vouchers in the background with zero latency.",
           impactMetric: "90% Faster Close",
           impactColor: "text-emerald-700",
         },
@@ -1627,7 +1627,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Direct banking API feeds automatically match statement credits and debits against open invoices, highlighting unmatched items instantly.",
           legacyComparison: "✕ Legacy Accounting: Downloading manual bank statements and line-by-line manual tick-offs with rulers.",
-          mossiComparison: "✓ MossiERP: Algorithmic rule engines auto-match 95%+ of banking transactions in under 5 minutes daily.",
+          mossiComparison: "✓ Mossie ERP: Algorithmic rule engines auto-match 95%+ of banking transactions in under 5 minutes daily.",
           impactMetric: "95% Auto-Matched",
           impactColor: "text-amber-700",
         },
@@ -1644,7 +1644,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Maker-checker review workflows, cryptographic period locking, and unalterable audit trails preventing backdated entries.",
           legacyComparison: "✕ Legacy Accounting: Unchecked voucher edits and backdated adjustments lead to audit fines and fraud risks.",
-          mossiComparison: "✓ MossiERP: Multi-tier approval hierarchies, immutable change logs, and strict period closing locks.",
+          mossiComparison: "✓ Mossie ERP: Multi-tier approval hierarchies, immutable change logs, and strict period closing locks.",
           impactMetric: "100% Audit Compliance",
           impactColor: "text-purple-700",
         },
@@ -1661,7 +1661,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Instant multi-entity financial consolidation with automated inter-company transaction eliminations and unified group P&L.",
           legacyComparison: "✕ Disconnected Tools: Separate company files requiring manual spreadsheet stitching and painful eliminations.",
-          mossiComparison: "✓ MossiERP: 1-click consolidated balance sheet and elimination journals across all subsidiary legal entities.",
+          mossiComparison: "✓ Mossie ERP: 1-click consolidated balance sheet and elimination journals across all subsidiary legal entities.",
           impactMetric: "1-Click Group Close",
           impactColor: "text-cyan-700",
         },
@@ -1669,7 +1669,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Accounting Compares to Tally & Legacy ERPs",
+      title: "How Mossie ERP Accounting Compares to Tally & Legacy ERPs",
       subtitle: "Compare our automated continuous-close ledger against legacy desktop software and Western ERPs.",
       competitor1Name: "Legacy ERPs (SAP FI / NetSuite)",
       competitor2Name: "Desktop Tools (Tally Prime / Busy)",
@@ -1918,7 +1918,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Business Transaction to Audited Financials",
       subtitle: "Continuous accounting automation eliminates manual bookkeeping bottlenecks.",
       steps: [
@@ -1928,7 +1928,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           title: "1. Operational Event",
           subtitle: "Sales dispatch, GRN, payroll",
           detailTitle: "Stage 1: Real-Time Event Bus Notification",
-          detailDescription: "When an operational event completes in any module, MossiERP's event bus triggers corresponding financial journal rules.",
+          detailDescription: "When an operational event completes in any module, Mossie ERP's event bus triggers corresponding financial journal rules.",
           latency: "< 50ms",
         },
         {
@@ -1973,7 +1973,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM TALLY + MANUAL SPREADSHEETS",
         quote:
-          "Month-end close used to take our finance team 18 sleepless days. With MossiERP's auto-posting event bus and bank API sync, our books close on the 2nd of every month. Our statutory auditor praised the clean audit trail.",
+          "Month-end close used to take our finance team 18 sleepless days. With Mossie ERP's auto-posting event bus and bank API sync, our books close on the 2nd of every month. Our statutory auditor praised the clean audit trail.",
         userName: "Radhika Mehra",
         userRole: "Chief Financial Officer",
         userCompany: "Kaveri Precision Components (Turnover ₹140 Cr)",
@@ -2016,7 +2016,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "Gate-Level", label: "QC & Serial Tracking" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // procurement-engine",
+      windowTitle: "mossie-erp // procurement-engine",
       liveBadge: "● VENDOR PORTAL CONNECTED",
       topMetrics: [
         { label: "Active Spend (MTD)", value: "₹3.42 Cr", sub: "Under budgeted cap", subColor: "text-emerald-600 font-bold" },
@@ -2059,7 +2059,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Cost Control & Sourcing",
       description:
-        "Stop uncontrolled maverick spending and supplier billing errors. MossiERP connects shop floor material needs with automated 10-vendor RFQ bidding, landed cost allocation, and fraud-proof invoice verification.",
+        "Stop uncontrolled maverick spending and supplier billing errors. Mossie ERP connects shop floor material needs with automated 10-vendor RFQ bidding, landed cost allocation, and fraud-proof invoice verification.",
       superpowers: [
         {
           summary: "Compare vendor quotations side by side and make informed sourcing decisions.",
@@ -2076,7 +2076,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Buyers copy-paste PDF quotes into manual spreadsheets, losing track of terms and missing the lowest true cost.",
           mossiComparison:
-            '✓ MossiERP: "Multi-Vendor RFQ Comparison Matrix with Auto L1 & Cost Savings Analytics." Instant side-by-side comparison across 10 vendors.',
+            '✓ Mossie ERP: "Multi-Vendor RFQ Comparison Matrix with Auto L1 & Cost Savings Analytics." Instant side-by-side comparison across 10 vendors.',
           impactMetric: "Auto L1 Vendor & Live Spend Savings",
           impactColor: "text-blue-600",
         },
@@ -2095,7 +2095,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Ancillary freight and duty fees are dumped into general expense accounts, corrupting product costing and margin reports.",
           mossiComparison:
-            '✓ MossiERP: "True Inventory Costing — Freight & Customs duties auto-allocated to item value." 100% accurate landed valuation per SKU.',
+            '✓ Mossie ERP: "True Inventory Costing — Freight & Customs duties auto-allocated to item value." 100% accurate landed valuation per SKU.',
           impactMetric: "True Unit Cost with LCV Engine",
           impactColor: "text-emerald-700",
         },
@@ -2114,7 +2114,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Manual paperwork allows duplicate vendor invoices, rate discrepancies, and billing for unreceived stock to slip through unnoticed.",
           mossiComparison:
-            '✓ MossiERP: "Fraud-Proof Accounts Payable with Automated 3-Way Reconciliation." Automatic hold on mismatched quantities or inflated rates.',
+            '✓ Mossie ERP: "Fraud-Proof Accounts Payable with Automated 3-Way Reconciliation." Automatic hold on mismatched quantities or inflated rates.',
           impactMetric: "Zero Duplicate or Fraudulent Bills",
           impactColor: "text-purple-700",
         },
@@ -2133,7 +2133,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Defective raw materials bypass receipt inspection and land straight on the shop floor, causing assembly line breakdowns.",
           mossiComparison:
-            '✓ MossiERP: "Gate-Level Quality Control (QC) with Batch & Serial Tracking." Strict QC quarantine ensures only approved stock enters inventory.',
+            '✓ Mossie ERP: "Gate-Level Quality Control (QC) with Batch & Serial Tracking." Strict QC quarantine ensures only approved stock enters inventory.',
           impactMetric: "Gate-Level QC & Complete Lot Traceability",
           impactColor: "text-amber-700",
         },
@@ -2141,7 +2141,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Procurement Compares to Legacy Suites",
+      title: "How Mossie ERP Procurement Compares to Legacy Suites",
       subtitle: "Compare our modern procurement engine against legacy ERP suites and basic PO generators.",
       competitor1Name: "Legacy ERPs (SAP MM / NetSuite)",
       competitor2Name: "Basic Purchasing (Zoho / QuickBooks)",
@@ -2154,7 +2154,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
             detail: "Broadcasts RFQ to 10 suppliers; auto-ranks L1 bid and computes live ₹ / % cost savings against historical purchase price",
           },
           legacy: {
-            highlight: "⚠️ Cumbersome Pricing Schemas",
+            highlight: "⚠️ Complex Vendor Quotation Schemas",
             detail: "Requires complex quotation master configuration and lacks visual side-by-side cost delta comparison",
           },
           pointSolution: {
@@ -2308,7 +2308,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From RFQ Broadcast to Settled Bill",
       subtitle: "Eliminate duplicate paper approvals and supplier billing discrepancies.",
       steps: [
@@ -2363,14 +2363,14 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM MANUAL PURCHASING",
         quote:
-          "Our buyers used to negotiate via personal WhatsApp and store quotes in email inboxes. MossiERP brought total transparency. Our overall procurement spend dropped by 11% in the first 6 months simply through automated RFQ matrices.",
+          "Our buyers used to negotiate via personal WhatsApp and store quotes in email inboxes. Mossie ERP brought total transparency. Our overall procurement spend dropped by 11% in the first 6 months simply through automated RFQ matrices.",
         userName: "Manish Agarwal",
         userRole: "Head of Global Sourcing",
         userCompany: "Supreme Fasteners & Hardware (Turnover ₹95 Cr)",
         initials: "MA",
       },
       impactCards: [
-        { value: "11%", label: "Average Cost Reduction", description: "Secured better pricing via transparent multi-vendor bidding.", color: "text-blue-600" },
+        { value: "11%", label: "Average Cost Reduction", description: "Secured lower unit rates via transparent multi-vendor bidding.", color: "text-blue-600" },
         { value: "0", label: "Duplicate Billing Errors", description: "3-way matching blocked ₹14L in duplicate or incorrect vendor invoices.", color: "text-emerald-600" },
         { value: "45 Days", label: "MSME Compliance", description: "Zero interest penalties through automated MSME payment schedule tracking.", color: "text-purple-600" },
         { value: "3x", label: "Faster PO Approvals", description: "Mobile approval queues cut PO release turnaround from 4 days to 4 hours.", color: "text-amber-600" },
@@ -2379,7 +2379,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "CONTROL ENTERPRISE SPEND",
       title: "Streamline Procurement & Build Stronger Vendor Relationships",
-      description: "Request a custom walkthrough of MossiERP's strategic procurement and vendor portal architecture.",
+      description: "Request a custom walkthrough of Mossie ERP's strategic procurement and vendor portal architecture.",
       primaryCtaText: "Book a Procurement Demo",
       secondaryCtaText: "Explore Production Module",
     },
@@ -2406,7 +2406,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "Real-Time", label: "OEE & 3-Way Variance" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // enterprise-mes-engine",
+      windowTitle: "mossie-erp // enterprise-mes-engine",
       liveBadge: "● 6 WORK CENTERS • APS ACTIVE",
       topMetrics: [
         { label: "Plant-Wide OEE", value: "89.4%", sub: "Avail × Perf × Quality", subColor: "text-emerald-600 font-bold" },
@@ -2449,7 +2449,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "Enterprise Manufacturing Capabilities: ",
       titleHighlight: "6 Core Production Pillars",
       description:
-        "Traditional ERPs treat manufacturing as rigid post-facto accounting entries. MossiERP connects engineering formulas, finite-capacity scheduling, touch-screen shopfloor execution, and bi-directional genealogy into a unified MES platform.",
+        "Traditional ERPs treat manufacturing as rigid post-facto accounting entries. Mossie ERP connects engineering formulas, finite-capacity scheduling, touch-screen shopfloor execution, and bi-directional genealogy into a unified MES platform.",
       superpowers: [
         {
           summary: "Manage configurable bills of materials with controlled engineering revisions.",
@@ -2466,7 +2466,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Rigid static BOMs force engineers to create thousands of redundant part numbers for minor dimensional variations, and ad-hoc edits break active shopfloor orders with zero scrap analysis.",
           mossiComparison:
-            '✓ MossiERP: "Dynamic Parameterized BOMs & Immutable Order Snapshots." Dimension-driven formulas with multi-vector ECO scrap, WIP, and cycle-time impact analysis.',
+            '✓ Mossie ERP: "Dynamic Parameterized BOMs & Immutable Order Snapshots." Dimension-driven formulas with multi-vector ECO scrap, WIP, and cycle-time impact analysis.',
           impactMetric: "Zero In-Flight Order Corruption",
           impactColor: "text-blue-600",
         },
@@ -2485,7 +2485,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Clunky overnight batch MRP runs take 4 to 8 hours, fail to account for vendor MOQs or purchase pipeline, leaving planners stranded with obsolete shortfall reports.",
           mossiComparison:
-            '✓ MossiERP: "Supply-Aware MRP with Real-Time Shortage Workbench." Sub-minute recalculations with automated material requisition slips and proactive exception alerts.',
+            '✓ Mossie ERP: "Supply-Aware MRP with Real-Time Shortage Workbench." Sub-minute recalculations with automated material requisition slips and proactive exception alerts.',
           impactMetric: "< 90s Full MRP Run Duration",
           impactColor: "text-amber-700",
         },
@@ -2504,7 +2504,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Infinite-capacity scheduling blindly piles overlapping work orders onto overloaded machines, creating shopfloor bottlenecks and missed customer delivery dates.",
           mossiComparison:
-            '✓ MossiERP: "Finite-Capacity APS with Drag-and-Drop Dispatch Swimlanes." What-if scenario modeling and 6-dimension readiness verification prevent dispatching stalled orders.',
+            '✓ Mossie ERP: "Finite-Capacity APS with Drag-and-Drop Dispatch Swimlanes." What-if scenario modeling and 6-dimension readiness verification prevent dispatching stalled orders.',
           impactMetric: "+31% Plant Throughput & Zero Overbooking",
           impactColor: "text-emerald-700",
         },
@@ -2523,7 +2523,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Paper travelers stained with machine oil and end-of-shift desktop keyboard data entry that delays operational visibility by 24 to 48 hours.",
           mossiComparison:
-            '✓ MossiERP: "Paperless MES Tablet Kiosks & Instant Andon Escalations." Real-time state machines, partial quantity logging, and instant plant-wide alert broadcasting.',
+            '✓ Mossie ERP: "Paperless MES Tablet Kiosks & Instant Andon Escalations." Real-time state machines, partial quantity logging, and instant plant-wide alert broadcasting.',
           impactMetric: "Sub-Second Shopfloor Status Sync",
           impactColor: "text-purple-700",
         },
@@ -2542,7 +2542,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           legacyComparison:
             "✕ Legacy ERPs: Disconnected quality clipboards where defects are only caught at final shipping after tens of thousands of rupees in machining and assembly have been wasted.",
           mossiComparison:
-            '✓ MossiERP: "In-Process Stage-Gate Locks with Automated NCR & CAPA." Parametric tolerance validation blocks defective WIP from advancing down the assembly line.',
+            '✓ Mossie ERP: "In-Process Stage-Gate Locks with Automated NCR & CAPA." Parametric tolerance validation blocks defective WIP from advancing down the assembly line.',
           impactMetric: "-48% Shopfloor Scrap & Defect Rate",
           impactColor: "text-rose-700",
         },
@@ -2550,7 +2550,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Manufacturing Compares to Legacy Suites",
+      title: "How Mossie ERP Manufacturing Compares to Legacy Suites",
       subtitle: "Compare our unified MRP, APS, and MES platform against monolithic legacy ERPs and fragmented shop floor spreadsheets.",
       competitor1Name: "Legacy ERPs (SAP PP / Infor LN)",
       competitor2Name: "Fragmented Standalone Tools / Excel",
@@ -2716,7 +2716,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "The Complete Manufacturing Lifecycle",
       subtitle: "From engineering formulas and supply-aware planning to finite scheduling, touch MES, and lot trace.",
       steps: [
@@ -2786,7 +2786,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM SAP PP + SHOP EXCEL",
         quote:
-          "Before MossiERP, our planners spent all day building disconnected spreadsheets while operators filled out paper job travelers that were entered 2 days late. MossiERP's finite-capacity scheduling and tablet MES consoles gave us real-time OEE visibility and eliminated line starvation completely. Our plant throughput jumped 31% in our first quarter.",
+          "Before Mossie ERP, our planners spent all day building disconnected spreadsheets while operators filled out paper job travelers that were entered 2 days late. Mossie ERP's finite-capacity scheduling and tablet MES consoles gave us real-time OEE visibility and eliminated line starvation completely. Our plant throughput jumped 31% in our first quarter.",
         userName: "Devendra Patil",
         userRole: "VP of Manufacturing & Operations",
         userCompany: "Orbital Precision Technologies (Turnover ₹145 Cr)",
@@ -2802,7 +2802,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "SUPERCHARGE YOUR SHOP FLOOR",
       title: "Eliminate Manufacturing Delays & Maximize Plant OEE",
-      description: "Schedule a live 20-minute demonstration of MossiERP's unified engineering, finite scheduling, and shopfloor MES platform.",
+      description: "Schedule a live 20-minute demonstration of Mossie ERP's unified engineering, finite scheduling, and shopfloor MES platform.",
       primaryCtaText: "Book a Factory Architecture Demo",
       secondaryCtaText: "Review Quality & Traceability",
     },
@@ -2829,7 +2829,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "24/7", label: "Employee Self Service" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // hrms-payroll-engine",
+      windowTitle: "mossie-erp // hrms-payroll-engine",
       liveBadge: "● 480 EMPLOYEES ACTIVE",
       topMetrics: [
         { label: "Monthly Payroll", value: "₹1.48 Cr", sub: "Disbursement ready", subColor: "text-blue-600 font-bold" },
@@ -2872,7 +2872,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "Seamless Workforce Architecture",
       description:
-        "Unlike standalone HR apps that sit in a silo, MossiERP automatically connects employee attendance to factory labor costing and general ledger salary vouchers.",
+        "Unlike standalone HR apps that sit in a silo, Mossie ERP automatically connects employee attendance to factory labor costing and general ledger salary vouchers.",
       superpowers: [
         {
           summary: "Run payroll and prepare Indian bank payment files from one connected process.",
@@ -2887,7 +2887,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Process payroll for 500+ employees across multiple plants in under 3 minutes. Generate ready-to-upload payment files for HDFC, ICICI, SBI, and Axis Bank.",
           legacyComparison: "✕ Legacy HR: HR teams spend 5 days in Excel calculating overtime, lop days, and formulas manually.",
-          mossiComparison: "✓ MossiERP: 1-click execution automatically factors attendance punches and leave approvals.",
+          mossiComparison: "✓ Mossie ERP: 1-click execution automatically factors attendance punches and leave approvals.",
           impactMetric: "90% Reduction in Payroll Processing Time",
           impactColor: "text-blue-600",
         },
@@ -2904,7 +2904,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Generate government ECR files for EPFO and ESIC portals with zero manual formatting. State-specific Professional Tax (PT) slabs update automatically.",
           legacyComparison: "✕ Western HR Apps: Do not understand Indian statutory rules and require manual tax consultants.",
-          mossiComparison: "✓ MossiERP: Built-in 100% statutory adherence with instant ECR text generation.",
+          mossiComparison: "✓ Mossie ERP: Built-in 100% statutory adherence with instant ECR text generation.",
           impactMetric: "Zero Compliance Fines",
           impactColor: "text-emerald-700",
         },
@@ -2921,7 +2921,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Field staff check in via GPS-verified mobile app; factory workers use biometric fingerprint/facial recognition terminals that sync in real time.",
           legacyComparison: "✕ Disconnected Hardware: Offline biometric machines where data must be downloaded via USB flash drive.",
-          mossiComparison: "✓ MossiERP: Cloud API sync connects biometric terminals in 20 cities simultaneously.",
+          mossiComparison: "✓ Mossie ERP: Cloud API sync connects biometric terminals in 20 cities simultaneously.",
           impactMetric: "Real-Time Shift Attendance",
           impactColor: "text-amber-700",
         },
@@ -2938,7 +2938,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Employees view payslips, submit leave applications, download Form 16, and declare tax investments directly from their smartphone.",
           legacyComparison: "✕ HR Helpdesk Chaos: HR staff answering 40 emails a day asking for past payslip PDFs.",
-          mossiComparison: "✓ MossiERP: 100% self-service access reduces HR administrative overhead significantly.",
+          mossiComparison: "✓ Mossie ERP: 100% self-service access reduces HR administrative overhead significantly.",
           impactMetric: "-75% Routine HR Inquiries",
           impactColor: "text-purple-700",
         },
@@ -2946,7 +2946,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP HRMS Compares to Standalone HR Tools",
+      title: "How Mossie ERP HRMS Compares to Standalone HR Tools",
       subtitle: "Compare our deeply integrated ERP-HRMS against isolated software like Darwinbox or Keka and desktop spreadsheets.",
       competitor1Name: "Standalone HR SaaS (Darwinbox / Keka)",
       competitor2Name: "Legacy Desktop Payroll (GreytHR / Excel)",
@@ -2992,7 +2992,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           },
           legacy: {
             highlight: "✕ Not Supported / Complex Costing",
-            detail: "Requires heavy SAP CO-PC activity type pricing setups and tedious month-end labor variance postings",
+            detail: "Requires heavy SAP CO-PC activity type rate setups and tedious month-end labor variance postings",
           },
           pointSolution: {
             highlight: "✕ Complete Silo",
@@ -3081,7 +3081,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Daily Attendance to Disbursed Payroll",
       subtitle: "Zero-stress monthly payroll cycle running on automated guardrails.",
       steps: [
@@ -3136,7 +3136,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM MANUAL PAYROLL",
         quote:
-          "Running payroll for 380 factory and sales staff used to take my HR executive 6 full days every month. With MossiERP, biometric data syncs automatically, statutory ECRs are ready instantly, and payroll is disbursed in 10 minutes flat.",
+          "Running payroll for 380 factory and sales staff used to take my HR executive 6 full days every month. With Mossie ERP, biometric data syncs automatically, statutory ECRs are ready instantly, and payroll is disbursed in 10 minutes flat.",
         userName: "Ananya Deshmukh",
         userRole: "Head of People & Culture",
         userCompany: "Matrix Automotive Components (Turnover ₹72 Cr)",
@@ -3152,7 +3152,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "MODERNIZE WORKFORCE OPERATIONS",
       title: "Deliver a World-Class Employee Experience While Ensuring 100% Compliance",
-      description: "Book a personalized demonstration of MossiERP's integrated HRMS and payroll engine.",
+      description: "Book a personalized demonstration of Mossie ERP's integrated HRMS and payroll engine.",
       primaryCtaText: "Schedule an HRMS Demo",
       secondaryCtaText: "Explore Projects Module",
     },
@@ -3179,7 +3179,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     //   stat4: { value: "1-Click", label: "Milestone to Invoice" },
     // },
     mockup: {
-      windowTitle: "mossi-erp // project-pmo-engine",
+      windowTitle: "mossie-erp // project-pmo-engine",
       liveBadge: "● 18 CLIENT PROJECTS TRACKED",
       topMetrics: [
         { label: "Active Budget", value: "₹6.82 Cr", sub: "Cost burn: 64%", subColor: "text-blue-600 font-bold" },
@@ -3222,7 +3222,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       title: "What Extra We Provide: ",
       titleHighlight: "True Project Cost Accounting",
       description:
-        "Trello and Asana manage tasks but have zero clue about material costs or invoice margins. MossiERP connects every hour logged and bolt purchased directly to the project's bottom line.",
+        "Trello and Asana manage tasks but have zero clue about material costs or invoice margins. Mossie ERP connects every hour logged and bolt purchased directly to the project's bottom line.",
       superpowers: [
         {
           summary: "Connect milestones, dependencies, and tasks in a shared delivery plan.",
@@ -3237,7 +3237,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Dynamic multi-tier Gantt charts with Critical Path Method (CPM), milestone tracking, and drag-and-drop auto-rescheduling.",
           legacyComparison: "✕ Standalone Project Tools: Task trackers (Monday/Asana) do not integrate with purchasing or accounting.",
-          mossiComparison: "✓ MossiERP: Interactive CPM Gantt engine that cascades schedule changes directly to procurement and financials.",
+          mossiComparison: "✓ Mossie ERP: Interactive CPM Gantt engine that cascades schedule changes directly to procurement and financials.",
           impactMetric: "Zero Milestone Slip",
           impactColor: "text-blue-600",
         },
@@ -3254,7 +3254,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Real-time visual workload heatmaps, skill-matrix matching, and automated capacity leveling across all client projects.",
           legacyComparison: "✕ Disconnected Spreadsheets: Key technical talent is double-booked across competing site projects.",
-          mossiComparison: "✓ MossiERP: Intelligent workload leveling balances team capacity and surfaces bench strength instantly.",
+          mossiComparison: "✓ Mossie ERP: Intelligent workload leveling balances team capacity and surfaces bench strength instantly.",
           impactMetric: "94% Billable Utilization",
           impactColor: "text-emerald-700",
         },
@@ -3271,7 +3271,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Direct ledger integration capturing material requisitions, contractor bills, and billable labor against WBS codes in real time.",
           legacyComparison: "✕ Standalone Task Tools: Task apps have zero financial visibility; project overruns discovered months after handover.",
-          mossiComparison: "✓ MossiERP: Continuous project cost accounting computes material, labor, and subcontractor burn live.",
+          mossiComparison: "✓ Mossie ERP: Continuous project cost accounting computes material, labor, and subcontractor burn live.",
           impactMetric: "Real-Time Cost Precision",
           impactColor: "text-amber-700",
         },
@@ -3288,7 +3288,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Granular variance tracking comparing planned hours and procurement estimates against actual field expenditure.",
           legacyComparison: "✕ Legacy Disconnect: Budget overruns go unnoticed until cash reserves are depleted and client disputes arise.",
-          mossiComparison: "✓ MossiERP: Proactive threshold alerts warn project leaders when variance breaches 5% of contingency.",
+          mossiComparison: "✓ Mossie ERP: Proactive threshold alerts warn project leaders when variance breaches 5% of contingency.",
           impactMetric: "100% Variance Alerting",
           impactColor: "text-purple-700",
         },
@@ -3305,7 +3305,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           description:
             "Up-to-the-minute project P&L, recognized revenue, and gross margin analytics updated with every milestone signoff.",
           legacyComparison: "✕ General Overhead: Material and labor costs dumped into generic company overhead, hiding project losses.",
-          mossiComparison: "✓ MossiERP: Real-time project P&L shows exact gross margin on every phase and deliverable milestone.",
+          mossiComparison: "✓ Mossie ERP: Real-time project P&L shows exact gross margin on every phase and deliverable milestone.",
           impactMetric: "+32% Average Project Margin",
           impactColor: "text-cyan-700",
         },
@@ -3313,7 +3313,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     },
     comparison: {
       eyebrow: "HONEST & DIRECT BENCHMARK",
-      title: "How MossiERP Projects Compares to Task Trackers",
+      title: "How Mossie ERP Projects Compares to Task Trackers",
       subtitle: "Compare our ERP project management suite against standalone SaaS task boards and legacy project modules.",
       competitor1Name: "Legacy ERP Modules (SAP PS / NetSuite)",
       competitor2Name: "Standalone Task Tools (Asana / Monday / Jira)",
@@ -3562,7 +3562,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     workflow: {
-      eyebrow: "HOW DATA MOVES IN MOSSIERP",
+      eyebrow: "HOW DATA MOVES IN MOSSIE ERP",
       title: "From Project Award to Final Margin Realization",
       subtitle: "Eliminate project margin leakages and accelerate billing.",
       steps: [
@@ -3617,7 +3617,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       testimonial: {
         badge: "✓ VERIFIED SWITCHER FROM ASANA + EXCEL",
         quote:
-          "With Asana, we knew who was doing what task, but had no idea if our EPC projects were making or losing money until the final audit. MossiERP's real-time budget burn and 1-click milestone invoicing improved our cash flow by ₹65L.",
+          "With Asana, we knew who was doing what task, but had no idea if our EPC projects were making or losing money until the final audit. Mossie ERP's real-time budget burn and 1-click milestone invoicing improved our cash flow by ₹65L.",
         userName: "Venkatesh Raman",
         userRole: "Managing Director",
         userCompany: "Apex Infrastructure Solutions (Turnover ₹115 Cr)",
@@ -3633,7 +3633,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
     cta: {
       pill: "DELIVER PROFITABLE PROJECTS",
       title: "Gain Total Visibility into Project Costs, Deadlines & Team Utilization",
-      description: "Schedule a live 20-minute demonstration of MossiERP's enterprise project management architecture.",
+      description: "Schedule a live 20-minute demonstration of Mossie ERP's enterprise project management architecture.",
       primaryCtaText: "Book a Project Architecture Demo",
       secondaryCtaText: "Review All Modules",
     },

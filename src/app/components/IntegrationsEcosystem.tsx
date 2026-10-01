@@ -571,7 +571,7 @@ export default function IntegrationsEcosystem() {
               your business is <span className="text-blue-600">built-on</span>.
             </h2>
             <p className="text-[15px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              Native, bidirectional API connectors connect your banks, payment gateways, online storefronts, couriers, and chat apps directly to your central MossiERP ledger.
+              Native, bidirectional API connectors connect your banks, payment gateways, online storefronts, couriers, and chat apps directly to your central Mossie ERP ledger.
             </p>
           </motion.div>
         </div>
@@ -688,11 +688,11 @@ export default function IntegrationsEcosystem() {
                 <div
                   ref={hubRef}
                   className="w-20 h-20 rounded-[22px] bg-white border-2 border-blue-200/90 shadow-[0_12px_36px_rgba(37,99,235,0.18)] flex items-center justify-center relative z-30 group cursor-pointer hover:scale-105 transition-all duration-300 p-2"
-                  title="MossiERP Platform"
+                  title="Mossie ERP Platform"
                 >
                   <img
                     src="/images/logo/mossierplogo"
-                    alt="MossiERP Platform"
+                    alt="Mossie ERP Platform"
                     className="h-10 w-auto object-contain"
                   />
                 </div>

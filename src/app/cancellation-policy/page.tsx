@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
 import { RefreshCw, DollarSign, Clock, HelpCircle } from "lucide-react";
@@ -34,7 +33,7 @@ export default function CancellationPolicyPage() {
                 1. Subscription Cancellation Notice
               </h2>
               <p>
-                At <strong>MossiERP</strong>, we aim to provide flexible SaaS subscription terms. You can request cancellation of your monthly or annual subscription at any time directly through your tenant account portal or by contacting your dedicated account manager.
+                At <strong>Mossie ERP</strong>, we aim to provide flexible SaaS subscription terms. You can request cancellation of your monthly or annual subscription at any time directly through your tenant account portal or by contacting your dedicated account manager.
               </p>
               <ul className="list-disc pl-5 space-y-2 text-slate-600">
                 <li>
@@ -72,7 +71,7 @@ export default function CancellationPolicyPage() {
                 3. Data Export & Post-Cancellation Retention
               </h2>
               <p>
-                Upon subscription termination, MossiERP provides a <strong>60-day grace period</strong> during which your system administrator can export complete database backups in standard SQL, CSV, or JSON formats at no additional cost. After 60 days, database instances are safely purged from cloud servers according to compliance standards.
+                Upon subscription termination, Mossie ERP provides a <strong>60-day grace period</strong> during which your system administrator can export complete database backups in standard SQL, CSV, or JSON formats at no additional cost. After 60 days, database instances are safely purged from cloud servers according to compliance standards.
               </p>
             </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Search,
   Bell,
@@ -353,7 +353,7 @@ export default function HeroLaptopShowcase() {
                   <div className="flex items-center gap-1.5 font-bold tracking-tight text-white">
                     <img
                       src="/images/logo/mossierplogo"
-                      alt="MossiERP Logo"
+                      alt="Mossie ERP Logo"
                       className="h-4.5 w-auto object-contain"
                     />
                     <span className="text-[12px] font-extrabold tracking-wider text-slate-100">ERP</span>

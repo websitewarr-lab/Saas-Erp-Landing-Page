@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type { ComponentType } from "react";
 import Link from "next/link";
 import {
   Target,
@@ -22,7 +22,7 @@ interface ModuleHubItem {
   name: string;
   badge: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string }>;
   features: string[];
 }
 
@@ -42,12 +42,12 @@ const modulesList: ModuleHubItem[] = [
   {
     slug: "sales",
     name: "Sales & Order Management",
-    badge: "Orders & Pricing",
-    description: "Multi-channel quotations, sales orders, pricing rules, and invoicing.",
+    badge: "Orders & Fulfillment",
+    description: "Multi-channel quotations, sales orders, discount rules, and invoicing.",
     icon: ShoppingCart,
     features: [
       "Automated Sales Order Approval Workflows",
-      "Dynamic Tiered Pricing & Discount Matrix",
+      "Dynamic Tiered Rate & Discount Matrix",
       "Real-time Stock Allocation & Shipping Sync",
     ],
   },
@@ -135,12 +135,12 @@ export default function ModulesHubPage() {
         {/* Intro Hero Header */}
         <section className="relative py-20 bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12]">
+            <h1 className="text-[32px] sm:text-[43px] md:text-[55px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
               One ERP, every department.
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Explore MossiERP&apos;s suite of 8 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
+              Explore Mossie ERP&apos;s suite of 8 deeply integrated enterprise applications. Connect your core business operations under one calm, intelligent platform designed for speed, visibility, and control.
             </p>
           </div>
         </section>
@@ -207,7 +207,7 @@ export default function ModulesHubPage() {
                 Ready to transform your business operations?
               </h2>
               <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
-                Connect your team with a personalized walkthrough of MossiERP tailored to your operational workflows.
+                Connect your team with a personalized walkthrough of Mossie ERP tailored to your operational workflows.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link

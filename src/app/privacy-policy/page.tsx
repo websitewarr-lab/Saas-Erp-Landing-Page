@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
 import { ShieldCheck, Lock, Eye, FileText } from "lucide-react";
@@ -34,7 +33,7 @@ export default function PrivacyPolicyPage() {
                 1. Overview & Commitment
               </h2>
               <p>
-                At <strong>MossiERP Systems</strong> (&ldquo;MossiERP&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;), we take enterprise data privacy and data governance seriously. This Privacy Policy governs how we collect, process, store, and safeguard corporate and personal information obtained when you visit our website, subscribe to our SaaS ERP services, or interact with our software applications.
+                At <strong>Mossie ERP Systems</strong> (&ldquo;Mossie ERP&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;), we take enterprise data privacy and data governance seriously. This Privacy Policy governs how we collect, process, store, and safeguard corporate and personal information obtained when you visit our website, subscribe to our SaaS ERP services, or interact with our software applications.
               </p>
             </section>
 
@@ -44,7 +43,7 @@ export default function PrivacyPolicyPage() {
                 2. Information We Collect
               </h2>
               <p>
-                Depending on your interaction with MossiERP, we collect the following categories of data:
+                Depending on your interaction with Mossie ERP, we collect the following categories of data:
               </p>
               <ul className="list-disc pl-5 space-y-2 text-slate-600">
                 <li>
@@ -65,7 +64,7 @@ export default function PrivacyPolicyPage() {
                 3. How We Protect Your Data
               </h2>
               <p>
-                MossiERP employs bank-grade security protocols, including AES-256 encryption at rest, TLS 1.3 encryption in transit, strict multi-tenant data isolation, role-based access control (RBAC), and automated continuous backup policies to prevent unauthorized access or data loss.
+                Mossie ERP employs bank-grade security protocols, including AES-256 encryption at rest, TLS 1.3 encryption in transit, strict multi-tenant data isolation, role-based access control (RBAC), and automated continuous backup policies to prevent unauthorized access or data loss.
               </p>
             </section>
 
@@ -88,8 +87,8 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs font-mono space-y-1 text-slate-700">
                 <p><strong>Email:</strong> privacy@mossierp.com</p>
-                <p><strong>Entity:</strong> MossiERP Systems Pvt Ltd</p>
-                <p><strong>Support:</strong> +1 (800) 555-MOSSI</p>
+                <p><strong>Entity:</strong> Mossie ERP Systems Pvt Ltd</p>
+                <p><strong>Support:</strong> +1 (800) 555-MOSSIE</p>
               </div>
             </section>
           </div>

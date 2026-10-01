@@ -63,7 +63,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     id: "sales",
     title: "Sales & Order Management",
     watermark: "ORDER FULFILLMENT",
-    description: "Multi-channel quotations, sales orders, pricing rules, and invoicing.",
+    description: "Multi-channel quotations, sales orders, discount rules, and invoicing.",
     features: ["Quotations", "Sales orders", "Fulfillment"],
     image: "/images/modules/crm_sales.jpg",
     icon: Target,

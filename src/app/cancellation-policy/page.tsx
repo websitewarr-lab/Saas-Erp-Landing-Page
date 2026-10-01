@@ -18,7 +18,7 @@ export default function CancellationPolicyPage() {
               <RefreshCw className="w-4 h-4" />
               Subscriptions & Refunds
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12]">
               Cancellation & Refund Policy
             </h1>
             <p className="text-sm text-slate-500 font-medium">

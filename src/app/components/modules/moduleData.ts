@@ -3,7 +3,26 @@
 // competitive benchmarks, categorized feature matrix, and connected workflows
 // from module-details-preview.html across all 8 MossiERP modules.
 
+export type FeatureIconName =
+  | "messages" | "activity" | "files" | "scan" | "building" | "calendar"
+  | "route" | "receipt" | "truck" | "ledger" | "boxes" | "refresh"
+  | "warehouse" | "barcode" | "coins" | "factory" | "lock" | "layers"
+  | "clock" | "chart" | "bank" | "shield" | "network" | "undo"
+  | "asset" | "check" | "calculator" | "git" | "gauge" | "monitor"
+  | "fingerprint" | "users" | "wallet" | "folder" | "gantt" | "kanban" | "target";
+
+export interface FeatureVisual {
+  title: string;
+  icon: FeatureIconName;
+  kind: "approvals" | "pipeline" | "versions" | "matching" | "stock" | "ledger" | "schedule" | "people" | "production" | "quality";
+  tone: "blue" | "green" | "orange" | "purple" | "rose";
+  metric: string;
+  steps: [string, string, string];
+}
+
 export interface EdgeSuperpower {
+  summary: string;
+  visual: FeatureVisual;
   id: string;
   number: number;
   icon: string;
@@ -36,6 +55,7 @@ export interface ComparisonRow {
 }
 
 export interface CategorizedFeatureItem {
+  visual: FeatureVisual;
   id: string;
   category: string;
   categoryLabel: string;
@@ -61,6 +81,8 @@ export interface WorkflowStage {
   detailTitle: string;
   detailDescription: string;
   latency: string;
+  icon?: string;
+  metricLabel?: string;
 }
 
 export interface SwitcherTestimonial {
@@ -137,6 +159,8 @@ export interface ModulePreviewConfig {
     rows: ComparisonRow[];
   };
   featuresCatalog: {
+    previewName: string;
+    headline: { action: string; description: string };
     eyebrow: string;
     title: string;
     subtitle: string;
@@ -231,6 +255,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Most CRM tools are glorified address books where deals stall unnoticed, duplicate entries cause territory wars, and negotiation revisions get lost. MossiERP arms your revenue team with 4 proprietary sales superpowers.",
       superpowers: [
         {
+          summary: "Share quotes and get client approvals instantly via WhatsApp or email.",
+          visual: {"title":"WhatsApp & email approvals","icon":"messages","kind":"approvals","tone":"green","metric":"1-click approval","steps":["Quotation shared","Client approval","Deal closed"]},
           id: "sp-1",
           number: 1,
           icon: "📞",
@@ -248,6 +274,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Spot stalled deals and prompt timely follow-ups before opportunities go cold.",
+          visual: {"title":"AI deal health tracker","icon":"activity","kind":"pipeline","tone":"orange","metric":"5-day stalled alerts","steps":["Engagement tracked","Risk detected","Follow-up assigned"]},
           id: "sp-2",
           number: 2,
           icon: "🎯",
@@ -265,6 +293,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Keep every quote revision, compare changes, and preserve negotiation history.",
+          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised pricing","Version comparison"]},
           id: "sp-3",
           number: 3,
           icon: "📑",
@@ -282,6 +312,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Catch duplicate leads before they create conflicting accounts and repeated outreach.",
+          visual: {"title":"Zero-duplicate lead engine","icon":"scan","kind":"matching","tone":"blue","metric":"One trusted record","steps":["Incoming lead","Fuzzy match check","Clean customer record"]},
           id: "sp-4",
           number: 4,
           icon: "🔍",
@@ -390,6 +422,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "CRM",
+      headline: {"action":"sell smarter","description":"Powerful tools to capture, nurture, convert, and retain customers — without complexity."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in the CRM Module",
       subtitle:
@@ -403,6 +437,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Zero-duplicate lead engine","icon":"scan","kind":"matching","tone":"blue","metric":"One trusted record","steps":["Incoming lead","Fuzzy match check","Clean customer record"]},
           id: "crm-f1",
           category: "pipeline",
           categoryLabel: "Lead & Pipeline",
@@ -418,6 +453,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"AI deal health tracker","icon":"activity","kind":"pipeline","tone":"orange","metric":"5-day stalled alerts","steps":["Engagement tracked","Risk detected","Follow-up assigned"]},
           id: "crm-f2",
           category: "pipeline",
           categoryLabel: "Lead & Pipeline",
@@ -433,6 +469,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"WhatsApp & email approvals","icon":"messages","kind":"approvals","tone":"green","metric":"1-click approval","steps":["Quotation shared","Client approval","Deal closed"]},
           id: "crm-f3",
           category: "conversion",
           categoryLabel: "Conversion & Orders",
@@ -448,6 +485,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Multi-revision quote trail","icon":"files","kind":"versions","tone":"purple","metric":"Every revision, saved","steps":["Original quotation","Revised pricing","Version comparison"]},
           id: "crm-f4",
           category: "conversion",
           categoryLabel: "Conversion & Orders",
@@ -463,6 +501,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"360° customer view","icon":"building","kind":"people","tone":"blue","metric":"One customer timeline","steps":["Account details","Contacts & GSTIN","Transaction history"]},
           id: "crm-f5",
           category: "accounts",
           categoryLabel: "Account 360° & GST",
@@ -478,6 +517,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Activity & follow-ups","icon":"calendar","kind":"schedule","tone":"rose","metric":"Every follow-up, visible","steps":["Call scheduled","Reminder queued","Activity recorded"]},
           id: "crm-f6",
           category: "automation",
           categoryLabel: "Activity & Automation",
@@ -501,6 +541,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "crm-dedup",
           title: "1. Fuzzy Deduplication",
           subtitle: "Zero duplicate lead engine",
           detailTitle: "Stage 1: Multi-Channel Ingestion & Fuzzy Deduplication",
@@ -510,6 +551,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "crm-health",
           title: "2. Deal Health Tracker",
           subtitle: "Cadence & stalled alerts",
           detailTitle: "Stage 2: Engagement Cadence & Stalled Deal Alerts",
@@ -519,6 +561,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "crm-quote",
           title: "3. Multi-Revision Quote",
           subtitle: "Parent-child -R1, -R2 trails",
           detailTitle: "Stage 3: Multi-Version Quotation Negotiation (-R1, -R2)",
@@ -528,6 +571,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "crm-whatsapp",
           title: "4. WhatsApp Approval",
           subtitle: "1-click client mobile accept",
           detailTitle: "Stage 4: 1-Click Client Quotation Approval via WhatsApp & Email",
@@ -537,6 +581,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "crm-order",
           title: "5. Auto-Order & Ledger",
           subtitle: "Stock reserved & ledger posted",
           detailTitle: "Stage 5: Autonomous Sales Order & Accounting Bridge",
@@ -660,6 +705,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Standard sales tools take orders and leave stock shortages, GST compliance, and dispatch disputes to manual spreadsheets. MossiERP automates shortage routing, government billing, and digital doorstep POD.",
       superpowers: [
         {
+          summary: "Turn stock shortages into purchase or production requests in one click.",
+          visual: {"title":"Smart shortage routing","icon":"route","kind":"stock","tone":"orange","metric":"1-click routing","steps":["Stock checked","Shortage identified","Purchase or production"]},
           id: "sales-sp-1",
           number: 1,
           icon: "⚡",
@@ -677,6 +724,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Generate GST e-invoices and e-way bills directly from your sales workflow.",
+          visual: {"title":"GST invoices & e-way bills","icon":"receipt","kind":"approvals","tone":"blue","metric":"Native GST compliance","steps":["Invoice prepared","IRN generated","E-way bill ready"]},
           id: "sales-sp-2",
           number: 2,
           icon: "🇮🇳",
@@ -694,6 +743,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Track orders from dispatch to delivery with a digital proof of receipt.",
+          visual: {"title":"Dispatch & proof of delivery","icon":"truck","kind":"schedule","tone":"green","metric":"Delivery, fully tracked","steps":["Order dispatched","Shipment in transit","POD captured"]},
           id: "sales-sp-3",
           number: 3,
           icon: "🚚",
@@ -711,6 +762,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Keep invoices and financial ledgers in sync with automatic double-entry posting.",
+          visual: {"title":"Automatic double-entry posting","icon":"ledger","kind":"ledger","tone":"purple","metric":"Zero manual re-entry","steps":["Invoice finalized","Ledger entries posted","Balances updated"]},
           id: "sales-sp-4",
           number: 4,
           icon: "⚖️",
@@ -819,6 +872,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Sales",
+      headline: {"action":"fulfill every order","description":"Connect quotations, stock, dispatch, and billing in one clear sales journey."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Sales & Fulfillment",
       subtitle: "From 1-click shortage detection and native GST billing to digital POD tracking and auto bookkeeping.",
@@ -830,6 +885,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Smart shortage routing","icon":"route","kind":"stock","tone":"orange","metric":"1-click routing","steps":["Stock checked","Shortage identified","Purchase or production"]},
           id: "sales-f1",
           category: "orders",
           categoryLabel: "Orders & Routing",
@@ -845,6 +901,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"GST invoices & e-way bills","icon":"receipt","kind":"approvals","tone":"blue","metric":"Native GST compliance","steps":["Invoice prepared","IRN generated","E-way bill ready"]},
           id: "sales-f2",
           category: "compliance",
           categoryLabel: "GST & Accounting",
@@ -860,6 +917,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Dispatch & proof of delivery","icon":"truck","kind":"schedule","tone":"green","metric":"Delivery, fully tracked","steps":["Order dispatched","Shipment in transit","POD captured"]},
           id: "sales-f3",
           category: "fulfillment",
           categoryLabel: "Fulfillment & POD",
@@ -875,6 +933,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Automatic double-entry posting","icon":"ledger","kind":"ledger","tone":"purple","metric":"Zero manual re-entry","steps":["Invoice finalized","Ledger entries posted","Balances updated"]},
           id: "sales-f4",
           category: "compliance",
           categoryLabel: "GST & Accounting",
@@ -898,6 +957,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "sales-shortage",
           title: "1. Shortage Auto-Routing",
           subtitle: "Bin lock, PR, or MO in 1 click",
           detailTitle: "Stage 1: 1-Click Shortage Auto-Routing",
@@ -907,6 +967,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "sales-pick",
           title: "2. Pick & Allocate",
           subtitle: "Warehouse bin reservation",
           detailTitle: "Stage 2: Warehouse Bin Allocation & Picking",
@@ -916,6 +977,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "sales-einvoice",
           title: "3. GST E-Invoice & E-Way",
           subtitle: "< 2s native NIC API generation",
           detailTitle: "Stage 3: Native Indian GST E-Invoice & E-Way Bill (< 2s)",
@@ -925,6 +987,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "sales-dispatch",
           title: "4. Dispatch & Digital POD",
           subtitle: "Transporter & signed photo POD",
           detailTitle: "Stage 4: End-to-End Dispatch & Digital Proof of Delivery",
@@ -934,6 +997,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "sales-ledger",
           title: "5. Auto Ledger Posting",
           subtitle: "Balanced double-entry journal",
           detailTitle: "Stage 5: Zero-Touch Double-Entry Auto Accounting",
@@ -1036,6 +1100,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Forget outdated stocktaking spreadsheets. MossiERP monitors consumption velocity, seasonal lead times, and landed costs down to individual serial numbers.",
       superpowers: [
         {
+          summary: "See on-hand, reserved, and available stock across your entire operation.",
+          visual: {"title":"Real-time stock intelligence","icon":"boxes","kind":"stock","tone":"blue","metric":"Live stock visibility","steps":["On-hand inventory","Reserved quantities","Available to promise"]},
           id: "inv-sp-1",
           number: 1,
           icon: "📦",
@@ -1051,6 +1117,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Anticipate demand and replenish stock before shortages slow you down.",
+          visual: {"title":"Smart replenishment","icon":"refresh","kind":"stock","tone":"orange","metric":"Demand-aware reordering","steps":["Safety stock checked","Demand forecast","Reorder triggered"]},
           id: "inv-sp-2",
           number: 2,
           icon: "⚡",
@@ -1066,6 +1134,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Coordinate warehouses, branches, and transfers from one connected view.",
+          visual: {"title":"Multi-warehouse control","icon":"warehouse","kind":"stock","tone":"purple","metric":"Every location, connected","steps":["Central warehouse","Branch allocation","Transfer received"]},
           id: "inv-sp-3",
           number: 3,
           icon: "🏢",
@@ -1081,6 +1151,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Trace batches, track expiry dates, and prioritize the right stock for dispatch.",
+          visual: {"title":"Batch & expiry intelligence","icon":"barcode","kind":"quality","tone":"green","metric":"End-to-end traceability","steps":["Batch registered","Expiry monitored","FEFO allocation"]},
           id: "inv-sp-4",
           number: 4,
           icon: "🏷️",
@@ -1096,6 +1168,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-rose-700",
         },
         {
+          summary: "Connect landed costs, valuation, and accounting for a clearer stock position.",
+          visual: {"title":"Inventory valuation","icon":"coins","kind":"ledger","tone":"blue","metric":"Accurate stock value","steps":["Landed costs added","Valuation calculated","Ledger synchronized"]},
           id: "inv-sp-5",
           number: 5,
           icon: "💰",
@@ -1109,21 +1183,6 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           mossiComparison: "✓ MossiERP: True landed cost automatically apportioned into individual unit valuations in real time.",
           impactMetric: "100% True Landed Margin",
           impactColor: "text-emerald-700",
-        },
-        {
-          id: "inv-sp-6",
-          number: 6,
-          icon: "⚙️",
-          gradient: "from-cyan-500 to-blue-600",
-          shadowColor: "shadow-cyan-500/20",
-          tagBg: "bg-cyan-50 text-cyan-800 border-cyan-200",
-          title: "Production Material Visibility",
-          description:
-            "Direct link to Bill of Materials (BOM). Work orders reserve raw materials dynamically and track staging consumption in real time.",
-          legacyComparison: "✕ Legacy ERPs: Shop floors halt abruptly because required inventory was sold or diverted without notification.",
-          mossiComparison: "✓ MossiERP: Bi-directional BOM reservation locks raw materials the moment production orders are scheduled.",
-          impactMetric: "Zero Material Stoppages",
-          impactColor: "text-cyan-700",
         },
       ],
     },
@@ -1217,6 +1276,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Inventory",
+      headline: {"action":"keep stock in sync","description":"Know what is available, where it belongs, and when to replenish — across every warehouse."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Inventory Management",
       subtitle:
@@ -1230,6 +1291,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Products, variants & barcodes","icon":"barcode","kind":"stock","tone":"blue","metric":"Scan. Identify. Track.","steps":["Product master","Variant attributes","Barcode identified"]},
           id: "inv-f1",
           category: "stock",
           categoryLabel: "Stock Control",
@@ -1245,6 +1307,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Stock movements & ledger","icon":"refresh","kind":"ledger","tone":"green","metric":"Every movement, recorded","steps":["Goods received","Stock transferred","Ledger updated"]},
           id: "inv-f2",
           category: "stock",
           categoryLabel: "Stock Control",
@@ -1260,6 +1323,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Available & reserved stock","icon":"lock","kind":"stock","tone":"purple","metric":"Promise with confidence","steps":["Physical stock","Reserved for orders","Available balance"]},
           id: "inv-f3",
           category: "stock",
           categoryLabel: "Stock Control",
@@ -1275,6 +1339,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Multi-warehouse control","icon":"warehouse","kind":"stock","tone":"purple","metric":"Every location, connected","steps":["Central warehouse","Branch allocation","Transfer received"]},
           id: "inv-f4",
           category: "warehouse",
           categoryLabel: "Warehouse & Locations",
@@ -1290,6 +1355,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Bins & aisle routing","icon":"warehouse","kind":"stock","tone":"orange","metric":"Find the right bin","steps":["Warehouse zone","Aisle & rack","Pick location"]},
           id: "inv-f5",
           category: "warehouse",
           categoryLabel: "Warehouse & Locations",
@@ -1305,6 +1371,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Batch & lot genealogy","icon":"layers","kind":"versions","tone":"purple","metric":"Forward & backward tracing","steps":["Source batch","Stock movements","Customer shipment"]},
           id: "inv-f6",
           category: "traceability",
           categoryLabel: "Batch & Traceability",
@@ -1320,6 +1387,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Shelf life & FEFO","icon":"clock","kind":"quality","tone":"orange","metric":"Expiry-aware allocation","steps":["Expiry date checked","Earliest batch selected","Stock issued"]},
           id: "inv-f7",
           category: "traceability",
           categoryLabel: "Batch & Traceability",
@@ -1335,6 +1403,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Smart replenishment","icon":"refresh","kind":"stock","tone":"orange","metric":"Demand-aware reordering","steps":["Safety stock checked","Demand forecast","Reorder triggered"]},
           id: "inv-f8",
           category: "intelligence",
           categoryLabel: "Replenishment & Costing",
@@ -1350,6 +1419,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Landed cost & aging","icon":"chart","kind":"ledger","tone":"green","metric":"Complete inventory cost","steps":["Freight & duties","Stock valuation","Aging analysis"]},
           id: "inv-f9",
           category: "intelligence",
           categoryLabel: "Replenishment & Costing",
@@ -1373,6 +1443,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "inv-dock",
           title: "1. Dock Receipt",
           subtitle: "GRN against purchase order",
           detailTitle: "Stage 1: Goods Receipt Note (GRN) & Physical Inspection",
@@ -1381,6 +1452,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "inv-qc",
           title: "2. Quality Check",
           subtitle: "QC inspection & quarantine",
           detailTitle: "Stage 2: Quality Inspection & Batch Certificate Validation",
@@ -1389,6 +1461,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "inv-putaway",
           title: "3. Put-Away",
           subtitle: "Optimized bin assignment",
           detailTitle: "Stage 3: Automated Bin Suggestion & Put-Away",
@@ -1397,6 +1470,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "inv-sync",
           title: "4. Cross-Module Sync",
           subtitle: "Sales & production visibility",
           detailTitle: "Stage 4: Real-Time Availability Broadcast",
@@ -1405,6 +1479,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "inv-valuation",
           title: "5. Ledger Posting",
           subtitle: "Auto-posted GL journal entry",
           detailTitle: "Stage 5: Automated Valuation & Balance Sheet Posting",
@@ -1506,6 +1581,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Tally and basic accounting tools require tedious manual voucher entries and end-of-month panic. MossiERP's reactive event bus posts ledger journals in real time.",
       superpowers: [
         {
+          summary: "Bring every department’s transactions into one continuously updated ledger.",
+          visual: {"title":"One live ledger","icon":"ledger","kind":"ledger","tone":"blue","metric":"One financial source","steps":["Business transaction","General ledger","Live financial reports"]},
           id: "acc-sp-1",
           number: 1,
           icon: "📒",
@@ -1521,6 +1598,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Turn business events into balanced journal entries without manual re-entry.",
+          visual: {"title":"Event-driven auto posting","icon":"refresh","kind":"ledger","tone":"green","metric":"Posting on every event","steps":["Source event","Balanced journal","Ledger posted"]},
           id: "acc-sp-2",
           number: 2,
           icon: "⚡",
@@ -1536,6 +1615,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Match bank feeds to ledger entries and focus your team on exceptions.",
+          visual: {"title":"Smart bank reconciliation","icon":"bank","kind":"matching","tone":"purple","metric":"Clear matched balances","steps":["Bank feed imported","Entries matched","Exceptions reviewed"]},
           id: "acc-sp-3",
           number: 3,
           icon: "🏦",
@@ -1551,6 +1632,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Build approvals, posting rules, and a clear audit trail into everyday accounting.",
+          visual: {"title":"Financial control engine","icon":"shield","kind":"quality","tone":"orange","metric":"Controlled at every step","steps":["Posting rules","Approval controls","Audit trail"]},
           id: "acc-sp-4",
           number: 4,
           icon: "🛡️",
@@ -1566,6 +1649,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Connect company accounts and see consolidated financial results in one place.",
+          visual: {"title":"Multi-company consolidation","icon":"network","kind":"ledger","tone":"blue","metric":"One group-wide view","steps":["Entity balances","Intercompany eliminations","Consolidated reports"]},
           id: "acc-sp-5",
           number: 5,
           icon: "🌐",
@@ -1579,21 +1664,6 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           mossiComparison: "✓ MossiERP: 1-click consolidated balance sheet and elimination journals across all subsidiary legal entities.",
           impactMetric: "1-Click Group Close",
           impactColor: "text-cyan-700",
-        },
-        {
-          id: "acc-sp-6",
-          number: 6,
-          icon: "🔄",
-          gradient: "from-rose-500 to-pink-600",
-          shadowColor: "shadow-rose-500/20",
-          tagBg: "bg-rose-50 text-rose-800 border-rose-200",
-          title: "Posting Failure Recovery",
-          description:
-            "Isolated dead-letter posting queue catches blocked transactions with automated diagnostics, root-cause guidance, and 1-click retry.",
-          legacyComparison: "✕ Legacy ERPs: Failed background transactions drop silently, throwing ledgers out of balance without notice.",
-          mossiComparison: "✓ MossiERP: Resilient dead-letter queue alerts controllers with clear remediation steps and safe retry controls.",
-          impactMetric: "0 Lost Transactions",
-          impactColor: "text-rose-700",
         },
       ],
     },
@@ -1687,6 +1757,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Accounting",
+      headline: {"action":"close with confidence","description":"Bring every transaction, reconciliation, and financial decision into one connected ledger."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Accounting & Finance",
       subtitle:
@@ -1700,6 +1772,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Accounts & multi-currency ledger","icon":"ledger","kind":"ledger","tone":"blue","metric":"Every currency, balanced","steps":["Chart of accounts","Currency conversion","General ledger"]},
           id: "acc-f1",
           category: "gl",
           categoryLabel: "General Ledger & Vouchers",
@@ -1715,6 +1788,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Event-driven auto posting","icon":"refresh","kind":"ledger","tone":"green","metric":"Posting on every event","steps":["Source event","Balanced journal","Ledger posted"]},
           id: "acc-f2",
           category: "gl",
           categoryLabel: "General Ledger & Vouchers",
@@ -1730,6 +1804,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Assets & depreciation","icon":"asset","kind":"ledger","tone":"orange","metric":"Complete asset lifecycle","steps":["Asset capitalized","Depreciation scheduled","Book value updated"]},
           id: "acc-f3",
           category: "gl",
           categoryLabel: "General Ledger & Vouchers",
@@ -1745,6 +1820,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Smart bank reconciliation","icon":"bank","kind":"matching","tone":"purple","metric":"Clear matched balances","steps":["Bank feed imported","Entries matched","Exceptions reviewed"]},
           id: "acc-f4",
           category: "banking",
           categoryLabel: "Banking & Payables",
@@ -1760,6 +1836,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Payables & 3-way matching","icon":"check","kind":"matching","tone":"green","metric":"Verified before payment","steps":["Purchase order","Goods receipt","Vendor invoice"]},
           id: "acc-f5",
           category: "banking",
           categoryLabel: "Banking & Payables",
@@ -1775,6 +1852,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"GST & e-invoicing","icon":"receipt","kind":"approvals","tone":"blue","metric":"Tax-ready transactions","steps":["GST calculated","E-invoice generated","Return data prepared"]},
           id: "acc-f6",
           category: "tax",
           categoryLabel: "GST & Tax Compliance",
@@ -1790,6 +1868,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"GSTR-2B reconciliation","icon":"scan","kind":"matching","tone":"purple","metric":"Clear input tax credits","steps":["Purchase register","GSTR-2B statement","ITC matched"]},
           id: "acc-f7",
           category: "tax",
           categoryLabel: "GST & Tax Compliance",
@@ -1805,6 +1884,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Continuous close reporting","icon":"chart","kind":"ledger","tone":"green","metric":"Reports without the wait","steps":["Trial balance","Profit & loss","Balance sheet"]},
           id: "acc-f8",
           category: "governance",
           categoryLabel: "Reporting & Controls",
@@ -1820,6 +1900,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Maker-checker & company close","icon":"shield","kind":"quality","tone":"rose","metric":"A controlled close","steps":["Journal prepared","Independent approval","Company period closed"]},
           id: "acc-f9",
           category: "governance",
           categoryLabel: "Reporting & Controls",
@@ -1843,6 +1924,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "acc-event",
           title: "1. Operational Event",
           subtitle: "Sales dispatch, GRN, payroll",
           detailTitle: "Stage 1: Real-Time Event Bus Notification",
@@ -1851,6 +1933,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "acc-voucher",
           title: "2. Auto-Voucher",
           subtitle: "Balanced double entry generated",
           detailTitle: "Stage 2: Automatic Double-Entry Voucher Generation",
@@ -1859,6 +1942,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "acc-bank",
           title: "3. Bank Feed",
           subtitle: "Direct API banking match",
           detailTitle: "Stage 3: Algorithmic Bank Feed Reconciliation",
@@ -1867,6 +1951,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "acc-gst",
           title: "4. GST Match",
           subtitle: "GSTR-2B vs AP ledger",
           detailTitle: "Stage 4: Automated GSTR-2B Input Tax Credit Validation",
@@ -1875,6 +1960,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "acc-pnl",
           title: "5. Real-Time P&L",
           subtitle: "Audit-ready statements",
           detailTitle: "Stage 5: Continuous Close Financial Reporting",
@@ -1976,6 +2062,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Stop uncontrolled maverick spending and supplier billing errors. MossiERP connects shop floor material needs with automated 10-vendor RFQ bidding, landed cost allocation, and fraud-proof invoice verification.",
       superpowers: [
         {
+          summary: "Compare vendor quotations side by side and make informed sourcing decisions.",
+          visual: {"title":"Vendor RFQs & cost savings","icon":"chart","kind":"matching","tone":"blue","metric":"Compare every offer","steps":["RFQ shared","Vendor quotes compared","Supplier selected"]},
           id: "pur-sp-1",
           number: 1,
           icon: "📊",
@@ -1993,6 +2081,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Include freight, duties, and other charges in the true cost of your inventory.",
+          visual: {"title":"True landed cost","icon":"coins","kind":"ledger","tone":"orange","metric":"See the complete cost","steps":["Purchase price","Freight & import costs","Landed valuation"]},
           id: "pur-sp-2",
           number: 2,
           icon: "💰",
@@ -2010,6 +2100,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Match purchase orders, goods receipts, and vendor bills before payment.",
+          visual: {"title":"3-way invoice matching","icon":"shield","kind":"matching","tone":"purple","metric":"Verify before you pay","steps":["Purchase order","Goods receipt","Vendor bill matched"]},
           id: "pur-sp-3",
           number: 3,
           icon: "🔒",
@@ -2027,6 +2119,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Capture batches, serial numbers, and quality checks as goods arrive.",
+          visual: {"title":"Goods receipt & quality checks","icon":"barcode","kind":"quality","tone":"green","metric":"Quality at the door","steps":["Goods received","Batch & serial captured","QC released"]},
           id: "pur-sp-4",
           number: 4,
           icon: "🏷️",
@@ -2135,6 +2229,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Purchasing",
+      headline: {"action":"buy with confidence","description":"Compare suppliers, control costs, and connect every purchase to the goods you receive."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Purchase & Procurement",
       subtitle: "Full lifecycle procurement tools from RFQ bidding matrix to landed cost valuation and gate QC.",
@@ -2146,6 +2242,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Vendor RFQs & cost savings","icon":"chart","kind":"matching","tone":"blue","metric":"Compare every offer","steps":["RFQ shared","Vendor quotes compared","Supplier selected"]},
           id: "pur-f1",
           category: "rfq",
           categoryLabel: "RFQ & Sourcing",
@@ -2161,6 +2258,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"True landed cost","icon":"coins","kind":"ledger","tone":"orange","metric":"See the complete cost","steps":["Purchase price","Freight & import costs","Landed valuation"]},
           id: "pur-f2",
           category: "orders",
           categoryLabel: "Purchase & Landed Cost",
@@ -2176,6 +2274,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"3-way invoice matching","icon":"shield","kind":"matching","tone":"purple","metric":"Verify before you pay","steps":["Purchase order","Goods receipt","Vendor bill matched"]},
           id: "pur-f3",
           category: "quality",
           categoryLabel: "3-Way Match & QC",
@@ -2191,6 +2290,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Goods receipt & quality checks","icon":"barcode","kind":"quality","tone":"green","metric":"Quality at the door","steps":["Goods received","Batch & serial captured","QC released"]},
           id: "pur-f4",
           category: "quality",
           categoryLabel: "3-Way Match & QC",
@@ -2214,6 +2314,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "pur-rfq",
           title: "1. Multi-Vendor RFQ",
           subtitle: "Broadcast to up to 10 vendors",
           detailTitle: "Stage 1: Multi-Vendor RFQ Broadcast & Comparison",
@@ -2222,6 +2323,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "pur-po",
           title: "2. Auto L1 PO Award",
           subtitle: "1-click Purchase Order creation",
           detailTitle: "Stage 2: Auto L1 Selection & Digital PO Approval",
@@ -2230,6 +2332,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "pur-gate",
           title: "3. Inward GRN & Gate QC",
           subtitle: "Batch, serial & QC quarantine",
           detailTitle: "Stage 3: Gate Receipt & Quality Inspection (QC)",
@@ -2238,6 +2341,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "pur-landed",
           title: "4. True Landed Cost (LCV)",
           subtitle: "Freight & duties auto-allocated",
           detailTitle: "Stage 4: Landed Cost Valuation (LCV Engine)",
@@ -2246,6 +2350,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "pur-match",
           title: "5. Fraud-Proof 3-Way Match",
           subtitle: "PO vs GRN vs Bill verified",
           detailTitle: "Stage 5: Fraud-Proof 3-Way Reconciliation & Payment",
@@ -2347,6 +2452,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Traditional ERPs treat manufacturing as rigid post-facto accounting entries. MossiERP connects engineering formulas, finite-capacity scheduling, touch-screen shopfloor execution, and bi-directional genealogy into a unified MES platform.",
       superpowers: [
         {
+          summary: "Manage configurable bills of materials with controlled engineering revisions.",
+          visual: {"title":"Dynamic BOM & change control","icon":"git","kind":"versions","tone":"purple","metric":"Every change, governed","steps":["Parameterized BOM","Engineering change","Approved revision"]},
           id: "prod-sp-1",
           number: 1,
           icon: "📐",
@@ -2364,6 +2471,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Connect demand and available supply to keep material shortages in view.",
+          visual: {"title":"Supply-aware MRP","icon":"boxes","kind":"stock","tone":"blue","metric":"Plan around real supply","steps":["Demand requirements","Material availability","Shortage workbench"]},
           id: "prod-sp-2",
           number: 2,
           icon: "⚡",
@@ -2381,6 +2490,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Schedule work around real machine capacity and dispatch priorities.",
+          visual: {"title":"Capacity & dispatch planning","icon":"gantt","kind":"schedule","tone":"orange","metric":"A feasible production plan","steps":["Machine capacity","Work order schedule","Dispatch sequence"]},
           id: "prod-sp-3",
           number: 3,
           icon: "🎛️",
@@ -2398,6 +2509,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Keep operators, work orders, and live shop floor status connected.",
+          visual: {"title":"Live shop floor execution","icon":"monitor","kind":"production","tone":"blue","metric":"See work as it happens","steps":["Operator check-in","Operation progress","Andon status"]},
           id: "prod-sp-4",
           number: 4,
           icon: "📱",
@@ -2415,6 +2528,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Resolve quality issues with in-process inspections and corrective actions.",
+          visual: {"title":"Quality gates & CAPA","icon":"shield","kind":"quality","tone":"green","metric":"Quality in every operation","steps":["In-process inspection","NCR investigation","Corrective action"]},
           id: "prod-sp-5",
           number: 5,
           icon: "🛡️",
@@ -2430,23 +2545,6 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
             '✓ MossiERP: "In-Process Stage-Gate Locks with Automated NCR & CAPA." Parametric tolerance validation blocks defective WIP from advancing down the assembly line.',
           impactMetric: "-48% Shopfloor Scrap & Defect Rate",
           impactColor: "text-rose-700",
-        },
-        {
-          id: "prod-sp-6",
-          number: 6,
-          icon: "🔗",
-          gradient: "from-cyan-500 to-blue-700",
-          shadowColor: "shadow-cyan-500/20",
-          tagBg: "bg-cyan-50 text-cyan-800 border-cyan-200",
-          title: "Bi-Directional Lot Genealogy, Multi-Stage WIP & 4-Model Subcontracting",
-          description:
-            "Full multi-stage WIP ledgers track good, scrap, and rework quantities at every operation. Complete bi-directional lot genealogy links supplier raw-material heats forward to customer shipments, or backward from returned serials to specific operators and machines. Seamlessly orchestrates 4 subcontracting models with automated Gate Passes and Vendor Material Balance ledgers.",
-          legacyComparison:
-            "✕ Legacy ERPs: Black-box shopfloor WIP with zero visibility into sub-assembly consumption, manual gate passes, and audit trails that take weeks of spreadsheet digging during recalls.",
-          mossiComparison:
-            '✓ MossiERP: "Full Bi-Directional Genealogy, Operation WIP Ledgers & 4-Model Job Work." Instant audit traces from raw heats to customer serials with vendor balance reconciliation.',
-          impactMetric: "< 30s Full Lot Recall & 100% WIP Visibility",
-          impactColor: "text-cyan-700",
         },
       ],
     },
@@ -2495,6 +2593,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Production",
+      headline: {"action":"make every run count","description":"Connect materials, machines, people, and quality from the first BOM to the finished product."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Production Planning & MES",
       subtitle: "The complete audited manufacturing suite spanning 74 domain services, 70 models, and 298 routes.",
@@ -2507,6 +2607,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Dynamic BOM & change control","icon":"git","kind":"versions","tone":"purple","metric":"Every change, governed","steps":["Parameterized BOM","Engineering change","Approved revision"]},
           id: "prod-f1",
           category: "engineering",
           categoryLabel: "Engineering, BOM & ECO",
@@ -2523,6 +2624,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Supply-aware MRP","icon":"boxes","kind":"stock","tone":"blue","metric":"Plan around real supply","steps":["Demand requirements","Material availability","Shortage workbench"]},
           id: "prod-f2",
           category: "planning",
           categoryLabel: "MRP & Finite Capacity (APS)",
@@ -2539,6 +2641,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Capacity & dispatch planning","icon":"gantt","kind":"schedule","tone":"orange","metric":"A feasible production plan","steps":["Machine capacity","Work order schedule","Dispatch sequence"]},
           id: "prod-f3",
           category: "planning",
           categoryLabel: "MRP & Finite Capacity (APS)",
@@ -2556,6 +2659,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Live shop floor execution","icon":"monitor","kind":"production","tone":"blue","metric":"See work as it happens","steps":["Operator check-in","Operation progress","Andon status"]},
           id: "prod-f4",
           category: "execution",
           categoryLabel: "Shop Floor MES & Andon",
@@ -2573,6 +2677,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Quality gates & CAPA","icon":"shield","kind":"quality","tone":"green","metric":"Quality in every operation","steps":["In-process inspection","NCR investigation","Corrective action"]},
           id: "prod-f5",
           category: "quality_trace",
           categoryLabel: "Quality, WIP & Traceability",
@@ -2590,6 +2695,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Lot genealogy & subcontracting","icon":"network","kind":"production","tone":"rose","metric":"Trace every production lot","steps":["Raw material lot","WIP & subcontracting","Finished goods lot"]},
           id: "prod-f6",
           category: "quality_trace",
           categoryLabel: "Quality, WIP & Traceability",
@@ -2616,6 +2722,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "prod-bom",
           title: "1. Dynamic BOM & Snapshot",
           subtitle: "Formulas & immutable release",
           detailTitle: "Stage 1: Parameterized BOM & Immutable Order Snapshot",
@@ -2625,6 +2732,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "prod-mrp",
           title: "2. Supply-Aware MRP",
           subtitle: "Gross-to-net shortfall check",
           detailTitle: "Stage 2: Supply-Aware MRP & Shortage Workbench",
@@ -2634,6 +2742,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "prod-aps",
           title: "3. Finite Capacity APS",
           subtitle: "6-point gate & dispatch board",
           detailTitle: "Stage 3: Finite Capacity Scheduling & Pre-Release Gates",
@@ -2643,6 +2752,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "prod-mes",
           title: "4. Touch MES & Andon",
           subtitle: "Tablet kiosks & state machines",
           detailTitle: "Stage 4: Shopfloor Execution & Real-Time Andon Alerts",
@@ -2652,6 +2762,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "prod-qc",
           title: "5. In-Process QC & CAPA",
           subtitle: "WIP movement locks & NCRs",
           detailTitle: "Stage 5: Stage-Gate Quality Control & Automated NCRs",
@@ -2661,6 +2772,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 6,
+          icon: "prod-trace",
           title: "6. Lot Trace & Cost Variance",
           subtitle: "Genealogy & 3-way variance",
           detailTitle: "Stage 6: Bi-Directional Genealogy, Subcontracting & Variance",
@@ -2763,6 +2875,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Unlike standalone HR apps that sit in a silo, MossiERP automatically connects employee attendance to factory labor costing and general ledger salary vouchers.",
       superpowers: [
         {
+          summary: "Run payroll and prepare Indian bank payment files from one connected process.",
+          visual: {"title":"Payroll & bank file export","icon":"wallet","kind":"people","tone":"green","metric":"1-click payroll run","steps":["Payroll calculated","Salary approved","Bank file exported"]},
           id: "hr-sp-1",
           number: 1,
           icon: "⚡",
@@ -2778,6 +2892,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Handle PF, ESI, PT, LWF, and TDS with built-in statutory calculations.",
+          visual: {"title":"Indian statutory compliance","icon":"shield","kind":"quality","tone":"blue","metric":"Built-in statutory rules","steps":["PF & ESI calculated","PT & TDS applied","Statutory reports ready"]},
           id: "hr-sp-2",
           number: 2,
           icon: "🏛️",
@@ -2793,6 +2909,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Connect geo-fenced mobile punches and biometric attendance records.",
+          visual: {"title":"Attendance & biometric sync","icon":"fingerprint","kind":"people","tone":"orange","metric":"Attendance, verified","steps":["Geo-fenced punch","Biometric sync","Attendance recorded"]},
           id: "hr-sp-3",
           number: 3,
           icon: "📱",
@@ -2808,6 +2926,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Give employees a shared home for requests, records, and secure documents.",
+          visual: {"title":"Employee self-service","icon":"folder","kind":"people","tone":"purple","metric":"One employee workspace","steps":["Employee profile","Self-service requests","Secure documents"]},
           id: "hr-sp-4",
           number: 4,
           icon: "💼",
@@ -2914,6 +3034,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "HR & Payroll",
+      headline: {"action":"put your people first","description":"Make attendance, payroll, compliance, and employee self-service work together effortlessly."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in HRMS & Payroll",
       subtitle: "Empower your HR team with calm automation from hire to retire.",
@@ -2925,6 +3047,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Indian payroll engine","icon":"calculator","kind":"people","tone":"green","metric":"From gross to net","steps":["Attendance inputs","Salary & deductions","Payslips generated"]},
           id: "hr-f1",
           category: "payroll",
           categoryLabel: "Payroll & Tax",
@@ -2940,6 +3063,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Shifts & overtime","icon":"clock","kind":"schedule","tone":"orange","metric":"Every shift, accounted for","steps":["Shift roster","Overtime captured","Payroll inputs ready"]},
           id: "hr-f2",
           category: "attendance",
           categoryLabel: "Attendance & Leaves",
@@ -2963,6 +3087,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "hrms-punch",
           title: "1. Daily Punches",
           subtitle: "Biometrics & mobile GPS",
           detailTitle: "Stage 1: Multi-Location Attendance Capture",
@@ -2971,6 +3096,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "hrms-leave",
           title: "2. Leave & OT Review",
           subtitle: "Manager signoffs",
           detailTitle: "Stage 2: Automated Attendance & Overtime Reconciliation",
@@ -2979,6 +3105,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "hrms-payroll",
           title: "3. Payroll Execution",
           subtitle: "1-click salary run",
           detailTitle: "Stage 3: 1-Click Gross-to-Net Payroll Calculation",
@@ -2987,6 +3114,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "hrms-bank",
           title: "4. Bank Disbursement",
           subtitle: "NACH bank file export",
           detailTitle: "Stage 4: Automated Bank Payment Advice & Payslip Distribution",
@@ -2995,6 +3123,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "hrms-ledger",
           title: "5. ERP Ledger Post",
           subtitle: "GL salary vouchers posted",
           detailTitle: "Stage 5: Automated General Ledger Posting",
@@ -3096,6 +3225,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         "Trello and Asana manage tasks but have zero clue about material costs or invoice margins. MossiERP connects every hour logged and bolt purchased directly to the project's bottom line.",
       superpowers: [
         {
+          summary: "Connect milestones, dependencies, and tasks in a shared delivery plan.",
+          visual: {"title":"Visual project planning","icon":"gantt","kind":"schedule","tone":"blue","metric":"A shared delivery plan","steps":["Project milestones","Task dependencies","Delivery schedule"]},
           id: "prj-sp-1",
           number: 1,
           icon: "📊",
@@ -3111,6 +3242,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-blue-600",
         },
         {
+          summary: "Balance team capacity and assign the right people to the right work.",
+          visual: {"title":"Smart resource allocation","icon":"users","kind":"people","tone":"purple","metric":"The right people, available","steps":["Team capacity","Workload balanced","Resource assigned"]},
           id: "prj-sp-2",
           number: 2,
           icon: "👥",
@@ -3126,6 +3259,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-emerald-700",
         },
         {
+          summary: "Bring time, expenses, and purchasing into a live view of project costs.",
+          visual: {"title":"Live project costing","icon":"coins","kind":"ledger","tone":"green","metric":"Every cost, connected","steps":["Time & expenses","Committed purchases","Actual project cost"]},
           id: "prj-sp-3",
           number: 3,
           icon: "💰",
@@ -3141,6 +3276,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-amber-700",
         },
         {
+          summary: "Compare plans with actual delivery and identify budget variance early.",
+          visual: {"title":"Estimates vs actuals","icon":"chart","kind":"ledger","tone":"orange","metric":"Stay ahead of variance","steps":["Approved estimate","Actual consumption","Budget variance"]},
           id: "prj-sp-4",
           number: 4,
           icon: "📈",
@@ -3156,6 +3293,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           impactColor: "text-purple-700",
         },
         {
+          summary: "Track revenue and delivery costs to understand each project’s margin.",
+          visual: {"title":"Project profitability","icon":"target","kind":"ledger","tone":"blue","metric":"Margins in view","steps":["Project revenue","Total delivery costs","Contribution margin"]},
           id: "prj-sp-5",
           number: 5,
           icon: "💹",
@@ -3169,21 +3308,6 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           mossiComparison: "✓ MossiERP: Real-time project P&L shows exact gross margin on every phase and deliverable milestone.",
           impactMetric: "+32% Average Project Margin",
           impactColor: "text-cyan-700",
-        },
-        {
-          id: "prj-sp-6",
-          number: 6,
-          icon: "🛡️",
-          gradient: "from-rose-500 to-pink-600",
-          shadowColor: "shadow-rose-500/20",
-          tagBg: "bg-rose-50 text-rose-800 border-rose-200",
-          title: "Project Health & Risk Tracking",
-          description:
-            "Algorithmic health index scoring combining schedule delays, cost burn, open blockers, and safety risks.",
-          legacyComparison: "✕ Subjective RAG Status: Subjective manual status reports obscure critical project blockers until failure.",
-          mossiComparison: "✓ MossiERP: Objective, multi-variable project health telemetry alerting PMOs to schedule and budget drift.",
-          impactMetric: "Early Risk Detection",
-          impactColor: "text-rose-700",
         },
       ],
     },
@@ -3277,6 +3401,8 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     featuresCatalog: {
+      previewName: "Projects",
+      headline: {"action":"deliver with clarity","description":"Bring plans, people, time, and costs together to keep every project moving profitably."},
       eyebrow: "Comprehensive Functionality Catalog",
       title: "Explore All Features in Project Management",
       subtitle:
@@ -3290,6 +3416,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
       items: [
         {
+          visual: {"title":"Gantt & critical path","icon":"gantt","kind":"schedule","tone":"blue","metric":"See what drives delivery","steps":["Task dependencies","Critical path","Milestone dates"]},
           id: "prj-f1",
           category: "planning",
           categoryLabel: "Planning & Scheduling",
@@ -3305,6 +3432,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Project setup & WBS","icon":"folder","kind":"versions","tone":"purple","metric":"Start with a clear structure","steps":["Project template","Work breakdown","Work packages"]},
           id: "prj-f2",
           category: "planning",
           categoryLabel: "Planning & Scheduling",
@@ -3320,6 +3448,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Tasks & Kanban boards","icon":"kanban","kind":"pipeline","tone":"blue","metric":"From to-do to done","steps":["Backlog","Work in progress","Completed tasks"]},
           id: "prj-f3",
           category: "execution",
           categoryLabel: "Tasks & Timesheets",
@@ -3335,6 +3464,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Smart resource allocation","icon":"users","kind":"people","tone":"purple","metric":"The right people, available","steps":["Team capacity","Workload balanced","Resource assigned"]},
           id: "prj-f4",
           category: "execution",
           categoryLabel: "Tasks & Timesheets",
@@ -3350,6 +3480,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Timesheets & approvals","icon":"clock","kind":"people","tone":"orange","metric":"Time ready for billing","steps":["Billable time captured","Manager approval","Project cost updated"]},
           id: "prj-f5",
           category: "execution",
           categoryLabel: "Tasks & Timesheets",
@@ -3365,6 +3496,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Live project costing","icon":"coins","kind":"ledger","tone":"green","metric":"Every cost, connected","steps":["Time & expenses","Committed purchases","Actual project cost"]},
           id: "prj-f6",
           category: "costing",
           categoryLabel: "Costing & Budgeting",
@@ -3380,6 +3512,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Cost breakdown & variance","icon":"chart","kind":"ledger","tone":"rose","metric":"Know where budgets move","steps":["Cost baseline","Actual spend","Variance alert"]},
           id: "prj-f7",
           category: "costing",
           categoryLabel: "Costing & Budgeting",
@@ -3395,6 +3528,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Milestone to GST invoice","icon":"receipt","kind":"approvals","tone":"green","metric":"1-click milestone billing","steps":["Milestone completed","Invoice prepared","GST invoice issued"]},
           id: "prj-f8",
           category: "billing",
           categoryLabel: "Billing & ERP Bridge",
@@ -3410,6 +3544,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
           ],
         },
         {
+          visual: {"title":"Profitability & project health","icon":"gauge","kind":"pipeline","tone":"purple","metric":"A complete project picture","steps":["Margin tracked","Schedule monitored","Health reviewed"]},
           id: "prj-f9",
           category: "billing",
           categoryLabel: "Billing & ERP Bridge",
@@ -3433,6 +3568,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       steps: [
         {
           stepNumber: 1,
+          icon: "proj-charter",
           title: "1. Project Charter",
           subtitle: "Contract & budget setup",
           detailTitle: "Stage 1: Project Scope & Budget Baselines",
@@ -3441,6 +3577,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 2,
+          icon: "proj-resource",
           title: "2. Resource Scheduling",
           subtitle: "WBS task assignments",
           detailTitle: "Stage 2: Resource Allocation & Gantt Scheduling",
@@ -3449,6 +3586,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 3,
+          icon: "proj-timesheet",
           title: "3. Execution & Timesheets",
           subtitle: "Site updates & material logs",
           detailTitle: "Stage 3: Real-Time Execution Tracking",
@@ -3457,6 +3595,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 4,
+          icon: "proj-milestone",
           title: "4. Milestone Signoff",
           subtitle: "Client digital acceptance",
           detailTitle: "Stage 4: Milestone Signoff & QA Audit",
@@ -3465,6 +3604,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
         },
         {
           stepNumber: 5,
+          icon: "proj-cash",
           title: "5. Invoice & Cash",
           subtitle: "GST invoice & ledger",
           detailTitle: "Stage 5: Automated Billing & True Margin Analysis",

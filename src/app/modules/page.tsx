@@ -135,7 +135,7 @@ export default function ModulesHubPage() {
         {/* Intro Hero Header */}
         <section className="relative py-20 bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12]">
               One ERP, every department.
             </h1>
 
@@ -166,7 +166,7 @@ export default function ModulesHubPage() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-2xl font-extrabold text-[#0F172A] group-hover:text-blue-600 transition-colors">
                       {mod.name}
                     </h2>
 
@@ -202,11 +202,11 @@ export default function ModulesHubPage() {
         {/* Global CTA Section */}
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white p-10 lg:p-14 text-center overflow-hidden shadow-2xl shadow-blue-600/20">
-            <div className="max-w-2xl mx-auto space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
+            <div className="max-w-3xl mx-auto space-y-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
                 Ready to transform your business operations?
               </h2>
-              <p className="text-base text-blue-100 leading-relaxed">
+              <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
                 Connect your team with a personalized walkthrough of MossiERP tailored to your operational workflows.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">

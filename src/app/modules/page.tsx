@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
+import { PopupCtaButton } from "@/app/components/popup-cta";
 
 interface ModuleHubItem {
   slug: string;
@@ -210,13 +211,12 @@ export default function ModulesHubPage() {
                 Connect your team with a personalized walkthrough of Mossie ERP tailored to your operational workflows.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <Link
-                  href="/#contact"
+                <PopupCtaButton
                   className="px-8 py-4 rounded-xl bg-white text-blue-700 font-extrabold text-sm shadow-xl hover:bg-slate-100 transition-all flex items-center gap-2"
                 >
                   <span>Book a Demo</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </PopupCtaButton>
               </div>
             </div>
           </div>

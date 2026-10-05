@@ -9,6 +9,7 @@ import ConnectedWorkflow from "./components/ConnectedWorkflow";
 import IntegrationsEcosystem from "./components/IntegrationsEcosystem";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import { PopupCtaButton } from "./components/popup-cta";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -108,20 +109,19 @@ export default function HomePage() {
 
             {/* Action Buttons from Zoho screenshot 2 */}
             <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8 sm:mb-10">
-              <a
-                href="#contact"
+              <PopupCtaButton
+                intent="trial"
                 style={{ color: '#FFFFFF', backgroundColor: '#0C1E38' }}
                 className="hero-btn-primary px-7 py-3 rounded-md !text-white text-[14.5px] font-semibold shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Start a Free Trial
-              </a>
-              <a
-                href="#contact"
+              </PopupCtaButton>
+              <PopupCtaButton
                 style={{ color: '#34241A', backgroundColor: '#F4EDE7' }}
                 className="hero-btn-secondary px-7 py-3 rounded-md !text-[#34241A] text-[14.5px] font-semibold border border-[#E7DDD5] transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Request a demo
-              </a>
+              </PopupCtaButton>
             </div>
 
             {/* 3D Laptop Preview Showcase */}
@@ -271,8 +271,8 @@ export default function HomePage() {
                 <h2>Ready to bring your business together?</h2>
                 <p>Discover how a connected ERP platform can simplify your operations and help your business grow with confidence.</p>
                 <div className="hero-actions">
-                  <a className="button button-light" href="mailto:hello@mossierp.com">Book a Demo <ArrowRight /></a>
-                  <a className="button button-ghost-light" href="mailto:hello@mossierp.com">Request a Quote</a>
+                  <PopupCtaButton className="button button-light">Book a Demo <ArrowRight /></PopupCtaButton>
+                  <PopupCtaButton className="button button-ghost-light" intent="quote">Request a Quote</PopupCtaButton>
                 </div>
               </div>
               <div className="cta-signal" aria-hidden="true"><span /><span /><span /><span /></div>

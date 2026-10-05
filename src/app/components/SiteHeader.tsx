@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { PopupCtaButton } from "./popup-cta";
 import {
   Target,
   Boxes,
@@ -205,10 +206,10 @@ export default function SiteHeader() {
           </Link>
         </nav>
         <div className="nav-actions">
-          <Link className="button button-primary button-small" href="/#contact" onClick={closeMenu}>
+          <PopupCtaButton className="button button-primary button-small" onClick={closeMenu}>
             <span>Book a Demo</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          </PopupCtaButton>
           <button
             className="menu-toggle"
             type="button"
@@ -223,4 +224,3 @@ export default function SiteHeader() {
     </header>
   );
 }
-

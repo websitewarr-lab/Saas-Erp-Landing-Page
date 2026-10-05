@@ -1,5 +1,7 @@
 "use client";
 
+import { PopupCtaButton } from "./popup-cta";
+
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -187,15 +189,14 @@ export default function IndustrySolutions() {
 
                 {/* Card Divider & Learn More link */}
                 <div className="w-full border-t border-slate-200/75 pt-3 mt-auto flex items-center justify-between">
-                  <a
-                    href="#contact"
+                  <PopupCtaButton
                     className="text-[12.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors inline-flex items-center gap-1"
                   >
                     Learn More{" "}
                     <span className="transition-transform duration-200 group-hover:translate-x-1">
                       →
                     </span>
-                  </a>
+                  </PopupCtaButton>
                 </div>
               </motion.article>
             );
@@ -210,8 +211,7 @@ export default function IndustrySolutions() {
           transition={{ duration: 0.45, delay: 0.3 }}
           className="flex justify-center"
         >
-          <a
-            href="#contact"
+          <PopupCtaButton
             className="inline-flex items-center gap-3 px-1.5 py-1.5 pr-5 rounded-full bg-white shadow-xs border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all text-[13px] font-bold text-slate-700 cursor-pointer"
           >
             <div className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center">
@@ -221,10 +221,9 @@ export default function IndustrySolutions() {
             </div>
             Solutions tailored for every industry{" "}
             <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
-          </a>
+          </PopupCtaButton>
         </motion.div>
       </div>
     </section>
   );
 }
-

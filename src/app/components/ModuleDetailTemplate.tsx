@@ -18,7 +18,9 @@ import {
   ChartNoAxesCombined,
   Check,
   CheckCheck,
+  ChevronDown,
   ChevronRight,
+  ChevronUp,
   Circle,
   Clock3,
   Coins,
@@ -53,6 +55,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
+import { PopupCtaButton } from "./popup-cta";
 import ConnectedWorkflowFlow from "./modules/ConnectedWorkflowFlow";
 import {
   MODULES_DATA,
@@ -723,8 +726,15 @@ function ModuleHeroPreview({
 
 function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
   const [selected, setSelected] = useState<EdgeSuperpower | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingId = `${config.slug}-highlighted-heading`;
+
+  const totalFeatures = config.edge.superpowers.length;
+  const hasMoreThanSix = totalFeatures > 6;
+  const displayedFeatures = hasMoreThanSix && !showAll
+    ? config.edge.superpowers.slice(0, 6)
+    : config.edge.superpowers;
 
   function openFeature(feature: EdgeSuperpower) {
     setSelected(feature);
@@ -747,9 +757,9 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
           </h2>
         </header>
 
-        {/* Superpowers Grid (Capped at 5 per user instructions) */}
+        {/* Superpowers Grid (Capped at 6 by default; expanded via 'Show All') */}
         <div className="mf-cards">
-          {config.edge.superpowers.slice(0, 5).map((feature) => (
+          {displayedFeatures.map((feature) => (
             <button
               className="mf-card"
               type="button"
@@ -771,6 +781,20 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
             </button>
           ))}
         </div>
+
+        {hasMoreThanSix && (
+          <div className="mf-show-more-wrap flex justify-center mt-8">
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="glass-btn px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-sm transition-all shadow-xs inline-flex items-center gap-2 active:scale-95 cursor-pointer"
+              aria-expanded={showAll}
+            >
+              <span>{showAll ? "Show Less" : "Show All"}</span>
+              {showAll ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Accessible Interactive Detail Modal */}
@@ -849,14 +873,35 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
 function AllFeatures({ config }: { config: ModulePageConfig }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedId, setSelectedId] = useState(config.featuresCatalog.items[0]?.id);
   const navRef = useRef<HTMLDivElement>(null);
   const headingId = `${config.slug}-all-features-heading`;
   const panelId = `${config.slug}-feature-panel`;
 
+  // Deduplication guardrail: Never display features already highlighted in edge.superpowers
+  const superpowerTitles = new Set(
+    config.edge.superpowers.flatMap((sp) => [
+      sp.title.toLowerCase().trim(),
+      sp.visual.title.toLowerCase().trim(),
+      sp.id.toLowerCase().trim(),
+    ])
+  );
+
+  const availableItems = config.featuresCatalog.items.filter((item) => {
+    const itemTitle = item.title.toLowerCase().trim();
+    const visualTitle = item.visual.title.toLowerCase().trim();
+    const itemId = item.id.toLowerCase().trim();
+    return (
+      !superpowerTitles.has(itemTitle) &&
+      !superpowerTitles.has(visualTitle) &&
+      !superpowerTitles.has(itemId)
+    );
+  });
+
+  const [selectedId, setSelectedId] = useState(availableItems[0]?.id);
+
   // Filter features by query and category
   const query = searchQuery.trim().toLowerCase();
-  const filteredFeatures = config.featuresCatalog.items.filter(
+  const filteredFeatures = availableItems.filter(
     (item) =>
       (selectedCategory === "all" || item.category === selectedCategory) &&
       (!query ||
@@ -1016,9 +1061,9 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
                     </li>
                   ))}
                 </ul>
-                <a className="mf-primary-btn" href="#contact">
+                <PopupCtaButton className="mf-primary-btn">
                   Explore with a demo <ArrowRight size={17} />
-                </a>
+                </PopupCtaButton>
               </div>
 
               {/* Dynamic Feature Mockup Illustration */}
@@ -1065,7 +1110,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         {/* ========================================================================= */}
         {/* 1. HIGH-IMPACT COMPACT HERO WITH INTERACTIVE MOCKUP                      */}
         {/* ========================================================================= */}
-        <section className="relative module-detail-section bg-gradient-to-br from-[#F8FAFC] via-[#EDF5FF] to-[#E2EFFF] overflow-hidden border-b border-slate-200/70">
+        <section className="relative module-detail-section module-detail-hero bg-gradient-to-br from-[#F8FAFC] via-[#EDF5FF] to-[#E2EFFF] overflow-hidden border-b border-slate-200/70">
           {/* Ambient Blur Lighting Accents */}
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/80 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-1/2 right-[5%] w-[450px] h-[450px] bg-gradient-to-br from-blue-300/30 via-indigo-300/20 to-purple-300/10 rounded-full blur-3xl pointer-events-none pulse-glow" />
@@ -1093,29 +1138,42 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
               {/* Left Column: Headline, Value Proposition, & CTAs */}
               <div className="w-full lg:flex-1 lg:max-w-[620px] space-y-6 text-left">
-                <h1 className="text-[32px] sm:text-[43px] lg:text-[39px] xl:text-[43px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
+                <h1 className="text-[34px] sm:text-[45px] lg:text-[41px] xl:text-[45px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
                   {config.heroHeadline}{" "}
                   <span className="text-blue-600">{config.heroHighlight}</span>
                 </h1>
 
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
+                <p className="text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
                   {config.heroDescription}
                 </p>
 
                 {/* Hero CTAs */}
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <Link
-                    href="/#contact"
-                    className="px-7 py-3 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-extrabold text-sm shadow-md shadow-blue-600/25 transition-all inline-flex items-center gap-2 active:scale-95"
+                  <PopupCtaButton
+                    intent="trial"
+                    className="glass-btn px-7 py-3 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-extrabold text-sm shadow-md shadow-blue-600/25 transition-all inline-flex items-center gap-2 active:scale-95"
                   >
                     <span>Start 14-Day Free Sandbox</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </PopupCtaButton>
                   <a
                     href="#features-matrix"
-                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2"
+                    className="glass-btn px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2"
                   >
-                    <span>Explore All {config.featuresCatalog.items.length} Features</span>
+                    <span>Explore All {config.featuresCatalog.items.filter((item) => {
+                      const spTitles = new Set(
+                        config.edge.superpowers.flatMap((sp) => [
+                          sp.title.toLowerCase().trim(),
+                          sp.visual.title.toLowerCase().trim(),
+                          sp.id.toLowerCase().trim(),
+                        ])
+                      );
+                      return (
+                        !spTitles.has(item.title.toLowerCase().trim()) &&
+                        !spTitles.has(item.visual.title.toLowerCase().trim()) &&
+                        !spTitles.has(item.id.toLowerCase().trim())
+                      );
+                    }).length} Features</span>
                     <ArrowRight className="w-4 h-4 text-slate-500 rotate-90" />
                   </a>
                 </div>
@@ -1155,7 +1213,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">
                 {config.comparison.eyebrow}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
+              <h2 className="text-[27px] sm:text-[33px] md:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-tight">
                 {config.comparison.title}
               </h2>
               <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -1250,7 +1308,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                   <span>{config.testimonialAndRoi.testimonial.badge}</span>
                 </div>
 
-                <blockquote className="text-xs sm:text-2xl text-slate-600 leading-snug tracking-tight">
+                <blockquote className="text-base sm:text-xl text-slate-600 leading-snug tracking-tight">
                   &ldquo;{config.testimonialAndRoi.testimonial.quote}&rdquo;
                 </blockquote>
 
@@ -1288,7 +1346,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               <span>{config.cta.pill}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            <h2 className="text-[27px] sm:text-[33px] md:text-[42px] font-extrabold tracking-tight leading-tight">
               {config.cta.title}
             </h2>
 
@@ -1297,16 +1355,15 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-              <Link
-                href="/#contact"
-                className="px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-sm shadow-xl shadow-blue-500/30 transition-all inline-flex items-center gap-2 active:scale-95"
+              <PopupCtaButton
+                className="glass-btn px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-sm shadow-xl shadow-blue-500/30 transition-all inline-flex items-center gap-2 active:scale-95"
               >
                 <span>{config.cta.primaryCtaText}</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </PopupCtaButton>
               <Link
                 href="/modules"
-                className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
+                className="glass-btn px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
               >
                 <span>{config.cta.secondaryCtaText}</span>
               </Link>

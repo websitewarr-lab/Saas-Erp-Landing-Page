@@ -1,5 +1,7 @@
 "use client";
 
+import { PopupCtaButton } from "./popup-cta";
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -480,12 +482,11 @@ export default function ConnectedWorkflow() {
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
                         {activeStage.detail.outputBadge}
                       </span>
-                      <a
-                        href="#contact"
+                      <PopupCtaButton
                         className="text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-0.5"
                       >
                         Details <ChevronRight className="w-3 h-3" />
-                      </a>
+                      </PopupCtaButton>
                     </div>
                   </div>
                 </div>
@@ -581,16 +582,14 @@ export default function ConnectedWorkflow() {
               </span>
             </div>
 
-            <a
-              href="#contact"
+            <PopupCtaButton
               className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               See Workflow In Action <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </PopupCtaButton>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

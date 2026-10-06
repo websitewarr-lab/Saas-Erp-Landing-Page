@@ -25,7 +25,7 @@ import {
 export const headerModules = [
   { name: "CRM", desc: "Pipeline, leads & accounts", href: "/modules/crm", icon: Target, color: "text-violet-600 bg-violet-50" },
   { name: "Sales & Order Management", desc: "Quotations & order fulfillment", href: "/modules/sales", icon: ShoppingCart, color: "text-emerald-600 bg-emerald-50" },
-  { name: "Purchase & Procurement", desc: "RFQs, PO approvals & vendors", href: "/modules/purchase", icon: ReceiptText, color: "text-blue-600 bg-blue-50" },
+  { name: "Purchase & Procurement", desc: "RFQs, PO approvals & vendors", href: "/modules/purchase", icon: ReceiptText, color: "text-[#006fc9] bg-[#006fc9]/10" },
   { name: "Inventory Management", desc: "Warehouse & stock control", href: "/modules/inventory", icon: Boxes, color: "text-amber-600 bg-amber-50" },
   { name: "Production Management", desc: "Manufacturing, BOM & MRP", href: "/modules/production", icon: Factory, color: "text-purple-600 bg-purple-50" },
   { name: "Accounting & Finance", desc: "Ledger, GL & financial reports", href: "/modules/accounting", icon: BarChart3, color: "text-teal-600 bg-teal-50" },
@@ -34,7 +34,7 @@ export const headerModules = [
 ];
 
 export const headerIndustries = [
-  { name: "Software & Technology", desc: "Cloud SaaS, tech & digital platforms", href: "/#industries", icon: Laptop, color: "text-blue-600 bg-blue-50" },
+  { name: "Software & Technology", desc: "Cloud SaaS, tech & digital platforms", href: "/#industries", icon: Laptop, color: "text-[#006fc9] bg-[#006fc9]/10" },
   { name: "IT & Professional Services", desc: "Project billing & workforce visibility", href: "/#industries", icon: UsersRound, color: "text-sky-600 bg-sky-50" },
   { name: "Wholesale Distribution", desc: "Warehousing, inventory & supply chain", href: "/#industries", icon: Boxes, color: "text-emerald-600 bg-emerald-50" },
   { name: "Advertising & Marketing", desc: "Agencies, campaign billing & creative", href: "/#industries", icon: Megaphone, color: "text-purple-600 bg-purple-50" },
@@ -53,7 +53,7 @@ export function LogoMark({ compact = false }: { compact?: boolean }) {
         className={compact ? "h-7 w-auto object-contain" : "h-9 w-auto object-contain"}
       />
       <span className="font-black tracking-tight text-slate-900 text-xl leading-none">
-        Mossie <span className="text-blue-600">ERP</span>
+        Mossie <span className="text-[#006fc9]">ERP</span>
       </span>
     </div>
   );
@@ -104,7 +104,7 @@ export default function SiteHeader() {
                   <Link
                     href="/modules"
                     onClick={closeMenu}
-                    className="text-[11px] text-blue-600 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full border border-blue-100 transition-colors flex items-center gap-1"
+                    className="text-[11px] text-[#006fc9] font-bold bg-[#006fc9]/10 hover:bg-[#006fc9]/15 px-3 py-1 rounded-full border border-[#006fc9]/20 transition-colors flex items-center gap-1"
                   >
                     <span>View All 8 Apps</span>
                     <ArrowRight className="w-3 h-3" />
@@ -127,7 +127,7 @@ export default function SiteHeader() {
                           <ItemIcon className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-blue-600 transition-colors line-clamp-1">
+                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors line-clamp-1">
                             {item.name}
                           </div>
                           <div className="text-[11px] text-slate-500 line-clamp-1 font-normal">
@@ -163,7 +163,7 @@ export default function SiteHeader() {
                   <Link
                     href="/#industries"
                     onClick={closeMenu}
-                    className="text-[11px] text-blue-600 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full border border-blue-100 transition-colors flex items-center gap-1"
+                    className="text-[11px] text-[#006fc9] font-bold bg-[#006fc9]/10 hover:bg-[#006fc9]/15 px-3 py-1 rounded-full border border-[#006fc9]/20 transition-colors flex items-center gap-1"
                   >
                     <span>View All Industries</span>
                     <ArrowRight className="w-3 h-3" />
@@ -186,7 +186,7 @@ export default function SiteHeader() {
                           <ItemIcon className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-blue-600 transition-colors line-clamp-1">
+                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors line-clamp-1">
                             {item.name}
                           </div>
                           <div className="text-[11px] text-slate-500 line-clamp-1 font-normal">

@@ -1,7 +1,7 @@
 .dialog {
   /* Mossie ERP Brand System Colors */
-  --brand-primary: var(--primary, oklch(0.58 0.21 255)); /* Mossie Royal Blue #2563EB */
-  --brand-primary-hover: oklch(0.51 0.21 255);           /* Hover state #1D4ED8 */
+  --brand-primary: var(--brand-accent, #006fc9); /* Mossie Brand Accent #006fc9 */
+  --brand-primary-hover: var(--brand-accent-hover, #005fae); /* Hover state #005fae */
   --brand-navy: oklch(0.20 0.058 255);                   /* Deep Midnight Navy #0B192C */
   --brand-navy-dark: oklch(0.16 0.045 255);              /* Darker navy depth #071222 */
   --brand-mint: oklch(0.86 0.095 175);                   /* Electric Mossie Mint #34D399 */
@@ -732,7 +732,7 @@
   border-color: var(--error) !important;
 }
 
-/* Primary Glassmorphic Action Button */
+/* Primary Action Button */
 .submit {
   width: 100%;
   display: flex;
@@ -740,7 +740,7 @@
   justify-content: center;
   gap: 10px;
   min-height: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 0;
   border-radius: 9999px;
   padding: 13px 24px;
   margin-top: 24px;
@@ -749,9 +749,7 @@
   font-size: 13.5px;
   font-weight: 750;
   letter-spacing: -0.01em;
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
-    0 6px 20px -3px color-mix(in oklch, var(--brand-primary), transparent 60%);
+  box-shadow: 0 6px 20px -3px color-mix(in oklch, var(--brand-primary), transparent 60%);
   transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
   text-decoration: none;
   cursor: pointer;
@@ -759,9 +757,7 @@
 
 .submit:hover {
   background: var(--brand-primary-hover);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
-    0 10px 28px -3px color-mix(in oklch, var(--brand-primary), transparent 45%);
+  box-shadow: 0 10px 28px -3px color-mix(in oklch, var(--brand-primary), transparent 45%);
   transform: translateY(-1.5px);
 }
 

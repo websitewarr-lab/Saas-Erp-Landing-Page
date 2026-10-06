@@ -6,14 +6,14 @@ import { RefreshCw, DollarSign, Clock, HelpCircle } from "lucide-react";
 
 export default function CancellationPolicyPage() {
   return (
-    <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#006fc9] selection:text-white">
       <SiteHeader />
 
       <main className="py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           {/* Page Header */}
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-xs font-extrabold tracking-widest uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#006fc9]/10 border border-[#006fc9]/20 text-[#006fc9] text-xs font-extrabold tracking-widest uppercase">
               <RefreshCw className="w-4 h-4" />
               Subscriptions & Refunds
             </div>
@@ -29,7 +29,7 @@ export default function CancellationPolicyPage() {
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8 text-slate-700 text-sm leading-relaxed">
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-                <Clock className="w-5 h-5 text-blue-600" />
+                <Clock className="w-5 h-5 text-[#006fc9]" />
                 1. Subscription Cancellation Notice
               </h2>
               <p>
@@ -47,7 +47,7 @@ export default function CancellationPolicyPage() {
 
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-                <DollarSign className="w-5 h-5 text-blue-600" />
+                <DollarSign className="w-5 h-5 text-[#006fc9]" />
                 2. Refund Eligibility & Rules
               </h2>
               <p>
@@ -77,7 +77,7 @@ export default function CancellationPolicyPage() {
 
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-                <HelpCircle className="w-5 h-5 text-blue-600" />
+                <HelpCircle className="w-5 h-5 text-[#006fc9]" />
                 4. How to Request Cancellation or Refund
               </h2>
               <p>

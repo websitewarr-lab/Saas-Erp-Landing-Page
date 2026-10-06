@@ -39,7 +39,7 @@ export default function SiteFooter() {
                 className="h-9 w-auto object-contain brightness-0 invert"
               />
               <span className="font-black tracking-tight text-white text-xl leading-none">
-                Mossie <span className="text-blue-200">ERP</span>
+                Mossie <span className="text-white/80">ERP</span>
               </span>
             </Link>
             <p className="text-sm sm:text-base leading-relaxed text-white/95 max-w-sm">

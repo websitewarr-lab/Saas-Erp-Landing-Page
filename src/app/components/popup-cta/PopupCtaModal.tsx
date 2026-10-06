@@ -57,19 +57,65 @@ export default function PopupCtaModal({
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousOverflow = document.body.style.overflow;
     const previousPadding = document.body.style.paddingRight;
     const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+
+    document.documentElement.classList.add("modal-locked");
+    document.body.classList.add("modal-locked");
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     if (scrollbar > 0) {
       document.body.style.paddingRight = `${
-        parseFloat(getComputedStyle(document.body).paddingRight) + scrollbar
+        (parseFloat(getComputedStyle(document.body).paddingRight) || 0) + scrollbar
       }px`;
     }
     dialog.showModal();
     nameRef.current?.focus({ preventScroll: true });
+
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.target as Node | null;
+      if (!target || (!dialog.contains(target) && target !== dialog)) {
+        e.preventDefault();
+        return;
+      }
+      const canScroll = dialog.scrollHeight > dialog.clientHeight;
+      if (!canScroll) {
+        e.preventDefault();
+        return;
+      }
+      const isScrollingUp = e.deltaY < 0;
+      const isScrollingDown = e.deltaY > 0;
+      const isAtTop = dialog.scrollTop <= 0;
+      const isAtBottom = dialog.scrollTop + dialog.clientHeight >= dialog.scrollHeight - 1;
+      if ((isScrollingUp && isAtTop) || (isScrollingDown && isAtBottom)) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const target = e.target as Node | null;
+      if (!target || (!dialog.contains(target) && target !== dialog)) {
+        e.preventDefault();
+        return;
+      }
+      const canScroll = dialog.scrollHeight > dialog.clientHeight;
+      if (!canScroll) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false, capture: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
+
     return () => {
+      window.removeEventListener("wheel", handleWheel, { capture: true });
+      window.removeEventListener("touchmove", handleTouchMove, { capture: true });
       dialog.close();
+      document.documentElement.classList.remove("modal-locked");
+      document.body.classList.remove("modal-locked");
+      document.documentElement.style.overflow = previousHtmlOverflow;
       document.body.style.overflow = previousOverflow;
       document.body.style.paddingRight = previousPadding;
     };

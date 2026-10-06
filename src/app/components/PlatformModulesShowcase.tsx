@@ -303,7 +303,7 @@ export default function PlatformModulesShowcase() {
                     {/* BACK SIDE */}
                     <div className="absolute inset-0 w-full h-full rounded-[22px] bg-white border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between shadow-[0_16px_40px_-8px_rgba(15,23,42,0.16)] [backface-visibility:hidden] [transform:rotateY(180deg)]">
                       <div>
-                        <div className="w-10 h-10 rounded-[10px] bg-slate-900 text-white flex items-center justify-center mb-4 shadow-xs">
+                        <div className="w-10 h-10 rounded-[10px] bg-[#006fc9] text-white flex items-center justify-center mb-4 shadow-xs">
                           <Icon className="w-5 h-5 text-white stroke-[2]" />
                         </div>
 
@@ -330,7 +330,7 @@ export default function PlatformModulesShowcase() {
                       <div className="pt-2">
                         <Link
                           href={mod.link}
-                          className="relative group/btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-slate-950 text-white text-[12.5px] font-bold shadow-[0_4px_18px_rgba(37,99,235,0.35)] hover:bg-blue-600 hover:shadow-[0_6px_22px_rgba(37,99,235,0.55)] transition-all duration-200 hover:scale-[1.03]"
+                          className="relative group/btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#006fc9] text-white text-[12.5px] font-bold shadow-[0_4px_18px_rgba(0,111,201,0.35)] hover:bg-[#005fae] hover:shadow-[0_6px_22px_rgba(0,111,201,0.55)] transition-all duration-200 hover:scale-[1.03]"
                         >
                           <span>Explore Details</span>
                           <ChevronRight className="w-3.5 h-3.5 text-white/90 group-hover/btn:translate-x-0.5 transition-transform" />
@@ -452,7 +452,7 @@ export default function PlatformModulesShowcase() {
                   {/* Bottom Action Button */}
                   <Link
                     href={mod.link}
-                    className="inline-flex items-center justify-between w-full px-4.5 py-2.5 rounded-[14px] bg-slate-50 border border-slate-200/90 text-slate-900 font-bold text-xs hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-xs group cursor-pointer"
+                    className="inline-flex items-center justify-between w-full px-4.5 py-2.5 rounded-[14px] bg-slate-50 border border-slate-200/90 text-slate-900 font-bold text-xs hover:bg-[#006fc9] hover:text-white hover:border-[#006fc9] transition-all shadow-xs group cursor-pointer"
                   >
                     <span>Explore Module</span>
                     <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
@@ -472,7 +472,7 @@ export default function PlatformModulesShowcase() {
                 aria-label={`Go to slide ${i + 1}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   i === activeMobileIndex
-                    ? "w-6 h-2 bg-blue-600"
+                    ? "w-6 h-2 bg-[#006fc9]"
                     : "w-2 h-2 bg-slate-300 hover:bg-slate-400"
                 }`}
               />

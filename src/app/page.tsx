@@ -12,22 +12,10 @@ import SiteFooter from "./components/SiteFooter";
 import { PopupCtaButton } from "./components/popup-cta";
 import {
   ArrowRight,
-  ArrowUpRight,
   BarChart3,
-  Bell,
   BriefcaseBusiness,
   ChevronDown,
-  CloudCog,
-  Code2,
-  Database,
-  FileCheck2,
-  FileText,
-  Fingerprint,
-  Globe2,
   Layers3,
-  LayoutDashboard,
-  LockKeyhole,
-  ReceiptText,
   Settings2,
   ShieldCheck,
   Workflow,
@@ -44,33 +32,31 @@ const benefits: Array<{ title: string; description: string; icon: IconType; tone
   { title: "Scale with confidence", description: "Support growing teams, entities and operations without adding unnecessary complexity.", icon: BriefcaseBusiness, tone: "icon-blue" },
 ];
 
-const capabilities: Array<{ title: string; description: string; icon: IconType }> = [
-  { title: "Workflow Automation", description: "Move work forward automatically", icon: Workflow },
-  { title: "Role-Based Access", description: "Give every team the right view", icon: LockKeyhole },
-  { title: "Approval Management", description: "Keep decisions moving clearly", icon: FileCheck2 },
-  { title: "Real-Time Dashboards", description: "Monitor the moments that matter", icon: LayoutDashboard },
-  { title: "Custom Reports", description: "Answer the questions you ask", icon: ReceiptText },
-  { title: "Notifications", description: "Keep everyone in the loop", icon: Bell },
-  { title: "Document Management", description: "Keep context close to work", icon: FileText },
-  { title: "Multi-Company & Branch", description: "Scale without losing clarity", icon: Globe2 },
-  { title: "Mobile Access", description: "Stay close from anywhere", icon: CloudCog },
-  { title: "API Integration", description: "Connect your existing stack", icon: Code2 },
-  { title: "Audit Logs", description: "Make every change traceable", icon: Fingerprint },
-  { title: "Reliable Infrastructure", description: "Build on a steady foundation", icon: Database },
-];
-
-const stories = [
-  { company: "Customer story", industry: "Manufacturing", challenge: "Disconnected production, purchasing and finance workflows.", solution: "A connected operating view across teams and modules.", result: "Customer Result" },
-  { company: "Customer story", industry: "Distribution", challenge: "Limited visibility across stock, orders and warehouse movement.", solution: "A clearer inventory-to-delivery workflow with shared reporting.", result: "Customer Result" },
-  { company: "Customer story", industry: "Professional Services", challenge: "Project work, people capacity and billing lived in separate places.", solution: "One flow for projects, time, people and finance.", result: "Customer Result" },
-];
-
 const faqs = [
-  ["What is an ERP?", "An ERP is a connected business platform that brings core operations like finance, people, sales, inventory and reporting into one shared system."],
-  ["Which business modules are included?", "Mossie ERP is designed around finance, HR and payroll, CRM and sales, purchasing, inventory, manufacturing, projects, reporting and integrations."],
-  ["Can the ERP be customized?", "Yes. Workflows, fields, permissions and connected processes can be shaped around your business requirements."],
-  ["Can existing data be migrated?", "Yes. Data migration is part of the implementation process and is planned around the systems and records you already use."],
-  ["Does the ERP support multiple branches?", "The platform is designed to support multi-company and multi-branch operating models where required."],
+  [
+    "What is an ERP platform?",
+    "An ERP (Enterprise Resource Planning) platform connects your core business functions—finance, sales, procurement, inventory, manufacturing, and HR—into a single, unified source of truth with real-time data flow across all teams.",
+  ],
+  [
+    "Which business modules are included in Mossie ERP?",
+    "Mossie ERP includes native modules for Accounting & Finance, HRMS & Payroll, CRM & Sales Pipelines, Inventory & Multi-Warehouse, Manufacturing & Production, Project Management, and Purchasing.",
+  ],
+  [
+    "Can Mossie ERP be customized for our specific workflow?",
+    "Yes. Custom fields, approval hierarchies, automated triggers, document layouts, and granular role-based permissions can be shaped around your unique business operations without writing custom code.",
+  ],
+  [
+    "How does data migration from existing systems work?",
+    "Our migration tools and onboarding team assist in mapping and importing your existing charts of accounts, contacts, open orders, and historical records with data verification at every step.",
+  ],
+  [
+    "Does the platform support multi-company and multi-branch operations?",
+    "Yes. Mossie ERP natively supports complex corporate structures with multiple companies, branches, warehouses, currencies, and consolidated financial statements in real time.",
+  ],
+  [
+    "How secure is our enterprise and financial data?",
+    "Mossie ERP employs enterprise-grade AES-256 and TLS 1.3 encryption, automated hourly backups, SOC-2 compliant cloud infrastructure, and immutable audit logs for every user action.",
+  ],
 ];
 
 function SectionIntro({ title, description, align = "left" }: { eyebrow?: string; title: string; description?: string; align?: "left" | "center" }) {
@@ -107,18 +93,16 @@ export default function HomePage() {
               Mossie ERP keeps pace with your technological transformation helping you become operationally faster, leaner, innovative, resilient, and more relevant.
             </p>
 
-            {/* Action Buttons from Zoho screenshot 2 */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8 sm:mb-10">
               <PopupCtaButton
                 intent="trial"
-                style={{ color: '#FFFFFF', backgroundColor: '#0C1E38' }}
-                className="hero-btn-primary px-7 py-3 rounded-md !text-white text-[14.5px] font-semibold shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
+                className="hero-btn-primary px-7 py-3 rounded-md bg-[#006fc9] hover:bg-[#005fae] text-white text-[14.5px] font-semibold shadow-md shadow-[#006fc9]/25 transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Start a Free Trial
               </PopupCtaButton>
               <PopupCtaButton
-                style={{ color: '#34241A', backgroundColor: '#F4EDE7' }}
-                className="hero-btn-secondary px-7 py-3 rounded-md !text-[#34241A] text-[14.5px] font-semibold border border-[#E7DDD5] transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
+                className="hero-btn-secondary px-7 py-3 rounded-md bg-white hover:bg-slate-50 text-slate-800 text-[14.5px] font-semibold border border-slate-300 hover:border-slate-400 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Request a demo
               </PopupCtaButton>
@@ -171,94 +155,73 @@ export default function HomePage() {
         {/* Built-in Ecosystem & Live Integration Circuit Matrix */}
         <IntegrationsEcosystem />
 
-        <section className="section capabilities-section" id="features">
-          <div className="container capabilities-grid">
-            <SectionIntro eyebrow="Key capabilities" title="Built for the way work actually moves." description="The small details that help teams stay focused, accountable and in sync." />
-            <div className="capability-list">
-              {capabilities.map(({ title, description, icon: Icon }) => (
-                <div className="capability-item" key={title}>
-                  <span><Icon /></span>
-                  <div><strong>{title}</strong><p>{description}</p></div>
-                  <ArrowUpRight />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+       
 
         {/* Industry Solutions 8-Card Grid */}
         <IndustrySolutions />
 
-        <section className="section stories-section">
-          <div className="container">
-            <div className="section-heading-row">
-              <SectionIntro eyebrow="Customer stories" title="Built for real operating days." description="Placeholder stories ready to become your customers' experiences when the time is right." />
-              <a className="text-link" href="#contact">View case studies <ArrowUpRight /></a>
+
+        <section className="py-14 sm:py-20 bg-white relative overflow-hidden" id="faq">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
+            {/* Centered Headline matching reference layout */}
+            <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-[38px] font-black uppercase tracking-tight text-[#0F172A] leading-tight sm:leading-snug">
+                Everything you need to know about our
+                <span className="block text-[#006fc9] mt-1 sm:mt-1.5">Enterprise ERP Solutions</span>
+              </h2>
             </div>
-            <div className="stories-grid">
-              {stories.map((story) => (
-                <article className="story-card" key={story.industry}>
-                  <div className="story-top"><span className="story-mark"><BriefcaseBusiness /></span><span>{story.industry}</span></div>
-                  <h3>{story.company}</h3>
-                  <dl>
-                    <div><dt>Challenge</dt><dd>{story.challenge}</dd></div>
-                    <div><dt>Solution</dt><dd>{story.solution}</dd></div>
-                  </dl>
-                  <div className="story-result"><span>{story.result}</span><ArrowUpRight /></div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="py-[15px] bg-white relative overflow-hidden" id="faq">
-          <div className="container mx-auto px-6 max-w-[1100px] relative z-10 py-0">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-              {/* Left Column */}
-              <div className="lg:w-1/3">
-                <div className="sticky top-28">
-                  <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight mb-6 leading-[1.1]">
-                    A clearer start begins here.
-                  </h2>
-                  <p className="text-[16px] text-[#64748B] leading-relaxed max-w-sm">
-                    A few of the things teams usually want to know before they take the next step.
-                  </p>
-                </div>
-              </div>
+            {/* Individual Accordion Cards */}
+            <div className="space-y-3.5 sm:space-y-4">
+              {faqs.map(([question, answer], index) => {
+                const isOpen = openFaq === index;
+                return (
+                  <div
+                    key={question}
+                    className={`rounded-2xl transition-all duration-200 bg-white border ${
+                      isOpen
+                        ? "border-[#006fc9] shadow-xs"
+                        : "border-slate-200/90 hover:border-slate-300"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenFaq(isOpen ? null : index)}
+                      className="w-full flex items-center justify-between text-left p-5 sm:p-6 cursor-pointer select-none focus:outline-none"
+                    >
+                      <span
+                        className={`text-[15px] sm:text-[16px] font-bold tracking-tight pr-4 transition-colors ${
+                          isOpen ? "text-[#006fc9]" : "text-[#0F172A]"
+                        }`}
+                      >
+                        {question}
+                      </span>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                          isOpen
+                            ? "bg-[#006fc9]/10 text-[#006fc9] rotate-180"
+                            : "bg-slate-100 text-slate-500"
+                        }`}
+                      >
+                        <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+                      </span>
+                    </button>
 
-              {/* Right Column - Accordion */}
-              <div className="lg:w-2/3">
-                <div className="divide-y divide-slate-200 border-t border-b border-slate-200">
-                  {faqs.map(([question, answer], index) => {
-                    const isOpen = openFaq === index;
-                    return (
-                      <div key={question} className="py-5">
-                        <button
-                          type="button"
-                          aria-expanded={isOpen}
-                          onClick={() => setOpenFaq(isOpen ? null : index)}
-                          className="flex w-full items-center justify-between text-left focus:outline-none group cursor-pointer"
-                        >
-                          <span className={`text-[16px] font-bold pr-8 transition-colors ${isOpen ? 'text-[#2563EB]' : 'text-slate-900 group-hover:text-[#2563EB]'}`}>
-                            {question}
-                          </span>
-                          <span className={`flex-shrink-0 transition-transform duration-300 flex items-center justify-center w-7 h-7 rounded-full ${isOpen ? 'rotate-180 bg-[#EBF3FF] text-[#2563EB]' : 'text-slate-400 group-hover:bg-slate-50'}`}>
-                            <ChevronDown className="w-5 h-5" />
-                          </span>
-                        </button>
-
-                        <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
-                          <div className="overflow-hidden">
-                            <p className="text-[15px] text-[#475569] leading-relaxed pr-10 pb-1">
-                              {answer}
-                            </p>
-                          </div>
-                        </div>
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="text-[14px] sm:text-[14.5px] text-[#475569] leading-relaxed px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
+                          {answer}
+                        </p>
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

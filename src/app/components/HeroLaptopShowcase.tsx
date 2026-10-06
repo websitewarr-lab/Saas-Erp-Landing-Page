@@ -200,7 +200,7 @@ export default function HeroLaptopShowcase() {
                   cx="80"
                   cy="80"
                   r="42"
-                  stroke="#1D4ED8"
+                  stroke="#005fae"
                   strokeWidth="10"
                   fill="none"
                   strokeDasharray="263.89"
@@ -209,12 +209,12 @@ export default function HeroLaptopShowcase() {
                   className="-rotate-90 origin-center"
                 />
 
-                {/* Segment 2: Hotel (Royal Blue - top right) */}
+                {/* Segment 2: Hotel (Brand Accent Blue - top right) */}
                 <circle
                   cx="80"
                   cy="80"
                   r="42"
-                  stroke="#2563EB"
+                  stroke="#006fc9"
                   strokeWidth="10"
                   fill="none"
                   strokeDasharray="263.89"
@@ -253,11 +253,11 @@ export default function HeroLaptopShowcase() {
 
                 {/* Hairline Pointer Lines & Circular Nodes (exact Zoho detail) */}
                 {/* Flight pin */}
-                <circle cx="68" cy="40" r="2" fill="#FFFFFF" stroke="#1D4ED8" strokeWidth="1.5" />
+                <circle cx="68" cy="40" r="2" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.5" />
                 <line x1="68" y1="40" x2="48" y2="24" stroke="#94A3B8" strokeWidth="0.85" />
 
                 {/* Hotel pin */}
-                <circle cx="110" cy="50" r="2" fill="#FFFFFF" stroke="#2563EB" strokeWidth="1.5" />
+                <circle cx="110" cy="50" r="2" fill="#FFFFFF" stroke="#006fc9" strokeWidth="1.5" />
                 <line x1="110" y1="50" x2="128" y2="40" stroke="#94A3B8" strokeWidth="0.85" />
 
                 {/* Train pin */}
@@ -269,7 +269,7 @@ export default function HeroLaptopShowcase() {
                 <line x1="70" y1="122" x2="68" y2="140" stroke="#94A3B8" strokeWidth="0.85" />
 
                 {/* Car pin */}
-                <circle cx="38" cy="78" r="2" fill="#FFFFFF" stroke="#1D4ED8" strokeWidth="1.5" />
+                <circle cx="38" cy="78" r="2" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.5" />
                 <line x1="38" y1="78" x2="22" y2="82" stroke="#94A3B8" strokeWidth="0.85" />
               </svg>
             </div>
@@ -381,7 +381,7 @@ export default function HeroLaptopShowcase() {
                     <span className="w-1 h-1 rounded-full bg-rose-500 absolute top-0.5 right-0.5" />
                   </div>
                   <div className="flex items-center gap-1 pl-1">
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-[9px]">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#006fc9] to-[#005fae] flex items-center justify-center text-white font-bold text-[9px]">
                       ZT
                     </div>
                     <span className="text-[10px] font-medium text-slate-300">Zee Tech</span>
@@ -394,7 +394,7 @@ export default function HeroLaptopShowcase() {
                 <div className="flex items-center gap-1.5 text-slate-700 font-bold">
                   <span>Business Overview</span>
                   <span className="text-slate-300">/</span>
-                  <span className="text-blue-600 font-medium">Dashboard</span>
+                  <span className="text-[#006fc9] font-medium">Dashboard</span>
                 </div>
 
                 <div className="flex items-center gap-1.5">
@@ -536,7 +536,7 @@ export default function HeroLaptopShowcase() {
                       <span className="text-slate-500">₹ 2,50,000.00</span>
                     </div>
                     <div className="w-full h-1.5 rounded-full bg-slate-100 flex overflow-hidden">
-                      <div className="w-[70%] bg-blue-600" />
+                      <div className="w-[70%] bg-[#006fc9]" />
                       <div className="w-[30%] bg-amber-500" />
                     </div>
                     <div className="flex justify-between text-[7.5px] text-slate-500 mt-0.5">
@@ -551,7 +551,7 @@ export default function HeroLaptopShowcase() {
                       <span className="text-slate-500">₹ 18,80,000.00</span>
                     </div>
                     <div className="w-full h-1.5 rounded-full bg-slate-100 flex overflow-hidden">
-                      <div className="w-[50%] bg-blue-600" />
+                      <div className="w-[50%] bg-[#006fc9]" />
                       <div className="w-[20%] bg-sky-400" />
                       <div className="w-[30%] bg-purple-500" />
                     </div>
@@ -611,18 +611,18 @@ export default function HeroLaptopShowcase() {
 
               {/* Progress overview bar from Screenshot */}
               <div className="w-full h-2 rounded-full bg-slate-100 flex overflow-hidden mb-4 border border-white/60">
-                <div className="w-[25.5%] bg-blue-600 rounded-l-full" />
+                <div className="w-[25.5%] bg-[#006fc9] rounded-l-full" />
                 <div className="w-[74.5%] bg-sky-200/80 rounded-r-full" />
               </div>
               
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between text-[11px] font-medium text-slate-600 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-blue-600" /> Expired Goods</span>
+                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-[#006fc9]" /> Expired Goods</span>
                     <strong className="text-slate-800 font-bold">25.5%</strong>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full bg-blue-600 rounded-full w-[25.5%]" />
+                    <div className="h-full bg-[#006fc9] rounded-full w-[25.5%]" />
                   </div>
                 </div>
 
@@ -727,7 +727,7 @@ export default function HeroLaptopShowcase() {
 
             <div className="pt-2 border-t border-white/60 text-[10px] text-slate-400 flex items-center justify-between">
               <span>Collection Interval</span>
-              <span className="text-blue-600 font-bold">12 Days</span>
+              <span className="text-[#006fc9] font-bold">12 Days</span>
             </div>
           </div>
         </div>

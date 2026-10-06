@@ -440,7 +440,7 @@ export default function ProductShowcase() {
           <button
             type="button"
             onClick={() => handleScroll("left")}
-            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-300 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-[#006fc9] hover:border-[#006fc9]/40 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
             aria-label="Previous module"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -475,7 +475,7 @@ export default function ProductShowcase() {
           <button
             type="button"
             onClick={() => handleScroll("right")}
-            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-300 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+            className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-[#006fc9] hover:border-[#006fc9]/40 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
             aria-label="Next module"
           >
             <ChevronRight className="w-4 h-4" />
@@ -652,7 +652,7 @@ export default function ProductShowcase() {
                       </span>
                     </div>
                     <div className="dashboard-footer-note">
-                      <Sparkles className="w-3 h-3 text-blue-500 inline mr-1" />
+                      <Sparkles className="w-3 h-3 text-[#006fc9] inline mr-1" />
                       Your workspace is up to date
                     </div>
                   </div>

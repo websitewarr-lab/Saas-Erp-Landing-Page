@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { WorkflowStage } from "./moduleData";
 
 interface ConnectedWorkflowFlowProps {
@@ -906,41 +906,6 @@ export default function ConnectedWorkflowFlow({
   const [isOut, setIsOut] = useState(false);
   const [isSweep, setIsSweep] = useState(false);
 
-  // Animated metric counter state
-  const rawMetric = steps[displayStepIndex]?.latency || "< 100ms";
-  const [animatedMetric, setAnimatedMetric] = useState(rawMetric);
-  const rafRef = useRef<number | null>(null);
-
-  // Animate countUp when displayStepIndex changes
-  useEffect(() => {
-    const valStr = steps[displayStepIndex]?.latency || "< 100ms";
-    const match = valStr.match(/\d+(\.\d+)?/);
-    if (!match || parseFloat(match[0]) === 0) {
-      const raf = requestAnimationFrame(() => setAnimatedMetric(valStr));
-      return () => cancelAnimationFrame(raf);
-    }
-
-    const target = parseFloat(match[0]);
-    const pre = valStr.slice(0, match.index);
-    const post = valStr.slice((match.index ?? 0) + match[0].length);
-    const t0 = performance.now();
-    const dur = 450;
-
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - t0) / dur);
-      const current = Math.round(target * (1 - Math.pow(1 - p, 3)));
-      setAnimatedMetric(`${pre}${current}${post}`);
-      if (p < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [displayStepIndex, steps]);
-
   // Stage transition trigger
   const goToStage = useCallback(
     (targetIndex: number) => {
@@ -999,11 +964,6 @@ export default function ConnectedWorkflowFlow({
   };
 
   const currStep = steps[displayStepIndex] || steps[0];
-  const metricLabel = currStep?.latency?.includes("ms")
-    ? "Latency"
-    : currStep?.latency?.includes("%")
-    ? "Audit trail"
-    : "Metric";
 
   return (
     <div
@@ -1154,12 +1114,6 @@ export default function ConnectedWorkflowFlow({
             <p className="d-body fx" style={{ "--d": ".08s" } as React.CSSProperties}>
               {currStep?.detailDescription}
             </p>
-          </div>
-          <div className="d-side">
-            <div className="metric fx" style={{ "--d": ".12s" } as React.CSSProperties}>
-              <span>{metricLabel}:</span>
-              <b>{animatedMetric}</b>
-            </div>
           </div>
         </section>
       </div>

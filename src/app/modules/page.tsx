@@ -128,13 +128,13 @@ const modulesList: ModuleHubItem[] = [
 
 export default function ModulesHubPage() {
   return (
-    <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#006fc9] selection:text-white">
       {/* Global Site Header */}
       <SiteHeader />
 
       <main>
         {/* Intro Hero Header */}
-        <section className="relative py-20 bg-gradient-to-b from-blue-50/70 via-slate-50 to-white border-b border-slate-200/80">
+        <section className="relative py-20 bg-gradient-to-b from-[#006fc9]/10 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
             <h1 className="text-[32px] sm:text-[43px] md:text-[55px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
               One ERP, every department.
@@ -155,11 +155,11 @@ export default function ModulesHubPage() {
               return (
                 <div
                   key={`module-card-${mod.slug}`}
-                  className="p-7 rounded-3xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xl transition-all duration-200 flex flex-col justify-between group space-y-6"
+                  className="p-7 rounded-3xl bg-white border border-slate-200 hover:border-[#006fc9]/60 hover:shadow-xl transition-all duration-200 flex flex-col justify-between group space-y-6"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-2xl bg-[#006fc9]/10 border border-[#006fc9]/20 flex items-center justify-center text-[#006fc9] group-hover:scale-110 transition-transform">
                         <IconComp className="w-6 h-6" />
                       </div>
                       <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-[11px] font-bold uppercase tracking-wider">
@@ -167,7 +167,7 @@ export default function ModulesHubPage() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-extrabold text-[#0F172A] group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-2xl font-extrabold text-[#0F172A] group-hover:text-[#006fc9] transition-colors">
                       {mod.name}
                     </h2>
 
@@ -178,7 +178,7 @@ export default function ModulesHubPage() {
                     <div className="space-y-2 pt-2 border-t border-slate-100">
                       {mod.features.map((feat, fIdx) => (
                         <div key={`${mod.slug}-feature-${fIdx}`} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                          <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-[#006fc9] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -188,7 +188,7 @@ export default function ModulesHubPage() {
                   <div className="pt-4 border-t border-slate-100">
                     <Link
                       href={`/modules/${mod.slug}`}
-                      className="inline-flex items-center justify-between w-full px-5 py-3 rounded-xl bg-slate-900 text-white font-bold text-xs group-hover:bg-blue-600 transition-all shadow-sm"
+                      className="inline-flex items-center justify-between w-full px-5 py-3 rounded-xl bg-[#006fc9] hover:bg-[#005fae] text-white font-bold text-xs transition-all shadow-sm shadow-[#006fc9]/20"
                     >
                       <span>Learn More</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -202,7 +202,7 @@ export default function ModulesHubPage() {
 
         {/* Global CTA Section */}
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white p-10 lg:p-14 text-center overflow-hidden shadow-2xl shadow-blue-600/20">
+          <div className="rounded-3xl bg-gradient-to-r from-[#006fc9] via-[#005fae] to-[#004e8f] text-white p-10 lg:p-14 text-center overflow-hidden shadow-2xl shadow-[#006fc9]/20">
             <div className="max-w-3xl mx-auto space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
                 Ready to transform your business operations?
@@ -212,7 +212,7 @@ export default function ModulesHubPage() {
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <PopupCtaButton
-                  className="px-8 py-4 rounded-xl bg-white text-blue-700 font-extrabold text-sm shadow-xl hover:bg-slate-100 transition-all flex items-center gap-2"
+                  className="px-8 py-4 rounded-xl bg-white text-[#006fc9] font-extrabold text-sm shadow-xl hover:bg-slate-100 transition-all flex items-center gap-2"
                 >
                   <span>Book a Demo</span>
                   <ArrowRight className="w-4 h-4" />

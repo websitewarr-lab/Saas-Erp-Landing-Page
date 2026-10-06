@@ -130,10 +130,10 @@ export default function IndustrySolutions() {
             Built for the way{" "}
             <br className="hidden sm:inline" />
             your{" "}
-            <span className="text-[#2563EB] relative inline-block">
+            <span className="text-[#006fc9] relative inline-block">
               industry
               <svg
-                className="absolute w-[105%] h-3 -bottom-1 -left-1 text-[#2563EB]/20"
+                className="absolute w-[105%] h-3 -bottom-1 -left-1 text-[#006fc9]/20"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
               >
@@ -171,8 +171,8 @@ export default function IndustrySolutions() {
                 className={`group relative ${item.bgGradient} p-5 sm:p-5.5 rounded-[18px] sm:rounded-[20px] border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] ${item.borderHover} hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer select-none`}
               >
                 <div>
-                  {/* Top-Left Black Rounded Icon Badge (Rotates 360° on Hover/Scroll-Over) */}
-                  <div className="w-10 h-10 rounded-[11px] bg-[#0A0D14] text-white flex items-center justify-center mb-4 shadow-2xs transition-transform duration-700 ease-in-out group-hover:rotate-[360deg]">
+                  {/* Top-Left Blue Rounded Icon Badge (Rotates 360° on Hover/Scroll-Over) */}
+                  <div className="w-10 h-10 rounded-[11px] bg-[#006fc9] text-white flex items-center justify-center mb-4 shadow-sm shadow-[#006fc9]/20 transition-transform duration-700 ease-in-out group-hover:rotate-[360deg]">
                     <Icon className="w-5 h-5 text-white stroke-[1.8]" />
                   </div>
 
@@ -190,7 +190,7 @@ export default function IndustrySolutions() {
                 {/* Card Divider & Learn More link */}
                 <div className="w-full border-t border-slate-200/75 pt-3 mt-auto flex items-center justify-between">
                   <PopupCtaButton
-                    className="text-[12.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                    className="text-[12.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-[#006fc9] transition-colors inline-flex items-center gap-1"
                   >
                     Learn More{" "}
                     <span className="transition-transform duration-200 group-hover:translate-x-1">
@@ -212,15 +212,15 @@ export default function IndustrySolutions() {
           className="flex justify-center"
         >
           <PopupCtaButton
-            className="inline-flex items-center gap-3 px-1.5 py-1.5 pr-5 rounded-full bg-white shadow-xs border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all text-[13px] font-bold text-slate-700 cursor-pointer"
+            className="inline-flex items-center gap-3 px-1.5 py-1.5 pr-5 rounded-full bg-white shadow-xs border border-slate-200 hover:shadow-md hover:border-[#006fc9]/40 transition-all text-[13px] font-bold text-slate-700 cursor-pointer"
           >
-            <div className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full bg-[#006fc9] flex items-center justify-center">
               <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z" />
               </svg>
             </div>
             Solutions tailored for every industry{" "}
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#006fc9] transition-colors" />
           </PopupCtaButton>
         </motion.div>
       </div>

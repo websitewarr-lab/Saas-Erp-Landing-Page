@@ -57,6 +57,7 @@ import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import { PopupCtaButton } from "./popup-cta";
 import ConnectedWorkflowFlow from "./modules/ConnectedWorkflowFlow";
+import { ModuleComparisonSection } from "./ModuleComparisonSection";
 import {
   MODULES_DATA,
   type EdgeSuperpower,
@@ -585,7 +586,7 @@ function ModuleHeroPreview({
             <div className="flex items-center gap-2 shrink-0">
               <span className="relative flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 hover:text-slate-700">
                 <Bell size={12} />
-                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#006fc9]" />
               </span>
               <span className="mf-hero-avatar">MS</span>
             </div>
@@ -631,7 +632,7 @@ function ModuleHeroPreview({
           <div className="bg-white p-2 rounded-lg border border-slate-200/90 shadow-2xs space-y-1">
             <div className="flex items-center justify-between text-[10px] pb-1 border-b border-slate-100">
               <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
                 <span className="truncate">{config.mockup.kanbanTitle}</span>
               </span>
               <span className="text-[9px] text-slate-400 font-mono shrink-0 ml-2">
@@ -658,7 +659,7 @@ function ModuleHeroPreview({
                   <div
                     className={`bg-white p-1.5 rounded-md border shadow-2xs space-y-1 ${
                       col.isHighlighted
-                        ? "border-blue-400 ring-1 ring-blue-400/20"
+                        ? "border-[#006fc9] ring-1 ring-[#006fc9]/20"
                         : idx === 2
                         ? "border-emerald-300"
                         : "border-slate-200"
@@ -684,7 +685,7 @@ function ModuleHeroPreview({
           {/* 3. Automated Activity Feed with Interactive Sentinel */}
           <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 text-[10px] flex items-center justify-between gap-2 shadow-2xs">
             <div className="flex items-center gap-2 min-w-0">
-              <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-black text-[9px] shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[9px] shrink-0">
                 AI
               </span>
               <span className="text-slate-700 font-medium text-[9.5px] truncate">
@@ -697,7 +698,7 @@ function ModuleHeroPreview({
               className={`px-2.5 py-1 rounded-lg font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
                 sentinelApproved
                   ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                  : "bg-blue-600 hover:bg-blue-700 text-white shadow-xs"
+                  : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
               }`}
             >
               {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
@@ -736,9 +737,129 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
     ? config.edge.superpowers.slice(0, 6)
     : config.edge.superpowers;
 
+  useEffect(() => {
+    if (!selected) return;
+
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+
+    // Lock background page scroll while dialog is open
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalBodyPaddingRight = document.body.style.paddingRight;
+
+    document.documentElement.classList.add("modal-locked");
+    document.body.classList.add("modal-locked");
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${
+        (parseFloat(getComputedStyle(document.body).paddingRight) || 0) + scrollbarWidth
+      }px`;
+    }
+
+    // Intercept wheel events on window (capture phase) to prevent any background scroll
+    const handleWheel = (e: WheelEvent) => {
+      if (!dialog) {
+        e.preventDefault();
+        return;
+      }
+
+      const target = e.target as Node | null;
+      // If outside the dialog (e.g. over backdrop or anywhere on the page), prevent scroll
+      if (!target || (!dialog.contains(target) && target !== dialog)) {
+        e.preventDefault();
+        return;
+      }
+
+      // Inside dialog: check if dialog content can scroll (e.g. small mobile viewport)
+      const canScroll = dialog.scrollHeight > dialog.clientHeight;
+      if (!canScroll) {
+        // Desktop view: fits entirely without scrolling, cancel all wheel scrolls
+        e.preventDefault();
+        return;
+      }
+
+      // Small viewport: allow scrolling inside dialog, but lock at top and bottom bounds
+      const isScrollingUp = e.deltaY < 0;
+      const isScrollingDown = e.deltaY > 0;
+      const isAtTop = dialog.scrollTop <= 0;
+      const isAtBottom = dialog.scrollTop + dialog.clientHeight >= dialog.scrollHeight - 1;
+
+      if ((isScrollingUp && isAtTop) || (isScrollingDown && isAtBottom)) {
+        e.preventDefault();
+      }
+    };
+
+    // Intercept touchmove gestures (capture phase)
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!dialog) {
+        e.preventDefault();
+        return;
+      }
+
+      const target = e.target as Node | null;
+      if (!target || (!dialog.contains(target) && target !== dialog)) {
+        e.preventDefault();
+        return;
+      }
+
+      const canScroll = dialog.scrollHeight > dialog.clientHeight;
+      if (!canScroll) {
+        e.preventDefault();
+      }
+    };
+
+    // Intercept keyboard scrolling keys
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+      if (
+        ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)
+      ) {
+        if (!dialog) return;
+        const target = e.target as HTMLElement | null;
+        if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+          return;
+        }
+        const canScroll = dialog.scrollHeight > dialog.clientHeight;
+        if (!canScroll) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false, capture: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
+    window.addEventListener("keydown", handleKeyDown);
+
+    function handleDialogClose() {
+      setSelected(null);
+    }
+
+    dialog?.addEventListener("close", handleDialogClose);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel, { capture: true });
+      window.removeEventListener("touchmove", handleTouchMove, { capture: true });
+      window.removeEventListener("keydown", handleKeyDown);
+      document.documentElement.classList.remove("modal-locked");
+      document.body.classList.remove("modal-locked");
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.paddingRight = originalBodyPaddingRight;
+      dialog?.removeEventListener("close", handleDialogClose);
+    };
+  }, [selected]);
+
   function openFeature(feature: EdgeSuperpower) {
     setSelected(feature);
-    dialogRef.current?.showModal();
+  }
+
+  function closeFeature() {
+    dialogRef.current?.close();
+    setSelected(null);
   }
 
   return (
@@ -787,7 +908,7 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
             <button
               type="button"
               onClick={() => setShowAll((prev) => !prev)}
-              className="glass-btn px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-sm transition-all shadow-xs inline-flex items-center gap-2 active:scale-95 cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-sm transition-all shadow-xs inline-flex items-center gap-2 active:scale-95 cursor-pointer"
               aria-expanded={showAll}
             >
               <span>{showAll ? "Show Less" : "Show All"}</span>
@@ -802,6 +923,7 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
         ref={dialogRef}
         className="mf-section mf-dialog"
         aria-labelledby={`${config.slug}-feature-dialog-title`}
+        onWheel={(e) => e.stopPropagation()}
         onClick={(event) => {
           if (event.target !== event.currentTarget) return;
           const rect = event.currentTarget.getBoundingClientRect();
@@ -811,7 +933,7 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
             event.clientY < rect.top ||
             event.clientY > rect.bottom
           ) {
-            dialogRef.current?.close();
+            closeFeature();
           }
         }}
       >
@@ -819,10 +941,10 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
           className="mf-close-dialog"
           type="button"
           aria-label="Close feature details"
-          onClick={() => dialogRef.current?.close()}
+          onClick={closeFeature}
           autoFocus
         >
-          <X size={21} />
+          <X size={20} />
         </button>
 
         {selected && (
@@ -1102,7 +1224,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
   const [sentinelApproved, setSentinelApproved] = useState<boolean>(false);
 
   return (
-    <div className="erp-site min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
+    <div className="erp-site min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-[#006fc9] selection:text-white">
       {/* Global Site Header */}
       <SiteHeader />
 
@@ -1113,7 +1235,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         <section className="relative module-detail-section module-detail-hero bg-gradient-to-br from-[#F8FAFC] via-[#EDF5FF] to-[#E2EFFF] overflow-hidden border-b border-slate-200/70">
           {/* Ambient Blur Lighting Accents */}
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/80 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 right-[5%] w-[450px] h-[450px] bg-gradient-to-br from-blue-300/30 via-indigo-300/20 to-purple-300/10 rounded-full blur-3xl pointer-events-none pulse-glow" />
+          <div className="absolute top-1/2 right-[5%] w-[450px] h-[450px] bg-gradient-to-br from-[#006fc9]/20 via-indigo-300/20 to-purple-300/10 rounded-full blur-3xl pointer-events-none pulse-glow" />
 
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Breadcrumb + Verified Sync Badge */}
@@ -1126,7 +1248,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               </Link>
               <span className="text-slate-400 text-xs">/</span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-extrabold shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-blue-600" />
+                <span className="w-2 h-2 rounded-full bg-[#006fc9]" />
                 {config.badge}
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
@@ -1140,7 +1262,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               <div className="w-full lg:flex-1 lg:max-w-[620px] space-y-6 text-left">
                 <h1 className="text-[34px] sm:text-[45px] lg:text-[41px] xl:text-[45px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
                   {config.heroHeadline}{" "}
-                  <span className="text-blue-600">{config.heroHighlight}</span>
+                  <span className="text-[#006fc9]">{config.heroHighlight}</span>
                 </h1>
 
                 <p className="text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
@@ -1151,14 +1273,14 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <PopupCtaButton
                     intent="trial"
-                    className="glass-btn px-7 py-3 rounded-full bg-[#2563EB] hover:bg-blue-700 text-white font-extrabold text-sm shadow-md shadow-blue-600/25 transition-all inline-flex items-center gap-2 active:scale-95"
+                    className="px-7 py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-sm shadow-md shadow-[#006fc9]/25 transition-all inline-flex items-center gap-2 active:scale-95 cursor-pointer"
                   >
                     <span>Start 14-Day Free Sandbox</span>
                     <ArrowRight className="w-4 h-4" />
                   </PopupCtaButton>
                   <a
                     href="#features-matrix"
-                    className="glass-btn px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2"
+                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2 cursor-pointer"
                   >
                     <span>Explore All {config.featuresCatalog.items.filter((item) => {
                       const spTitles = new Set(
@@ -1202,89 +1324,9 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         <AllFeatures key={`features-${config.slug}`} config={config} />
 
         {/* ========================================================================= */}
-        {/* 4. HEAD-TO-HEAD COMPETITIVE COMPARISON MATRIX (MAX 5 DIFFERENCES)        */}
+        {/* 4. HEAD-TO-HEAD COMPETITIVE COMPARISON MATRIX (PROTOTYPE MATCHED)        */}
         {/* ========================================================================= */}
-        <section
-          id="comparison-section"
-          className="module-detail-section bg-slate-50 relative border-b border-slate-200/80"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-5xl mx-auto module-section-header space-y-2">
-              <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">
-                {config.comparison.eyebrow}
-              </span>
-              <h2 className="text-[27px] sm:text-[33px] md:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-tight">
-                {config.comparison.title}
-              </h2>
-              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                {config.comparison.subtitle}
-              </p>
-            </div>
-
-            {/* Comparison Table Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-slate-200 bg-slate-100/70 text-xs text-slate-700">
-                      <th className="p-4 sm:p-5 font-extrabold w-1/3">Evaluation Metric</th>
-                      <th className="p-4 sm:p-5 font-black text-blue-700 bg-blue-50/80 w-1/4 border-x border-blue-200/80">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
-                          <span>Mossie ERP</span>
-                          <span className="ml-auto text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">
-                            WINNER
-                          </span>
-                        </div>
-                      </th>
-                      <th className="p-4 sm:p-5 font-bold text-slate-500 w-1/5">
-                        {config.comparison.competitor1Name}
-                      </th>
-                      <th className="p-4 sm:p-5 font-bold text-slate-500 w-1/5">
-                        {config.comparison.competitor2Name}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
-                    {/* Capped at max 5 differences across all module pages */}
-                    {config.comparison.rows.slice(0, 5).map((row, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="p-4 sm:p-5 font-bold text-slate-900">
-                          {row.metric}
-                          <div className="text-[11px] text-slate-500 font-normal">
-                            {row.metricDesc}
-                          </div>
-                        </td>
-                        <td className="p-4 sm:p-5 bg-blue-50/40 border-x border-blue-100">
-                          <div className="font-black text-emerald-700 text-xs sm:text-sm">
-                            {row.mossi.highlight}
-                          </div>
-                          <div className="text-[11px] text-slate-600 font-medium mt-0.5">
-                            {row.mossi.detail}
-                          </div>
-                        </td>
-                        <td className="p-4 sm:p-5">
-                          <div className="font-bold text-slate-700 text-xs sm:text-sm">
-                            {row.legacy.highlight}
-                          </div>
-                          <div className="text-[11px] text-slate-500 mt-0.5">{row.legacy.detail}</div>
-                        </td>
-                        <td className="p-4 sm:p-5">
-                          <div className="font-bold text-slate-700 text-xs sm:text-sm">
-                            {row.pointSolution.highlight}
-                          </div>
-                          <div className="text-[11px] text-slate-500 mt-0.5">
-                            {row.pointSolution.detail}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ModuleComparisonSection config={config} />
 
         {/* ========================================================================= */}
         {/* 5. CONNECTED WORKFLOW (THE ERP NETWORK EFFECT)                           */}
@@ -1313,7 +1355,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                 </blockquote>
 
                 <div className="flex items-center gap-3 pt-2">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#006fc9] to-[#005fae] text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
                     {config.testimonialAndRoi.testimonial.initials}
                   </div>
                   <div>
@@ -1339,10 +1381,10 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
           className="module-detail-section bg-gradient-to-br from-[#0C1E38] via-[#0F294D] to-[#0A1728] text-white relative overflow-hidden"
         >
           {/* Ambient Tech Glow Circles */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#006fc9]/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-extrabold text-xs border border-blue-400/30">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#006fc9]/20 text-sky-200 font-extrabold text-xs border border-[#006fc9]/30">
               <span>{config.cta.pill}</span>
             </div>
 
@@ -1356,14 +1398,14 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <PopupCtaButton
-                className="glass-btn px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-sm shadow-xl shadow-blue-500/30 transition-all inline-flex items-center gap-2 active:scale-95"
+                className="px-8 py-3.5 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-sm shadow-xl shadow-[#006fc9]/30 transition-all inline-flex items-center gap-2 active:scale-95 cursor-pointer"
               >
                 <span>{config.cta.primaryCtaText}</span>
                 <ArrowRight className="w-4 h-4" />
               </PopupCtaButton>
               <Link
                 href="/modules"
-                className="glass-btn px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
+                className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
               >
                 <span>{config.cta.secondaryCtaText}</span>
               </Link>

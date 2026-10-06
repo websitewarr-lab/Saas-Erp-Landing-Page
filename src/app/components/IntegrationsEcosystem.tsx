@@ -1,890 +1,847 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { BRAND_ICONS } from "./integrations-icons";
 
-interface PartnerApp {
-  name: string;
-  category: "payments" | "banking" | "ecommerce" | "shipping" | "collab" | "messaging";
-  tag: string;
-  latency: string;
-  badgeBg?: string;
-  renderLogo: () => React.ReactNode;
+interface GroupConfig {
+  id: string;
+  label: string;
+  side: "left" | "right";
+  apps: [string, string, string?][];
 }
 
-// Crisp inline SVGs for top ecosystem partners (zero external image dependencies)
-const PARTNERS: Record<string, PartnerApp> = {
-  // Left Wing: Payments & Banking & Messaging
-  stripe: {
-    name: "Stripe",
-    category: "payments",
-    tag: "Global Gateway",
-    latency: "120ms sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#635BFF" />
-        <path
-          d="M14.8 12.8c0-.7.6-1 1.6-1 1.4 0 3.2.5 4.6 1.3V8.8C19.5 8.3 17.8 8 16.1 8c-4.2 0-7 2.2-7 6 0 5.8 8 4.9 8 7.4 0 .9-.8 1.2-1.9 1.2-1.7 0-3.8-.7-5.5-1.7v4.4c1.8.8 3.7 1.1 5.5 1.1 4.3 0 7.3-2.1 7.3-6.1 0-6.3-7.7-5.2-7.7-7.5z"
-          fill="#FFF"
-        />
-      </svg>
-    ),
+const GROUPS: GroupConfig[] = [
+  {
+    id: "payments",
+    label: "Payments",
+    side: "left",
+    apps: [
+      ["Stripe", "stripe"],
+      ["Razorpay", "razorpay"],
+      ["PayPal", "paypal"],
+      ["PhonePe", "phonepe"],
+    ],
   },
-  paypal: {
-    name: "PayPal",
-    category: "payments",
-    tag: "Checkout & Wallet",
-    latency: "180ms sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#F4F8FC" />
-        <path
-          d="M12.4 23.2l1.6-10.4h4.1c2.8 0 4.6 1.4 4.2 4.1-.4 2.8-2.3 4.4-4.8 4.4h-2.1l-.8 4.9h-2.2z"
-          fill="#003087"
-        />
-        <path
-          d="M14.6 20.4l1.2-7.6h4.1c2.8 0 4.6 1.4 4.2 4.1-.4 2.8-2.3 4.4-4.8 4.4h-2.1l-.8 4.9h-1.8z"
-          fill="#0079C1"
-          opacity="0.85"
-        />
-      </svg>
-    ),
+  {
+    id: "banking",
+    label: "Banking",
+    side: "left",
+    apps: [
+      ["HDFC Bank", "hdfc"],
+      ["ICICI Bank", "icici"],
+      ["Axis Bank", "axis"],
+      ["HSBC", "hsbc", "wide"],
+    ],
   },
-  razorpay: {
-    name: "Razorpay",
-    category: "payments",
-    tag: "Automated Reconcile",
-    latency: "95ms sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#0C2340" />
-        <path
-          d="M18.8 8L11 17.5h5.8L13.2 24l9.8-10.5h-6.2L18.8 8z"
-          fill="#3395FF"
-        />
-      </svg>
-    ),
+  {
+    id: "crm",
+    label: "CRM & Sales",
+    side: "left",
+    apps: [
+      ["Zoho CRM", "zoho", "wide"],
+      ["HubSpot", "hubspot"],
+      ["Salesforce", "salesforce", "wide"],
+      ["Pipedrive", "pipedrive"],
+    ],
   },
-  phonepe: {
-    name: "PhonePe",
-    category: "payments",
-    tag: "UPI & QR Collect",
-    latency: "90ms sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#5F259F" />
-        <text
-          x="16"
-          y="22"
-          textAnchor="middle"
-          fill="#FFF"
-          fontSize="17"
-          fontWeight="bold"
-          fontFamily="sans-serif"
-        >
-          पे
-        </text>
-      </svg>
-    ),
+  {
+    id: "communication",
+    label: "Communication",
+    side: "left",
+    apps: [
+      ["WhatsApp", "whatsapp"],
+      ["Slack", "slack"],
+      ["Twilio", "twilio"],
+      ["Microsoft Teams", "teams"],
+    ],
   },
-  hdfc: {
-    name: "HDFC Bank",
-    category: "banking",
-    tag: "Corporate NetBanking",
-    latency: "Direct API",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#004C8F" />
-        <rect x="7" y="7" width="18" height="18" fill="#ED232A" rx="2" />
-        <rect x="11" y="11" width="10" height="10" fill="#004C8F" />
-        <rect x="13" y="13" width="6" height="6" fill="#FFF" />
-      </svg>
-    ),
+  {
+    id: "accounting",
+    label: "Accounting",
+    side: "left",
+    apps: [
+      ["Tally", "tally", "wide"],
+      ["QuickBooks", "quickbooks"],
+      ["Xero", "xero"],
+      ["Zoho Books", "books"],
+    ],
   },
-  icici: {
-    name: "ICICI Bank",
-    category: "banking",
-    tag: "Smart E-Collections",
-    latency: "Real-time feed",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#B02A30" />
-        <circle cx="16" cy="16" r="8.5" stroke="#F58220" strokeWidth="2.5" fill="none" />
-        <circle cx="16" cy="16" r="3.5" fill="#FFF" />
-      </svg>
-    ),
+  {
+    id: "ecommerce",
+    label: "E-commerce",
+    side: "right",
+    apps: [
+      ["Shopify", "shopify"],
+      ["Amazon", "amazon"],
+      ["WooCommerce", "woocommerce"],
+      ["Magento", "magento"],
+    ],
   },
-  hsbc: {
-    name: "HSBC Corporate",
-    category: "banking",
-    tag: "Treasury & FX",
-    latency: "Global SWIFT",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#FFF" stroke="#E2E8F0" />
-        <path d="M16 16l-6-6v12l6-6z" fill="#DB0011" />
-        <path d="M16 16l6-6v12l-6-6z" fill="#DB0011" />
-        <path d="M16 16l6-6H10l6 6z" fill="#DB0011" />
-        <path d="M16 16l6 6H10l6-6z" fill="#DB0011" />
-      </svg>
-    ),
+  {
+    id: "shipping",
+    label: "Shipping & Logistics",
+    side: "right",
+    apps: [
+      ["Shiprocket", "shiprocket"],
+      ["Delhivery", "delhivery"],
+      ["FedEx", "fedex", "wide"],
+      ["Blue Dart", "bluedart"],
+    ],
   },
-  whatsapp: {
-    name: "WhatsApp Business",
-    category: "messaging",
-    tag: "Invoices & OTPs",
-    latency: "< 2s dispatch",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#25D366" />
-        <path
-          d="M23 15.8c0 4-3.3 7.2-7.3 7.2-1.3 0-2.5-.3-3.6-.9l-4.1 1.1 1.1-3.9c-.8-1.2-1.2-2.5-1.2-3.8 0-4 3.3-7.2 7.3-7.2s7.8 3.5 7.8 7.5zm-4-1.2c-.2-.1-1.3-.6-1.5-.7s-.4-.1-.5.1c-.2.2-.6.7-.8.9-.1.1-.3.2-.5.1s-.9-.3-1.8-1.1c-.7-.6-1.1-1.3-1.3-1.5s0-.4.1-.5.2-.3.3-.4c.1-.1.2-.3.2-.4s0-.3-.1-.4c0-.1-.5-1.2-.7-1.6s-.4-.4-.5-.4h-.4c-.2 0-.4.1-.6.3s-.9.9-.9 2.2 1 2.5 1.1 2.7 1.9 2.9 4.6 4.1c.6.3 1.2.4 1.6.5.7.1 1.4.1 1.9 0 .6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4s-.2-.2-.5-.3z"
-          fill="#FFF"
-        />
-      </svg>
-    ),
+  {
+    id: "marketplace",
+    label: "Marketplace",
+    side: "right",
+    apps: [
+      ["Myntra", "myntra"],
+      ["Flipkart", "flipkart"],
+      ["Amazon Seller", "amazon"],
+      ["Meesho", "meesho"],
+    ],
   },
-  twilio: {
-    name: "Twilio",
-    category: "messaging",
-    tag: "Cloud Telephony",
-    latency: "Global routing",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#F22F46" />
-        <circle cx="12" cy="12" r="3" fill="#FFF" />
-        <circle cx="20" cy="12" r="3" fill="#FFF" />
-        <circle cx="12" cy="20" r="3" fill="#FFF" />
-        <circle cx="20" cy="20" r="3" fill="#FFF" />
-      </svg>
-    ),
+  {
+    id: "productivity",
+    label: "Productivity",
+    side: "right",
+    apps: [
+      ["Google Workspace", "google"],
+      ["Notion", "notion"],
+      ["Zapier", "zapier"],
+      ["Airtable", "airtable"],
+    ],
   },
+  {
+    id: "other",
+    label: "Other Apps",
+    side: "right",
+    apps: [
+      ["Google Maps", "maps", "small"],
+      ["Calendly", "calendly"],
+      ["DocuSign", "docusign"],
+      ["Slack", "slack"],
+    ],
+  },
+];
 
-  // Right Wing: E-Commerce, Logistics & Productivity
-  shopify: {
-    name: "Shopify",
-    category: "ecommerce",
-    tag: "Orders & Stock Sync",
-    latency: "Real-time Webhook",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#95BF47" />
-        <path
-          d="M20.5 9.5l-2.8 1.2s-.7-1.7-1.7-1.7c-.2 0-.3 0-.5.1l-.8-2.6c-.1-.2-.3-.3-.5-.3-.1 0-1.9.1-3 1.2-1.1 1.1-1.2 2.8-1.2 2.9l-2.4 1-1.1 12.2 12.5 2.5 5.5-1.5L20.5 9.5zm-5.4.3c.7 0 1.2 1.1 1.4 1.7l-3.3 1.4c.1-.8.9-3.1 1.9-3.1z"
-          fill="#FFF"
-        />
-        <path
-          d="M17.5 15.5c-.3-.2-.8-.4-1.4-.4-.8 0-1.3.4-1.3.9 0 1.2 2.7 1.3 2.7 3.3 0 1.5-1.1 2.3-2.5 2.3-.9 0-1.6-.3-2.1-.6l.4-1.4c.4.3.9.5 1.6.5.7 0 1.1-.3 1.1-.8 0-1.2-2.7-1.3-2.7-3.2 0-1.4 1.1-2.4 2.6-2.4.8 0 1.4.2 1.8.5l-.2 1.3z"
-          fill="#2C3E1B"
-        />
-      </svg>
-    ),
-  },
-  amazon: {
-    name: "Amazon Seller",
-    category: "ecommerce",
-    tag: "FBA & Multi-channel",
-    latency: "Hourly batch",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#131921" />
-        <path
-          d="M13.2 18.5c-1.8 0-3.2-.8-3.2-2.3 0-2 1.8-2.5 3.7-2.5.8 0 1.6.1 2.2.3v.6c0 2.4-1 3.9-2.7 3.9zm2.7-7.7h-1.6v1.2c-.7-.9-1.8-1.4-3-1.4-2.5 0-4.4 1.8-4.4 4.3 0 2.7 1.8 4.4 4.3 4.4 1.3 0 2.4-.6 3.1-1.6v1.4h1.6V10.8z"
-          fill="#FFF"
-        />
-        <path
-          d="M9 22.8c3.2 1.8 7.3 1.8 11.2-.2.2-.1.4.1.3.3-1.8 1.9-5.4 2.8-8.6 1.7-.5-.2-.9-.4-1.3-.7-.2-.2-.1-.5.2-.5z"
-          fill="#FF9900"
-        />
-      </svg>
-    ),
-  },
-  woocommerce: {
-    name: "WooCommerce",
-    category: "ecommerce",
-    tag: "WordPress Store",
-    latency: "Instant sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#7F54B3" />
-        <path
-          d="M8 12c0-1.7 1.3-3 3-3h10c1.7 0 3 1.3 3 3v7c0 1.7-1.3 3-3 3h-2l-3 3-3-3h-2c-1.7 0-3-1.3-3-3v-7z"
-          fill="#FFF"
-        />
-        <path
-          d="M11 14.5c.3 1.2 1.1 2 2.2 2 1.2 0 1.9-.8 2.2-2M16.5 14.5c.3 1.2 1.1 2 2.2 2 1.2 0 1.9-.8 2.2-2"
-          stroke="#7F54B3"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  shiprocket: {
-    name: "Shiprocket",
-    category: "shipping",
-    tag: "Automated Dispatch",
-    latency: "AWB Generated",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#662D91" />
-        <path
-          d="M16 8l4.5 9-4.5 7-4.5-7L16 8z"
-          fill="#FFF"
-        />
-        <circle cx="16" cy="17" r="2.2" fill="#00C49F" />
-      </svg>
-    ),
-  },
-  delhivery: {
-    name: "Delhivery",
-    category: "shipping",
-    tag: "B2B & Express Cargo",
-    latency: "Live manifests",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#000" />
-        <text
-          x="16"
-          y="18"
-          textAnchor="middle"
-          fill="#E53935"
-          fontSize="11"
-          fontWeight="bold"
-          fontFamily="sans-serif"
-        >
-          DLV
-        </text>
-        <rect x="8" y="21" width="16" height="2.5" rx="1" fill="#FFF" />
-      </svg>
-    ),
-  },
-  fedex: {
-    name: "FedEx Express",
-    category: "shipping",
-    tag: "Global Freight",
-    latency: "Commercial API",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#FFF" stroke="#E2E8F0" />
-        <text
-          x="9"
-          y="20"
-          fill="#4D148C"
-          fontSize="10"
-          fontWeight="bold"
-          fontFamily="sans-serif"
-        >
-          Fed
-        </text>
-        <text
-          x="18.5"
-          y="20"
-          fill="#FF6600"
-          fontSize="10"
-          fontWeight="bold"
-          fontFamily="sans-serif"
-        >
-          Ex
-        </text>
-      </svg>
-    ),
-  },
-  slack: {
-    name: "Slack",
-    category: "collab",
-    tag: "Alerts & Approvals",
-    latency: "Real-time",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#4A154B" />
-        <circle cx="12" cy="12" r="2" fill="#E01E5A" />
-        <circle cx="20" cy="12" r="2" fill="#2EB67D" />
-        <circle cx="12" cy="20" r="2" fill="#ECB22E" />
-        <circle cx="20" cy="20" r="2" fill="#36C5F0" />
-      </svg>
-    ),
-  },
-  zapier: {
-    name: "Zapier",
-    category: "collab",
-    tag: "6,000+ App Bridges",
-    latency: "Instant",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#FF4A00" />
-        <path
-          d="M16 9v14M9 16h14M11 11l10 10M11 21l10-10"
-          stroke="#FFF"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  google: {
-    name: "Google Workspace",
-    category: "collab",
-    tag: "Drive, Sheets, Auth",
-    latency: "Live sync",
-    renderLogo: () => (
-      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#FFF" stroke="#E2E8F0" />
-        <path
-          d="M23.5 16.3c0-.6 0-1.1-.1-1.6H16v3h4.2c-.2 1-.8 1.9-1.7 2.5v2h2.7c1.6-1.5 2.5-3.6 2.5-5.9z"
-          fill="#4285F4"
-        />
-        <path
-          d="M16 24c2.2 0 4.1-.7 5.5-2l-2.7-2c-.8.5-1.7.8-2.8.8-2.2 0-4-1.5-4.6-3.4H8.7v2.1C10.1 22.3 12.8 24 16 24z"
-          fill="#34A853"
-        />
-        <path
-          d="M11.4 17.4c-.1-.5-.2-1-.2-1.4s.1-.9.2-1.4V12.5H8.7C8.1 13.6 7.8 14.8 7.8 16s.3 2.4.9 3.5l2.7-2.1z"
-          fill="#FBBC05"
-        />
-        <path
-          d="M16 10.6c1.2 0 2.3.4 3.2 1.2l2.4-2.4C20.1 8 18.2 7.3 16 7.3c-3.2 0-5.9 1.7-7.3 4.5l2.7 2.1c.6-1.9 2.4-3.3 4.6-3.3z"
-          fill="#EA4335"
-        />
-      </svg>
-    ),
-  },
-};
+const ROWS = [94, 218, 345, 475, 605];
+
+const LEFT_PATHS = [
+  "M 659 94 H 788 C 861 94 918 145 918 202 V 245 Q 918 280 953 280",
+  "M 647 218 H 799 C 862 218 825 303 898 303 H 942",
+  "M 689 345 H 934",
+  "M 718 475 H 798 C 870 475 816 389 901 389 H 942",
+  "M 689 605 H 788 C 860 605 916 552 916 502 V 450 Q 916 412 953 412",
+];
+
+const RIGHT_PATHS = [
+  "M 1377 94 H 1260 C 1187 94 1130 145 1130 202 V 245 Q 1130 280 1095 280",
+  "M 1377 218 H 1249 C 1186 218 1223 303 1150 303 H 1106",
+  "M 1377 345 H 1114",
+  "M 1377 475 H 1250 C 1178 475 1232 389 1147 389 H 1106",
+  "M 1377 605 H 1260 C 1188 605 1132 552 1132 502 V 450 Q 1132 412 1095 412",
+];
+
+const CSS_STYLES = `
+    .integration-map {
+      --background: oklch(0.989 0.008 245);
+      --surface: oklch(0.995 0.003 225);
+      --card: oklch(1 0 0);
+      --foreground: oklch(0.25 0.047 258);
+      --primary: #006fc9;
+      --electric-blue: #006fc9;
+      --border: oklch(0.91 0.038 255 / 65%);
+      --muted: oklch(0.95 0.014 225);
+      --grid: oklch(0.8 0.07 245 / 9%);
+      --shadow: oklch(0.53 0.14 258 / 12%);
+    }
+
+    
+    
+    
+    
+    
+    
+    .integration-map {
+      position: relative;
+      isolation: isolate;
+      container-type: inline-size;
+      width: 100%;
+      max-width: 2048px;
+      aspect-ratio: 2048 / 735;
+      margin-inline: auto;
+      overflow: clip;
+      border: 1px solid #E2E8F0;
+      border-radius: clamp(7px, 1.17vw, 19px);
+      box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+      background-color: var(--background);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 2.5cqw 2.5cqw;
+      background-position: 0.65cqw 1.85cqw;
+    }
+    .integration-map::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse at 50% 46.4%, transparent 12%, oklch(1 0 0 / 15%) 70%);
+    }
+    .connections {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: visible; pointer-events: none; z-index: 1;
+    }
+    .connection-track, .connection-light, .connection-dashes {
+      fill: none; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .connection-track { stroke: url(#line-blue); }
+    .right-path .connection-track { stroke: url(#line-blue-right); }
+    .connection-dashes { stroke: oklch(0.68 0.15 258 / 35%); stroke-dasharray: 6 7; }
+    .connection-light {
+      stroke: var(--electric-blue); opacity: 0; stroke-width: 1.8;
+      transition: opacity 450ms ease;
+    }
+    .connection.is-active .connection-light { opacity: 0.56; }
+    .port { fill: oklch(0.65 0.19 250); stroke: oklch(0.77 0.13 248 / 35%); stroke-width: 3; }
+    .route-node { fill: oklch(0.65 0.2 252); opacity: 0.65; }
+    .data-pulse { opacity: 0; }
+    .integration-group {
+      position: absolute; top: var(--row-y); height: 4.59cqw;
+      transform: translateY(-50%); z-index: 3;
+    }
+    .side-left { left: 4.3945%; width: 30.6641%; }
+    .side-right { left: 68.2129%; width: 27.5879%; }
+    .category {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      margin: 0; color: var(--primary);
+      font-size: clamp(10px, 0.6836cqw, 14px);
+      font-weight: 650; line-height: 1.45; letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+    .side-left .category { left: 73.57%; white-space: nowrap; }
+    .side-right .category { left: 0; width: 27%; }
+    .category-dot {
+      position: absolute; left: -1.03cqw; top: 50%;
+      width: 0.39cqw; height: 0.39cqw; min-width: 5px; min-height: 5px;
+      border-radius: 50%; transform: translate(-50%, -50%);
+      background: var(--primary);
+      box-shadow: 0 0 0 2px oklch(0.8 0.12 258 / 5%);
+    }
+    .apps {
+      position: absolute; top: 0; margin: 0; padding: 0;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.78125cqw; height: 100%; list-style: none;
+    }
+    .side-left .apps { left: 0; width: 64.65%; }
+    .side-right .apps { right: 0; width: 71.86%; }
+    .app-card {
+      min-width: 0; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.43cqw;
+      padding: 0.55cqw 0.12cqw 0.38cqw;
+      border: 1px solid var(--border);
+      border-top-color: oklch(0.91 0.039 258 / 45%);
+      border-left-color: oklch(0.83 0.086 258 / 58%);
+      border-radius: 0.7cqw;
+      background: linear-gradient(145deg, var(--card), oklch(0.994 0.004 242));
+      box-shadow: 0 4px 9px var(--shadow), 0 1px 2px oklch(0.57 0.14 258 / 4%);
+      transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+    }
+    .app-icon { display: grid; place-items: center; width: 2.1cqw; height: 2.1cqw; flex: 0 0 auto; }
+    .app-icon svg, .app-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .app-icon.wide { width: 2.8cqw; }
+    .app-icon.small { width: 1.85cqw; height: 1.85cqw; }
+    .app-name {
+      display: grid; place-items: center; width: 100%; min-height: 1.24cqw;
+      font-size: clamp(9px, 0.555cqw, 11.4px); font-weight: 650;
+      line-height: 1.24; letter-spacing: -0.035em; text-align: center;
+    }
+    @media (hover: hover) {
+      .app-card:hover {
+        transform: translateY(-3px);
+        border-color: oklch(0.77 0.12 257 / 65%);
+        box-shadow: 0 8px 18px oklch(0.55 0.17 255 / 17%);
+      }
+    }
+    .integration-group.is-active .app-card { animation: card-signal 1350ms ease both; animation-delay: calc(var(--card-index) * 85ms); }
+    .integration-group.is-active .app-icon { animation: icon-signal 1350ms ease both; animation-delay: calc(var(--card-index) * 85ms); }
+    @keyframes card-signal {
+      0%, 100% { transform: translateY(0); }
+      35%, 60% {
+        transform: translateY(-2px);
+        border-color: oklch(0.76 0.125 258 / 75%);
+        box-shadow: 0 7px 15px oklch(0.55 0.16 257 / 16%);
+      }
+    }
+    @keyframes icon-signal { 45% { filter: drop-shadow(0 0 4px oklch(0.65 0.18 254 / 22%)); } }
+
+    .hub {
+      position: absolute; left: 50%; top: 46.3946%;
+      width: 6.25cqw; height: 6.25cqw;
+      transform: translate(-50%, -50%); z-index: 2;
+    }
+    .hub-halo, .hub-ring, .hub-wave {
+      position: absolute; left: 50%; top: 50%; border-radius: 50%;
+      pointer-events: none; transform: translate(-50%, -50%);
+    }
+    .hub-halo {
+      width: 380%; height: 380%;
+      background: radial-gradient(circle, oklch(0.73 0.14 255 / 28%) 0%, oklch(0.79 0.12 252 / 20%) 22%, oklch(0.85 0.08 250 / 12%) 33%, oklch(0.89 0.05 248 / 5%) 46%, transparent 67%);
+    }
+    .hub-ring { border: 1px solid oklch(0.79 0.095 250 / 10%); }
+    .ring-outer { width: 313%; height: 313%; }
+    .ring-middle { width: 253%; height: 253%; }
+    .ring-inner {
+      width: 173%; height: 173%;
+      border: 1px dashed oklch(0.73 0.13 250 / 42%);
+      background: radial-gradient(circle, oklch(0.74 0.12 252 / 14%), oklch(0.88 0.07 247 / 4%) 72%);
+    }
+    .ring-close { width: 142%; height: 142%; border: 0; background: oklch(0.72 0.14 255 / 8%); }
+    .hub-card {
+      position: relative; display: grid; place-items: center; width: 100%; height: 100%;
+      border-radius: 24%; border: 1px solid oklch(0.87 0.06 251 / 65%);
+      background: linear-gradient(145deg, var(--card), oklch(0.994 0.004 240));
+      box-shadow: 0 10px 27px oklch(0.57 0.17 258 / 19%), 0 1px 5px oklch(0.55 0.19 258 / 8%), inset 0 2px 3px white;
+    }
+    .hub-logo { display: block; width: 74%; height: auto; }
+    .hub-wave {
+      width: 142%; height: 142%; opacity: 0;
+      border: 1px solid oklch(0.65 0.19 252 / 50%);
+    }
+    .hub.is-receiving .hub-wave { animation: receive-wave 1050ms ease-out; }
+    .hub.is-receiving .hub-halo { animation: receive-halo 1050ms ease-out; }
+    .hub.is-receiving .hub-card { animation: receive-card 1050ms ease-out; }
+    .hub.is-receiving .hub-logo { animation: receive-logo 1050ms ease-out; }
+    @keyframes receive-wave {
+      0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0; }
+      15% { opacity: 0.58; }
+      100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+    }
+    @keyframes receive-halo { 22% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.12); } }
+    @keyframes receive-card { 20% { box-shadow: 0 8px 30px oklch(0.58 0.19 258 / 25%), 0 0 13px oklch(0.74 0.14 251 / 21%), inset 0 0 14px oklch(0.85 0.08 250 / 12%); } }
+    @keyframes receive-logo { 20% { filter: drop-shadow(0 0 5px oklch(0.6 0.18 254 / 28%)); } }
+    .hub-caption { display: none; }
+    .motion-toggle {
+      position: absolute; bottom: 18px; right: 20px; z-index: 5;
+      display: grid; place-items: center; width: 32px; height: 32px;
+      padding: 0; border: 1px solid oklch(0.85 0.06 252 / 45%); border-radius: 50%;
+      background: oklch(1 0 0 / 65%); color: oklch(0.58 0.1 258);
+      cursor: pointer; transition: background 200ms ease;
+    }
+    .motion-toggle svg { width: 12px; height: 12px; }
+    .motion-toggle:hover { background: var(--card); }
+    .motion-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+    .motion-toggle .play-icon { display: none; }
+    .motion-toggle[aria-pressed="true"] .play-icon { display: block; }
+    .motion-toggle[aria-pressed="true"] .pause-icon { display: none; }
+    .motion-toggle[hidden] { display: none; }
+
+    /* Tablet: full-size logos in two-column card groups; hub and SVG routes remain central. */
+    @media (min-width: 768px) and (max-width: 1179px) {
+      .integration-map { aspect-ratio: auto; height: 1200px; background-size: 36px 36px; }
+      .integration-group { width: 25%; height: 166px; transform: translateY(-12px); }
+      .side-left { left: 4.5%; }
+      .side-right { left: auto; right: 4.5%; }
+      .category, .side-left .category, .side-right .category {
+        top: 0; left: 0; width: 100%; transform: none;
+        font-size: 11px; letter-spacing: 0.12em; white-space: nowrap;
+      }
+      .side-left .category-dot { left: calc(100% + 16px); }
+      .side-right .category-dot { left: -16px; }
+      .category-dot { width: 6px; height: 6px; }
+      .apps, .side-left .apps, .side-right .apps {
+        top: 32px; width: 100%; height: auto; gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .app-card { height: 74px; padding: 10px 4px; gap: 7px; border-radius: 12px; }
+      .app-icon, .app-icon.small { width: 30px; height: 30px; }
+      .app-icon.wide { width: 44px; }
+      .app-name { min-height: 15px; font-size: 11px; }
+      .hub { width: 102px; height: 102px; }
+    }
+
+    /* Mobile: a single connected bus leads upward into the prominent Mossie hub. */
+    @media (max-width: 767px) {
+      
+      .integration-map {
+        display: flex; flex-direction: column; gap: 30px;
+        aspect-ratio: auto; padding: 36px 22px 48px 48px;
+        border-radius: 20px; background-size: 32px 32px;
+      }
+      .hub {
+        position: relative; left: auto; top: auto; transform: none;
+        width: 112px; height: 112px; margin: 20px auto 78px;
+        align-self: center;
+      }
+      .hub-caption { display: block; position: absolute; top: calc(100% + 20px); left: 50%; transform: translateX(-50%); width: 220px; text-align: center; }
+      .hub-caption strong { display: block; font-size: 16px; font-weight: 650; letter-spacing: -0.03em; }
+      .hub-caption span { display: block; margin-top: 5px; color: oklch(0.56 0.06 251); font-size: 11px; }
+      .integration-group, .side-left, .side-right {
+        position: relative; top: auto; left: auto; right: auto;
+        width: 100%; height: auto; transform: none;
+      }
+      .category, .side-left .category, .side-right .category {
+        position: relative; top: auto; left: auto; transform: none;
+        width: 100%; margin-bottom: 16px; font-size: 12px; letter-spacing: 0.13em;
+        line-height: 20px; white-space: normal;
+      }
+      .category-dot { left: -16px; width: 6px; height: 6px; }
+      .apps, .side-left .apps, .side-right .apps {
+        position: relative; top: auto; right: auto; left: auto;
+        width: 100%; height: auto; gap: 12px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .app-card { height: 100px; border-radius: 13px; padding: 13px 5px 10px; gap: 10px; }
+      .app-icon, .app-icon.small { width: 34px; height: 34px; }
+      .app-icon.wide { width: 48px; }
+      .app-name { min-height: 27px; font-size: 12px; letter-spacing: -0.035em; }
+      .connection-track { stroke: oklch(0.72 0.13 253 / 13%); stroke-width: 1.25; }
+      .right-path .connection-track { stroke: oklch(0.72 0.13 253 / 13%); }
+      .connection.is-active .connection-light { opacity: 0.45; }
+      .connection-light { stroke-width: 1.4; }
+      .route-node, .connection-dashes { display: none; }
+      .port { stroke-width: 2; }
+      .motion-toggle { bottom: auto; right: 17px; top: 17px; width: 36px; height: 36px; }
+    }
+    @media (max-width: 479px) {
+      .apps, .side-left .apps, .side-right .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .app-card { height: 94px; gap: 8px; }
+      .app-name { min-height: 18px; font-size: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .data-pulse, .hub-wave { display: none; }
+      .app-card:hover { transform: none; }
+    }
+  `;
 
 export default function IntegrationsEcosystem() {
-  const circuitRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const hubRef = useRef<HTMLDivElement | null>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [connectionPaths, setConnectionPaths] = useState<string[]>([]);
-  const [circuitSize, setCircuitSize] = useState({ width: 1000, height: 460 });
 
-  const calculateConnectionPaths = useCallback(() => {
-    const circuit = circuitRef.current;
-    const hub = hubRef.current;
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const dotRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const connectionRefs = useRef<(SVGGElement | null)[]>([]);
+  const pathRefs = useRef<(SVGPathElement | null)[]>([]);
+  const dashesRefs = useRef<(SVGPathElement | null)[]>([]);
+  const lightRefs = useRef<(SVGPathElement | null)[]>([]);
+  const nodeRefs = useRef<(SVGCircleElement | null)[]>([]);
+  const portRefs = useRef<(SVGCircleElement | null)[]>([]);
+  const motionRefs = useRef<(SVGAnimateMotionElement | null)[]>([]);
+  const fadeRefs = useRef<(SVGAnimateElement | null)[]>([]);
+  const durations = useRef<number[]>([]);
 
-    if (!circuit || !hub || sectionRefs.current.length < 6) return;
-
-    const circuitRect = circuit.getBoundingClientRect();
-    const hubRect = hub.getBoundingClientRect();
-
-    setCircuitSize({
-      width: Math.max(1, Math.round(circuitRect.width)),
-      height: Math.max(1, Math.round(circuitRect.height)),
-    });
-
-    const hubCenterY = hubRect.top - circuitRect.top + hubRect.height / 2;
-    const hubLeft = hubRect.left - circuitRect.left;
-    const hubRight = hubRect.right - circuitRect.left;
-
-    const nextPaths = sectionRefs.current.slice(0, 6).map((section, index) => {
-      if (!section) return "";
-
-      const rect = section.getBoundingClientRect();
-      const isLeft = index < 3;
-
-      const targetX = isLeft
-        ? rect.right - circuitRect.left + 2
-        : rect.left - circuitRect.left - 2;
-
-      const targetY = rect.top - circuitRect.top + rect.height / 2;
-
-      const startX = isLeft ? hubLeft + 4 : hubRight - 4;
-      const startY = hubCenterY;
-
-      const horizontalDistance = Math.max(70, Math.abs(targetX - startX) * 0.55);
-      const control1X = isLeft
-        ? startX - horizontalDistance
-        : startX + horizontalDistance;
-      const control2X = isLeft
-        ? targetX + horizontalDistance * 0.55
-        : targetX - horizontalDistance * 0.55;
-
-      return `M ${startX} ${startY} C ${control1X} ${startY}, ${control2X} ${targetY}, ${targetX} ${targetY}`;
-    });
-
-    setConnectionPaths(nextPaths);
-  }, []);
-
-  useLayoutEffect(() => {
-    calculateConnectionPaths();
-
-    const frame = requestAnimationFrame(calculateConnectionPaths);
-    const timeout = window.setTimeout(calculateConnectionPaths, 180);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.clearTimeout(timeout);
-    };
-  }, [calculateConnectionPaths]);
+  const isHoveredRef = useRef(false);
+  const runningRef = useRef(false);
 
   useEffect(() => {
-    const circuit = circuitRef.current;
-    if (!circuit) return;
+    const map = mapRef.current;
+    const svg = svgRef.current;
+    const hub = hubRef.current;
+    if (!map || !svg || !hub) return;
 
-    const observer = new ResizeObserver(calculateConnectionPaths);
-    observer.observe(circuit);
+    let inView = true;
+    let cursor = 0;
+    const timers = new Set<NodeJS.Timeout>();
 
-    sectionRefs.current.forEach((section) => {
-      if (section) observer.observe(section);
+    const later = (callback: () => void, delay: number) => {
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        callback();
+      }, delay);
+      timers.add(timer);
+      return timer;
+    };
+
+    const stop = () => {
+      runningRef.current = false;
+      timers.forEach(clearTimeout);
+      timers.clear();
+      GROUPS.forEach((_, i) => {
+        sectionRefs.current[i]?.classList.remove("is-active");
+        connectionRefs.current[i]?.classList.remove("is-active");
+        try {
+          motionRefs.current[i]?.endElement();
+          fadeRefs.current[i]?.endElement();
+        } catch {
+          // ignore
+        }
+      });
+      hub.classList.remove("is-receiving");
+      try {
+        svg.pauseAnimations();
+      } catch {
+        // ignore
+      }
+    };
+
+    const runCategory = () => {
+      if (!runningRef.current) return;
+      const idx = cursor;
+      cursor = (cursor + 1) % GROUPS.length;
+
+      const section = sectionRefs.current[idx];
+      const connection = connectionRefs.current[idx];
+      const motion = motionRefs.current[idx];
+      const fade = fadeRefs.current[idx];
+      const dur = durations.current[idx] || 1950;
+
+      if (section) section.classList.add("is-active");
+      if (connection) connection.classList.add("is-active");
+
+      later(() => {
+        try {
+          motion?.beginElement();
+          fade?.beginElement();
+        } catch {
+          // ignore
+        }
+      }, 600);
+
+      later(() => {
+        if (section) section.classList.remove("is-active");
+        if (connection) connection.classList.remove("is-active");
+      }, dur + 950);
+
+      later(runCategory, dur + 1300);
+    };
+
+    const syncPlayback = () => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (isHoveredRef.current || reducedMotion || document.hidden || !inView) {
+        stop();
+        return;
+      }
+      if (runningRef.current) return;
+      runningRef.current = true;
+      try {
+        svg.unpauseAnimations();
+      } catch {
+        // ignore
+      }
+      later(runCategory, 650);
+    };
+
+    // Attach endEvent listeners to motion elements
+    GROUPS.forEach((_, i) => {
+      const motion = motionRefs.current[i];
+      if (motion) {
+        motion.addEventListener("endEvent", () => {
+          if (!runningRef.current) return;
+          hub.classList.remove("is-receiving");
+          void hub.offsetWidth;
+          hub.classList.add("is-receiving");
+          later(() => hub.classList.remove("is-receiving"), 1080);
+        });
+      }
     });
 
-    if (hubRef.current) observer.observe(hubRef.current);
+    const centerOf = (element: Element, bounds: DOMRect) => {
+      const box = element.getBoundingClientRect();
+      return { x: box.left + box.width / 2 - bounds.left, y: box.top + box.height / 2 - bounds.top };
+    };
 
-    window.addEventListener("resize", calculateConnectionPaths);
+    const layoutConnections = () => {
+      const resume = runningRef.current;
+      stop();
+      const width = map.clientWidth;
+      const height = map.clientHeight;
+      const desktop = window.innerWidth >= 1180;
+      const mobile = window.innerWidth < 768;
+      svg.setAttribute("viewBox", desktop ? "0 0 2048 735" : `0 0 ${width} ${height}`);
+      const bounds = svg.getBoundingClientRect();
+      const core = centerOf(hub, bounds);
+      const hubBox = hub.getBoundingClientRect();
+
+      GROUPS.forEach((group, index) => {
+        const row = index % 5;
+        const left = group.side === "left";
+        let d = "";
+        let dashesD = "";
+
+        if (desktop) {
+          d = left ? LEFT_PATHS[row] : RIGHT_PATHS[row];
+          const start = left ? [659, 647, 689, 718, 689][row] : 1377;
+          const end = left ? Math.min(start + 95, 785) : 1270;
+          dashesD = `M ${start} ${ROWS[row]} H ${end}`;
+        } else {
+          const dot = dotRefs.current[index];
+          if (dot) {
+            const start = centerOf(dot, bounds);
+            dashesD = "";
+            if (mobile) {
+              const rail = 16;
+              const entryY = core.y + hubBox.height / 2 + 15;
+              d = `M ${start.x} ${start.y} H ${rail + 10} Q ${rail} ${start.y} ${rail} ${start.y - 10} V ${entryY + 32} Q ${rail} ${entryY + 12} ${rail + 20} ${entryY + 12} H ${core.x - 20} Q ${core.x} ${entryY + 12} ${core.x} ${entryY - 8} V ${entryY - 15}`;
+            } else {
+              const direction = left ? 1 : -1;
+              const entryOffset = [-52, -30, 0, 30, 52][row];
+              const entryX = core.x - direction * (row === 2 ? 82 : Math.abs(row - 2) === 1 ? 76 : 64);
+              const entryY = core.y + entryOffset;
+              const shoulder = start.x + direction * Math.min(36, Math.abs(entryX - start.x) * 0.25);
+              const elbow = entryX - direction * 27;
+              d = `M ${start.x} ${start.y} H ${shoulder} C ${elbow} ${start.y} ${shoulder} ${entryY} ${entryX} ${entryY}`;
+            }
+          }
+        }
+
+        const path = pathRefs.current[index];
+        const light = lightRefs.current[index];
+        const dashes = dashesRefs.current[index];
+        const port = portRefs.current[index];
+        const node = nodeRefs.current[index];
+        const motion = motionRefs.current[index];
+        const fade = fadeRefs.current[index];
+
+        if (path && light && dashes && port && node && motion && fade) {
+          path.setAttribute("d", d);
+          light.setAttribute("d", d);
+          dashes.setAttribute("d", dashesD);
+
+          const length = path.getTotalLength();
+          const endpoint = path.getPointAtLength(length);
+          const nodepoint = path.getPointAtLength(length * (row === 2 ? 0.52 : 0.66));
+
+          port.setAttribute("cx", String(endpoint.x));
+          port.setAttribute("cy", String(endpoint.y));
+          node.setAttribute("cx", String(nodepoint.x));
+          node.setAttribute("cy", String(nodepoint.y));
+          node.setAttribute("r", desktop ? (row === 2 ? "2.6" : "3.5") : "2.5");
+
+          const duration = mobile
+            ? Math.max(1500, Math.min(3300, length * 1.25))
+            : [1950, 1750, 1500, 1850, 2050][row];
+          durations.current[index] = duration;
+          motion.setAttribute("dur", `${duration}ms`);
+          fade.setAttribute("dur", `${duration}ms`);
+        }
+      });
+
+      if (resume || !isHoveredRef.current) syncPlayback();
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      syncPlayback();
+    });
+    io.observe(map);
+
+    const ro = new ResizeObserver(() => {
+      layoutConnections();
+    });
+    ro.observe(map);
+
+    const onVisibilityChange = () => syncPlayback();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onMotionChange = () => syncPlayback();
+    mediaQuery.addEventListener("change", onMotionChange);
+
+    // Hover handler: pause on hover, resume on leave (matching ConnectedWorkflow above)
+    const onMouseEnter = () => {
+      isHoveredRef.current = true;
+      stop();
+    };
+    const onMouseLeave = () => {
+      isHoveredRef.current = false;
+      syncPlayback();
+    };
+    map.addEventListener("mouseenter", onMouseEnter);
+    map.addEventListener("mouseleave", onMouseLeave);
+
+    document.fonts.ready.then(layoutConnections);
+    layoutConnections();
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", calculateConnectionPaths);
+      stop();
+      io.disconnect();
+      ro.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      mediaQuery.removeEventListener("change", onMotionChange);
+      map.removeEventListener("mouseenter", onMouseEnter);
+      map.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [calculateConnectionPaths]);
-
-  const isHighlighted = (category?: string) => Boolean(category || true);
+  }, []);
 
   return (
-    <section className="py-[15px] bg-white relative overflow-hidden" id="integrations">
-      {/* CSS Keyframes for a stable hub aura, thin dashed-line pulse & synchronized section glow */}
-      <style>{`
-        @keyframes circuitPulseHalo {
-          0%, 100% { opacity: 0.18; transform: scale(0.92); }
-          50% { opacity: 0.42; transform: scale(1.08); }
-        }
+    <section className="relative py-6 sm:py-10 bg-white overflow-hidden flex flex-col items-center" id="integrations">
+      <style>{CSS_STYLES}</style>
 
-        .circuit-pulse-halo {
-          animation: circuitPulseHalo 3s ease-in-out infinite;
-        }
-
-        /* All six section groups use the same 3s clock as the line pulse. */
-        @keyframes circuitSectionPulseLeft {
-          0%, 71.9% {
-            background-color: transparent;
-            box-shadow: none;
-          }
-          72%, 90% {
-            background-color: rgba(239, 246, 255, 0.72);
-            box-shadow: 0 0 28px rgba(37, 99, 235, 0.16);
-          }
-          94%, 100% {
-            background-color: transparent;
-            box-shadow: none;
-          }
-        }
-
-        @keyframes circuitSectionPulseRight {
-          0%, 71.9% {
-            background-color: transparent;
-            box-shadow: none;
-          }
-          72%, 90% {
-            background-color: rgba(236, 253, 245, 0.72);
-            box-shadow: 0 0 28px rgba(5, 150, 105, 0.16);
-          }
-          94%, 100% {
-            background-color: transparent;
-            box-shadow: none;
-          }
-        }
-
-        .circuit-section-pulse {
-          position: relative;
-        }
-
-        /*
-         * The glow belongs to the existing integration cards themselves.
-         * Nothing is added to the layout and no extra pulse element is drawn.
-         * Every card in a section starts glowing only when the matching
-         * dashed line has completed its center -> section travel.
-         */
-        .circuit-section-pulse-left .group {
-          animation: circuitSectionCardPulseLeft 3s linear infinite;
-        }
-
-        .circuit-section-pulse-right .group {
-          animation: circuitSectionCardPulseRight 3s linear infinite;
-        }
-
-        @keyframes circuitSectionCardPulseLeft {
-          0%, 71.9% {
-            background-color: #ffffff;
-            border-color: rgba(226, 232, 240, 0.9);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-          }
-          72%, 90% {
-            background-color: #eff6ff;
-            border-color: #93c5fd;
-            box-shadow:
-              0 0 18px rgba(37, 99, 235, 0.22),
-              0 4px 12px rgba(37, 99, 235, 0.10);
-          }
-          94%, 100% {
-            background-color: #ffffff;
-            border-color: rgba(226, 232, 240, 0.9);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-          }
-        }
-
-        @keyframes circuitSectionCardPulseRight {
-          0%, 71.9% {
-            background-color: #ffffff;
-            border-color: rgba(226, 232, 240, 0.9);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-          }
-          72%, 90% {
-            background-color: #ecfdf5;
-            border-color: #6ee7b7;
-            box-shadow:
-              0 0 18px rgba(5, 150, 105, 0.22),
-              0 4px 12px rgba(5, 150, 105, 0.10);
-          }
-          94%, 100% {
-            background-color: #ffffff;
-            border-color: rgba(226, 232, 240, 0.9);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-          }
-        }
-      `}</style>
-
-      {/* Background Matrix & Subtle Gradient Floor */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[500px] bg-gradient-to-tr from-blue-100/35 via-sky-50/25 to-indigo-100/30 blur-[130px]" />
-        {/* Modular circuit grid pattern matching media_1789202919929.png */}
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #0F172A 1px, transparent 1px), linear-gradient(to bottom, #0F172A 1px, transparent 1px)",
-            backgroundSize: "68px 68px",
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-[1180px]">
+      {/* Main Section Container matching ConnectedWorkflow */}
+      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
-              Built-in ecosystem on which <br className="hidden sm:inline" />
-              your business is <span className="text-blue-600">built-on</span>.
-            </h2>
-            <p className="text-[15px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              Native, bidirectional API connectors connect your banks, payment gateways, online storefronts, couriers, and chat apps directly to your central Mossie ERP ledger.
-            </p>
-          </motion.div>
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
+            Built-in ecosystem on which <br className="hidden sm:inline" />
+            your business is <span className="text-[#006fc9]">built-on</span>.
+          </h2>
+          <p className="text-[15px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Native, bidirectional API connectors connect your banks, payment gateways, online storefronts, couriers, and chat apps directly to your central Mossie ERP ledger.
+          </p>
         </div>
 
-        {/* ========================================================================= */}
-        {/* THE ECOSYSTEM CONNECTION CIRCUIT MATRIX (Matching media_1789202919929.png) */}
-        {/* ========================================================================= */}
-        <div className="relative bg-white/90 backdrop-blur-md rounded-[24px] border border-slate-200/90 shadow-[0_12px_40px_rgba(15,23,42,0.04)] p-4 sm:p-5 lg:p-6 select-none overflow-hidden">
-
-          {/* MAIN DESKTOP / TABLET CIRCUIT GRID */}
-          <div ref={circuitRef} className="relative min-h-[460px] flex items-center justify-between">
-            
-            {/* 1. LEFT WING (Payments, Banks, Messaging) */}
-            <div className="flex flex-col gap-6 z-10 w-full sm:w-[310px] lg:w-[350px]">
-              
-              {/* Category 1: PAYMENTS */}
-              <div
-                ref={(element) => { sectionRefs.current[0] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-left transition-all duration-300 ${
-                  isHighlighted("payments") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-blue-600 uppercase">
-                    Payments
-                  </span>
-                    <span className="text-[10px] text-slate-400 font-medium">Auto-Reconcile</span>
-                </div>
-                <div className="grid grid-cols-4 gap-2.5">
-                  {[PARTNERS.stripe, PARTNERS.paypal, PARTNERS.razorpay, PARTNERS.phonepe].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-400 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center cursor-pointer text-center relative`}
-                    >
-                      {app.renderLogo()}
-                      <span className="text-[10.5px] font-bold text-slate-800 mt-1.5 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                        {app.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 2: BANKING */}
-              <div
-                ref={(element) => { sectionRefs.current[1] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-left transition-all duration-300 ${
-                  isHighlighted("banking") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-slate-700 uppercase">
-                    Bank Direct
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">Automated Feeds</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[PARTNERS.hdfc, PARTNERS.icici, PARTNERS.hsbc].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-400 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center cursor-pointer text-center`}
-                    >
-                      {app.renderLogo()}
-                      <span className="text-[10.5px] font-bold text-slate-800 mt-1.5 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                        {app.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 3: MESSAGING */}
-              <div
-                ref={(element) => { sectionRefs.current[2] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-left transition-all duration-300 ${
-                  isHighlighted("collab") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-emerald-600 uppercase">
-                    Messaging & SMS
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">Instant Dispatch</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2.5">
-                  {[PARTNERS.whatsapp, PARTNERS.twilio].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-emerald-400 hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2.5 cursor-pointer px-3`}
-                    >
-                      {app.renderLogo()}
-                      <div className="text-left min-w-0">
-                        <span className="text-[11px] font-bold text-slate-900 block truncate group-hover:text-emerald-600 transition-colors">
-                          {app.name}
-                        </span>
-                        <span className="text-[9px] text-slate-400 block truncate">{app.tag}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* 2. CENTER PLATFORM LOGO (ORIGINAL HEADER LOGO ONLY - NO COMPANY NAME) */}
-            <div className="hidden md:flex flex-col items-center justify-center relative z-20 px-4">
-              
-              {/* Pulsing Concentric Aura Halo */}
-              <div className="relative flex items-center justify-center">
-                <div className="circuit-pulse-halo absolute w-36 h-36 rounded-full bg-blue-500/10 pointer-events-none" />
-                <div className="circuit-pulse-halo absolute w-28 h-28 rounded-full bg-gradient-to-tr from-blue-500/20 via-cyan-400/20 to-indigo-500/20 blur-md pointer-events-none" />
-                
-                {/* Clean Elevated White Tile with ONLY the Original Header Logo */}
-                <div
-                  ref={hubRef}
-                  className="w-20 h-20 rounded-[22px] bg-white border-2 border-blue-200/90 shadow-[0_12px_36px_rgba(37,99,235,0.18)] flex items-center justify-center relative z-30 group cursor-pointer hover:scale-105 transition-all duration-300 p-2"
-                  title="Mossie ERP Platform"
-                >
-                  <img
-                    src="/images/logo/mossierplogo"
-                    alt="Mossie ERP Platform"
-                    className="h-10 w-auto object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 3. RIGHT WING (E-Commerce, Shipping, Collaboration) */}
-            <div className="flex flex-col gap-6 z-10 w-full sm:w-[310px] lg:w-[350px]">
-              
-              {/* Category 4: E-COMMERCE */}
-              <div
-                ref={(element) => { sectionRefs.current[3] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-right transition-all duration-300 ${
-                  isHighlighted("ecommerce") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-emerald-600 uppercase">
-                    E-Commerce
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">Inventory & Orders</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[PARTNERS.shopify, PARTNERS.amazon, PARTNERS.woocommerce].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-emerald-400 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center cursor-pointer text-center`}
-                    >
-                      {app.renderLogo()}
-                      <span className="text-[10.5px] font-bold text-slate-800 mt-1.5 line-clamp-1 group-hover:text-emerald-600 transition-colors">
-                        {app.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 5: SHIPPING & LOGISTICS */}
-              <div
-                ref={(element) => { sectionRefs.current[4] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-right transition-all duration-300 ${
-                  isHighlighted("shipping") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-indigo-600 uppercase">
-                    Shipping & Couriers
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">Live Tracking & Slips</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[PARTNERS.shiprocket, PARTNERS.delhivery, PARTNERS.fedex].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-indigo-400 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center cursor-pointer text-center`}
-                    >
-                      {app.renderLogo()}
-                      <span className="text-[10.5px] font-bold text-slate-800 mt-1.5 line-clamp-1 group-hover:text-indigo-600 transition-colors">
-                        {app.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 6: WORKSPACE & COLLAB */}
-              <div
-                ref={(element) => { sectionRefs.current[5] = element; }}
-                className={`circuit-section-pulse circuit-section-pulse-right transition-all duration-300 ${
-                  isHighlighted("collab") ? "opacity-100 scale-[1.01]" : "opacity-40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-purple-600 uppercase">
-                    Workspace & Automation
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">Live Triggers</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[PARTNERS.slack, PARTNERS.zapier, PARTNERS.google].map((app) => (
-                    <div
-                      key={app.name}
-                      className={`group bg-white p-2.5 rounded-[16px] border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-purple-400 hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center cursor-pointer text-center`}
-                    >
-                      {app.renderLogo()}
-                      <span className="text-[10.5px] font-bold text-slate-800 mt-1.5 line-clamp-1 group-hover:text-purple-600 transition-colors">
-                        {app.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* LIVE SVG CONNECTION TRACES — one thin dashed line per connection, progressively colored from hub to all 6 sections */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none hidden md:block overflow-visible z-0"
-              viewBox={`0 0 ${circuitSize.width} ${circuitSize.height}`}
-              preserveAspectRatio="none"
-            >
+        {/* Flexible container matching flow-viewport */}
+        <div className="flow-viewport w-full" tabIndex={0} aria-label="Mossie ERP integration ecosystem">
+          <div ref={mapRef} className="integration-map" aria-label="Mossie ERP integration ecosystem">
+            <svg ref={svgRef} className="connections" viewBox="0 0 2048 735" preserveAspectRatio="none" aria-hidden="true">
               <defs>
-                {/*
-                  The reveal path is used only as a mask. The visible pulse is the
-                  exact same dashed line geometry and thickness as the resting line.
-                  This keeps the connection elegant instead of adding a fat second line.
-                */}
-                <filter id="circuitPulseGlow" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="1.8" result="softGlow" />
-                  <feMerge>
-                    <feMergeNode in="softGlow" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
+                <linearGradient id="line-blue" gradientUnits="userSpaceOnUse" x1="650" y1="0" x2="960" y2="0">
+                  <stop stopColor="#8eb9ff" stopOpacity=".32" />
+                  <stop offset=".48" stopColor="#006fc9" stopOpacity=".57" />
+                  <stop offset="1" stopColor="#006fc9" stopOpacity=".66" />
+                </linearGradient>
+                <linearGradient id="line-blue-right" gradientUnits="userSpaceOnUse" x1="1398" y1="0" x2="1088" y2="0">
+                  <stop stopColor="#8eb9ff" stopOpacity=".32" />
+                  <stop offset=".48" stopColor="#006fc9" stopOpacity=".57" />
+                  <stop offset="1" stopColor="#006fc9" stopOpacity=".66" />
+                </linearGradient>
+                <linearGradient id="particle-trail">
+                  <stop stopColor="#49a6ff" stopOpacity="0" />
+                  <stop offset="1" stopColor="#006fc9" stopOpacity=".65" />
+                </linearGradient>
+                <filter id="particle-glow" x="-150%" y="-150%" width="400%" height="400%">
+                  <feGaussianBlur stdDeviation="2.7" />
                 </filter>
               </defs>
+              <g id="connection-paths">
+                {GROUPS.map((group, index) => {
+                  const row = index % 5;
+                  const left = group.side === "left";
+                  const initialD = left ? LEFT_PATHS[row] : RIGHT_PATHS[row];
+                  const start = left ? [659, 647, 689, 718, 689][row] : 1377;
+                  const end = left ? Math.min(start + 95, 785) : 1270;
+                  const initialDashesD = `M ${start} ${ROWS[row]} H ${end}`;
 
-              {connectionPaths.map((path, index) => {
-                if (!path) return null;
-
-                const accent = index < 3 ? "#2563EB" : "#059669";
-                const muted = index < 3 ? "#CBD5E1" : "#CBD5E1";
-                const maskId = `connection-pulse-mask-${index}`;
-
-                return (
-                  <g key={`connection-${index}`}>
-                    {/* Resting connection: one thin grayscale dashed line */}
-                    <path
-                      d={path}
-                      fill="none"
-                      stroke={muted}
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeDasharray="3 7"
-                      opacity="0.95"
-                    />
-
-                    {/* The animated reveal path is used only as a mask for the glowing accent */}
-                    <mask id={maskId} maskUnits="userSpaceOnUse" x="-100%" y="-100%" width="200%" height="200%">
-                      <motion.path
-                        d={path}
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="10"
-                        strokeLinecap="round"
-                        pathLength={1}
-                        strokeDasharray="1 1"
-                        initial={{ strokeDashoffset: 1 }}
-                        animate={{ strokeDashoffset: [1, 1, 0, 0] }}
-                        transition={{
-                          duration: 3,
-                          times: [0, 0.08, 0.72, 1],
-                          ease: "linear",
-                          repeat: Infinity,
-                        }}
-                      />
-                    </mask>
-
-                    {/* Exact same dashed geometry, only the revealed part glows */}
-                    <path
-                      d={path}
-                      fill="none"
-                      stroke={accent}
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeDasharray="3 7"
-                      mask={`url(#${maskId})`}
-                      filter="url(#circuitPulseGlow)"
+                  return (
+                    <g
+                      key={group.id}
+                      ref={(el) => { connectionRefs.current[index] = el; }}
+                      className={`connection ${group.side}-path`}
+                      data-category={group.id}
                     >
-                      <animate
-                        attributeName="opacity"
-                        values="0;0.95;1;0.75;0"
-                        keyTimes="0;0.08;0.72;0.90;1"
-                        dur="3s"
-                        repeatCount="indefinite"
+                      <path
+                        ref={(el) => { pathRefs.current[index] = el; }}
+                        id={`route-${group.id}`}
+                        className="connection-track"
+                        d={initialD}
                       />
-                    </path>
-                  </g>
-                );
-              })}
+                      <path
+                        ref={(el) => { dashesRefs.current[index] = el; }}
+                        className="connection-dashes"
+                        d={initialDashesD}
+                      />
+                      <path
+                        ref={(el) => { lightRefs.current[index] = el; }}
+                        className="connection-light"
+                        d={initialD}
+                      />
+                      <circle
+                        ref={(el) => { nodeRefs.current[index] = el; }}
+                        className="route-node"
+                        r={3.5}
+                      />
+                      <circle
+                        ref={(el) => { portRefs.current[index] = el; }}
+                        className="port"
+                        r={3.3}
+                      />
+                      <g className="data-pulse">
+                        <circle r="7" fill="#006fc9" opacity=".32" filter="url(#particle-glow)" />
+                        <rect x="-20" y="-1.5" width="20" height="3" rx="1.5" fill="url(#particle-trail)" />
+                        <circle r="3.1" fill="#006fc9" />
+                        <circle r="1.15" fill="#c9f2ff" />
+                        <animateMotion
+                          ref={(el) => { motionRefs.current[index] = el as unknown as SVGAnimateMotionElement | null; }}
+                          begin="indefinite"
+                          dur="1.9s"
+                          fill="remove"
+                          rotate="auto"
+                          calcMode="paced"
+                        >
+                          <mpath href={`#route-${group.id}`} />
+                        </animateMotion>
+                        <animate
+                          ref={(el) => { fadeRefs.current[index] = el as unknown as SVGAnimateElement | null; }}
+                          attributeName="opacity"
+                          begin="indefinite"
+                          dur="1.9s"
+                          values="0;1;1;0"
+                          keyTimes="0;0.025;0.96;1"
+                          fill="remove"
+                        />
+                      </g>
+                    </g>
+                  );
+                })}
+              </g>
             </svg>
 
-          </div>
+            <div
+              ref={hubRef}
+              className="hub"
+              role="img"
+              aria-label="Mossie ERP central hub, receiving data from all ten integration categories"
+            >
+              <div className="hub-halo" />
+              <div className="hub-ring ring-outer" />
+              <div className="hub-ring ring-middle" />
+              <div className="hub-ring ring-inner" />
+              <div className="hub-ring ring-close" />
+              <div className="hub-wave" />
+              <div className="hub-card">
+                <img
+                  className="hub-logo"
+                  src="/images/logo/mossierplogo"
+                  alt="Mossie ERP"
+                />
+              </div>
+              <div className="hub-caption" aria-hidden="true">
+                <strong>Mossie ERP</strong>
+                <span>Every system. One connection.</span>
+              </div>
+            </div>
 
-          {/* Subterranean Platform Capabilities Footer */}
-          <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-            
-
-            <div className="flex items-center gap-4">
-            
+            <div id="integration-groups" style={{ display: "contents" }}>
+              {GROUPS.map((group, index) => (
+                <section
+                  key={group.id}
+                  ref={(el) => { sectionRefs.current[index] = el; }}
+                  className={`integration-group side-${group.side}`}
+                  id={`group-${group.id}`}
+                  style={{ "--row-y": `${(ROWS[index % 5] / 735) * 100}%` } as React.CSSProperties}
+                  aria-labelledby={`label-${group.id}`}
+                >
+                  <h2 className="category" id={`label-${group.id}`}>
+                    <span
+                      ref={(el) => { dotRefs.current[index] = el; }}
+                      className="category-dot"
+                      aria-hidden="true"
+                    />
+                    {group.label}
+                  </h2>
+                  <ul className="apps">
+                    {group.apps.map(([name, icon, size = ""], cardIndex) => (
+                      <li
+                        key={name}
+                        className="app-card"
+                        style={{ "--card-index": cardIndex } as React.CSSProperties}
+                      >
+                        <span
+                          className={`app-icon ${size}`}
+                          aria-hidden="true"
+                          dangerouslySetInnerHTML={{ __html: BRAND_ICONS[icon] || "" }}
+                        />
+                        <span className="app-name">{name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
             </div>
           </div>
-
         </div>
       </div>
     </section>

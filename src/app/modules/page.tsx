@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import Link from "next/link";
 import {
@@ -17,6 +16,21 @@ import {
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
 import { PopupCtaButton } from "@/app/components/popup-cta";
+
+export const metadata: Metadata = {
+  title: "ERP Modules Directory | 8 Unified Business Suites",
+  description:
+    "Explore all 8 unified Mossie ERP modules: Finance, HRMS & Payroll, CRM, Inventory, Production, Project Management, Sales, and Purchasing.",
+  alternates: {
+    canonical: "/modules",
+  },
+  openGraph: {
+    title: "ERP Modules Directory | Mossie ERP",
+    description:
+      "Explore all 8 unified Mossie ERP modules: Finance, HRMS & Payroll, CRM, Inventory, Production, Project Management, Sales, and Purchasing.",
+    url: "/modules",
+  },
+};
 
 interface ModuleHubItem {
   slug: string;
@@ -132,7 +146,7 @@ export default function ModulesHubPage() {
       {/* Global Site Header */}
       <SiteHeader />
 
-      <main>
+      <main id="main-content">
         {/* Intro Hero Header */}
         <section className="relative py-20 bg-gradient-to-b from-[#006fc9]/10 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">

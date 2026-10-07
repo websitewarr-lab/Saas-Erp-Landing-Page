@@ -1,0 +1,861 @@
+{
+  "crm": {
+    "name": "CRM Module",
+    "headline": "Turn Leads into Long-Term Relationships  ",
+    "highlight": "with Intelligent Deal Automations",
+    "description": "Manage your entire sales cycle with 1-click WhatsApp quotation approvals, AI deal health tracking (>5 day stalled alerts), multi-revision quote trails, and fuzzy duplicate protection.",
+    "features": [
+      {
+        "title": "Omnichannel Lead Ingestion & Webhook Capture",
+        "description": "Capture leads automatically from website forms, inbound email, Meta Ads, and telephony APIs.",
+        "bullets": [
+          "Native webhooks and landing page form connectors with sub-second ingestion latency",
+          "Auto-captures UTM marketing attribution parameters, campaigns, and referral sources",
+          "Enriches lead contacts automatically with verified business domains and location data"
+        ]
+      },
+      {
+        "title": "Territory Auto-Assignment & Round-Robin Routing",
+        "description": "Route leads by geography, deal size tier, product interest, or rep availability with strict SLA timers.",
+        "bullets": [
+          "Configurable round-robin and workload-balanced lead assignment algorithms",
+          "Automatic reassignment if the assigned representative fails to contact the lead within SLA window",
+          "Territory fencing prevents regional sales account conflicts and duplicate outreach"
+        ]
+      },
+      {
+        "title": "Visual Multi-Stage Deal Kanban & Revenue Forecast",
+        "description": "Interactive drag-and-drop opportunity boards with stage probabilities and real-time weighted forecasts.",
+        "bullets": [
+          "Customizable deal stages: Discovery \u2192 Demo \u2192 Proposal \u2192 Negotiation \u2192 Closed Won",
+          "Live weighted revenue forecasting based on win probability percentages and close dates",
+          "Quick deal actions: log calls, schedule demos, and generate formal quotations directly from cards"
+        ]
+      },
+      {
+        "title": "Lost Deal Analytics & Competitor Win/Loss Insights",
+        "description": "Mandatory lost reason codes and competitor benchmarking intelligence to sharpen pricing and messaging.",
+        "bullets": [
+          "Structured lost reason categorization (Price, Feature Gap, Competitor Chosen, Budget Cut)",
+          "Direct competitor battlecard analysis showing where deals are won or dropped across product lines",
+          "Automated nurture queues for recycling lost deals after 6 months with renewed sales campaigns"
+        ]
+      },
+      {
+        "title": "360\u00b0 Accounts & Customer Master",
+        "description": "Complete commercial dossier with multi-contact profiles and compliance.",
+        "bullets": [
+          "Comprehensive corporate accounts with unlimited key stakeholders",
+          "GSTIN, PAN validation & strict credit limit enforcement",
+          "Complete transactional ledger history & past invoice timelines"
+        ]
+      },
+      {
+        "title": "Lead Activity & Follow-up Tracking",
+        "description": "Keep reps accountable with automated task queues and meeting logs.",
+        "bullets": [
+          "Track open activities, scheduled calls, and follow-up deadlines",
+          "Built-in WhatsApp & Email communication audit trail",
+          "Rep activity metrics & team task completion heatmaps"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Fuzzy Deduplication",
+        "description": "Leads arrive from WhatsApp, website forms, and ads. The Zero-Duplicate Lead Engine uses fuzzy matching on company names and phone numbers to intercept duplicates before creating conflicts."
+      },
+      {
+        "title": "2. Deal Health Tracker",
+        "description": "The system monitors customer response intervals. If a prospect stays unresponsive for over 5 days, a Critical Red Alert is triggered for sales managers."
+      },
+      {
+        "title": "3. Multi-Revision Quote",
+        "description": "During client negotiations, original quotes are preserved. The system generates parent-child revisions (e.g. QT-2026-0001-R1) with 1-click side-by-side comparison."
+      },
+      {
+        "title": "4. WhatsApp Approval",
+        "description": "A secure link is shared via WhatsApp. When the client taps \"Accept\" on their phone, the quote is marked Accepted and the deal shifts automatically to Closed Won."
+      },
+      {
+        "title": "5. Auto-Order & Ledger",
+        "description": "Winning the deal automatically creates the Customer Master profile, allocates real-time stock, and initiates fulfillment with zero data re-keying."
+      }
+    ]
+  },
+  "sales": {
+    "name": "Sales & Fulfillment Module",
+    "headline": "From Order to Customer Doorstep  ",
+    "highlight": "Smart Logistics & GST Billing",
+    "description": "Automate sales order processing with 1-click shortage auto-routing, native Indian GST E-Invoice & E-Way Bill generation (<2s), end-to-end dispatch with digital POD, and zero-touch ledger accounting.",
+    "features": [
+      {
+        "title": "Dynamic Customer Price Lists & Volume Discounts",
+        "description": "Contractual price lists by customer tier, quantity slabs, and promotional date ranges with automatic margin protection.",
+        "bullets": [
+          "Customer-specific rate contracts, currency rules, and minimum order quantity (MOQ) enforcement",
+          "Multi-tiered volume discount matrices applied automatically without salesperson manual overrides",
+          "Margin protection guardrails: prevents reps from quoting below minimum acceptable gross margin"
+        ]
+      },
+      {
+        "title": "Sales Quotations, Revisions & Proforma Invoicing",
+        "description": "Versioned proposals (-R1, -R2), customer sign-off links, and 1-click conversion to confirmed Sales Orders or Proforma invoices.",
+        "bullets": [
+          "Version-controlled quote history preserving negotiation revisions without overwriting originals",
+          "1-click Proforma Invoice generation for collecting advance customer deposits before fulfillment",
+          "Direct customer approval via secure digital links with automated order status advancement"
+        ]
+      },
+      {
+        "title": "Customer Credit Limit & Financial Guardrails",
+        "description": "Automatic order hold when customer receivables exceed credit limits or aging invoices remain overdue.",
+        "bullets": [
+          "Real-time evaluation of total customer outstanding balances plus open unbilled orders against approved credit limit",
+          "Automated billing hold stops dispatch if customer has unpaid invoices beyond defined grace days",
+          "Maker-checker credit override workflow requiring CFO or finance director authorization"
+        ]
+      },
+      {
+        "title": "Multi-Box Packing Lists & Gate Pass Generation",
+        "description": "Dock wave picking, multi-box packing lists with carton barcode labels, and security gate passes.",
+        "bullets": [
+          "Generate carton-level packing slips with gross/net weight and dimension calculations",
+          "Barcode-labeled shipping cartons for dock scanning and multi-piece consignment tracking",
+          "Digital security gate pass PDF generation with vehicle number and transporter validation"
+        ]
+      },
+      {
+        "title": "Customer Order Portal & Milestone Tracking",
+        "description": "Dedicated self-service portal where B2B buyers can track order production, dispatch milestones, and download GST invoices.",
+        "bullets": [
+          "Self-service order status tracking: Confirmed \u2192 Under Production \u2192 Packed \u2192 Dispatched \u2192 Delivered",
+          "Automated WhatsApp & Email milestone notifications with live transporter tracking links",
+          "Direct customer portal download of signed delivery challans, GST invoices, and account statements"
+        ]
+      },
+      {
+        "title": "Sales Rep Targets & Commission Tracking",
+        "description": "Territory quota allocation, live target achievement telemetry, and automated sales commission calculations.",
+        "bullets": [
+          "Monthly and quarterly revenue quotas defined per sales representative or regional team",
+          "Live target achievement dashboard tracking invoiced revenue, collections, and gross margin contributions",
+          "Automated commission calculation factoring in collection timelines to incentivize timely payment recovery"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Shortage Auto-Routing",
+        "description": "Upon Sales Order confirmation, inventory is checked instantly: Available stock is physically reserved. If short, trading orders raise a Purchase Requisition (PR) and manufacturing orders trigger a Work Order (MO) in 1 click."
+      },
+      {
+        "title": "2. Pick & Allocate",
+        "description": "Stock is locked in specific warehouse bins. Handheld barcode scanning directs warehouse staff through optimal picking routes."
+      },
+      {
+        "title": "3. GST E-Invoice & E-Way",
+        "description": "Direct government NIC API bridge generates the E-Invoice IRN QR code and E-Way Bill JSON in under 2 seconds directly within the dispatch flow at zero plugin cost."
+      },
+      {
+        "title": "4. Dispatch & Digital POD",
+        "description": "Driver and vehicle are allocated; Delivery Challan PDF is generated. Upon customer receipt, a signed photo of the POD is uploaded directly to the order record."
+      },
+      {
+        "title": "5. Auto Ledger Posting",
+        "description": "The confirmed sales invoice instantly posts balanced journal vouchers (AR Dr, Sales Cr, GST Cr, Freight Cr) directly into the general ledger without manual accounting work."
+      }
+    ]
+  },
+  "inventory": {
+    "name": "Inventory & Warehouses",
+    "headline": "Complete Stock Precision  ",
+    "highlight": "Across Every Bin & Location",
+    "description": "Real-time serial, batch, and expiry tracking with automated reorder alerts, barcode scanning, and multi-warehouse transfers.",
+    "features": [
+      {
+        "title": "Product Master, Variants & Barcode Scanning",
+        "description": "Centralized item master for raw materials, variants, and assemblies with multi-UoM conversion and barcode support.",
+        "bullets": [
+          "Formula-based SKU generator, custom attributes, and multi-level category taxonomy",
+          "Multi-UoM conversions with fractional precision between purchase, stocking, and sales",
+          "Thermal barcode and 2D QR label printing with mobile Android scanner support"
+        ]
+      },
+      {
+        "title": "Perpetual Stock Movements & Ledger",
+        "description": "Real-time stock inward, outward, adjustments, and inter-branch transfers with double-entry stock ledger.",
+        "bullets": [
+          "Sub-second balance updates on purchase GRNs, sales dispatches, and work orders",
+          "Audited stock adjustments, shrinkage write-offs, and mandatory reason codes",
+          "Perpetual running quantity and valuation ledger with point-in-time reconstruction"
+        ]
+      },
+      {
+        "title": "Available vs Reserved Stock Allocation",
+        "description": "Sub-second order reservation preventing multi-channel overselling across open quotes and active work orders.",
+        "bullets": [
+          "Multi-bucket telemetry tracking on-hand, order-locked, inspection, and sellable stock",
+          "Real-time Available-to-Promise (ATP) calculations displayed directly in CRM",
+          "Configurable reservation expiry buffers releasing idle held stock automatically"
+        ]
+      },
+      {
+        "title": "Multi-Warehouse & Central DC Management",
+        "description": "Centralized multi-facility control across regional distribution centers, plant stores, and transit yards.",
+        "bullets": [
+          "Unlimited warehouse hierarchy with granular facility-level user permissions",
+          "Inter-warehouse stock transfer orders (STO) with automated in-transit tracking",
+          "Consolidated pan-India stock visibility with inter-hub stock rebalancing"
+        ]
+      },
+      {
+        "title": "3D Bin Location & Aisle Routing",
+        "description": "Aisle, rack, shelf, and bin coordinate mapping with volumetric capacity limits and put-away rules.",
+        "bullets": [
+          "Automated put-away logic routing fast-moving items near dock receiving doors",
+          "Bin capacity utilization gauges preventing structural weight and volume overloads",
+          "Mobile picking guidance displaying optimal walking routes to minimize pick times"
+        ]
+      },
+      {
+        "title": "Bi-Directional Batch & Lot Genealogy",
+        "description": "1-click trace tree tracking raw supplier heats forward to customer dispatches or backward to vendors.",
+        "bullets": [
+          "Vendor heat/lot number capture against inward Purchase Orders and GRNs",
+          "Complete serialization lifecycle logging with warranty, AMC, and RMA history",
+          "Mock recall audit reports isolating contaminated batches in under 30 seconds"
+        ]
+      },
+      {
+        "title": "Shelf-Life Expiry & Automated FEFO Control",
+        "description": "Enforces First-Expired-First-Out (FEFO) picking logic and automatically quarantines near-expiry lots.",
+        "bullets": [
+          "Automated quarantine locking on lots 30, 60, and 90 days before expiration",
+          "System-directed picklists prioritizing batches closest to shelf-life expiry",
+          "Manufacturing and bottling date tracking with digital Certificate of Analysis (COA)"
+        ]
+      },
+      {
+        "title": "Predictive Safety Stock & Auto Reorder",
+        "description": "Algorithmic replenishment triggers analyzing supplier lead times and consumption velocity.",
+        "bullets": [
+          "Lead-time adjusted dynamic safety buffers eliminating stockouts and dead capital",
+          "1-click conversion from trigger alerts into consolidated vendor Purchase Orders",
+          "Economic Order Quantity (EOQ) optimization capturing vendor volume discounts"
+        ]
+      },
+      {
+        "title": "Landed Cost Valuation & Aging Analytics",
+        "description": "Perpetual FIFO and weighted average valuation with freight/customs capitalization and aging reports.",
+        "bullets": [
+          "Automated 3-way landed cost variance (LCV) apportionment into unit valuations",
+          "Granular stock aging analysis (0-30, 31-60, 61-90, 90+ days) and dead stock alarms",
+          "Perpetual cycle counts with mobile barcode audits without halting plant operations"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Dock Receipt",
+        "description": "Goods arrive at warehouse docks. Barcode scanning matches packing list against original Purchase Order."
+      },
+      {
+        "title": "2. Quality Check",
+        "description": "Items pass through automated QC sampling. Approved stock releases to inventory; rejected units isolate in quarantine bins."
+      },
+      {
+        "title": "3. Put-Away",
+        "description": "Mossie ERP directs warehouse operators to optimal bin locations based on item dimensions and turnover velocity."
+      },
+      {
+        "title": "4. Cross-Module Sync",
+        "description": "Available stock reflects instantly across CRM quotations, production schedules, and e-commerce stores."
+      },
+      {
+        "title": "5. Ledger Posting",
+        "description": "Perpetual inventory ledger updates stock asset values in the general ledger with zero manual journal typing."
+      }
+    ]
+  },
+  "accounting": {
+    "name": "Accounting & Finance",
+    "headline": "Automated Financial Intelligence ",
+    "highlight": "Built for Indian Compliance",
+    "description": "Auto-posted general ledger journals, bank feed reconciliation, and real-time Balance Sheet & P&L statements without manual month-end crunch.",
+    "features": [
+      {
+        "title": "Accounts Receivable (AR) & Payable (AP) Aging Engine",
+        "description": "Granular 30/60/90+ day debtor and creditor aging buckets with automated payment reminder dunning workflows.",
+        "bullets": [
+          "Real-time aging breakdown of customer receivables and vendor payables across 30, 60, 90, and 120+ day buckets",
+          "Automated payment reminder schedules (dunning emails & WhatsApp notices) triggered before invoice due dates",
+          "Credit period limit alerts stopping further sales order dispatches to chronic overdue accounts"
+        ]
+      },
+      {
+        "title": "Core Ledger, Chart of Accounts & Multi-Entity",
+        "description": "Configurable account hierarchy covering assets, liabilities, equity, income, and expenses with departmental cost centers and consolidated multi-entity reporting.",
+        "bullets": [
+          "Full Chart of Accounts hierarchy (assets, liabilities, equity, income, expense) configurable per business",
+          "General Journal with reversible manual entries, multi-line balancing, and complete audit trail",
+          "Multi-dimensional cost centers (department, project, branch) and multi-company consolidated reporting"
+        ]
+      },
+      {
+        "title": "Vouchers Suite & Day-to-Day Transactions",
+        "description": "A complete set of standard accounting vouchers with independent numbering series, multi-tier approval trails, and 1-click reversals \u2014 never a silent delete.",
+        "bullets": [
+          "Payment Vouchers (outgoing vendor payments), Receipt Vouchers (incoming customer receipts), and Contra Vouchers (cash \u2194 bank)",
+          "Credit Notes and Debit Notes for customer and vendor balance adjustments with full allocation tracking",
+          "Dedicated numbering series per voucher type, configurable approval workflows, and audit-safe 1-click reversal"
+        ]
+      },
+      {
+        "title": "Multi-Currency Accounting & FX Gain/Loss Engine",
+        "description": "Transact globally with automatic foreign exchange rate sync and automated realized/unrealized FX gain/loss entries.",
+        "bullets": [
+          "Maintain exchange rate histories per currency pair with automatic daily central bank sync or custom manual fixing",
+          "Multi-currency party ledgers: view foreign customer balances in native currency alongside base currency ledger value",
+          "Automated period-end balance sheet revaluation calculating realized and unrealized forex gains/losses automatically"
+        ]
+      },
+      {
+        "title": "Bank Statement Reconciliation & Cash Flow",
+        "description": "Import bank statements, auto-match transactions against ledger entries, resolve exceptions manually, and mark periods complete.",
+        "bullets": [
+          "Import bank statements or sync live feeds with algorithmic matching against open ledger vouchers and payments",
+          "Dedicated exception resolution workflow for unpresented cheques, uncleared deposits, and bank interest/charges",
+          "Mark period complete with confidence \u2014 permanently closing the gap between your books and actual bank balances"
+        ]
+      },
+      {
+        "title": "Multi-Branch Cost Centers & Departmental Profitability",
+        "description": "Allocate revenue and expenses across business units, branches, departments, or project codes for granular P&L visibility.",
+        "bullets": [
+          "Multi-dimensional cost center hierarchy: branch, division, department, and custom analytical tags",
+          "Mandatory or optional cost center tagging on purchase bills, expense vouchers, and salary journal entries",
+          "Independent Profit & Loss statements and variance reports generated per branch or business unit"
+        ]
+      },
+      {
+        "title": "Executive Accounting Dashboard & Multi-Currency",
+        "description": "A live financial command center tracking revenue, net profit, cash & bank position, liquidity ratios, and multi-currency exchange rates with fast cached figures.",
+        "bullets": [
+          "Executive Command Center: Revenue, expenses, net profit, and cash & bank positions at a glance with fast cached figures",
+          "Financial health ratios: Gross margin, net margin, current ratio, quick ratio, and working capital computed live",
+          "Single-company or consolidated views, role-based tabs (Overview vs Operations), and multi-currency rate management (manual or auto-sync)"
+        ]
+      },
+      {
+        "title": "Budgeting & Comprehensive Financial Reporting Suite",
+        "description": "Department and company-wide budget planning with approval workflows and Budget vs Actual reports, alongside every auditor-grade financial statement exportable to PDF and Excel.",
+        "bullets": [
+          "Set department or company budgets, route through approval workflows, and track actuals in real time with Budget vs Actual reports",
+          "Complete statutory statements: Trial Balance, General Ledger (account-wise), Party Ledger (customer/vendor-wise), P&L, Balance Sheet, and Cash Flow",
+          "AP & AR Aging, Day Book, Vouchers by Staff (who posted what), and full change history audit trail filterable by date range with PDF/Excel exports"
+        ]
+      },
+      {
+        "title": "Direct & Indirect Cash Flow Statements & Liquidity Forecast",
+        "description": "Real-time visibility into operating, investing, and financing cash flows with predictive 30-day liquidity forecasting.",
+        "bullets": [
+          "Generate statutory Direct and Indirect method Cash Flow Statements filterable by custom date intervals",
+          "Predictive cash position runway modeling projected receivables versus scheduled vendor and payroll payouts",
+          "Bank and cash balance trendlines with minimum threshold alerts to prevent working capital shortfalls"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Operational Event",
+        "description": "When an operational event completes in any module, Mossie ERP's event bus triggers corresponding financial journal rules."
+      },
+      {
+        "title": "2. Auto-Voucher",
+        "description": "Debit and credit vouchers post with cost center, GST tax, and department tags automatically populated."
+      },
+      {
+        "title": "3. Bank Feed",
+        "description": "Bank statement feeds pull in real time; customer receipts and vendor payouts auto-match against ledger entries."
+      },
+      {
+        "title": "4. GST Match",
+        "description": "Government portal filings are matched against purchase bills to safeguard every rupee of input tax credit."
+      },
+      {
+        "title": "5. Real-Time P&L",
+        "description": "Balance Sheet, Profit & Loss, and Cash Flow statements update live on executive mobile and web dashboards."
+      }
+    ]
+  },
+  "purchase": {
+    "name": "Purchase & Procurement Module",
+    "headline": "Strategic Procurement Control  ",
+    "highlight": "Cut Spend with Multi-Vendor Sourcing",
+    "description": "Take total control of organizational spend: compare up to 10 vendors on an automated RFQ matrix, auto-allocate landed costs, enforce configurable 3-way matching (Off / Warn / Hold), and perform gate-level QC tracking.",
+    "features": [
+      {
+        "title": "Purchase Requisition (PR) & Budget Signoff Engine",
+        "description": "Internal material requests with departmental cost center budget verification and multi-level approval hierarchies.",
+        "bullets": [
+          "Employees submit purchase requisitions with required delivery dates, preferred vendors, and item specs",
+          "Automatic validation against departmental cost center budgets before routing for management sign-off",
+          "Approved PRs consolidate into consolidated RFQs or convert directly to purchase orders in 1 click"
+        ]
+      },
+      {
+        "title": "Approved Vendor List (AVL) & Supplier Scorecards",
+        "description": "Maintain verified vendor compliance masters with automated ratings based on on-time delivery and QC rejection rates.",
+        "bullets": [
+          "Maintain Approved Vendor Lists (AVL) categorized by material grade and compliance accreditation",
+          "Automated vendor rating algorithm calculating OTIF (On-Time In-Full) delivery and gate rejection percentages",
+          "Self-service vendor portal for suppliers to submit quotations, acknowledge POs, and upload dispatch notices"
+        ]
+      },
+      {
+        "title": "MSME 45-Day Payment Compliance Tracker",
+        "description": "Protect your enterprise from statutory interest penalties with automated Indian MSME payment countdown schedules.",
+        "bullets": [
+          "Tag registered Micro and Small Enterprise (Udyam) vendors with mandatory 45-day payment statutory deadlines",
+          "Automated payment queues prioritize MSME invoices to guarantee zero penal interest under Section 43B(h)",
+          "Auditor-ready MSME compliance report detailing invoice dates, payment timelines, and statutory disclosures"
+        ]
+      },
+      {
+        "title": "Blanket Purchase Orders & Long-Term Rate Contracts",
+        "description": "Lock negotiated annual supplier pricing and issue scheduled call-off delivery releases against cumulative quantity caps.",
+        "bullets": [
+          "Create long-term rate contracts with negotiated price guarantees across 6 to 12 month production horizons",
+          "Generate periodic delivery call-offs without renegotiating prices or re-drafting terms each cycle",
+          "Real-time tracking of cumulative order quantities, remaining commitments, and expiration milestones"
+        ]
+      },
+      {
+        "title": "Debit Notes & Return to Vendor (RTV) Workflows",
+        "description": "Seamless handling of QC rejected items, damaged inward shipments, and supplier balance adjustments.",
+        "bullets": [
+          "Automatic Debit Note creation when inward goods are rejected by dock QC or quantities fall short",
+          "Generates official Return to Vendor (RTV) delivery challans and security gate out passes",
+          "Direct adjustment against future supplier bills or immediate payment refund tracking in accounts ledger"
+        ]
+      },
+      {
+        "title": "Multi-Currency Import Orders & Port Logistics",
+        "description": "Manage international procurement, shipping container tracking, customs duty bill of entry, and port logistics.",
+        "bullets": [
+          "Multi-currency purchase orders (USD, EUR, GBP, JPY) with real-time and contract-fixed exchange rates",
+          "Bill of Entry (BOE) customs clearance tracking, basic customs duty (BCD), and IGST allocation",
+          "Container tracking from port arrival through container freight station (CFS) to factory unloading"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Multi-Vendor RFQ",
+        "description": "Requisitions trigger simultaneous RFQ broadcasts to up to 10 suppliers. Bids populate into an interactive matrix with auto-highlighted L1 and cost savings calculations."
+      },
+      {
+        "title": "2. Auto L1 PO Award",
+        "description": "Management approves the lowest-cost or highest-rated vendor quote in 1 click, generating a binding digital PO with automated vendor dispatch notification."
+      },
+      {
+        "title": "3. Inward GRN & Gate QC",
+        "description": "Goods arrive at the dock and are scanned with Batch Numbers, Expiry Dates, and Serial Numbers. QC segregates rejected lots before releasing approved stock."
+      },
+      {
+        "title": "4. True Landed Cost (LCV)",
+        "description": "Freight, customs duties, insurance, and local transport are allocated proportionally across item unit costs for 100% accurate gross margin valuation."
+      },
+      {
+        "title": "5. Fraud-Proof 3-Way Match",
+        "description": "The system cross-verifies PO rates and GRN quantities against the vendor bill. Any discrepancy triggers an automatic hold before disbursement is cleared."
+      }
+    ]
+  },
+  "production": {
+    "name": "Production & Manufacturing Execution (MES)",
+    "headline": "Enterprise Manufacturing & Shop Floor MES  ",
+    "highlight": "Unified from Engineering BOM to Machine Dispatch",
+    "description": "An enterprise-grade manufacturing suite unifying dynamic parameterized BOMs, supply-aware MRP, finite-capacity scheduling (APS), touch-screen MES operator consoles, in-process QC stage-gates, and bi-directional lot genealogy.",
+    "features": [
+      {
+        "title": "Work Center Telemetry, Downtime & Plant-Wide OEE",
+        "description": "Live machine telemetry, categorized downtime reasons, and automated Overall Equipment Effectiveness (OEE) metrics.",
+        "bullets": [
+          "Real-time tracking of machine states: Run, Idle, Tooling Changeover, Planned Maintenance, and Breakdown",
+          "Automated OEE computation factoring in Availability, Performance efficiency, and First-Pass Quality yield",
+          "Plant-wide live dashboard alerting production supervisors to unassigned machine idle time and micro-stoppages"
+        ]
+      },
+      {
+        "title": "Standard vs Actual Production Costing & Absorption",
+        "description": "Granular cost accounting absorbing raw material consumption, operator wages, machine hour rates, and factory overheads.",
+        "bullets": [
+          "3-way cost variance analysis: Material Price/Usage Variance, Labor Rate/Efficiency Variance, and Overhead Absorption",
+          "Dynamic machine-hour costing allocating electrical power, depreciation, and tooling wear per operation",
+          "Automated posting of finished goods valuation and WIP balance variances directly into the financial ledger"
+        ]
+      },
+      {
+        "title": "Preventive Maintenance, Tooling Life & Calibration",
+        "description": "Scheduled servicing, tooling stroke counters, and calibration cycles integrated directly with APS dispatch calendars.",
+        "bullets": [
+          "Tooling and die lifecycle management tracking operational stroke counts and regrinding thresholds",
+          "Automated preventive maintenance (PM) work orders that reserve machine capacity to prevent scheduling conflicts",
+          "Calibration compliance register for temperature gauges, torque wrenches, and precision measurement instruments"
+        ]
+      },
+      {
+        "title": "Scrap, Re-Work & By-Product Recovery Management",
+        "description": "Structured scrap weighing, rework routing loops, and by-product material recovery back into warehouse inventory.",
+        "bullets": [
+          "Mandatory scrap weighing and loss-reason categorization at each stage-gate to pinpoint tooling wear",
+          "Configurable rework routing loops that re-issue parts through corrective machining without distorting original BOMs",
+          "By-product and swarf recovery tracking, crediting production job costs and returning usable scrap to inventory"
+        ]
+      },
+      {
+        "title": "Multi-Operation Routing Masters & Cycle Time Benchmarks",
+        "description": "Define sequential work center operations, setup times, standard run hours, and labor skill prerequisites.",
+        "bullets": [
+          "Sequential and parallel routing sequences with alternate workstation fallback definitions for bottleneck relief",
+          "Standard setup time, run cycle time, and teardown time benchmarking per product variant",
+          "Operator skill-matrix integration ensuring only certified technicians are dispatched to specialized operations"
+        ]
+      },
+      {
+        "title": "Bi-Directional Lot Genealogy, Multi-Stage WIP & 4-Model Subcontracting",
+        "description": "Full operation-level WIP tracking, forward/backward genealogy, and job work management.",
+        "bullets": [
+          "Multi-stage WIP ledger tracking good, available, completed, rejected, and scrap at every operation",
+          "Bi-directional lot traceability: raw supplier heats \u2192 SFG \u2192 FG, and customer serials back to original lots",
+          "Quantity reconciliation engine balances inputs against finished output, scrap, rework, and active WIP",
+          "Supports 4 subcontract models: In-House, Complete Subcontract, Company-Supplied Materials, and Hybrid",
+          "Delivery Challans / Gate Passes with Vendor Material Balance ledgers (sent, returned, yield, scrap)",
+          "Plant maintenance integration (PM/breakdowns block scheduling) and real-time OEE with 3-way cost variance"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Dynamic BOM & Snapshot",
+        "description": "Engineers test dimension-driven formulas in the preview sandbox. Upon production order release, an immutable snapshot locks the BOM and routing, insulating the active job from subsequent engineering revisions."
+      },
+      {
+        "title": "2. Supply-Aware MRP",
+        "description": "The multi-echelon MRP engine calculates component requirements factoring in live stock, allocations, purchase pipeline, vendor MOQs, and order multiples. Shortage workbenches auto-draft material requisition slips."
+      },
+      {
+        "title": "3. Finite Capacity APS",
+        "description": "APS evaluates actual machine operating windows, maintenance schedules, and shift calendars. Before schedule release, a 6-point readiness gate verifies materials, predecessor WIP, machines, subcontracting, and QC."
+      },
+      {
+        "title": "4. Touch MES & Andon",
+        "description": "Operators log in at tablet stations via barcode/QR scans. Real-time state machines track progress (In Progress, Paused, On Hold) and operators log partial output or trigger Andon escalation alerts for breakdowns."
+      },
+      {
+        "title": "5. In-Process QC & CAPA",
+        "description": "Downstream WIP movement is blocked until parametric tolerance inspections pass. Failed checks auto-generate Non-Conformance Reports (NCR) and trigger closed-loop CAPA investigation workflows."
+      },
+      {
+        "title": "6. Lot Trace & Cost Variance",
+        "description": "Finished goods enter inventory with full bi-directional lot genealogy. Subcontract material balances are reconciled, and actual costs are absorbed across materials, labor, and machine overhead."
+      }
+    ]
+  },
+  "hrms": {
+    "name": "HRMS & Payroll",
+    "headline": "Calm People Operations  ",
+    "highlight": "From Biometric Punch to Payroll Direct Deposit",
+    "description": "Automate employee lifecycle management, geo-fenced mobile attendance, leave approvals, Indian statutory deductions (PF, ESI, PT, TDS), and payslips.",
+    "features": [
+      {
+        "title": "Multi-Company & Multi-Branch Structure",
+        "description": "Manage multiple companies, business units, branches, departments, and designations under a single unified account.",
+        "bullets": [
+          "Centralized management of multiple companies, legal entities, branches, and departments under one account",
+          "Granular role-based access control (RBAC): managers, HR, and employees only see authorized records",
+          "Unified departmental designations, reporting hierarchies, and multi-tier organizational delegation"
+        ]
+      },
+      {
+        "title": "Digital Employee Dossier & Document Vault",
+        "description": "Centralized profiles containing personal info, emergency contacts, job history, banking details, and lifecycle tracking.",
+        "bullets": [
+          "Complete digital record covering personal info, statutory identity numbers, emergency contacts, and banking details",
+          "Secure document vault with built-in in-house digital signature requests and expiry tracking",
+          "Full employee lifecycle milestones: track onboarding, probation reviews, promotions, and active service"
+        ]
+      },
+      {
+        "title": "Interactive Web Clock-In & Regularization",
+        "description": "Interactive web clock-in/out timers, self-service regularization for machine errors, and automatic penalty rules.",
+        "bullets": [
+          "Live web punch-in/out and real-time break duration timers directly on the employee self-service dashboard",
+          "Attendance regularization workflows: submit missed punch corrections with reason notes for manager sign-off",
+          "Configurable penalty engine: automatically applies loss-of-pay or policy deductions for repeated late arrivals"
+        ]
+      },
+      {
+        "title": "Flexible Leave Policies, Mid-Year Transitions & WFH",
+        "description": "Configure paid, casual, and sick leaves with mid-year transition tools, leave encashment, and dedicated WFH workflows.",
+        "bullets": [
+          "Configurable leave rules: custom accrual rates, carry-forward caps, and 1-click leave encashment calculations",
+          "Mid-year policy transition engine: migrate leave balances smoothly without manual errors when company rules update",
+          "Dedicated Work From Home (WFH) requests, with self-service withdrawal and cancellation of approved leaves"
+        ]
+      },
+      {
+        "title": "Employee 'My Assets' Portal & Bulk Allocation",
+        "description": "Track laptops, phones, monitors, and licenses with bulk employee allocation and self-service 'My Assets' visibility.",
+        "bullets": [
+          "Bulk device assignment for laptops, smartphones, monitors, and software licenses with handover acknowledgments",
+          "Self-service 'My Assets' view: employees can review all company equipment, serial numbers, and warranty details assigned to them",
+          "Custody condition logging and verification at every handover to eliminate hardware disputes"
+        ]
+      },
+      {
+        "title": "Business Travel, Cash Advances & Expense Claims",
+        "description": "Submit travel plans, approve pre-trip cash advances, and process receipt-backed expense claims with automated policy checks.",
+        "bullets": [
+          "Submit travel itineraries, hotel accommodation estimates, and per-diem allowances for manager approval",
+          "Pre-travel cash advance requests with automated disbursement and ledger tracking",
+          "Expense report submissions with digital receipt attachments, spend limit checks, and payroll reimbursement"
+        ]
+      },
+      {
+        "title": "Recruitment ATS & Visual Hiring Pipeline (Kanban)",
+        "description": "Department job requisitions, visual Kanban hiring stages, interview rating scorecards, and 1-click candidate-to-employee conversion.",
+        "bullets": [
+          "Create and publish job requisitions across departments with headcount limits and salary bands",
+          "Drag-and-drop hiring pipeline: Applied \u2192 Screening \u2192 Interview \u2192 Offer \u2192 Hired",
+          "Structured interviewer evaluation scorecards and 1-click conversion of hired candidates directly into active employee records"
+        ]
+      },
+      {
+        "title": "Performance Improvement Plans (PIP) & Review Outcomes",
+        "description": "Structured PIP programs with clear improvement goals, periodic check-ins, and formal outcome documentation.",
+        "bullets": [
+          "Create structured PIP programs with defined performance milestones, target dates, and review cadences",
+          "Transparent periodic review logging with employee acknowledgments and supervisor progress notes",
+          "Formal outcome documentation: record final retention, plan extension, or separation decisions"
+        ]
+      },
+      {
+        "title": "Internal Helpdesk & Self-Service Knowledge Base",
+        "description": "Internal employee ticketing for IT, HR, and payroll queries, CSAT satisfaction ratings, and searchable policy knowledge base.",
+        "bullets": [
+          "Raise support tickets for IT, HR, or payroll with priority levels, department assignment, and screenshot attachments",
+          "Interactive CSAT satisfaction ratings to measure resolution speed and employee support experience",
+          "Self-service company policy FAQ with smart suggestions that pop up in real time as employees type ticket summaries"
+        ]
+      },
+      {
+        "title": "Company Broadcasts & Mandatory Read Receipts",
+        "description": "Publish targeted company updates, track mandatory read receipts for compliance policies, and engage teams with threaded discussions.",
+        "bullets": [
+          "Targeted announcement publishing by legal entity, branch, department, or company-wide",
+          "Mandatory read receipts: verify exactly which employees have read and acknowledged new compliance policies",
+          "Social workspace engagement: threaded discussion comments, likes, and pinned executive announcements"
+        ]
+      },
+      {
+        "title": "Flexible Salary Structures & Salary Hold Engine",
+        "description": "Component-level earnings and deductions, employee-specific salary holds, and standard bank transfer payment exports.",
+        "bullets": [
+          "Setup custom earnings (Basic, HRA, Special Allowances) and deductions (PF, ESI, Professional Tax, TDS)",
+          "Granular salary hold functionality: freeze payouts for pending exit or disciplinary items without blocking the batch run",
+          "Standardized bank payment file exports (NACH/NEFT formats) and instant downloadable password-protected PDF payslips"
+        ]
+      },
+      {
+        "title": "KRA / KPI Performance Appraisals & Goal Reviews",
+        "description": "Define quantitative Key Result Areas (KRAs) and measurable KPIs, schedule appraisal cycles, and aggregate multi-tier manager evaluations.",
+        "bullets": [
+          "Assign departmental and role-based KRA templates with customizable KPI weightages and performance rating scales",
+          "Structured self-appraisal submissions, manager evaluations, and multi-tier normalization review workflows",
+          "Historical appraisal rating trends linked directly to merit increment recommendations and promotion cycles"
+        ]
+      },
+      {
+        "title": "Company, Team & Individual OKRs",
+        "description": "Align company strategic Objectives with measurable Key Results (OKRs) across departments and individual contributors.",
+        "bullets": [
+          "Top-down and bottom-up OKR cascading from annual company goals down to individual quarterly targets",
+          "Real-time progress percentage tracking with automated confidence status indicators and check-in updates",
+          "Cross-departmental alignment views to eliminate siloed efforts and highlight cross-team dependencies"
+        ]
+      },
+      {
+        "title": "360\u00b0 Multi-Rater Employee Feedback",
+        "description": "Gather anonymous multi-perspective competency feedback from peers, direct reports, supervisors, and cross-functional collaborators.",
+        "bullets": [
+          "Configurable reviewer selection: choose peers, direct reports, and internal stakeholders with manager approval",
+          "Confidential, anonymized survey responses with structured behavioral and leadership competency rubrics",
+          "Comprehensive development summary reports and radar charts generated for employee growth discussions"
+        ]
+      },
+      {
+        "title": "Standard Operating Procedures (SOP) & Policy Repository",
+        "description": "Centralized digital library for company SOPs, operational guidelines, and safety manuals with version control and mandatory sign-offs.",
+        "bullets": [
+          "Department-wise SOP categorization with PDF attachments, rich-text guidelines, and revision history logs",
+          "Mandatory employee acknowledgment tracking with digital signatures and compliance audit exports",
+          "Instant role-based access for field and plant workers to ensure standard operational compliance"
+        ]
+      },
+      {
+        "title": "Structured Probation Lifecycle & Confirmation Reviews",
+        "description": "Track employee probation periods with 30/60/90-day milestone reminders, manager evaluation questionnaires, and confirmation sign-offs.",
+        "bullets": [
+          "Automated probation milestone alerts to managers before the 30-day, 60-day, and final confirmation deadlines",
+          "Standardized evaluation questionnaires with performance ratings and behavioral fit assessments",
+          "Formal 1-click confirmation workflow, extension documentation, or statutory separation processing"
+        ]
+      },
+      {
+        "title": "Full & Final (FnF) Settlement & Multi-Department Clearances",
+        "description": "Simultaneous digital clearances across IT assets, Finance advances, and HR, paired with automated gratuity and leave encashment computation.",
+        "bullets": [
+          "Parallel digital department clearance workflows: IT hardware recovery, Finance loan recovery, and HR clearance",
+          "Automated FnF calculation engine: computes pending salary, notice pay, gratuity eligibility, and leave encashment",
+          "Instant release of digitally signed relieving letters and experience certificates once all clearance gates pass"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Daily Punches",
+        "description": "Biometric devices and geo-fenced mobile punches capture daily shift arrivals and departures in real time."
+      },
+      {
+        "title": "2. Leave & OT Review",
+        "description": "Overtime hours, approved leaves, and holiday calendars reconcile automatically with zero manual spreadsheet merging."
+      },
+      {
+        "title": "3. Payroll Execution",
+        "description": "PF, ESI, Professional Tax, and Income Tax (TDS) calculate according to current Indian tax regimes."
+      },
+      {
+        "title": "4. Bank Disbursement",
+        "description": "Bank payment files generate for direct upload; password-protected PDF payslips dispatch via email and WhatsApp."
+      },
+      {
+        "title": "5. ERP Ledger Post",
+        "description": "Salary expense, PF payable, and TDS liability vouchers post into the finance accounting ledger automatically."
+      }
+    ]
+  },
+  "project": {
+    "name": "Project Management",
+    "headline": "Deliver Projects on Time & on Budget  ",
+    "highlight": "With Real-Time Cost & Resource Visibility",
+    "description": "Track project milestones, billable timesheets, contractor costs, Gantt schedules, and profit margins integrated directly with client invoicing.",
+    "features": [
+      {
+        "title": "Interactive Gantt Chart & Critical Path (CPM)",
+        "description": "Visual dependency tracking with automated cascade rescheduling upon milestone shifts.",
+        "bullets": [
+          "Finish-to-Start (FS), SS, FF dependencies with configurable lag and lead buffers",
+          "Critical Path Method (CPM) identifying tasks directly affecting delivery dates",
+          "Multiple baseline version snapshots (Contract Baseline vs Re-baselined V1)"
+        ]
+      },
+      {
+        "title": "Project Setup & WBS Template Library",
+        "description": "Rapid project authoring with hierarchical Work Breakdown Structures and reusable templates.",
+        "bullets": [
+          "Pre-built WBS project templates for turnkey EPC, software, and fabrication",
+          "Multi-tier program hierarchy linking master projects to phases and sub-tasks",
+          "Direct linkage to CRM sales contracts, client agreements, and delivery sites"
+        ]
+      },
+      {
+        "title": "Task Management & Visual Kanban Boards",
+        "description": "Agile task execution with custom swimlanes, WIP limits, subtasks, checklists, and recurring tasks.",
+        "bullets": [
+          "Drag-and-drop Kanban workflow stages with SLA priority alerts",
+          "Subtask breakdown with automated percentage completion rollups",
+          "Mandatory quality and safety audit checklists before task sign-off"
+        ]
+      },
+      {
+        "title": "Resource Workload Balancing & Heatmaps",
+        "description": "Visual cross-project capacity planning matching personnel skills and preventing engineer burnout.",
+        "bullets": [
+          "Real-time heatmap revealing over-allocated personnel in red and bench in green",
+          "1-click drag-and-drop task rebalancing directly from the capacity view",
+          "Skill tagging and certification tracking matching right engineers to tasks"
+        ]
+      },
+      {
+        "title": "Mobile Billable Timesheets & Approvals",
+        "description": "Engineers log daily hours against client projects with automated managerial approval workflows.",
+        "bullets": [
+          "Billable versus non-billable time classification with rate-card tracking",
+          "Project manager 1-click timesheet approval queues synced with payroll",
+          "Direct synchronization with payroll and client billing rate cards"
+        ]
+      },
+      {
+        "title": "Real-Time Project Cost Accounting",
+        "description": "Live project ledger tracking direct labor, materials, subcontractor invoices, and corporate overhead.",
+        "bullets": [
+          "Material issue requisitions charged directly to project WBS cost centers",
+          "Subcontractor PO tracking with measurement sheets and retention money",
+          "Continuous cost burn tracking against project budget lines in real time"
+        ]
+      },
+      {
+        "title": "Cost Breakdown Structure (CBS) & Variance Alerts",
+        "description": "Granular budget vs actual tracking with proactive threshold alerts preventing project overruns.",
+        "bullets": [
+          "Committed vs Actual vs Budgeted three-way expenditure monitoring",
+          "Automated warning alerts when spending reaches 80% and 95% of contingency",
+          "Revision tracking and change order logging maintaining budget audit history"
+        ]
+      },
+      {
+        "title": "1-Click Milestone Completion to GST Invoicing",
+        "description": "Client deliverable approval triggers compliant GST tax invoice generation in accounting without delays.",
+        "bullets": [
+          "Contract milestone sign-off automatically drafts GST E-Invoice with IRN",
+          "Supports Milestone, Time & Material (T&M), Retainer, and Fixed-Fee billing",
+          "Accelerated client billing cycle eliminating 18 days of administrative delay"
+        ]
+      },
+      {
+        "title": "Project Profitability & Health Telemetry",
+        "description": "Live project P&L, recognized revenue, gross margin analytics, and Earned Value Management (EVM).",
+        "bullets": [
+          "Real-time gross margin percentage tracked continuously throughout execution",
+          "Cost Performance Index (CPI) and Schedule Performance Index (SPI) analytics",
+          "Dedicated restricted client portal for Gantt visibility and digital sign-offs"
+        ]
+      }
+    ],
+    "workflow": [
+      {
+        "title": "1. Project Charter",
+        "description": "Signed client contract auto-populates project milestones, budgeted labor hours, and material estimates."
+      },
+      {
+        "title": "2. Resource Scheduling",
+        "description": "Team members and subcontractors are scheduled on tasks based on skill requirements and current capacity."
+      },
+      {
+        "title": "3. Execution & Timesheets",
+        "description": "Engineers log daily timesheets and site material consumption tagged to the project WBS code."
+      },
+      {
+        "title": "4. Milestone Signoff",
+        "description": "Client signs off on completed project deliverables, automatically unlocking billing readiness."
+      },
+      {
+        "title": "5. Invoice & Cash",
+        "description": "Tax invoice generates instantly in accounting; project analytics reveal true gross margin earned."
+      }
+    ]
+  }
+}

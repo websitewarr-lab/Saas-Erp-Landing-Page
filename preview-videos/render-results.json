@@ -1,0 +1,112 @@
+[
+  {
+    "id": "CRM",
+    "filename": "crm-preview.mp4",
+    "poster": "crm-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Sales",
+    "filename": "sales-preview.mp4",
+    "poster": "sales-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Inventory",
+    "filename": "inventory-preview.mp4",
+    "poster": "inventory-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Purchase",
+    "filename": "purchase-preview.mp4",
+    "poster": "purchase-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Production",
+    "filename": "production-preview.mp4",
+    "poster": "production-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Accounting",
+    "filename": "accounting-preview.mp4",
+    "poster": "accounting-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "HRMS",
+    "filename": "hrms-preview.mp4",
+    "poster": "hrms-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Projects",
+    "filename": "project-preview.mp4",
+    "poster": "project-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Homepage-Dashboard",
+    "filename": "home-dashboard-preview.mp4",
+    "poster": "home-dashboard-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Homepage-Modules",
+    "filename": "home-modules-preview.mp4",
+    "poster": "home-modules-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  },
+  {
+    "id": "Homepage-Workflow",
+    "filename": "home-workflow-preview.mp4",
+    "poster": "home-workflow-poster.jpg",
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "frames": 150,
+    "duration": 5
+  }
+]

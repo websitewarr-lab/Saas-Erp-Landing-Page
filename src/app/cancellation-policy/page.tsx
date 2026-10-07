@@ -1,15 +1,22 @@
-"use client";
-
+import type { Metadata } from "next";
 import SiteHeader from "@/app/components/SiteHeader";
 import SiteFooter from "@/app/components/SiteFooter";
 import { RefreshCw, DollarSign, Clock, HelpCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Cancellation & Refund Policy | Mossie ERP",
+  description: "Understand Mossie ERP subscription cancellation policies, refund terms, and data export guidelines.",
+  alternates: {
+    canonical: "/cancellation-policy",
+  },
+};
 
 export default function CancellationPolicyPage() {
   return (
     <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#006fc9] selection:text-white">
       <SiteHeader />
 
-      <main className="py-12 md:py-20">
+      <main id="main-content" className="py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           {/* Page Header */}
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">

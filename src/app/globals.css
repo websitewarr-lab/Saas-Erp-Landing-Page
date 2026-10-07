@@ -811,7 +811,7 @@ body.modal-locked {
 }
 
 .trust-strip .container {
-  padding: 15px 0;
+  padding: 20px 0;
 }
 
 .logo-row {
@@ -850,7 +850,7 @@ body.modal-locked {
 }
 
 .section {
-  padding: 15px 0;
+  padding: 20px 0;
 }
 
 .section-intro {
@@ -1057,7 +1057,7 @@ body.modal-locked {
   background-color: #F8FAFC;
   border-top: 1px solid #E2E8F0;
   border-bottom: 1px solid #E2E8F0;
-  padding: 30px 0;
+  padding: 20px 0;
   overflow: hidden;
 }
 
@@ -4657,15 +4657,8 @@ body.modal-locked {
 .business-flow {
   position: relative;
   isolation: isolate;
-  container-type: inline-size;
   width: 100%;
-  min-width: 600px;
-  aspect-ratio: 600 / 156;
-  overflow: hidden;
-  border-radius: inherit;
-  background: #ffffff;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+  overflow: visible;
   --cyan: oklch(0.81 0.115 222);
   --blue: var(--brand-accent, #006fc9);
   --violet: oklch(99.779% 0.00104 11.135);

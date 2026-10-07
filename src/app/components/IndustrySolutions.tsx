@@ -102,7 +102,7 @@ const INDUSTRIES: IndustryItem[] = [
 
 export default function IndustrySolutions() {
   return (
-    <section className="py-[15px] bg-[#F8FAFC] relative overflow-hidden" id="industries">
+    <section className="py-[20px] bg-[#F8FAFC] relative overflow-hidden" id="industries">
       {/* Ambient background tints */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-10 left-10 w-96 h-96 bg-blue-100/30 rounded-full blur-[100px]" />
@@ -148,9 +148,7 @@ export default function IndustrySolutions() {
             </span>{" "}
             works.
           </h2>
-          <p className="text-[15px] sm:text-[16px] text-[#64748B] max-w-md mx-auto leading-relaxed">
-            Start with a strong foundation, then shape the details around your team and customers.
-          </p>
+         
         </motion.div>
 
         {/* 8-Card Grid matching media_1789198291120.png */}

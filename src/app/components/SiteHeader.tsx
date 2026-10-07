@@ -88,14 +88,15 @@ export default function SiteHeader() {
             <Link
               href="/modules"
               onClick={closeMenu}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700"
+              aria-haspopup="true"
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006fc9] rounded-md px-1"
             >
               <span>Modules</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 transition-transform duration-200" />
+              <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform duration-200" />
             </Link>
 
             {/* Mega Dropdown Panel */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
               <div className="bg-white/98 backdrop-blur-xl rounded-[20px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4">
                 <div className="px-2.5 py-1.5 mb-2 border-b border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
@@ -119,7 +120,7 @@ export default function SiteHeader() {
                         key={item.name}
                         href={item.href}
                         onClick={closeMenu}
-                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 transition-all duration-150 group/item"
+                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
                       >
                         <div
                           className={`p-2 rounded-[10px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs`}
@@ -147,14 +148,15 @@ export default function SiteHeader() {
             <Link
               href="/#industries"
               onClick={closeMenu}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700"
+              aria-haspopup="true"
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006fc9] rounded-md px-1"
             >
               <span>Industries</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 transition-transform duration-200" />
+              <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform duration-200" />
             </Link>
 
             {/* Mega Dropdown Panel */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
               <div className="bg-white/98 backdrop-blur-xl rounded-[20px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4">
                 <div className="px-2.5 py-1.5 mb-2 border-b border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
@@ -178,7 +180,7 @@ export default function SiteHeader() {
                         key={item.name}
                         href={item.href}
                         onClick={closeMenu}
-                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 transition-all duration-150 group/item"
+                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
                       >
                         <div
                           className={`p-2 rounded-[10px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs`}

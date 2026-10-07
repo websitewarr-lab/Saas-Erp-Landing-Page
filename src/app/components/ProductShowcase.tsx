@@ -408,9 +408,7 @@ export default function ProductShowcase() {
         {/* Section Header */}
         <div className="ai-showcase-header">
           <h2 className="ai-showcase-title">Powerful tools. Simple experience.</h2>
-          <p className="ai-showcase-subtitle">
-            Switch modules in place — the same connected data, reframed for each team&apos;s day.
-          </p>
+         
         </div>
 
         {/* Desktop Tab Pills Row (Hidden on Smartphone < 768px) */}
@@ -422,8 +420,11 @@ export default function ProductShowcase() {
               <button
                 key={tab.id}
                 type="button"
+                id={`product-tab-${tab.id}`}
                 role="tab"
                 aria-selected={isActive}
+                aria-controls="product-tabpanel"
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTabId(tab.id)}
                 className={`ai-tab-pill ${isActive ? "active" : ""}`}
               >
@@ -449,6 +450,8 @@ export default function ProductShowcase() {
           {/* Touch-Swipable Horizontal Scroll Area */}
           <div
             ref={tabListRef}
+            role="tablist"
+            aria-label="Product modules mobile"
             className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth w-full py-1.5 px-0.5 snap-x snap-mandatory touch-pan-x"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
@@ -459,8 +462,11 @@ export default function ProductShowcase() {
                 <button
                   key={tab.id}
                   type="button"
+                  id={`product-tab-mobile-${tab.id}`}
                   role="tab"
                   aria-selected={isActive}
+                  aria-controls="product-tabpanel"
+                  tabIndex={isActive ? 0 : -1}
                   onClick={() => setActiveTabId(tab.id)}
                   className={`ai-tab-pill whitespace-nowrap shrink-0 snap-center ${isActive ? "active" : ""}`}
                 >
@@ -483,7 +489,12 @@ export default function ProductShowcase() {
         </div>
 
         {/* Main 2-Column Showcase Card */}
-        <div className="ai-showcase-card">
+        <div
+          id="product-tabpanel"
+          role="tabpanel"
+          aria-labelledby={`product-tab-${activeTabId}`}
+          className="ai-showcase-card"
+        >
           {/* Left Column: Content & Checkpoints */}
           <div className="ai-card-content">
             {/* Gradient Icon Badge */}

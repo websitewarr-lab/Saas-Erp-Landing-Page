@@ -10,7 +10,6 @@ import {
   Boxes,
   Settings2,
   KanbanSquare,
-  BarChart3,
   ChevronLeft,
   ChevronRight,
   Sparkles,
@@ -30,40 +29,20 @@ interface PlatformModule {
 
 const PLATFORM_MODULES: PlatformModule[] = [
   {
-    id: "finance",
-    title: "Finance Management",
-    watermark: "FINANCIAL OPERATIONS",
-    description: "Accounting, invoices, expenses, taxation and reporting in one unified ledger.",
-    features: ["General ledger", "Invoices", "Expenses"],
-    image: "/images/modules/finance.jpg",
-    icon: CircleDollarSign,
-    link: "/modules/accounting",
-  },
-  {
-    id: "hr",
-    title: "HR & Payroll",
-    watermark: "PEOPLE OPERATIONS",
-    description: "Keep employee records, attendance, leave and payroll in seamless sync.",
-    features: ["Employee hub", "Attendance", "Payroll"],
-    image: "/images/modules/hr_payroll.jpg",
-    icon: UsersRound,
-    link: "/modules/crm",
-  },
-  {
     id: "crm",
-    title: "CRM & Sales",
+    title: "CRM & Pipelines",
     watermark: "SALES PIPELINE",
-    description: "Turn leads into lasting customer relationships with a shared pipeline.",
-    features: ["Leads", "Opportunities", "Sales orders"],
+    description: "Turn leads into lasting customer relationships with automated scoring and pipeline visibility.",
+    features: ["Lead scoring", "Pipelines", "360° accounts"],
     image: "/images/modules/crm_sales.jpg",
     icon: Target,
     link: "/modules/crm",
   },
   {
     id: "sales",
-    title: "Sales & Order Management",
+    title: "Sales & Orders",
     watermark: "ORDER FULFILLMENT",
-    description: "Multi-channel quotations, sales orders, discount rules, and invoicing.",
+    description: "Multi-channel quotations, sales orders, pricing rules, and seamless dispatch invoicing.",
     features: ["Quotations", "Sales orders", "Fulfillment"],
     image: "/images/modules/crm_sales.jpg",
     icon: Target,
@@ -71,10 +50,10 @@ const PLATFORM_MODULES: PlatformModule[] = [
   },
   {
     id: "purchase",
-    title: "Purchase Management",
+    title: "Purchase & Procurement",
     watermark: "PROCUREMENT & VENDORS",
-    description: "Manage vendors, purchase requests, orders and approvals with ease.",
-    features: ["Vendors", "Purchase orders", "Approvals"],
+    description: "Manage vendors, purchase requisitions, RFQs, purchase orders, and 3-way matching approvals.",
+    features: ["Vendors & RFQs", "Purchase orders", "3-way matching"],
     image: "/images/modules/purchase.jpg",
     icon: ClipboardCheck,
     link: "/modules/purchase",
@@ -83,18 +62,18 @@ const PLATFORM_MODULES: PlatformModule[] = [
     id: "inventory",
     title: "Inventory Management",
     watermark: "WAREHOUSE & ASSETS",
-    description: "See products, stock levels, warehouses and transfers as they happen.",
-    features: ["Stock levels", "Warehouses", "Transfers"],
+    description: "Track stock levels, multi-warehouse movements, batch serials, and inventory valuation.",
+    features: ["Stock levels", "Multi-warehouse", "Batch & serials"],
     image: "/images/modules/inventory.jpg",
     icon: Boxes,
     link: "/modules/inventory",
   },
   {
-    id: "manufacturing",
-    title: "Manufacturing",
+    id: "production",
+    title: "Manufacturing & Production",
     watermark: "PRODUCTION & BOMS",
-    description: "Plan production, manage BOMs and coordinate work orders from one view.",
-    features: ["Production plans", "BOMs", "Work orders"],
+    description: "Plan production schedules, manage multi-level BOMs, work orders, and shop-floor MES operations.",
+    features: ["BOM & Routings", "Work orders", "Shopfloor MES"],
     image: "/images/modules/manufacturing.jpg",
     icon: Settings2,
     link: "/modules/production",
@@ -103,8 +82,8 @@ const PLATFORM_MODULES: PlatformModule[] = [
     id: "accounting",
     title: "Accounting & Finance",
     watermark: "FINANCIAL OPERATIONS",
-    description: "Accounting, invoices, expenses, taxation and reporting in one unified ledger.",
-    features: ["General ledger", "Invoices", "Expenses"],
+    description: "General ledger, invoicing, multi-entity journals, tax compliance, and automated financial statements.",
+    features: ["General ledger", "Invoices & taxes", "Financial reports"],
     image: "/images/modules/finance.jpg",
     icon: CircleDollarSign,
     link: "/modules/accounting",
@@ -113,31 +92,21 @@ const PLATFORM_MODULES: PlatformModule[] = [
     id: "hrms",
     title: "HRMS & Payroll",
     watermark: "PEOPLE OPERATIONS",
-    description: "Keep employee records, attendance, leave and payroll in seamless sync.",
-    features: ["Employee hub", "Attendance", "Payroll"],
+    description: "Employee records, attendance, leave, performance appraisals, and statutory Indian payroll in sync.",
+    features: ["Attendance & leaves", "KRA & OKRs", "Statutory payroll"],
     image: "/images/modules/hr_payroll.jpg",
     icon: UsersRound,
     link: "/modules/hrms",
   },
   {
     id: "projects",
-    title: "Projects & Tasks",
-    watermark: "COLLABORATION & MILESTONES",
-    description: "Bring milestones, timesheets and team collaboration into the same flow.",
-    features: ["Milestones", "Timesheets", "Collaboration"],
+    title: "Project Management",
+    watermark: "COLLABORATION & TASKS",
+    description: "Coordinate team projects, milestones, tasks, timesheets, and project profitability in one flow.",
+    features: ["Milestones & tasks", "Timesheets", "Project costing"],
     image: "/images/modules/projects.jpg",
     icon: KanbanSquare,
     link: "/modules/project",
-  },
-  {
-    id: "reports",
-    title: "Reports & Analytics",
-    watermark: "BUSINESS INTELLIGENCE",
-    description: "Make decisions with dashboards, KPIs and reports built from your data.",
-    features: ["Live dashboards", "KPIs", "Custom reports"],
-    image: "/images/modules/analytics.jpg",
-    icon: BarChart3,
-    link: "/modules/accounting",
   },
 ];
 
@@ -200,7 +169,7 @@ export default function PlatformModulesShowcase() {
   };
 
   return (
-    <section className="relative py-[15px] bg-white overflow-hidden" id="modules">
+    <section className="relative py-[20px] bg-white overflow-hidden" id="modules">
       {/* Ambient Backlight */}
       <div 
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[300px] pointer-events-none blur-[140px] opacity-40 bg-gradient-to-b from-blue-100 to-indigo-100"
@@ -220,9 +189,7 @@ export default function PlatformModulesShowcase() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
                 Our Platform Services
               </h2>
-              <p className="text-base sm:text-lg text-slate-600 mt-3 max-w-2xl mx-auto leading-relaxed">
-                Manage every core business function from one connected platform built for speed, governance, and scale.
-              </p>
+             
             </div>
 
             {/* Slider Controls */}

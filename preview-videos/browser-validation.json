@@ -1,0 +1,160 @@
+{
+  "studio": {
+    "title": "HRMS / remotion - Remotion Studio",
+    "path": "/HRMS",
+    "loaded": true,
+    "hasHRMS": true,
+    "hasHome": true
+  },
+  "gallery": {
+    "title": "Mossie ERP \u00b7 Video previews",
+    "count": 11,
+    "initiallyPaused": true,
+    "fontLoaded": true
+  },
+  "playback": [
+    {
+      "file": "home-dashboard-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "home-workflow-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "home-modules-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "crm-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "sales-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "inventory-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "purchase-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "production-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "accounting-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "hrms-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    },
+    {
+      "file": "project-preview.mp4",
+      "duration": 5,
+      "width": 1600,
+      "height": 900,
+      "played": true,
+      "seeked": true,
+      "error": null
+    }
+  ],
+  "filters": [
+    {
+      "filter": "modules",
+      "expected": 8,
+      "visible": 8,
+      "selected": "true"
+    },
+    {
+      "filter": "homepage",
+      "expected": 3,
+      "visible": 3,
+      "selected": "true"
+    },
+    {
+      "filter": "all",
+      "expected": 11,
+      "visible": 11,
+      "selected": "true"
+    }
+  ],
+  "layouts": [
+    {
+      "viewport": 1440,
+      "documentWidth": 1425,
+      "columns": 2,
+      "videosLabeled": true,
+      "nativeControls": true
+    },
+    {
+      "viewport": 390,
+      "documentWidth": 390,
+      "columns": 1,
+      "videosLabeled": true,
+      "nativeControls": true
+    }
+  ],
+  "browserErrors": [],
+  "rerenderedWorkflowPlayback": {
+    "file": "home-workflow-preview.mp4",
+    "played": true,
+    "seeked": true,
+    "duration": 5,
+    "error": null
+  }
+}

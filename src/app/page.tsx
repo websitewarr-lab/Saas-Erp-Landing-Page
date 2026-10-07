@@ -75,7 +75,7 @@ export default function HomePage() {
     <div className="erp-site">
       <SiteHeader />
 
-      <main id="top">
+      <main id="main-content">
         <section className="hero-zoho-section" id="solutions">
           {/* Ambient Lighting, Gradients, Tech Patterns & 3D Perspective Grid Floor */}
           <HeroBackground />
@@ -131,7 +131,7 @@ export default function HomePage() {
         
         <section className="section section-benefits">
           <div className="container">
-            <SectionIntro eyebrow="Why Mossie ERP" title="A simpler way to run your business." description="Connect your people, processes and data in one platform built to make everyday operations simpler." align="center" />
+            <SectionIntro eyebrow="Why Mossie ERP" title="A simpler way to run your business." align="center" />
             <div className="benefits-grid">
               {benefits.map(({ title, description, icon: Icon, tone }) => (
                 <article className="benefit-card" key={title}>
@@ -161,7 +161,7 @@ export default function HomePage() {
         <IndustrySolutions />
 
 
-        <section className="py-14 sm:py-20 bg-white relative overflow-hidden" id="faq">
+        <section className="py-[20px] bg-white relative overflow-hidden" id="faq">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
             {/* Centered Headline matching reference layout */}
             <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
@@ -186,9 +186,11 @@ export default function HomePage() {
                   >
                     <button
                       type="button"
+                      id={`faq-btn-${index}`}
                       aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${index}`}
                       onClick={() => setOpenFaq(isOpen ? null : index)}
-                      className="w-full flex items-center justify-between text-left p-5 sm:p-6 cursor-pointer select-none focus:outline-none"
+                      className="w-full flex items-center justify-between text-left p-5 sm:p-6 cursor-pointer select-none rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006fc9] focus-visible:ring-offset-2"
                     >
                       <span
                         className={`text-[15px] sm:text-[16px] font-bold tracking-tight pr-4 transition-colors ${
@@ -209,6 +211,9 @@ export default function HomePage() {
                     </button>
 
                     <div
+                      id={`faq-answer-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-btn-${index}`}
                       className={`grid transition-all duration-300 ease-in-out ${
                         isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                       }`}

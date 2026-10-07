@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mossierp.com";
-  const lastModified = new Date();
+  const lastModified = new Date("2026-10-07T00:00:00.000Z");
 
   const moduleSlugs = [
     "",

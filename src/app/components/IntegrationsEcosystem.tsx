@@ -667,7 +667,7 @@ export default function IntegrationsEcosystem() {
   }, []);
 
   return (
-    <section className="relative py-6 sm:py-10 bg-white overflow-hidden flex flex-col items-center" id="integrations">
+    <section className="relative py-[20px] bg-white overflow-hidden flex flex-col items-center" id="integrations">
       <style>{CSS_STYLES}</style>
 
       {/* Main Section Container matching ConnectedWorkflow */}

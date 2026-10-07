@@ -19,8 +19,25 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mossie ERP | One calm platform for your whole business",
+  metadataBase: new URL("https://mossierp.com"),
+  title: {
+    default: "Mossie ERP | One calm platform for your whole business",
+    template: "%s | Mossie ERP",
+  },
   description: "Connect finance, HR, sales, inventory, operations and reporting in one intelligent ERP platform built for growing businesses.",
+  openGraph: {
+    title: "Mossie ERP | One calm platform for your whole business",
+    description: "Connect finance, HR, sales, inventory, operations and reporting in one intelligent ERP platform built for growing businesses.",
+    url: "https://mossierp.com",
+    siteName: "Mossie ERP",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mossie ERP | One calm platform for your whole business",
+    description: "Connect finance, HR, sales, inventory, operations and reporting in one intelligent ERP platform built for growing businesses.",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -41,7 +58,15 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body style={{ 
         fontFamily: 'var(--font-inter), sans-serif',
-      }}><PopupCtaProvider>{children}</PopupCtaProvider></body>
+      }}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#006fc9] focus:text-white focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-sm font-semibold"
+        >
+          Skip to main content
+        </a>
+        <PopupCtaProvider>{children}</PopupCtaProvider>
+      </body>
     </html>
   );
 }

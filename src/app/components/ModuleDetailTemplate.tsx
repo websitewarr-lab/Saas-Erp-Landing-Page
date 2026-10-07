@@ -871,7 +871,7 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
       <div className="mf-container">
         {/* Section Intro */}
         <header className="mf-heading">
-          <p className="mf-eyebrow">{config.edge.eyebrow || "Highlighted features"}</p>
+          {/* <p className="mf-eyebrow">{config.edge.eyebrow || "Highlighted features"}</p> */}
           <h2 id={headingId}>
             {config.edge.title}
             <span>{config.edge.titleHighlight}</span>
@@ -950,7 +950,7 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
         {selected && (
           <div className="mf-dialog-layout">
             <div className="mf-dialog-copy">
-              <p className="mf-eyebrow">Highlighted feature</p>
+              {/* <p className="mf-eyebrow">Highlighted feature</p> */}
               <span className="mf-tile" data-tone={selected.visual.tone}>
                 <FeatureIcon name={selected.visual.icon} />
               </span>
@@ -1078,7 +1078,7 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
         {/* Section Header + Search Input */}
         <div className="mf-catalog-header">
           <header className="mf-heading">
-            <p className="mf-eyebrow">{config.featuresCatalog.eyebrow || "All features"}</p>
+            {/* <p className="mf-eyebrow">{config.featuresCatalog.eyebrow || "All features"}</p> */}
             <h2 id={headingId}>
               Everything you need to <span>{config.featuresCatalog.headline.action}</span>
             </h2>
@@ -1228,7 +1228,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
       {/* Global Site Header */}
       <SiteHeader />
 
-      <main>
+      <main id="main-content">
         {/* ========================================================================= */}
         {/* 1. HIGH-IMPACT COMPACT HERO WITH INTERACTIVE MOCKUP                      */}
         {/* ========================================================================= */}

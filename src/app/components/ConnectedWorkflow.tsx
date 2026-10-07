@@ -280,35 +280,37 @@ export default function ConnectedWorkflow() {
   }, []);
 
   return (
-    <section className="relative py-6 sm:py-10 bg-white overflow-hidden" id="flow">
+    <section className="relative py-[20px] bg-white overflow-hidden flex flex-col items-center" id="flow">
       <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="flow-viewport"
-          tabIndex={0}
-          aria-label="Complete business flow. On narrow screens, scroll horizontally to explore all nine stages."
-        >
-          <div
-            ref={sectionRef}
-            className="business-flow"
-            aria-labelledby="flow-heading"
-            aria-describedby="flow-subtitle"
-          >
-            <p className="section-label">
-             
-            </p>
-            <h2 id="flow-heading" className="flow-heading">
+        {/* Main Connected Business Flow Showcase Card */}
+        <div className="w-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.04)] pt-6 sm:pt-8 pb-5 sm:pb-6 px-4 sm:px-6">
+          {/* Section Header inside the card */}
+          <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-6">
+            <h2 id="flow-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-2">
               Complete Business Flow
             </h2>
-            <p id="flow-subtitle" className="subtitle">
-              From first lead to final reports — fully connected, no manual handoffs.
+            <p id="flow-subtitle" className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+              From first lead to final reports fully connected, no manual handoffs.
             </p>
+          </div>
 
-            <svg
-              className="flow-art"
-              viewBox="0 0 600 156"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
+          <div
+            className="flow-viewport w-full"
+            tabIndex={0}
+            aria-label="Complete business flow. On narrow screens, scroll horizontally to explore all nine stages."
+          >
+            <div
+              ref={sectionRef}
+              className="business-flow w-full min-w-[650px]"
+              aria-labelledby="flow-heading"
+              aria-describedby="flow-subtitle"
             >
+              <svg
+                className="flow-art w-full h-auto"
+                viewBox="0 57 600 93"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+              >
               <defs>
                 {/* One shared palette and one shared pedestal; every icon is vector geometry. */}
                 <linearGradient
@@ -1028,6 +1030,7 @@ export default function ConnectedWorkflow() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 }

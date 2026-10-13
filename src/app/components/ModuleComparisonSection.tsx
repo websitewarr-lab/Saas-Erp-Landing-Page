@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ModulePageConfig, ComparisonRow } from "./modules/moduleData";
 
 interface ModuleComparisonSectionProps {
@@ -158,6 +162,39 @@ function getFeatureIconId(metric: string, idx: number): string {
 
 export function ModuleComparisonSection({ config }: ModuleComparisonSectionProps) {
   const rows = config.comparison.rows.slice(0, 5);
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [isHolding, setIsHolding] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!isHolding) return;
+    const handleRelease = () => setIsHolding(false);
+    window.addEventListener("mouseup", handleRelease);
+    window.addEventListener("touchend", handleRelease);
+    window.addEventListener("touchcancel", handleRelease);
+    return () => {
+      window.removeEventListener("mouseup", handleRelease);
+      window.removeEventListener("touchend", handleRelease);
+      window.removeEventListener("touchcancel", handleRelease);
+    };
+  }, [isHolding]);
+
+  const activeMobileIndex = rows.length > 0 ? mobileIndex % rows.length : 0;
+  const activeRow = rows[activeMobileIndex];
+
+  // 5-second auto-slider for smartphone comparison cards (pauses while held)
+  useEffect(() => {
+    if (isHolding || rows.length <= 1) return;
+    const timer = setInterval(() => {
+      setMobileIndex((prev) => (prev + 1) % rows.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeMobileIndex, isHolding, rows.length]);
+
+  function stepMobileSlide(dir: -1 | 1) {
+    if (rows.length === 0) return;
+    setMobileIndex((prev) => (prev + dir + rows.length) % rows.length);
+  }
 
   return (
     <section
@@ -336,138 +373,344 @@ export function ModuleComparisonSection({ config }: ModuleComparisonSectionProps
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto module-section-header space-y-1 mb-4 sm:mb-5">
-          <span className="text-xs font-bold text-[#006fc9] tracking-wider uppercase">
-            {config.comparison.eyebrow}
-          </span>
-          <h2 className="text-[22px] sm:text-[28px] font-extrabold text-[#0F172A] tracking-tight leading-tight">
+          <h2 className="section-heading">
             {config.comparison.title}
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto leading-relaxed">
-            {config.comparison.subtitle}
-          </p>
         </div>
 
-        {/* Prototype Card Container */}
-        <div className="comparison-prototype-wrap">
-          <div className="comparison-card" aria-label={config.comparison.title}>
-            {/* Mobile Header Banner */}
-            <div className="mobile-heading" aria-hidden="true">
-              <p>
-                Key capabilities
-                <span>{config.comparison.competitor1Name} vs {config.comparison.competitor2Name}</span>
-              </p>
-              <div className="mobile-winner">
-                <svg viewBox="0 0 48 48">
-                  <use href="#crown" />
-                </svg>
-                <div>
-                  Mossie ERP
+        {/* ========================================================================= */}
+        {/* SMARTPHONE COMPARISON SLIDER (< 768px)                                     */}
+        {/* 5-second auto-slider with hold-to-pause, swipe, arrows & recessed peeks   */}
+        {/* ========================================================================= */}
+        {activeRow && (
+          <div className="block md:hidden">
+            {/* Top Mobile Header Bar with Winner Pill & Left/Right Controls */}
+            <div className="flex items-center justify-between gap-2 max-w-[390px] mx-auto mb-3 px-1">
+              <div className="min-w-0">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#f0f7ff] border border-[#bfdbfe] text-[#006fc9] text-[11px] font-bold">
+                  <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 48 48" aria-hidden="true">
+                    <use href="#crown" />
+                  </svg>
+                  <span>Mossie ERP vs Alternatives</span>
                 </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => stepMobileSlide(-1)}
+                  aria-label="Previous capability comparison"
+                  className="w-8 h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-slate-600 hover:text-[#006fc9] active:scale-95 transition-all cursor-pointer"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => stepMobileSlide(1)}
+                  aria-label="Next capability comparison"
+                  className="w-8 h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-slate-600 hover:text-[#006fc9] active:scale-95 transition-all cursor-pointer"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
-            {/* 4-Column Grid Table */}
-            <table className="comparison-table" role="table" aria-label="Competitive feature comparison matrix">
-              <thead className="comparison-thead" role="rowgroup">
-                <tr className="comparison-tr" role="row">
-                  <th className="comparison-th capability-heading" scope="col" role="columnheader">
-                    Key Capability
-                  </th>
-                  <th className="comparison-th vendor-heading mossie-heading" scope="col" role="columnheader">
-                    <svg className="vendor-icon" aria-hidden="true">
-                      <use href="#crown" />
-                    </svg>
-                    <span className="brand-name">Mossie ERP</span>
-                    
-                  </th>
-                  <th className="comparison-th vendor-heading standalone-heading" scope="col" role="columnheader">
-                    <svg className="vendor-icon" aria-hidden="true">
-                      <use href="#team" />
-                    </svg>
-                    <span>{config.comparison.competitor1Name}</span>
-                  </th>
-                  <th className="comparison-th vendor-heading traditional-heading" scope="col" role="columnheader">
-                    <svg className="vendor-icon" aria-hidden="true">
-                      <use href="#monitor" />
-                    </svg>
-                    <span>{config.comparison.competitor2Name}</span>
-                  </th>
-                </tr>
-              </thead>
+            {/* Slider Card Deck with Left & Right Recessed Peeks */}
+            <div
+              className="relative w-full max-w-[390px] mx-auto px-3 py-1 select-none [-webkit-touch-callout:none]"
+              onMouseDown={() => setIsHolding(true)}
+              onMouseUp={() => setIsHolding(false)}
+              onMouseLeave={() => setIsHolding(false)}
+              onTouchStart={(e) => {
+                setIsHolding(true);
+                touchStartXRef.current = e.touches[0]?.clientX ?? null;
+              }}
+              onTouchEnd={(e) => {
+                setIsHolding(false);
+                if (touchStartXRef.current !== null && e.changedTouches[0]) {
+                  const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+                  if (Math.abs(deltaX) > 36) {
+                    stepMobileSlide(deltaX < 0 ? 1 : -1);
+                  }
+                }
+                touchStartXRef.current = null;
+              }}
+              onTouchCancel={() => {
+                setIsHolding(false);
+                touchStartXRef.current = null;
+              }}
+              onContextMenu={(e) => e.preventDefault()}
+            >
+              {/* Recessed Left & Right Card Peeks */}
+              <div
+                className="absolute inset-y-4 left-0 right-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-y-4 left-6 right-0 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+                aria-hidden="true"
+              />
 
-              <tbody className="comparison-tbody" role="rowgroup">
-                {rows.map((row: ComparisonRow, idx: number) => {
-                  const iconId = getFeatureIconId(row.metric, idx);
-                  const mossiParsed = parseHighlight(row.mossi.highlight);
-                  const legacyParsed = parseHighlight(row.legacy.highlight);
-                  const pointSolutionParsed = parseHighlight(row.pointSolution.highlight);
+              {/* Active Capability Comparison Slide */}
+              <div className="relative z-10 flex">
+                <AnimatePresence mode="wait">
+                  {(() => {
+                    const iconId = getFeatureIconId(activeRow.metric, activeMobileIndex);
+                    const mossiParsed = parseHighlight(activeRow.mossi.highlight);
+                    const legacyParsed = parseHighlight(activeRow.legacy.highlight);
+                    const pointSolutionParsed = parseHighlight(activeRow.pointSolution.highlight);
 
-                  return (
-                    <tr key={idx} className="comparison-tr" role="row">
-                      {/* 1. Capability Header Cell */}
-                      <th className="comparison-th capability" scope="row" role="rowheader">
-                        <span className="feature-icon">
-                          <svg aria-hidden="true">
-                            <use href={`#${iconId}`} />
-                          </svg>
-                        </span>
-                        <span className="feature-text-block">
-                          <span className="feature-title">{cleanMetric(row.metric)}</span>
-                          {row.metricDesc && (
-                            <span className="feature-description">{row.metricDesc}</span>
-                          )}
-                        </span>
-                      </th>
-
-                      {/* 2. Mossie ERP (Winner Cell) */}
-                      <td className="comparison-td result mossie" role="cell">
-                        <span className={`status ${mossiParsed.status}`}>
-                          <svg aria-hidden="true">
-                            <use href={`#${mossiParsed.status === "positive" ? "check" : mossiParsed.status === "limited" ? "warning" : "cross"}`} />
-                          </svg>
-                        </span>
-                        <span className="result-text-block">
-                          <span className="mobile-label" aria-hidden="true">
-                            Mossie ERP
+                    return (
+                      <motion.div
+                        key={`mobile-comp-${activeMobileIndex}-${activeRow.metric}`}
+                        initial={{ opacity: 0, x: 22, scale: 0.97 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: -22, scale: 0.97 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        className={`w-full rounded-[20px] bg-white border p-4 transition-shadow duration-200 select-none ${
+                          isHolding
+                            ? "border-[#006fc9] shadow-[0_14px_34px_-8px_rgba(0,111,201,0.20)]"
+                            : "border-slate-200/90 shadow-[0_10px_28px_-6px_rgba(15,23,42,0.08)]"
+                        }`}
+                      >
+                        {/* 1. Capability Header */}
+                        <div className="flex items-start gap-3 pb-3.5 mb-3.5 border-b border-slate-100">
+                          <span className="feature-icon !w-11 !h-11 !rounded-[12px] shrink-0">
+                            <svg aria-hidden="true" className="!w-6 !h-6">
+                              <use href={`#${iconId}`} />
+                            </svg>
                           </span>
-                          <span className="result-highlight-title">{mossiParsed.label}</span>
-                        </span>
-                      </td>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2 mb-0.5">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#006fc9]">
+                                Key Capability {activeMobileIndex + 1}/{rows.length}
+                              </span>
+                            </div>
+                            <h3 className="text-[15px] font-extrabold text-slate-900 leading-snug tracking-tight">
+                              {cleanMetric(activeRow.metric)}
+                            </h3>
+                            {activeRow.metricDesc && (
+                              <p className="text-[11.5px] text-slate-500 leading-relaxed mt-1 line-clamp-2">
+                                {activeRow.metricDesc}
+                              </p>
+                            )}
+                          </div>
+                        </div>
 
-                      {/* 3. Competitor 1 Cell */}
-                      <td className="comparison-td result standalone" role="cell">
-                        <span className={`status ${legacyParsed.status}`}>
-                          <svg aria-hidden="true">
-                            <use href={`#${legacyParsed.status === "positive" ? "check" : legacyParsed.status === "limited" ? "warning" : "cross"}`} />
-                          </svg>
-                        </span>
-                        <span className="result-text-block">
-                          <span className="mobile-label" aria-hidden="true">
-                            {config.comparison.competitor1Name}
-                          </span>
-                          <span className="result-highlight-title">{legacyParsed.label}</span>
-                        </span>
-                      </td>
+                        {/* 2. Vendor Comparison Rows */}
+                        <div className="space-y-2">
+                          {/* Mossie ERP Winner Box */}
+                          <div className="flex items-center gap-2.5 p-2.5 rounded-[12px] bg-[#f0f7ff] border-[1.5px] border-[#bfdbfe]">
+                            <span className={`status ${mossiParsed.status} !w-7 !h-7 shrink-0`}>
+                              <svg aria-hidden="true" className="!w-6 !h-6">
+                                <use
+                                  href={`#${
+                                    mossiParsed.status === "positive"
+                                      ? "check"
+                                      : mossiParsed.status === "limited"
+                                      ? "warning"
+                                      : "cross"
+                                  }`}
+                                />
+                              </svg>
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1 text-[9.5px] font-extrabold uppercase tracking-wider text-[#006fc9]">
+                                <svg className="w-3 h-3 shrink-0" viewBox="0 0 48 48" aria-hidden="true">
+                                  <use href="#crown" />
+                                </svg>
+                                <span>Mossie ERP</span>
+                              </div>
+                              <div className="text-[13px] font-bold text-slate-900 leading-snug">
+                                {mossiParsed.label}
+                              </div>
+                            </div>
+                          </div>
 
-                      {/* 4. Competitor 2 Cell */}
-                      <td className="comparison-td result traditional" role="cell">
-                        <span className={`status ${pointSolutionParsed.status}`}>
-                          <svg aria-hidden="true">
-                            <use href={`#${pointSolutionParsed.status === "positive" ? "check" : pointSolutionParsed.status === "limited" ? "warning" : "cross"}`} />
-                          </svg>
-                        </span>
-                        <span className="result-text-block">
-                          <span className="mobile-label" aria-hidden="true">
-                            {config.comparison.competitor2Name}
+                          {/* Competitor 1 Box */}
+                          <div className="flex items-center gap-2.5 p-2.5 rounded-[12px] bg-slate-50/70 border border-slate-200/70">
+                            <span className={`status ${legacyParsed.status} !w-7 !h-7 shrink-0`}>
+                              <svg aria-hidden="true" className="!w-6 !h-6">
+                                <use
+                                  href={`#${
+                                    legacyParsed.status === "positive"
+                                      ? "check"
+                                      : legacyParsed.status === "limited"
+                                      ? "warning"
+                                      : "cross"
+                                  }`}
+                                />
+                              </svg>
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <div className="text-[9.5px] font-bold uppercase tracking-wider text-slate-500">
+                                {config.comparison.competitor1Name}
+                              </div>
+                              <div className="text-[12.5px] font-semibold text-slate-700 leading-snug">
+                                {legacyParsed.label}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Competitor 2 Box */}
+                          <div className="flex items-center gap-2.5 p-2.5 rounded-[12px] bg-slate-50/70 border border-slate-200/70">
+                            <span className={`status ${pointSolutionParsed.status} !w-7 !h-7 shrink-0`}>
+                              <svg aria-hidden="true" className="!w-6 !h-6">
+                                <use
+                                  href={`#${
+                                    pointSolutionParsed.status === "positive"
+                                      ? "check"
+                                      : pointSolutionParsed.status === "limited"
+                                      ? "warning"
+                                      : "cross"
+                                  }`}
+                                />
+                              </svg>
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <div className="text-[9.5px] font-bold uppercase tracking-wider text-slate-500">
+                                {config.comparison.competitor2Name}
+                              </div>
+                              <div className="text-[12.5px] font-semibold text-slate-700 leading-snug">
+                                {pointSolutionParsed.label}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })()}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Bottom Pagination Dots */}
+            <div className="flex items-center justify-center gap-1.5 mt-3.5">
+              {rows.map((row, idx) => (
+                <button
+                  key={`comp-dot-${idx}-${row.metric}`}
+                  type="button"
+                  onClick={() => setMobileIndex(idx)}
+                  aria-label={`Show capability ${idx + 1}: ${cleanMetric(row.metric)}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === activeMobileIndex
+                      ? "w-5 bg-[#006fc9]"
+                      : "w-1.5 bg-slate-300 hover:bg-slate-400"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* DESKTOP & TABLET 4-COLUMN COMPARISON TABLE (>= 768px)                      */}
+        {/* ========================================================================= */}
+        <div className="hidden md:block">
+          <div className="comparison-prototype-wrap">
+            <div className="comparison-card" aria-label={config.comparison.title}>
+              {/* 4-Column Grid Table */}
+              <table className="comparison-table" role="table" aria-label="Competitive feature comparison matrix">
+                <thead className="comparison-thead" role="rowgroup">
+                  <tr className="comparison-tr" role="row">
+                    <th className="comparison-th capability-heading" scope="col" role="columnheader">
+                      Key Capability
+                    </th>
+                    <th className="comparison-th vendor-heading mossie-heading" scope="col" role="columnheader">
+                      <svg className="vendor-icon" aria-hidden="true">
+                        <use href="#crown" />
+                      </svg>
+                      <span className="brand-name">Mossie ERP</span>
+                    </th>
+                    <th className="comparison-th vendor-heading standalone-heading" scope="col" role="columnheader">
+                      <svg className="vendor-icon" aria-hidden="true">
+                        <use href="#team" />
+                      </svg>
+                      <span>{config.comparison.competitor1Name}</span>
+                    </th>
+                    <th className="comparison-th vendor-heading traditional-heading" scope="col" role="columnheader">
+                      <svg className="vendor-icon" aria-hidden="true">
+                        <use href="#monitor" />
+                      </svg>
+                      <span>{config.comparison.competitor2Name}</span>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody className="comparison-tbody" role="rowgroup">
+                  {rows.map((row: ComparisonRow, idx: number) => {
+                    const iconId = getFeatureIconId(row.metric, idx);
+                    const mossiParsed = parseHighlight(row.mossi.highlight);
+                    const legacyParsed = parseHighlight(row.legacy.highlight);
+                    const pointSolutionParsed = parseHighlight(row.pointSolution.highlight);
+
+                    return (
+                      <tr key={idx} className="comparison-tr" role="row">
+                        {/* 1. Capability Header Cell */}
+                        <th className="comparison-th capability" scope="row" role="rowheader">
+                          <span className="feature-icon">
+                            <svg aria-hidden="true">
+                              <use href={`#${iconId}`} />
+                            </svg>
                           </span>
-                          <span className="result-highlight-title">{pointSolutionParsed.label}</span>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                          <span className="feature-text-block">
+                            <span className="feature-title">{cleanMetric(row.metric)}</span>
+                            {row.metricDesc && (
+                              <span className="feature-description">{row.metricDesc}</span>
+                            )}
+                          </span>
+                        </th>
+
+                        {/* 2. Mossie ERP (Winner Cell) */}
+                        <td className="comparison-td result mossie" role="cell">
+                          <span className={`status ${mossiParsed.status}`}>
+                            <svg aria-hidden="true">
+                              <use href={`#${mossiParsed.status === "positive" ? "check" : mossiParsed.status === "limited" ? "warning" : "cross"}`} />
+                            </svg>
+                          </span>
+                          <span className="result-text-block">
+                            <span className="mobile-label" aria-hidden="true">
+                              Mossie ERP
+                            </span>
+                            <span className="result-highlight-title">{mossiParsed.label}</span>
+                          </span>
+                        </td>
+
+                        {/* 3. Competitor 1 Cell */}
+                        <td className="comparison-td result standalone" role="cell">
+                          <span className={`status ${legacyParsed.status}`}>
+                            <svg aria-hidden="true">
+                              <use href={`#${legacyParsed.status === "positive" ? "check" : legacyParsed.status === "limited" ? "warning" : "cross"}`} />
+                            </svg>
+                          </span>
+                          <span className="result-text-block">
+                            <span className="mobile-label" aria-hidden="true">
+                              {config.comparison.competitor1Name}
+                            </span>
+                            <span className="result-highlight-title">{legacyParsed.label}</span>
+                          </span>
+                        </td>
+
+                        {/* 4. Competitor 2 Cell */}
+                        <td className="comparison-td result traditional" role="cell">
+                          <span className={`status ${pointSolutionParsed.status}`}>
+                            <svg aria-hidden="true">
+                              <use href={`#${pointSolutionParsed.status === "positive" ? "check" : pointSolutionParsed.status === "limited" ? "warning" : "cross"}`} />
+                            </svg>
+                          </span>
+                          <span className="result-text-block">
+                            <span className="mobile-label" aria-hidden="true">
+                              {config.comparison.competitor2Name}
+                            </span>
+                            <span className="result-highlight-title">{pointSolutionParsed.label}</span>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

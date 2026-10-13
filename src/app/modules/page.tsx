@@ -142,15 +142,15 @@ const modulesList: ModuleHubItem[] = [
 
 export default function ModulesHubPage() {
   return (
-    <div className="erp-site min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#006fc9] selection:text-white">
+    <div className="erp-site min-h-screen !bg-white text-slate-900 font-sans selection:bg-[#006fc9] selection:text-white">
       {/* Global Site Header */}
       <SiteHeader />
 
-      <main id="main-content">
+      <main id="main-content" className="bg-white">
         {/* Intro Hero Header */}
         <section className="relative py-20 bg-gradient-to-b from-[#006fc9]/10 via-slate-50 to-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h1 className="text-[32px] sm:text-[43px] md:text-[55px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] font-sans">
               One ERP, every department.
             </h1>
 
@@ -160,10 +160,10 @@ export default function ModulesHubPage() {
           </div>
         </section>
 
-     
         {/* 8 Modules Grid */}
-        <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {modulesList.map((mod) => {
               const IconComp = mod.icon;
               return (
@@ -181,7 +181,7 @@ export default function ModulesHubPage() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-extrabold text-[#0F172A] group-hover:text-[#006fc9] transition-colors">
+                    <h2 className="text-2xl group-hover:text-[#006fc9] transition-colors">
                       {mod.name}
                     </h2>
 
@@ -202,7 +202,7 @@ export default function ModulesHubPage() {
                   <div className="pt-4 border-t border-slate-100">
                     <Link
                       href={`/modules/${mod.slug}`}
-                      className="inline-flex items-center justify-between w-full px-5 py-3 rounded-xl bg-[#006fc9] hover:bg-[#005fae] text-white font-bold text-xs transition-all shadow-sm shadow-[#006fc9]/20"
+                      className="inline-flex items-center justify-between w-full px-5 py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-bold text-xs transition-all shadow-sm shadow-[#006fc9]/20"
                     >
                       <span>Learn More</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -211,26 +211,34 @@ export default function ModulesHubPage() {
                 </div>
               );
             })}
+            </div>
           </div>
         </section>
 
         {/* Global CTA Section */}
-        <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-gradient-to-r from-[#006fc9] via-[#005fae] to-[#004e8f] text-white p-10 lg:p-14 text-center overflow-hidden shadow-2xl shadow-[#006fc9]/20">
-            <div className="max-w-3xl mx-auto space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-                Ready to transform your business operations?
-              </h2>
-              <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
-                Connect your team with a personalized walkthrough of Mossie ERP tailored to your operational workflows.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <PopupCtaButton
-                  className="px-8 py-4 rounded-xl bg-white text-[#006fc9] font-extrabold text-sm shadow-xl hover:bg-slate-100 transition-all flex items-center gap-2"
-                >
-                  <span>Book a Demo</span>
-                  <ArrowRight className="w-4 h-4" />
-                </PopupCtaButton>
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="relative rounded-3xl bg-gradient-to-r from-[#004e8f] via-[#006fc9] to-[#3b9fe5] text-white p-10 lg:p-14 text-center overflow-hidden shadow-2xl shadow-[#006fc9]/25">
+              <div className="cta-grid-lines" aria-hidden="true" />
+              <div className="relative z-10 max-w-3xl mx-auto space-y-5">
+                <h2 className="section-heading !text-white">
+                  Ready to transform your business operations?
+                </h2>
+                <p className="section-description !text-blue-100">
+                  Connect your team with a personalized walkthrough of Mossie ERP tailored to your operational workflows.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3.5 pt-3">
+                  <PopupCtaButton className="button button-light !bg-white !text-[#006fc9] hover:!bg-blue-50 !px-7 !min-h-[48px] !text-sm !font-bold shadow-lg cursor-pointer">
+                    <span>Book a Demo</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </PopupCtaButton>
+                  <PopupCtaButton
+                    intent="quote"
+                    className="button button-ghost-light !text-white !border-white/35 !bg-white/10 hover:!bg-white/20 !px-7 !min-h-[48px] !text-sm !font-bold cursor-pointer"
+                  >
+                    <span>Request a Quote</span>
+                  </PopupCtaButton>
+                </div>
               </div>
             </div>
           </div>

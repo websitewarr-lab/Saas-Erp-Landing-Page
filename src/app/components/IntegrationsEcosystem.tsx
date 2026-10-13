@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BRAND_ICONS } from "./integrations-icons";
 
 interface GroupConfig {
@@ -416,6 +418,248 @@ const CSS_STYLES = `
     }
   `;
 
+const MOBILE_GROUPS: GroupConfig[] = [
+  GROUPS.find((g) => g.id === "ecommerce") || GROUPS[5],
+  GROUPS.find((g) => g.id === "payments") || GROUPS[0],
+  GROUPS.find((g) => g.id === "shipping") || GROUPS[6],
+  GROUPS.find((g) => g.id === "banking") || GROUPS[1],
+  GROUPS.find((g) => g.id === "marketplace") || GROUPS[7],
+  GROUPS.find((g) => g.id === "crm") || GROUPS[2],
+  GROUPS.find((g) => g.id === "communication") || GROUPS[3],
+  GROUPS.find((g) => g.id === "accounting") || GROUPS[4],
+  GROUPS.find((g) => g.id === "productivity") || GROUPS[8],
+  GROUPS.find((g) => g.id === "other") || GROUPS[9],
+];
+
+// 4 balanced orbital positions around the outer circle
+const ORBITAL_SLOTS = [
+  { left: "21%", top: "23%" }, // Top-Left
+  { left: "79%", top: "23%" }, // Top-Right
+  { left: "79%", top: "77%" }, // Bottom-Right
+  { left: "21%", top: "77%" }, // Bottom-Left
+];
+
+function MobileOrbitalSlider() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % MOBILE_GROUPS.length);
+    }, 2400); // 2 seconds display + fade transition
+
+    return () => clearInterval(timer);
+  }, [activeIndex]);
+
+  const activeGroup = MOBILE_GROUPS[activeIndex];
+  const prevIndex = (activeIndex - 1 + MOBILE_GROUPS.length) % MOBILE_GROUPS.length;
+  const nextIndex = (activeIndex + 1) % MOBILE_GROUPS.length;
+  const prevGroup = MOBILE_GROUPS[prevIndex];
+  const nextGroup = MOBILE_GROUPS[nextIndex];
+
+  return (
+    <div className="w-full max-w-[390px] mx-auto flex flex-col items-center">
+      {/* Interactive Orbital Stage */}
+      <div className="relative w-full aspect-square max-h-[375px] rounded-3xl bg-gradient-to-b from-[#f8fafd] via-[#ffffff] to-[#eef5fc] border border-slate-200/90 shadow-[0_10px_32px_-8px_rgba(15,23,42,0.07)] overflow-hidden select-none">
+        {/* Subtle background tech dot matrix */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-35"
+          style={{
+            backgroundImage: "radial-gradient(#006fc9 0.75px, transparent 0.75px)",
+            backgroundSize: "18px 18px",
+          }}
+        />
+
+        {/* Ambient Radial Blue Glow behind Central Hub */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[230px] h-[230px] rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(0, 111, 201, 0.16) 0%, rgba(0, 111, 201, 0.05) 52%, transparent 75%)",
+          }}
+        />
+
+        {/* Stationary Concentric Orbital Rings (Remain centered, NEVER fade away) */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          viewBox="0 0 340 340"
+          aria-hidden="true"
+        >
+          {/* Outer Orbital Ring for App Logos */}
+          <circle
+            cx="170"
+            cy="170"
+            r="128"
+            fill="none"
+            stroke="#006fc9"
+            strokeOpacity="0.18"
+            strokeWidth="1.2"
+            strokeDasharray="4 5"
+          />
+
+          {/* Middle Category Ring */}
+          <circle
+            cx="170"
+            cy="170"
+            r="84"
+            fill="none"
+            stroke="#006fc9"
+            strokeOpacity="0.22"
+            strokeWidth="1.1"
+          />
+
+          {/* Inner Dashed Ring */}
+          <circle
+            cx="170"
+            cy="170"
+            r="56"
+            fill="none"
+            stroke="#006fc9"
+            strokeOpacity="0.32"
+            strokeWidth="1"
+            strokeDasharray="3 3"
+          />
+
+          {/* Radial Connection Spokes to the 4 App Slots */}
+          <line x1="170" y1="170" x2="71" y2="78" stroke="#006fc9" strokeOpacity="0.14" strokeWidth="1.1" strokeDasharray="3 4" />
+          <line x1="170" y1="170" x2="269" y2="78" stroke="#006fc9" strokeOpacity="0.14" strokeWidth="1.1" strokeDasharray="3 4" />
+          <line x1="170" y1="170" x2="269" y2="262" stroke="#006fc9" strokeOpacity="0.14" strokeWidth="1.1" strokeDasharray="3 4" />
+          <line x1="170" y1="170" x2="71" y2="262" stroke="#006fc9" strokeOpacity="0.14" strokeWidth="1.1" strokeDasharray="3 4" />
+
+          {/* Glowing Orbital Nodes on Middle Ring */}
+          <circle cx="170" cy="86" r="3.5" fill="#006fc9" />
+          <circle cx="86" cy="170" r="3" fill="#006fc9" fillOpacity="0.45" />
+          <circle cx="254" cy="170" r="3" fill="#006fc9" fillOpacity="0.45" />
+        </svg>
+
+        {/* Stationary Central Hub (Mossie ERP Logo) — Remains at Center ONLY, NEVER Fades Away */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[88px] h-[88px] rounded-full z-20 pointer-events-none flex items-center justify-center">
+          {/* Continuous soft breathing halo */}
+          <div className="absolute inset-[-7px] rounded-full border border-[#006fc9]/25 animate-pulse" />
+          <div className="w-full h-full rounded-full bg-white border border-[#006fc9]/40 shadow-[0_8px_26px_rgba(0,111,201,0.22),inset_0_2px_4px_white] flex flex-col items-center justify-center p-2">
+            <img
+              src="/images/logo/mossierplogo"
+              alt="Mossie ERP"
+              className="w-[46px] h-auto object-contain"
+            />
+            <span className="text-[9.5px] font-extrabold text-[#006fc9] tracking-tight mt-0.5 leading-none">
+              Mossie ERP
+            </span>
+          </div>
+        </div>
+
+        {/* Animated Section Layer: Displays for 2s then fades away as next section comes in */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeGroup.id}
+            initial={{ opacity: 0, scale: 0.86 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.86 }}
+            transition={{ duration: 0.36, ease: "easeInOut" }}
+            className="absolute inset-0 z-10"
+          >
+            {/* Active Category Badge at Top of Middle Ring */}
+            <div className="absolute left-1/2 top-[13%] -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-[#006fc9]/30 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] animate-pulse" />
+              <span className="text-[11px] font-extrabold text-[#006fc9] uppercase tracking-wider whitespace-nowrap">
+                {activeGroup.label}
+              </span>
+            </div>
+
+            {/* Left Middle-Ring Node (Previous Category) */}
+            <button
+              type="button"
+              onClick={() => setActiveIndex(prevIndex)}
+              className="absolute left-[4%] top-1/2 -translate-y-1/2 flex items-center gap-0.5 px-2 py-1 rounded-full bg-white/85 border border-slate-200/80 text-slate-500 hover:text-[#006fc9] hover:border-[#006fc9]/30 shadow-2xs transition-all cursor-pointer max-w-[78px]"
+              aria-label={`Previous section: ${prevGroup.label}`}
+            >
+              <ChevronLeft className="w-3 h-3 shrink-0 text-[#006fc9]" />
+              <span className="text-[9.5px] font-semibold truncate">{prevGroup.label}</span>
+            </button>
+
+            {/* Right Middle-Ring Node (Next Category) */}
+            <button
+              type="button"
+              onClick={() => setActiveIndex(nextIndex)}
+              className="absolute right-[4%] top-1/2 -translate-y-1/2 flex items-center gap-0.5 px-2 py-1 rounded-full bg-white/85 border border-slate-200/80 text-slate-500 hover:text-[#006fc9] hover:border-[#006fc9]/30 shadow-2xs transition-all cursor-pointer max-w-[78px]"
+              aria-label={`Next section: ${nextGroup.label}`}
+            >
+              <span className="text-[9.5px] font-semibold truncate">{nextGroup.label}</span>
+              <ChevronRight className="w-3 h-3 shrink-0 text-[#006fc9]" />
+            </button>
+
+            {/* 4 App Logos Positioned on the Outer Orbital Ring */}
+            {activeGroup.apps.map(([name, icon, size = ""], i) => {
+              const pos = ORBITAL_SLOTS[i] || ORBITAL_SLOTS[0];
+              return (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, scale: 0.75 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.75 }}
+                  transition={{ duration: 0.32, delay: i * 0.04, ease: "easeOut" }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1 w-[72px]"
+                  style={{ left: pos.left, top: pos.top }}
+                >
+                  <div className="relative w-[52px] h-[52px] rounded-2xl bg-white border border-slate-200/90 shadow-[0_6px_16px_rgba(15,23,42,0.08)] flex items-center justify-center p-2.5">
+                    <span
+                      className={`block w-6 h-6 [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full [&>img]:object-contain ${
+                        size === "wide" ? "w-8" : size === "small" ? "w-5 h-5" : ""
+                      }`}
+                      aria-hidden="true"
+                      dangerouslySetInnerHTML={{ __html: BRAND_ICONS[icon] || "" }}
+                    />
+                  </div>
+                  <span className="text-[10.5px] font-semibold text-slate-700 tracking-tight leading-tight text-center truncate max-w-full px-1 bg-white/80 rounded-sm">
+                    {name}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Bottom Progress Indicator Dots */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+          {MOBILE_GROUPS.map((group, idx) => (
+            <button
+              key={group.id}
+              type="button"
+              onClick={() => setActiveIndex(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === activeIndex
+                  ? "w-5 bg-[#006fc9]"
+                  : "w-1.5 bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Show ${group.label} integrations`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Interactive Category Selector Pills Below Orbit */}
+      <div className="w-full mt-3.5 flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto pb-1 no-scrollbar px-1">
+        {MOBILE_GROUPS.map((group, idx) => {
+          const isActive = idx === activeIndex;
+          return (
+            <button
+              key={group.id}
+              type="button"
+              onClick={() => setActiveIndex(idx)}
+              className={`px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all cursor-pointer border shrink-0 ${
+                isActive
+                  ? "bg-[#006fc9] text-white border-[#006fc9] shadow-xs"
+                  : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+              }`}
+            >
+              {group.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function IntegrationsEcosystem() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -548,6 +792,7 @@ export default function IntegrationsEcosystem() {
       stop();
       const width = map.clientWidth;
       const height = map.clientHeight;
+      if (width === 0 || height === 0) return;
       const desktop = window.innerWidth >= 1180;
       const mobile = window.innerWidth < 768;
       svg.setAttribute("viewBox", desktop ? "0 0 2048 735" : `0 0 ${width} ${height}`);
@@ -674,17 +919,22 @@ export default function IntegrationsEcosystem() {
       <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
+          <h2 className="section-heading mb-3">
             Built-in ecosystem on which <br className="hidden sm:inline" />
             your business is <span className="text-[#006fc9]">built-on</span>.
           </h2>
-          <p className="text-[15px] sm:text-[16px] text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          <p className="section-description">
             Native, bidirectional API connectors connect your banks, payment gateways, online storefronts, couriers, and chat apps directly to your central Mossie ERP ledger.
           </p>
         </div>
 
-        {/* Flexible container matching flow-viewport */}
-        <div className="flow-viewport w-full" tabIndex={0} aria-label="Mossie ERP integration ecosystem">
+        {/* Mobile Orbital Slider for smartphones (< 768px) */}
+        <div className="block md:hidden w-full">
+          <MobileOrbitalSlider />
+        </div>
+
+        {/* Flexible container matching flow-viewport for desktop & tablet (>= 768px) */}
+        <div className="hidden md:block flow-viewport w-full" tabIndex={0} aria-label="Mossie ERP integration ecosystem">
           <div ref={mapRef} className="integration-map" aria-label="Mossie ERP integration ecosystem">
             <svg ref={svgRef} className="connections" viewBox="0 0 2048 735" preserveAspectRatio="none" aria-hidden="true">
               <defs>

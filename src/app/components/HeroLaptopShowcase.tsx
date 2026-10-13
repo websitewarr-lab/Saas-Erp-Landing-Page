@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import {
   Search,
   Bell,
@@ -37,16 +37,17 @@ function MacbookBaseDeck() {
       >
         <defs>
           <linearGradient id="sleekDeckGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#8A8E98" />
-            <stop offset="30%" stopColor="#A2A6B2" />
-            <stop offset="70%" stopColor="#828690" />
-            <stop offset="100%" stopColor="#6E717B" />
+            <stop offset="0%" stopColor="#9499A3" />
+            <stop offset="30%" stopColor="#AEB3BE" />
+            <stop offset="70%" stopColor="#8E939E" />
+            <stop offset="100%" stopColor="#767B86" />
           </linearGradient>
 
           <linearGradient id="sleekFrontLipGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#42454E" />
-            <stop offset="50%" stopColor="#282A31" />
-            <stop offset="100%" stopColor="#141519" />
+            <stop offset="0%" stopColor="#C4C9D3" />
+            <stop offset="45%" stopColor="#9FA5B2" />
+            <stop offset="80%" stopColor="#6E7380" />
+            <stop offset="100%" stopColor="#2B2E36" />
           </linearGradient>
 
           <linearGradient id="sleekKeyCapGrad" x1="0" y1="0" x2="0" y2="1">
@@ -56,90 +57,146 @@ function MacbookBaseDeck() {
           </linearGradient>
 
           <radialGradient id="sleekBaseShadowGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#000000" stopOpacity="0.55" />
-            <stop offset="65%" stopColor="#000000" stopOpacity="0.22" />
+            <stop offset="0%" stopColor="#000000" stopOpacity="0.65" />
+            <stop offset="70%" stopColor="#000000" stopOpacity="0.28" />
             <stop offset="100%" stopColor="#000000" stopOpacity="0" />
           </radialGradient>
         </defs>
 
         {/* 1. Ground Contact Shadow */}
-        <ellipse cx="270" cy="42" rx="278" ry="3" fill="url(#sleekBaseShadowGrad)" />
+        <ellipse cx="270" cy="42.2" rx="280" ry="3.2" fill="url(#sleekBaseShadowGrad)" />
 
-        {/* 2. Front Lip Vertical Face Thickness */}
+        {/* 2. Open Keyboard Deck Interior (Hidden while laptop is closed, revealed as lid lifts) */}
+        <g className="hero-open-deck-interior">
+          {/* Base Deck Metallic Surface (Flawless Edge Match with Lid at Hinge, flaring outward in 3D perspective) */}
+          <path
+            d="M 0 0 L 540 0 L 547 34.5 Q 547 35.5 545 35.5 L -5 35.5 Q -7 35.5 -7 34.5 L 0 0 Z"
+            fill="url(#sleekDeckGrad)"
+            stroke="#686C77"
+            strokeWidth="0.6"
+          />
+
+          {/* Hinge Clutch Barrel */}
+          <rect x="170" y="0" width="200" height="1.8" rx="0.9" fill="#121316" />
+
+          {/* Speaker Grilles (Angled with 3D perspective flare) */}
+          <g opacity="0.35">
+            <pattern id="sleekSpk" x="0" y="0" width="2" height="2" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.35" fill="#14161A" />
+            </pattern>
+            <polygon points="5,3 14.5,3 8.5,25 -1,25" fill="url(#sleekSpk)" />
+            <polygon points="525.5,3 535,3 541,25 531.5,25" fill="url(#sleekSpk)" />
+          </g>
+
+          {/* Recessed Keyboard Basin (Flares outward in natural 3D perspective) */}
+          <path
+            d="M 18 2.5 L 522 2.5 L 528.5 24.5 Q 528.5 25.5 527 25.5 L 13 25.5 Q 11.5 25.5 11.5 24.5 Z"
+            fill="#0D0E12"
+            stroke="#22242B"
+            strokeWidth="0.6"
+          />
+
+          {/* Foreshortened Chiclet Keys (6 Full Rows with perspective flare) */}
+          {SLEEK_KEY_ROWS.map((row, rIdx) => {
+            const y = row.y;
+            const h = row.h;
+            const t = rIdx / 5;
+            const rowLeft = 20 - t * 6.5;
+            const rowRight = 520 + t * 6.5;
+            const rowW = rowRight - rowLeft;
+            const totalUnits = row.keys.reduce((acc, k) => acc + k.w, 0);
+            const gap = 1.3;
+            const availW = rowW - (row.keys.length - 1) * gap;
+            const unitW = availW / totalUnits;
+
+            let curX = rowLeft;
+            return (
+              <g key={`sleek-row-${rIdx}`}>
+                {row.keys.map((k, kIdx) => {
+                  const kw = Number((k.w * unitW).toFixed(2));
+                  const x = Number(curX.toFixed(2));
+                  curX += kw + gap;
+
+                  return (
+                    <g key={`sleek-key-${rIdx}-${kIdx}`}>
+                      <rect x={x} y={y} width={kw} height={h} rx="0.6" fill="url(#sleekKeyCapGrad)" stroke="#111215" strokeWidth="0.35" />
+                      <line x1={x + 0.5} y1={y + 0.4} x2={x + kw - 0.5} y2={y + 0.4} stroke="rgba(255,255,255,0.18)" strokeWidth="0.3" />
+                    </g>
+                  );
+                })}
+              </g>
+            );
+          })}
+
+          {/* Slim Trackpad */}
+          <rect x="195" y="27" width="150" height="6.5" rx="1.5" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="0.5" />
+          <rect x="196" y="27.5" width="148" height="5.5" rx="1" fill="rgba(0,0,0,0.06)" />
+        </g>
+
+        {/* 3. Front Lip Vertical Face Thickness (Always visible in both closed & open states) */}
         <path
-          d="M -7 35 L 547 35 Q 548 35 548 37 L 547 39 Q 545 41.5 542 41.5 L -2 41.5 Q -5 41.5 -7 39 L -8 37 Q -8 35 -7 35 Z"
+          d="M -7 35 L 547 35 Q 548 35 548 37 L 547 39.2 Q 545 41.5 541 41.5 L -1 41.5 Q -5 41.5 -7 39.2 L -8 37 Q -8 35 -7 35 Z"
           fill="url(#sleekFrontLipGrad)"
         />
 
-        {/* 3. Base Deck Metallic Surface (Flawless Edge Match with Lid at Hinge, flaring outward in 3D perspective) */}
+        {/* Front Lip Top Highlight Line */}
+        <line x1="-7" y1="35" x2="547" y2="35" stroke="rgba(255,255,255,0.75)" strokeWidth="0.7" />
+
+        {/* Centered Thumb Scoop Notch (Exact match to closed laptop reference) */}
         <path
-          d="M 0 0 L 540 0 L 547 34.5 Q 547 35.5 545 35.5 L -5 35.5 Q -7 35.5 -7 34.5 L 0 0 Z"
-          fill="url(#sleekDeckGrad)"
-          stroke="#52555E"
+          d="M 236 35 Q 239 38.4 246 38.4 L 294 38.4 Q 301 38.4 304 35 Z"
+          fill="#262932"
+          stroke="#484D5A"
+          strokeWidth="0.45"
+        />
+        <path
+          d="M 238 35 Q 241 36.8 247 36.8 L 293 36.8 Q 299 36.8 302 35 Z"
+          fill="#15171C"
+        />
+      </svg>
+
+      {/* CLOSED LAPTOP 3D PERSPECTIVE ALUMINUM TOP COVER (Matches reference image when closed, lifts up to hinge on open) */}
+      <svg
+        className="hero-closed-lid-cover absolute left-0 right-0 bottom-0 w-full h-[250%] overflow-visible z-10 pointer-events-none"
+        viewBox="0 -66 540 110"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="closedLidSurfaceGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#D6DAE2" />
+            <stop offset="38%" stopColor="#C5CAD4" />
+            <stop offset="78%" stopColor="#CFD4DE" />
+            <stop offset="95%" stopColor="#E4E8F0" />
+            <stop offset="100%" stopColor="#F5F7FA" />
+          </linearGradient>
+          <linearGradient id="closedLidFrontRimGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#F0F3F8" />
+            <stop offset="45%" stopColor="#B8BECB" />
+            <stop offset="100%" stopColor="#585D68" />
+          </linearGradient>
+        </defs>
+
+        {/* Realistic 3D Foreshortened Aluminum Top Lid (Tapers from rounded rear edge y=-62 down to front lip y=34.8) */}
+        <path
+          d="M 64 -62 L 476 -62 Q 488 -62 491 -53 L 547.2 31.5 Q 548.2 33.4 545 33.6 L -5 33.6 Q -8.2 33.4 -7.2 31.5 L 49 -53 Q 52 -62 64 -62 Z"
+          fill="url(#closedLidSurfaceGrad)"
+          stroke="#B4BAC6"
           strokeWidth="0.6"
         />
 
-        {/* Hinge Clutch Barrel */}
-        <rect x="170" y="0" width="200" height="1.8" rx="0.9" fill="#121316" />
-
-        {/* Speaker Grilles (Angled with 3D perspective flare) */}
-        <g opacity="0.35">
-          <pattern id="sleekSpk" x="0" y="0" width="2" height="2" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.35" fill="#14161A" />
-          </pattern>
-          <polygon points="5,3 14.5,3 8.5,25 -1,25" fill="url(#sleekSpk)" />
-          <polygon points="525.5,3 535,3 541,25 531.5,25" fill="url(#sleekSpk)" />
-        </g>
-
-        {/* Recessed Keyboard Basin (Flares outward in natural 3D perspective) */}
+        {/* Subtle Center Specular Sheen on Brushed Aluminum Top Cover */}
         <path
-          d="M 18 2.5 L 522 2.5 L 528.5 24.5 Q 528.5 25.5 527 25.5 L 13 25.5 Q 11.5 25.5 11.5 24.5 Z"
-          fill="#0D0E12"
-          stroke="#22242B"
-          strokeWidth="0.6"
+          d="M 140 -61.5 L 400 -61.5 L 435 33 L 105 33 Z"
+          fill="rgba(255, 255, 255, 0.16)"
         />
 
-        {/* Foreshortened Chiclet Keys (6 Full Rows with perspective flare) */}
-        {SLEEK_KEY_ROWS.map((row, rIdx) => {
-          const y = row.y;
-          const h = row.h;
-          const t = rIdx / 5;
-          const rowLeft = 20 - t * 6.5;
-          const rowRight = 520 + t * 6.5;
-          const rowW = rowRight - rowLeft;
-          const totalUnits = row.keys.reduce((acc, k) => acc + k.w, 0);
-          const gap = 1.3;
-          const availW = rowW - (row.keys.length - 1) * gap;
-          const unitW = availW / totalUnits;
-
-          let curX = rowLeft;
-          return (
-            <g key={`sleek-row-${rIdx}`}>
-              {row.keys.map((k, kIdx) => {
-                const kw = Number((k.w * unitW).toFixed(2));
-                const x = Number(curX.toFixed(2));
-                curX += kw + gap;
-
-                return (
-                  <g key={`sleek-key-${rIdx}-${kIdx}`}>
-                    <rect x={x} y={y} width={kw} height={h} rx="0.6" fill="url(#sleekKeyCapGrad)" stroke="#111215" strokeWidth="0.35" />
-                    <line x1={x + 0.5} y1={y + 0.4} x2={x + kw - 0.5} y2={y + 0.4} stroke="rgba(255,255,255,0.18)" strokeWidth="0.3" />
-                  </g>
-                );
-              })}
-            </g>
-          );
-        })}
-
-        {/* Slim Trackpad */}
-        <rect x="195" y="27" width="150" height="6.5" rx="1.5" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="0.5" />
-        <rect x="196" y="27.5" width="148" height="5.5" rx="1" fill="rgba(0,0,0,0.06)" />
-
-        {/* Front Lip Highlight Line */}
-        <line x1="-7" y1="35" x2="547" y2="35" stroke="rgba(255,255,255,0.7)" strokeWidth="0.7" />
-
-        {/* Centered Thumb Scoop Notch */}
-        <path d="M 245 35 Q 248 37.5 254 37.5 L 286 37.5 Q 292 37.5 295 35 Z" fill="#141519" stroke="#2A2C34" strokeWidth="0.4" />
+        {/* Closed Lid Front Edge Bevel & Clamshell Parting Seam right above the Thumb Scoop Notch */}
+        <path
+          d="M -7.4 31.5 L 547.4 31.5 Q 548.2 33.2 547 34.8 L -7 34.8 Q -8.2 33.2 -7.4 31.5 Z"
+          fill="url(#closedLidFrontRimGrad)"
+        />
+        <line x1="-7" y1="34.8" x2="547" y2="34.8" stroke="#1B1D24" strokeWidth="1.15" />
       </svg>
     </div>
   );
@@ -157,22 +214,28 @@ export default function HeroLaptopShowcase() {
         {/* LEFT SIDE: 2 Squarish Glassmorphic Cards (Hidden on Mobile)               */}
         {/* ========================================================================= */}
         <div
-          className="hidden md:flex items-center gap-3 shrink-0"
+          className="hidden md:flex items-center gap-3 shrink-0 relative z-10"
           style={{
             transform: "perspective(1200px) rotateY(15deg) rotateX(2deg)",
             transformOrigin: "right center",
           }}
         >
-          {/* Card 1: Spend by travel mode (Exact squarish glassmorphism from media_1789034196698.png) */}
-          <div 
-            className="w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
-            style={{
-              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(255, 255, 255, 0.85)",
-              boxShadow: "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
-            }}
+          {/* Card 1: Spend by travel mode (Emerges from behind laptop to outer left) */}
+          <div
+            className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
+            style={
+              {
+                "--card-start-x": "465px",
+                "--card-delay": "760ms",
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                boxShadow:
+                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+              } as CSSProperties
+            }
           >
             {/* Card Header */}
             <div>
@@ -275,16 +338,22 @@ export default function HeroLaptopShowcase() {
             </div>
           </div>
 
-          {/* Card 2: Net Revenue (Exact squarish glassmorphism & wave from media_1789034196698.png) */}
-          <div 
-            className="w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
-            style={{
-              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(255, 255, 255, 0.85)",
-              boxShadow: "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
-            }}
+          {/* Card 2: Net Revenue (Emerges from behind laptop to inner left) */}
+          <div
+            className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
+            style={
+              {
+                "--card-start-x": "240px",
+                "--card-delay": "680ms",
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                boxShadow:
+                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+              } as CSSProperties
+            }
           >
             {/* Card Header & Numbers */}
             <div className="relative z-10">
@@ -328,10 +397,10 @@ export default function HeroLaptopShowcase() {
         {/* ========================================================================= */}
         {/* CENTER: REALISTIC MACBOOK PRO SPACE BLACK (Front View from Reference)     */}
         {/* ========================================================================= */}
-        <div className="w-[510px] xl:w-[540px] shrink-0 flex flex-col items-center z-10 select-none scale-[0.58] xs:scale-[0.7] sm:scale-[0.85] md:scale-100 origin-center -my-20 xs:-my-14 sm:-my-6 md:my-0">
+        <div className="w-[510px] xl:w-[540px] shrink-0 flex flex-col items-center relative z-20 select-none scale-[0.58] xs:scale-[0.7] sm:scale-[0.85] md:scale-100 origin-center -my-20 xs:-my-14 sm:-my-6 md:my-0">
           
-          {/* LAPTOP SCREEN LID (Precision Apple Pro Display enclosure) */}
-          <div className="w-full bg-[#18191E] rounded-t-[14px] sm:rounded-t-[16px] p-[4px] sm:p-[5px] pb-0 shadow-[0_22px_45px_-12px_rgba(0,0,0,0.55)] border-t border-x border-[#383B44]/80 relative">
+          {/* LAPTOP SCREEN LID (Swings open smoothly on GPU compositor thread) */}
+          <div className="hero-laptop-lid-open w-full bg-[#18191E] rounded-t-[14px] sm:rounded-t-[16px] p-[4px] sm:p-[5px] pb-0 shadow-[0_22px_45px_-12px_rgba(0,0,0,0.55)] border-t border-x border-[#383B44]/80 relative">
             
             {/* Top Chamfered Metallic Edge Light */}
             <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#555964]/80 to-transparent rounded-t-[14px]" />
@@ -339,6 +408,9 @@ export default function HeroLaptopShowcase() {
             {/* SCREEN DISPLAY - Height ~295px matching flanking squarish side cards */}
             <div className="w-full h-[295px] bg-[#0A0C10] rounded-t-[7px] overflow-hidden relative flex flex-col shadow-inner select-none">
               
+              {/* Screen Wake-Up Brightness Overlay as Lid Opens */}
+              <div className="hero-screen-wake-overlay absolute inset-0 bg-[#05070B] z-30 pointer-events-none" />
+
               {/* REAL APPLE MACBOOK PRO CAMERA NOTCH */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[52px] h-[10px] bg-[#0A0C10] rounded-b-[5px] z-40 flex items-center justify-center">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#050608] border border-slate-700/60 flex items-center justify-center">
@@ -401,7 +473,7 @@ export default function HeroLaptopShowcase() {
                   <button
                     type="button"
                     onClick={() => setActiveRange((prev) => (prev === "This Year" ? "This Quarter" : "This Year"))}
-                    className="inline-flex items-center gap-1 bg-white hover:bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5 text-slate-600 text-[9.5px] font-medium cursor-pointer transition-colors"
+                    className="inline-flex items-center gap-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-full px-2 py-0.5 text-slate-600 text-[9.5px] font-medium cursor-pointer transition-colors"
                   >
                     <Calendar className="w-2.5 h-2.5 text-slate-400" />
                     <span>{activeRange}</span>
@@ -587,22 +659,28 @@ export default function HeroLaptopShowcase() {
         {/* RIGHT SIDE: 2 Squarish Glassmorphic Cards (Hidden on Mobile)              */}
         {/* ========================================================================= */}
         <div
-          className="hidden md:flex items-center gap-3 shrink-0"
+          className="hidden md:flex items-center gap-3 shrink-0 relative z-10"
           style={{
             transform: "perspective(1200px) rotateY(-15deg) rotateX(2deg)",
             transformOrigin: "left center",
           }}
         >
-          {/* Card 3: Inventory Adjustment Reasons (Squarish glassmorphism) */}
-          <div 
-            className="w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
-            style={{
-              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(255, 255, 255, 0.85)",
-              boxShadow: "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
-            }}
+          {/* Card 3: Inventory Adjustment Reasons (Emerges from behind laptop to inner right) */}
+          <div
+            className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
+            style={
+              {
+                "--card-start-x": "-240px",
+                "--card-delay": "680ms",
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                boxShadow:
+                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+              } as CSSProperties
+            }
           >
             <div>
               <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block mb-3">
@@ -664,16 +742,22 @@ export default function HeroLaptopShowcase() {
             </div>
           </div>
 
-          {/* Card 4: AR Aging Summary (Squarish glassmorphism & 4 pillars) */}
-          <div 
-            className="w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
-            style={{
-              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(255, 255, 255, 0.85)",
-              boxShadow: "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
-            }}
+          {/* Card 4: AR Aging Summary (Emerges from behind laptop to outer right) */}
+          <div
+            className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
+            style={
+              {
+                "--card-start-x": "-465px",
+                "--card-delay": "760ms",
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                boxShadow:
+                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+              } as CSSProperties
+            }
           >
             <div>
               <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block">

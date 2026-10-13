@@ -44,7 +44,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "ORDER FULFILLMENT",
     description: "Multi-channel quotations, sales orders, pricing rules, and seamless dispatch invoicing.",
     features: ["Quotations", "Sales orders", "Fulfillment"],
-    image: "/images/modules/crm_sales.jpg",
+    image: "/images/modules/sales_orders.jpg",
     icon: Target,
     link: "/modules/sales",
   },
@@ -186,10 +186,9 @@ export default function PlatformModulesShowcase() {
           {/* Section Header */}
           <div className="relative mb-6 sm:mb-8">
             <div className="text-center max-w-3xl mx-auto px-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
+              <h2 className="section-heading">
                 Our Platform Services
               </h2>
-             
             </div>
 
             {/* Slider Controls */}
@@ -329,7 +328,7 @@ export default function PlatformModulesShowcase() {
         <div className="block md:hidden">
           {/* Header & Controls */}
           <div className="flex items-center justify-between px-1 mb-4">
-            <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">
+            <h2 className="text-2xl">
               Our Platform Services
             </h2>
             <div className="flex items-center gap-2">
@@ -419,10 +418,10 @@ export default function PlatformModulesShowcase() {
                   {/* Bottom Action Button */}
                   <Link
                     href={mod.link}
-                    className="inline-flex items-center justify-between w-full px-4.5 py-2.5 rounded-[14px] bg-slate-50 border border-slate-200/90 text-slate-900 font-bold text-xs hover:bg-[#006fc9] hover:text-white hover:border-[#006fc9] transition-all shadow-xs group cursor-pointer"
+                    className="inline-flex items-center justify-between w-full px-4.5 py-2.5 rounded-full bg-[#006fc9] border border-[#006fc9] text-white font-bold text-xs shadow-[0_4px_14px_rgba(0,111,201,0.28)] hover:bg-[#005fb0] hover:border-[#005fb0] hover:shadow-[0_6px_22px_rgba(0,111,201,0.52)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group cursor-pointer"
                   >
                     <span>Explore Module</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-3.5 h-3.5 text-white group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               );

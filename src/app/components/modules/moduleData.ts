@@ -143,9 +143,9 @@ export interface ModulePreviewConfig {
     superpowers: EdgeSuperpower[];
   };
   comparison: {
-    eyebrow: string;
+    eyebrow?: string;
     title: string;
-    subtitle: string;
+    subtitle?: string;
     competitor1Name: string;
     competitor2Name: string;
     rows: ComparisonRow[];
@@ -235,7 +235,7 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       alertAction: "Review Stalled Deal",
     },
     edge: {
-      title: "What Extra We Provide: ",
+      title: "What Extra We Provide",
       titleHighlight: "Sales & Deal Automations",
       description:
         "Most CRM tools are glorified address books where deals stall unnoticed, duplicate entries cause territory wars, and negotiation revisions get lost. Mossie ERP arms your revenue team with 4 proprietary sales superpowers.",
@@ -319,9 +319,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP CRM Compares to Alternative Solutions",
-      subtitle: "Compare our automated quotation and deal engine against traditional legacy ERP suites and fragmented standalone sales apps.",
+      // subtitle: "Compare our automated quotation and deal engine against traditional legacy ERP suites and fragmented standalone sales apps.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Fragmented Point Solutions",
       rows: [
@@ -763,9 +763,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Sales Compares to the Market",
-      subtitle: "Compare our automated fulfillment suite against legacy ERP tools and basic invoicing apps.",
+      // subtitle: "Compare our automated fulfillment suite against legacy ERP tools and basic invoicing apps.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Basic Invoicing Software",
       rows: [
@@ -1193,9 +1193,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Inventory Compares to Legacy Solutions",
-      subtitle: "Compare our modern warehouse management suite against legacy ERP modules and standalone inventory apps.",
+      // subtitle: "Compare our modern warehouse management suite against legacy ERP modules and standalone inventory apps.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Standalone WMS & Add-on Tools",
       rows: [
@@ -1739,9 +1739,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Accounting Compares to Traditional Alternatives",
-      subtitle: "Compare our automated continuous-close ledger against traditional desktop software and legacy enterprise ERPs.",
+      // subtitle: "Compare our automated continuous-close ledger against traditional desktop software and legacy enterprise ERPs.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Traditional Desktop Software",
       rows: [
@@ -2277,9 +2277,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Procurement Compares to Legacy Suites",
-      subtitle: "Compare our modern procurement engine against legacy ERP suites and basic PO generators.",
+      // subtitle: "Compare our modern procurement engine against legacy ERP suites and basic PO generators.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Basic PO Point Solutions",
       rows: [
@@ -2712,9 +2712,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+        // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Manufacturing Compares to Legacy Suites",
-      subtitle: "Compare our unified MRP, APS, and MES platform against monolithic legacy ERPs and fragmented shop floor spreadsheets.",
+      // subtitle: "Compare our unified MRP, APS, and MES platform against monolithic legacy ERPs and fragmented shop floor spreadsheets.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Fragmented Point Tools & Spreadsheets",
       rows: [
@@ -3208,9 +3208,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP HRMS Compares to Standalone HR Tools",
-      subtitle: "Compare our deeply integrated ERP-HRMS against isolated HR point solutions and traditional desktop tools.",
+      // subtitle: "Compare our deeply integrated ERP-HRMS against isolated HR point solutions and traditional desktop tools.",
       competitor1Name: "Standalone HR Point Solutions",
       competitor2Name: "Traditional Desktop Payroll & Spreadsheets",
       rows: [
@@ -3812,9 +3812,9 @@ export const MODULE_PREVIEW_DATA: Record<string, ModulePreviewConfig> = {
       ],
     },
     comparison: {
-      eyebrow: "HONEST & DIRECT BENCHMARK",
+      // eyebrow: "HONEST & DIRECT BENCHMARK",
       title: "How Mossie ERP Projects Compares to Task Trackers",
-      subtitle: "Compare our ERP project management suite against standalone SaaS task boards and legacy project modules.",
+      // subtitle: "Compare our ERP project management suite against standalone SaaS task boards and legacy project modules.",
       competitor1Name: "Legacy Enterprise ERPs",
       competitor2Name: "Standalone Task Trackers",
       rows: [

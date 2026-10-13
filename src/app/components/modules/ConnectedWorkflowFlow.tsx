@@ -1005,10 +1005,10 @@ export default function ConnectedWorkflowFlow({
       <div className="flow-wrap">
         {/* Section Header */}
         <header className="flow-hero text-center max-w-5xl mx-auto mb-5">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
+          <h2 className="section-heading">
             {workflow.title}
           </h2>
-          <p className="mt-3 max-w-2xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+          <p className="section-description mt-3">
             {workflow.subtitle}
           </p>
         </header>

@@ -101,7 +101,26 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-body);
+    font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #0F172A;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  h1 {
+    font-weight: 800;
+  }
+
+  h2 {
+    font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-weight: 700;
   }
 
   p, span, div, a, button, input, textarea, select {
@@ -252,7 +271,7 @@ body.modal-locked {
   gap: 9px;
   padding: 0 20px;
   border: 1px solid transparent;
-  border-radius: 11px;
+  border-radius: 9999px;
   font-size: 13px;
   font-weight: 700;
   transition: transform .25s var(--ease-mossierp), background .25s ease, border-color .25s ease, box-shadow .25s ease;
@@ -332,6 +351,7 @@ body.modal-locked {
   background-color: #006fc9 !important;
   color: #FFFFFF !important;
   border: 1px solid #006fc9 !important;
+  border-radius: 9999px !important;
   box-shadow: 0 4px 14px -2px rgba(0, 111, 201, 0.35) !important;
   transition: all 0.2s ease !important;
 }
@@ -348,6 +368,7 @@ body.modal-locked {
   background-color: #FFFFFF !important;
   color: #1E293B !important;
   border: 1px solid #CBD5E1 !important;
+  border-radius: 9999px !important;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
   transition: all 0.2s ease !important;
 }
@@ -862,22 +883,58 @@ body.modal-locked {
   text-align: center;
 }
 
-.section-intro h2 {
+/* ========================================================================= */
+/* UNIFIED GLOBAL SECTION TYPOGRAPHY                                         */
+/* ========================================================================= */
+
+.section-eyebrow,
+.mf-eyebrow {
+  display: block;
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: #006fc9;
+}
+
+.section-heading,
+.section-intro h2,
+.mf-heading h2,
+.module-section-header h2 {
   margin: 0;
-  font-family: var(--font-inter), "Inter", -apple-system, sans-serif;
-  font-weight: 800;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.025em;
   color: #0F172A;
 }
 
-.section-description {
-  max-width: 672px;
-  margin: 17px 0 0;
-  color: #475569;
-  font-size: 16px;
+.section-heading span,
+.section-intro h2 span,
+.module-section-header h2 span {
+  color: #006fc9;
+  font-weight: inherit;
+}
+
+.module-detail-section h2 span,
+.mf-heading h2 span {
+  color: inherit !important;
+}
+
+.section-description,
+.section-intro p,
+.mf-intro {
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.65;
+  font-weight: 400;
+  color: #475569;
+  max-width: 42rem;
+  margin: 14px auto 0;
+  text-wrap: pretty;
 }
 
 .section-intro-center .section-description {
@@ -1269,7 +1326,7 @@ body.modal-locked {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 9999px;
   background-color: var(--brand-accent, #006fc9);
   color: #FFFFFF;
   font-size: 14px;
@@ -1840,6 +1897,16 @@ body.modal-locked {
   padding-bottom: var(--module-section-pb) !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
+}
+
+/* Highlighted features (#edge-section) and All features (#features-matrix) sections: increased size by 15px */
+#edge-section,
+#features-matrix,
+.mf-highlights,
+.mf-catalog {
+  padding-top: 35px !important;
+  padding-bottom: 35px !important;
+  padding-block: 35px !important;
 }
 
 .module-section-header {
@@ -2916,9 +2983,9 @@ body.modal-locked {
 /* Section Headings & Text Hierarchy */
 .mf-heading h2 {
   margin: 0;
-  font-family: var(--font-body);
-  font-size: clamp(25px, 2.6vw, 43px);
-  line-height: 1.18;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1.15;
   letter-spacing: -0.025em;
   font-weight: 800;
   color: #0f172a;
@@ -2926,7 +2993,7 @@ body.modal-locked {
   max-width: 100%;
 }
 .mf-heading h2 span {
-  color: var(--brand-accent, #006fc9);
+  color: inherit;
   font-weight: inherit;
 }
 .mf-eyebrow {
@@ -2941,9 +3008,9 @@ body.modal-locked {
 }
 .mf-intro {
   margin: 12px auto 0;
-  font-family: var(--font-inter), "Inter", sans-serif;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #475569;
-  font-size: clamp(15px, 1.2vw, 17.5px);
+  font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.65;
   font-weight: 400;
   max-width: 42rem;
@@ -2951,7 +3018,7 @@ body.modal-locked {
 
 /* --- 2. The Mossie ERP Edge (Superpowers Grid) --- */
 .mf-highlights {
-  padding-block: 15px;
+  padding-block: 35px;
   background: radial-gradient(ellipse at 50% 100%, var(--feature-soft), transparent 70%), var(--card);
 }
 .mf-highlights .mf-heading {
@@ -3050,7 +3117,7 @@ body.modal-locked {
 
 /* --- 3. All Features Matrix (Searchable & Tabbed Explorer) --- */
 .mf-catalog {
-  padding-block: 15px;
+  padding-block: 35px;
   background: radial-gradient(ellipse at 90% 60%, color-mix(in oklch, var(--soft-blue) 75%, var(--card)), transparent 55%), linear-gradient(115deg, var(--card), var(--feature-soft));
   overflow: clip;
 }
@@ -3290,7 +3357,7 @@ body.modal-locked {
   justify-content: center;
   gap: 10px;
   border: 0;
-  border-radius: 30px;
+  border-radius: 9999px;
   padding: 13px 24px;
   background: var(--feature-blue);
   color: var(--primary-foreground);
@@ -4480,10 +4547,14 @@ body.modal-locked {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   .mf-highlights,
-  .mf-catalog {
-    padding-block: 15px;
+  .mf-catalog,
+  #edge-section,
+  #features-matrix {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    padding-block: 30px !important;
   }
   .mf-cards:has(> :nth-child(5)) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4502,40 +4573,20 @@ body.modal-locked {
   }
   .mf-explorer {
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
   }
-  .mf-nav {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    max-height: none;
-    overflow-y: visible;
-    padding: 0;
-  }
-  .mf-tab {
-    padding: 10px;
-    min-height: 76px;
-    gap: 9px;
-  }
-  .mf-tab strong {
-    font-size: 12px;
-  }
-  .mf-tab .mf-tile {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-  }
-  .mf-tab .mf-tile svg {
-    width: 22px;
-    height: 22px;
-  }
-  .mf-tab-arrow {
-    width: 12px;
+  .mf-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 22px 18px;
+    gap: 22px;
+    box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.02);
   }
   .mf-details {
     border-left: 0;
-    border-top: 1px solid var(--feature-line);
-    padding: 25px 0 0;
+    border-top: 0;
+    padding: 0;
   }
   .mf-heading-block h3 {
     font-size: 22px;
@@ -4578,10 +4629,15 @@ body.modal-locked {
 }
 
 @media (max-width: 480px) {
-  .mf-heading h2 {
-    font-size: 25px;
+  .section-heading,
+  .section-intro h2,
+  .mf-heading h2,
+  .module-section-header h2 {
+    font-size: 26px;
     letter-spacing: -0.025em;
   }
+  .section-description,
+  .section-intro p,
   .mf-intro {
     font-size: 14px;
   }
@@ -5350,5 +5406,128 @@ body.modal-locked {
   }
   .result-highlight-title {
     white-space: normal;
+  }
+}
+
+/* ========================================================================= */
+/* HERO LAPTOP OPENING & SIDE CARDS GPU-ACCELERATED ENTRANCE ANIMATIONS      */
+/* ========================================================================= */
+
+@keyframes heroClosedLidLift {
+  0% {
+    opacity: 1;
+    transform: perspective(1200px) rotateX(0deg) scale3d(1, 1, 1);
+  }
+  70% {
+    opacity: 1;
+    transform: perspective(1200px) rotateX(62deg) scale3d(1.07, 0.24, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(86deg) scale3d(1.12, 0.02, 1);
+  }
+}
+
+@keyframes heroOpenDeckReveal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes heroScreenLidOpen {
+  0% {
+    opacity: 0;
+    transform: perspective(1400px) rotateX(-88deg) scale3d(0.92, 0.015, 1);
+  }
+  6% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(-82deg) scale3d(0.93, 0.05, 1);
+  }
+  24% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(-64deg) scale3d(0.96, 0.22, 1);
+  }
+  48% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(-38deg) scale3d(0.985, 0.52, 1);
+  }
+  74% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(-14deg) scale3d(0.996, 0.84, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(0deg) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes heroScreenWake {
+  0%, 18% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes heroCardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--card-start-x, 0px), 0, 0) scale3d(0.84, 0.84, 1);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+}
+
+.hero-closed-lid-cover {
+  transform-origin: 50% 60%;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  pointer-events: none;
+  animation: heroClosedLidLift 230ms cubic-bezier(0.35, 0, 0.75, 0.3) 420ms both;
+}
+
+.hero-open-deck-interior {
+  will-change: opacity;
+  animation: heroOpenDeckReveal 160ms ease-out 430ms both;
+}
+
+.hero-laptop-lid-open {
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  animation: heroScreenLidOpen 580ms cubic-bezier(0.25, 0.1, 0.25, 1) 580ms both;
+}
+
+.hero-screen-wake-overlay {
+  will-change: opacity;
+  pointer-events: none;
+  animation: heroScreenWake 480ms ease-out 640ms both;
+}
+
+.hero-card-emerge {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  animation: heroCardSlideIn 480ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay, 680ms) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-closed-lid-cover {
+    display: none !important;
+    animation: none !important;
+  }
+  .hero-open-deck-interior,
+  .hero-laptop-lid-open,
+  .hero-screen-wake-overlay,
+  .hero-card-emerge {
+    animation: none !important;
   }
 }

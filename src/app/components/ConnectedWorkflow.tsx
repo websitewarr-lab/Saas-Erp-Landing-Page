@@ -1,6 +1,250 @@
 "use client";
 
-import React, { useEffect, useRef, type CSSProperties } from "react";
+import React, { useEffect, useRef, useState, type CSSProperties } from "react";
+
+interface WorkflowStage {
+  step: number;
+  name: string;
+  subtitle: string;
+  detail: string;
+  iconId: string;
+  edge?: string;
+}
+
+const WORKFLOW_STAGES: WorkflowStage[] = [
+  {
+    step: 1,
+    name: "Lead",
+    subtitle: "Capture & Score",
+    detail: "Shopify Storefront Webhook",
+    iconId: "icon-lead",
+  },
+  {
+    step: 2,
+    name: "Quotation",
+    subtitle: "CPQ & Estimate",
+    detail: "$18,450.00 USD",
+    iconId: "icon-quotation",
+    edge: "url(#platform-edge-cyan)",
+  },
+  {
+    step: 3,
+    name: "Sales Order",
+    subtitle: "Confirm & Lock",
+    detail: "14 Unique Product Lines",
+    iconId: "icon-sales",
+  },
+  {
+    step: 4,
+    name: "Purchase",
+    subtitle: "Procure & POs",
+    detail: "Apex Logistics Supply Ltd",
+    iconId: "icon-purchase",
+    edge: "url(#platform-edge-violet)",
+  },
+  {
+    step: 5,
+    name: "Inventory",
+    subtitle: "Stock & Multi-Bin",
+    detail: "Zone B • Rack 04 • Bay 12",
+    iconId: "icon-inventory",
+    edge: "url(#platform-edge-violet)",
+  },
+  {
+    step: 6,
+    name: "Delivery",
+    subtitle: "Dispatch & Track",
+    detail: "FedEx Priority • In Transit",
+    iconId: "icon-delivery",
+  },
+  {
+    step: 7,
+    name: "Invoice",
+    subtitle: "Bill & E-Invoice",
+    detail: "Auto-Billed • Tax Verified",
+    iconId: "icon-invoice",
+    edge: "url(#platform-edge-cyan)",
+  },
+  {
+    step: 8,
+    name: "Accounting",
+    subtitle: "General Ledger",
+    detail: "Journal Posted • Reconciled",
+    iconId: "icon-accounting",
+  },
+  {
+    step: 9,
+    name: "Reports",
+    subtitle: "BI & Analytics",
+    detail: "Live P&L • +24.8% Margin",
+    iconId: "icon-reports",
+  },
+];
+
+function MobileBusinessFlow() {
+  const [activeStage, setActiveStage] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStage((prev) => (prev + 1) % WORKFLOW_STAGES.length);
+    }, 2000);
+
+    return () => clearInterval(timer);
+  }, [activeStage]);
+
+  return (
+    <div className="relative w-full max-w-[420px] mx-auto flex flex-col gap-3 py-1 select-none">
+      <style>{`
+        @keyframes mobileFlowStream {
+          0% { height: 0%; opacity: 0.4; }
+          20% { opacity: 1; }
+          85% { height: 100%; opacity: 1; }
+          100% { height: 100%; opacity: 0.25; }
+        }
+      `}</style>
+
+      {WORKFLOW_STAGES.map((stage, idx) => {
+        const isActive = idx === activeStage;
+        const isLast = idx === WORKFLOW_STAGES.length - 1;
+
+        return (
+          <div key={stage.step} className="relative">
+            {/* Connector Line Segment between bottom of this pedestal and top of next icon (never overlaps icons) */}
+            {!isLast && (
+              <div
+                className="absolute left-[48px] -translate-x-1/2 top-[calc(100%-20px)] h-[46px] w-[2.5px] bg-[#006fc9]/18 rounded-full z-10 pointer-events-none overflow-hidden"
+                aria-hidden="true"
+              >
+                {isActive && (
+                  <div
+                    className="w-full bg-gradient-to-b from-[#38bdf8] via-[#006fc9] to-[#006fc9] rounded-full shadow-[0_0_8px_rgba(0,111,201,0.65)]"
+                    style={{ animation: "mobileFlowStream 2s ease-in-out infinite" }}
+                  />
+                )}
+              </div>
+            )}
+
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveStage(idx)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveStage(idx);
+                }
+              }}
+              className={`relative flex items-center gap-3.5 pl-3 pr-4 py-3.5 rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+                isActive
+                  ? "bg-gradient-to-r from-[#eef6ff] via-white to-white border-[#006fc9] ring-2 ring-[#006fc9]/15 shadow-[0_8px_26px_-6px_rgba(0,111,201,0.22)]"
+                  : "bg-white border-slate-200/90 hover:border-slate-300 shadow-[0_2px_8px_rgba(15,23,42,0.03)]"
+              }`}
+            >
+              {/* Subtle micro dot-grid pattern inside white card */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-25"
+                style={{
+                  backgroundImage: "radial-gradient(#94a3b8 0.75px, transparent 0.75px)",
+                  backgroundSize: "14px 14px",
+                }}
+              />
+
+              {/* Soft blue ambient glow behind the active 3D pedestal */}
+              {isActive && (
+                <div
+                  className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[72px] h-[72px] rounded-full pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(0, 111, 201, 0.16) 0%, rgba(0, 111, 201, 0.05) 55%, transparent 75%)",
+                  }}
+                />
+              )}
+
+              {/* Left Column: 3D Isometric Icon on Pedestal + Step Number Badge */}
+              <div className="relative w-[70px] h-[64px] shrink-0 flex items-center justify-center z-20">
+                {/* Step Number Badge */}
+                <span
+                  className={`absolute -top-1 right-0 z-30 w-[20px] h-[20px] rounded-full flex items-center justify-center text-[10.5px] font-bold transition-all duration-300 ${
+                    isActive
+                      ? "bg-[#006fc9] text-white shadow-[0_2px_8px_rgba(0,111,201,0.4)] scale-110"
+                      : "bg-slate-100 text-slate-500 border border-slate-200/90"
+                  }`}
+                >
+                  {stage.step}
+                </span>
+
+                {/* 3D Isometric Pedestal & Vector Icon */}
+                <svg
+                  viewBox="-28 -30 56 50"
+                  className="w-[66px] h-[58px] overflow-visible relative z-20"
+                  aria-hidden="true"
+                >
+                  <g
+                    className="stage"
+                    style={
+                      {
+                        "--edge": stage.edge,
+                        "--energy": isActive ? 1 : 0,
+                        "--ripple": isActive ? 0.35 : 0,
+                        "--ripple-scale": isActive ? 1.08 : 1,
+                      } as CSSProperties
+                    }
+                  >
+                    <g
+                      transform={isActive ? "scale(1.08)" : "scale(1)"}
+                      className="transition-transform duration-300"
+                    >
+                      <use href="#pedestal" />
+                      <use href="#activation" />
+                      <use className="icon-light" href={`#${stage.iconId}`} filter="url(#soft-glow)" />
+                      <use href={`#${stage.iconId}`} filter="url(#icon-shadow)" />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              {/* Right Column: Title, Subtitle, and Live Detail */}
+              <div className="relative z-20 flex-1 min-w-0">
+                <h3
+                  className={`text-[15.5px] font-extrabold tracking-tight leading-tight transition-colors duration-300 ${
+                    isActive ? "text-[#006fc9]" : "text-slate-800"
+                  }`}
+                >
+                  {stage.name}
+                </h3>
+
+                <p
+                  className={`text-[12.5px] mt-0.5 leading-snug transition-colors duration-300 ${
+                    isActive ? "text-slate-700 font-semibold" : "text-slate-500 font-medium"
+                  }`}
+                >
+                  {stage.subtitle}
+                </p>
+
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-300 ${
+                      isActive
+                        ? "bg-[#006fc9] shadow-[0_0_6px_rgba(0,111,201,0.75)] animate-pulse"
+                        : "bg-slate-300"
+                    }`}
+                  />
+                  <span
+                    className={`text-[11.5px] truncate transition-colors duration-300 ${
+                      isActive ? "text-[#006fc9] font-semibold" : "text-slate-500 font-medium"
+                    }`}
+                  >
+                    {stage.detail}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function ConnectedWorkflow() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -286,33 +530,22 @@ export default function ConnectedWorkflow() {
         <div className="w-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.04)] pt-6 sm:pt-8 pb-5 sm:pb-6 px-4 sm:px-6">
           {/* Section Header inside the card */}
           <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-6">
-            <h2 id="flow-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-2">
+            <h2 id="flow-heading" className="section-heading mb-2">
               Complete Business Flow
             </h2>
-            <p id="flow-subtitle" className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            <p id="flow-subtitle" className="section-description">
               From first lead to final reports fully connected, no manual handoffs.
             </p>
           </div>
 
-          <div
-            className="flow-viewport w-full"
-            tabIndex={0}
-            aria-label="Complete business flow. On narrow screens, scroll horizontally to explore all nine stages."
+          {/* Shared 3D Isometric Vector Definitions (active across both mobile and desktop) */}
+          <svg
+            className="w-0 h-0 absolute overflow-hidden pointer-events-none"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              ref={sectionRef}
-              className="business-flow w-full min-w-[650px]"
-              aria-labelledby="flow-heading"
-              aria-describedby="flow-subtitle"
-            >
-              <svg
-                className="flow-art w-full h-auto"
-                viewBox="0 57 600 93"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-              <defs>
-                {/* One shared palette and one shared pedestal; every icon is vector geometry. */}
+            <defs>
+              {/* One shared palette and one shared pedestal; every icon is vector geometry. */}
                 <linearGradient
                   id="rail-color"
                   x1="46"
@@ -833,7 +1066,31 @@ export default function ConnectedWorkflow() {
                   C505.25 98 514.25 98 524.125 96 S543 94 556 96"
                 />
               </defs>
+          </svg>
 
+          {/* Smartphone Vertical Business Flow Stack (< 768px) */}
+          <div className="block md:hidden w-full">
+            <MobileBusinessFlow />
+          </div>
+
+          {/* Desktop & Tablet Horizontal Business Flow (>= 768px) */}
+          <div
+            className="hidden md:block flow-viewport w-full"
+            tabIndex={0}
+            aria-label="Complete business flow across all nine stages."
+          >
+            <div
+              ref={sectionRef}
+              className="business-flow w-full min-w-[650px]"
+              aria-labelledby="flow-heading"
+              aria-describedby="flow-subtitle"
+            >
+              <svg
+                className="flow-art w-full h-auto"
+                viewBox="0 57 600 93"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+              >
               <g className="connections" fill="none" strokeLinecap="round">
                 <use
                   href="#business-rail"

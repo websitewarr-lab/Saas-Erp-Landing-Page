@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, type KeyboardEvent, type CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Activity,
   ArrowRight,
@@ -19,6 +21,7 @@ import {
   Check,
   CheckCheck,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   ChevronUp,
   Circle,
@@ -538,180 +541,289 @@ function ModuleHeroPreview({
 
   return (
     <div
-      className="mf-hero-container"
+      className="mf-hero-container max-w-[340px] sm:max-w-[674px]"
       data-tone={tone}
       role="region"
       aria-label={`${config.moduleName} Live Operations Preview`}
     >
-      <div className="mf-hero-window">
-        {/* SaaS Dark Left Sidebar */}
-        <div className="mf-hero-sidebar" aria-hidden="true">
-          <div className="mf-sidebar-brand">
-            <span>M</span>Mossie ERP
+      {/* Compact Smartphone Window Preview (< 640px) — Uncluttered 2-column mini layout */}
+      <div className="flex sm:hidden flex-col w-full rounded-2xl bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 shadow-[0_14px_30px_-10px_rgba(15,23,42,0.10)] p-3 gap-2.5">
+        {/* Compact Top Header */}
+        <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-100">
+          <div className="min-w-0">
+            <span className="text-[9px] text-slate-400 font-bold tracking-wider uppercase block truncate">
+              {config.moduleName} / Live
+            </span>
+            <h4 className="text-[12.5px] font-extrabold text-slate-900 tracking-tight leading-tight truncate mt-0.5">
+              {config.mockup.windowTitle}
+            </h4>
           </div>
-          <div className="mf-sidebar-item">
-            <LayoutDashboard size={14} />
-            <span>Overview</span>
-          </div>
-          <div className="mf-sidebar-item mf-sidebar-item-active">
-            <FeatureIcon name={primaryIcon} />
-            <span>{config.moduleName.replace(/ Management| Solutions| Suite/, "")}</span>
-          </div>
-          <div className="mf-sidebar-item">
-            <FeatureIcon name="chart" />
-            <span>Reports</span>
-          </div>
-          <div className="mf-sidebar-item">
-            <FeatureIcon name="refresh" />
-            <span>Automation</span>
-          </div>
-          <div className="mf-sidebar-item">
-            <FeatureIcon name="shield" />
-            <span>Audit Log</span>
-          </div>
-          <div className="mf-sidebar-status">
-            <Circle size={8} />
-            <span>Live engine</span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[8.5px] font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              LIVE
+            </span>
+            <span className="mf-hero-avatar !w-5 !h-5 !text-[8.5px]">MS</span>
           </div>
         </div>
 
-        {/* Inner Dashboard Canvas */}
-        <div className="mf-hero-main-canvas">
-          {/* Top App Bar */}
-          <div className="mf-hero-app-bar">
-            <div className="mf-hero-search-bar">
-              <Search size={12} className="text-slate-400 shrink-0" />
-              <span>Search {config.moduleName.toLowerCase()} records...</span>
+        {/* 1. Spacious 2-Column Top Metrics (instead of 3 cramped columns) */}
+        <div className="grid grid-cols-2 gap-2">
+          {config.mockup.topMetrics.slice(0, 2).map((tm, idx) => (
+            <div
+              key={idx}
+              className="bg-white px-2.5 py-2 rounded-xl border border-slate-200/90 shadow-2xs"
+            >
+              <div className="text-[9.5px] text-slate-500 font-medium truncate leading-tight">
+                {tm.label}
+              </div>
+              <div className="text-[13px] font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5 truncate">
+                {tm.value}
+              </div>
+              <div className={`text-[8.5px] leading-tight truncate font-bold ${tm.subColor}`}>
+                {tm.sub}
+              </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="relative flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 hover:text-slate-700">
-                <Bell size={12} />
-                <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#006fc9]" />
-              </span>
-              <span className="mf-hero-avatar">MS</span>
-            </div>
-          </div>
+          ))}
+        </div>
 
-          {/* App Heading */}
-          <div className="mf-hero-app-heading">
-            <div className="min-w-0">
-              <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">
-                {config.moduleName} / Live Operations
+        {/* 2. Streamlined 2-Column Stage Tracker (instead of 3 squeezed columns) */}
+        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between text-[10px]">
+            <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
+              <span className="truncate">
+                {config.mockup.kanbanTitle.replace(/\s*\(.*?\)/, "")}
               </span>
-              <h4 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight truncate mt-0.5">
-                {config.mockup.windowTitle}
-              </h4>
-            </div>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[10px] font-bold shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              {config.mockup.liveBadge}
+            </span>
+            <span className="text-[8.5px] text-slate-400 font-semibold shrink-0">
+              Auto-Synced
             </span>
           </div>
 
-          {/* 1. Top Metrics Row */}
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-            {config.mockup.topMetrics.map((tm, idx) => (
+          <div className="grid grid-cols-2 gap-2 text-left">
+            {config.mockup.columns.slice(1, 3).map((col, idx) => (
               <div
                 key={idx}
-                className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 shadow-2xs"
+                className={`p-2 rounded-lg border space-y-1 ${
+                  col.isHighlighted
+                    ? "bg-blue-50/30 border-[#006fc9]/40"
+                    : "bg-emerald-50/40 border-emerald-200/70"
+                }`}
               >
-                <div className="text-[9px] text-slate-500 font-medium truncate leading-tight">
-                  {tm.label}
+                <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-1">
+                  <span className="truncate">{col.stageName}</span>
+                  <span className="font-mono text-slate-700 shrink-0">{col.amount}</span>
                 </div>
-                <div className="text-xs sm:text-sm font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5">
-                  {tm.value}
+                <div className="text-[10px] font-bold text-slate-900 leading-tight truncate">
+                  {col.cardTitle}
                 </div>
-                <div className={`text-[8px] leading-tight truncate font-bold ${tm.subColor}`}>
-                  {tm.sub}
-                </div>
+                <span
+                  className={`inline-block px-1.5 py-0.5 rounded text-[8px] font-bold leading-none truncate max-w-full ${col.cardTagStyle}`}
+                >
+                  {col.cardTag}
+                </span>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* 2. Interactive Kanban Simulator */}
-          <div className="bg-white p-2 rounded-lg border border-slate-200/90 shadow-2xs space-y-1">
-            <div className="flex items-center justify-between text-[10px] pb-1 border-b border-slate-100">
-              <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
-                <span className="truncate">{config.mockup.kanbanTitle}</span>
-              </span>
-              <span className="text-[9px] text-slate-400 font-mono shrink-0 ml-2">
-                {config.mockup.kanbanSubtitle}
+        {/* 3. Compact AI Sentinel Row */}
+        <div className="bg-white px-2.5 py-1.5 rounded-xl border border-slate-200/90 flex items-center justify-between gap-2 shadow-2xs">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className="w-4.5 h-4.5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[8.5px] shrink-0">
+              AI
+            </span>
+            <span className="text-slate-700 font-medium text-[9.5px] truncate">
+              {config.mockup.alertText}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onApproveSentinel}
+            className={`px-2.5 py-1 rounded-full font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
+              sentinelApproved
+                ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
+            }`}
+          >
+            {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
+          </button>
+        </div>
+      </div>
+
+      {/* Full Tablet & Desktop Window Preview (>= 640px) */}
+      <div className="hidden sm:block w-full">
+        <div className="mf-hero-window">
+          {/* SaaS Dark Left Sidebar */}
+          <div className="mf-hero-sidebar" aria-hidden="true">
+            <div className="mf-sidebar-brand">
+              <span>M</span>Mossie ERP
+            </div>
+            <div className="mf-sidebar-item">
+              <LayoutDashboard size={14} />
+              <span>Overview</span>
+            </div>
+            <div className="mf-sidebar-item mf-sidebar-item-active">
+              <FeatureIcon name={primaryIcon} />
+              <span>{config.moduleName.replace(/ Management| Solutions| Suite/, "")}</span>
+            </div>
+            <div className="mf-sidebar-item">
+              <FeatureIcon name="chart" />
+              <span>Reports</span>
+            </div>
+            <div className="mf-sidebar-item">
+              <FeatureIcon name="refresh" />
+              <span>Automation</span>
+            </div>
+            <div className="mf-sidebar-item">
+              <FeatureIcon name="shield" />
+              <span>Audit Log</span>
+            </div>
+            <div className="mf-sidebar-status">
+              <Circle size={8} />
+              <span>Live engine</span>
+            </div>
+          </div>
+
+          {/* Inner Dashboard Canvas */}
+          <div className="mf-hero-main-canvas">
+            {/* Top App Bar */}
+            <div className="mf-hero-app-bar">
+              <div className="mf-hero-search-bar">
+                <Search size={12} className="text-slate-400 shrink-0" />
+                <span>Search {config.moduleName.toLowerCase()} records...</span>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="relative flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 hover:text-slate-700">
+                  <Bell size={12} />
+                  <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#006fc9]" />
+                </span>
+                <span className="mf-hero-avatar">MS</span>
+              </div>
+            </div>
+
+            {/* App Heading */}
+            <div className="mf-hero-app-heading">
+              <div className="min-w-0">
+                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">
+                  {config.moduleName} / Live Operations
+                </span>
+                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight truncate mt-0.5">
+                  {config.mockup.windowTitle}
+                </h4>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[10px] font-bold shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {config.mockup.liveBadge}
               </span>
             </div>
 
-            <div className="grid grid-cols-3 gap-1.5 text-left">
-              {config.mockup.columns.map((col, idx) => (
+            {/* 1. Top Metrics Row */}
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+              {config.mockup.topMetrics.map((tm, idx) => (
                 <div
                   key={idx}
-                  className={`p-1.5 rounded-lg border space-y-1 ${
-                    col.isHighlighted
-                      ? "bg-slate-50/80 border-slate-200/70"
-                      : idx === 2
-                      ? "bg-emerald-50/40 border-emerald-200/60"
-                      : "bg-slate-50/80 border-slate-200/70"
-                  }`}
+                  className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 shadow-2xs"
                 >
-                  <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-0.5">
-                    <span className="truncate">{col.stageName}</span>
-                    <span className="font-mono shrink-0">{col.amount}</span>
+                  <div className="text-[9px] text-slate-500 font-medium truncate leading-tight">
+                    {tm.label}
                   </div>
-                  <div
-                    className={`bg-white p-1.5 rounded-md border shadow-2xs space-y-1 ${
-                      col.isHighlighted
-                        ? "border-[#006fc9] ring-1 ring-[#006fc9]/20"
-                        : idx === 2
-                        ? "border-emerald-300"
-                        : "border-slate-200"
-                    }`}
-                  >
-                    <div className="text-[9px] font-bold text-slate-900 leading-tight truncate">
-                      {col.cardTitle}
-                    </div>
-                    <div className="text-[8px] text-slate-400 leading-tight truncate">
-                      {col.cardDesc}
-                    </div>
-                    <span
-                      className={`inline-block px-1.5 py-0.5 rounded text-[7.5px] font-extrabold leading-none ${col.cardTagStyle}`}
-                    >
-                      {col.cardTag}
-                    </span>
+                  <div className="text-xs sm:text-sm font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5">
+                    {tm.value}
+                  </div>
+                  <div className={`text-[8px] leading-tight truncate font-bold ${tm.subColor}`}>
+                    {tm.sub}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* 3. Automated Activity Feed with Interactive Sentinel */}
-          <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 text-[10px] flex items-center justify-between gap-2 shadow-2xs">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="w-5 h-5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[9px] shrink-0">
-                AI
-              </span>
-              <span className="text-slate-700 font-medium text-[9.5px] truncate">
-                {config.mockup.alertText}
-              </span>
+            {/* 2. Interactive Kanban Simulator */}
+            <div className="bg-white p-2 rounded-lg border border-slate-200/90 shadow-2xs space-y-1">
+              <div className="flex items-center justify-between text-[10px] pb-1 border-b border-slate-100">
+                <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
+                  <span className="truncate">{config.mockup.kanbanTitle}</span>
+                </span>
+                <span className="text-[9px] text-slate-400 font-mono shrink-0 ml-2">
+                  {config.mockup.kanbanSubtitle}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-1.5 text-left">
+                {config.mockup.columns.map((col, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-1.5 rounded-lg border space-y-1 ${
+                      col.isHighlighted
+                        ? "bg-slate-50/80 border-slate-200/70"
+                        : idx === 2
+                        ? "bg-emerald-50/40 border-emerald-200/60"
+                        : "bg-slate-50/80 border-slate-200/70"
+                    }`}
+                  >
+                    <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-0.5">
+                      <span className="truncate">{col.stageName}</span>
+                      <span className="font-mono shrink-0">{col.amount}</span>
+                    </div>
+                    <div
+                      className={`bg-white p-1.5 rounded-md border shadow-2xs space-y-1 ${
+                        col.isHighlighted
+                          ? "border-[#006fc9] ring-1 ring-[#006fc9]/20"
+                          : idx === 2
+                          ? "border-emerald-300"
+                          : "border-slate-200"
+                      }`}
+                    >
+                      <div className="text-[9px] font-bold text-slate-900 leading-tight truncate">
+                        {col.cardTitle}
+                      </div>
+                      <div className="text-[8px] text-slate-400 leading-tight truncate">
+                        {col.cardDesc}
+                      </div>
+                      <span
+                        className={`inline-block px-1.5 py-0.5 rounded text-[7.5px] font-extrabold leading-none ${col.cardTagStyle}`}
+                      >
+                        {col.cardTag}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={onApproveSentinel}
-              className={`px-2.5 py-1 rounded-lg font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
-                sentinelApproved
-                  ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                  : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
-              }`}
-            >
-              {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
-            </button>
-          </div>
 
-          {/* Bottom Sync Bar */}
-          <div className="flex items-center justify-between text-[9px] text-slate-400 pt-1 border-t border-slate-200/60 mt-auto">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Live data feed connected
-            </span>
-            <span className="font-semibold text-slate-500">{config.badge}</span>
+            {/* 3. Automated Activity Feed with Interactive Sentinel */}
+            <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 text-[10px] flex items-center justify-between gap-2 shadow-2xs">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-5 h-5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[9px] shrink-0">
+                  AI
+                </span>
+                <span className="text-slate-700 font-medium text-[9.5px] truncate">
+                  {config.mockup.alertText}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={onApproveSentinel}
+                className={`px-2.5 py-1 rounded-full font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
+                  sentinelApproved
+                    ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                    : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
+                }`}
+              >
+                {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
+              </button>
+            </div>
+
+            {/* Bottom Sync Bar */}
+            <div className="flex items-center justify-between text-[9px] text-slate-400 pt-1 border-t border-slate-200/60 mt-auto">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live data feed connected
+              </span>
+              <span className="font-semibold text-slate-500">{config.badge}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -728,6 +840,8 @@ function ModuleHeroPreview({
 function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
   const [selected, setSelected] = useState<EdgeSuperpower | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [isHolding, setIsHolding] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingId = `${config.slug}-highlighted-heading`;
 
@@ -736,6 +850,28 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
   const displayedFeatures = hasMoreThanSix && !showAll
     ? config.edge.superpowers.slice(0, 6)
     : config.edge.superpowers;
+  const activeMobileFeature = config.edge.superpowers[mobileIndex] || config.edge.superpowers[0];
+
+  useEffect(() => {
+    if (!isHolding) return;
+    const handleRelease = () => setIsHolding(false);
+    window.addEventListener("mouseup", handleRelease);
+    window.addEventListener("touchend", handleRelease);
+    window.addEventListener("touchcancel", handleRelease);
+    return () => {
+      window.removeEventListener("mouseup", handleRelease);
+      window.removeEventListener("touchend", handleRelease);
+      window.removeEventListener("touchcancel", handleRelease);
+    };
+  }, [isHolding]);
+
+  useEffect(() => {
+    if (isHolding || selected || totalFeatures === 0) return;
+    const timer = setInterval(() => {
+      setMobileIndex((prev) => (prev + 1) % totalFeatures);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [mobileIndex, isHolding, selected, totalFeatures]);
 
   useEffect(() => {
     if (!selected) return;
@@ -871,51 +1007,144 @@ function HighlightedFeatures({ config }: { config: ModulePageConfig }) {
       <div className="mf-container">
         {/* Section Intro */}
         <header className="mf-heading">
-          {/* <p className="mf-eyebrow">{config.edge.eyebrow || "Highlighted features"}</p> */}
-          <h2 id={headingId}>
-            {config.edge.title}
-            <span>{config.edge.titleHighlight}</span>
+          {/* <p className="section-eyebrow">{config.edge.eyebrow || "Highlighted features"}</p> */}
+          <h2 id={headingId} className="section-heading">
+            {config.edge.title}{" "}
+            {config.edge.titleHighlight}
           </h2>
         </header>
 
-        {/* Superpowers Grid (Capped at 6 by default; expanded via 'Show All') */}
-        <div className="mf-cards">
-          {displayedFeatures.map((feature) => (
-            <button
-              className="mf-card"
-              type="button"
-              key={feature.id}
-              onClick={() => openFeature(feature)}
-              aria-haspopup="dialog"
+        {/* Smartphone 5-Second Auto-Slider (< 640px) matching reference design */}
+        {activeMobileFeature && (
+          <div className="block sm:hidden">
+            <div
+              className="relative w-full max-w-[370px] mx-auto px-3 py-1 select-none [-webkit-touch-callout:none]"
+              onMouseDown={() => setIsHolding(true)}
+              onMouseUp={() => setIsHolding(false)}
+              onMouseLeave={() => setIsHolding(false)}
+              onTouchStart={() => setIsHolding(true)}
+              onTouchEnd={() => setIsHolding(false)}
+              onTouchCancel={() => setIsHolding(false)}
+              onContextMenu={(e) => e.preventDefault()}
             >
-              <span className="mf-tile" data-tone={feature.visual.tone}>
-                <FeatureIcon name={feature.visual.icon} />
-              </span>
-              <span className="mf-card-arrow">
-                <ChevronRight size={18} />
-              </span>
-              <h3>{feature.visual.title}</h3>
-              <p>{feature.summary}</p>
-              <span className="mf-card-link">
-                Explore feature <ArrowRight size={15} />
-              </span>
-            </button>
-          ))}
-        </div>
+              {/* Recessed Left & Right Card Peeks matching reference frame depth */}
+              <div
+                className="absolute inset-y-5 left-0 right-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-y-5 left-6 right-0 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+                aria-hidden="true"
+              />
 
-        {hasMoreThanSix && (
-          <div className="mf-show-more-wrap flex justify-center mt-8">
-            <button
-              type="button"
-              onClick={() => setShowAll((prev) => !prev)}
-              className="px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-sm transition-all shadow-xs inline-flex items-center gap-2 active:scale-95 cursor-pointer"
-              aria-expanded={showAll}
-            >
-              <span>{showAll ? "Show Less" : "Show All"}</span>
-              {showAll ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </button>
+              {/* Active Foreground Highlighted Feature Card (2s auto-slider) */}
+              <div className="relative z-10 min-h-[268px] flex">
+                <AnimatePresence mode="wait">
+                  <motion.button
+                    key={activeMobileFeature.id}
+                    type="button"
+                    onClick={() => openFeature(activeMobileFeature)}
+                    aria-haspopup="dialog"
+                    initial={{ opacity: 0, x: 22, scale: 0.96 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -22, scale: 0.96 }}
+                    transition={{ duration: 0.26, ease: "easeOut" }}
+                    className={`group relative w-full bg-gradient-to-b from-white via-white to-[#EEF5FF] p-5.5 rounded-[20px] border transition-shadow duration-200 text-left ${
+                      isHolding
+                        ? "border-[#006fc9] shadow-[0_12px_32px_-6px_rgba(0,111,201,0.20)]"
+                        : "border-[#006fc9]/35 shadow-[0_10px_28px_-6px_rgba(0,111,201,0.12)]"
+                    } flex flex-col justify-between select-none cursor-pointer`}
+                  >
+                    <div>
+                      {/* Top-Left Blue Rounded Icon Badge */}
+                      <div className="w-10 h-10 rounded-[11px] bg-[#006fc9] text-white flex items-center justify-center mb-4 shadow-sm shadow-[#006fc9]/20 [&_svg]:w-5 [&_svg]:h-5 [&_svg]:text-white">
+                        <FeatureIcon name={activeMobileFeature.visual.icon} />
+                      </div>
+
+                      {/* Feature Title */}
+                      <h3 className="text-[17px] font-bold text-slate-900 tracking-tight leading-snug mb-2.5">
+                        {activeMobileFeature.visual.title}
+                      </h3>
+
+                      {/* Feature Summary */}
+                      <p className="text-[13px] text-slate-600 leading-[1.65] font-normal mb-5">
+                        {activeMobileFeature.summary}
+                      </p>
+                    </div>
+
+                    {/* Card Divider & Learn More link */}
+                    <div className="w-full border-t border-slate-200/75 pt-3 mt-auto flex items-center justify-between">
+                      <span className="text-[13px] font-semibold text-[#006fc9] transition-colors inline-flex items-center gap-1">
+                        Learn More{" "}
+                        <span className="transition-transform duration-200 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </span>
+                    </div>
+                  </motion.button>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Slider Progress Dots */}
+            <div className="flex items-center justify-center gap-1.5 mt-4">
+              {config.edge.superpowers.map((feature, idx) => (
+                <button
+                  key={feature.id}
+                  type="button"
+                  onClick={() => setMobileIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === mobileIndex
+                      ? "w-5 bg-[#006fc9]"
+                      : "w-1.5 bg-slate-300 hover:bg-slate-400"
+                  }`}
+                  aria-label={`Show ${feature.visual.title}`}
+                />
+              ))}
+            </div>
           </div>
         )}
+
+        {/* Tablet & Desktop Superpowers Grid (>= 640px, capped at 6 by default; expanded via 'Show All') */}
+        <div className="hidden sm:block">
+          <div className="mf-cards">
+            {displayedFeatures.map((feature) => (
+              <button
+                className="mf-card"
+                type="button"
+                key={feature.id}
+                onClick={() => openFeature(feature)}
+                aria-haspopup="dialog"
+              >
+                <span className="mf-tile" data-tone={feature.visual.tone}>
+                  <FeatureIcon name={feature.visual.icon} />
+                </span>
+                <span className="mf-card-arrow">
+                  <ChevronRight size={18} />
+                </span>
+                <h3>{feature.visual.title}</h3>
+                <p>{feature.summary}</p>
+                <span className="mf-card-link">
+                  Explore feature <ArrowRight size={15} />
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {hasMoreThanSix && (
+            <div className="mf-show-more-wrap flex justify-center mt-8">
+              <button
+                type="button"
+                onClick={() => setShowAll((prev) => !prev)}
+                className="px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-sm transition-all shadow-xs inline-flex items-center gap-2 active:scale-95 cursor-pointer"
+                aria-expanded={showAll}
+              >
+                <span>{showAll ? "Show Less" : "Show All"}</span>
+                {showAll ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Accessible Interactive Detail Modal */}
@@ -996,6 +1225,7 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const navRef = useRef<HTMLDivElement>(null);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
   const headingId = `${config.slug}-all-features-heading`;
   const panelId = `${config.slug}-feature-panel`;
 
@@ -1033,7 +1263,7 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
   );
   const selected = filteredFeatures.find((f) => f.id === selectedId) ?? filteredFeatures[0];
 
-  // Auto-scroll active tab into view in vertical explorer
+  // Auto-scroll active tab into view in vertical explorer and horizontal mobile pill bar
   useEffect(() => {
     if (!selected) return;
     const activeTab = navRef.current?.querySelector<HTMLButtonElement>(
@@ -1047,7 +1277,22 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
         activeTab.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
     }
+
+    const activeMobileTab = mobileNavRef.current?.querySelector<HTMLButtonElement>(
+      `[id="${config.slug}-tab-mobile-${selected.id}"]`
+    );
+    if (activeMobileTab) {
+      activeMobileTab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
   }, [selected, config.slug]);
+
+  function stepMobileFeature(dir: -1 | 1) {
+    if (filteredFeatures.length === 0) return;
+    const currentIndex = filteredFeatures.findIndex((f) => f.id === selected?.id);
+    const baseIndex = currentIndex >= 0 ? currentIndex : 0;
+    const nextIndex = (baseIndex + dir + filteredFeatures.length) % filteredFeatures.length;
+    setSelectedId(filteredFeatures[nextIndex].id);
+  }
 
   function resetFilters() {
     setSearchQuery("");
@@ -1078,11 +1323,11 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
         {/* Section Header + Search Input */}
         <div className="mf-catalog-header">
           <header className="mf-heading">
-            {/* <p className="mf-eyebrow">{config.featuresCatalog.eyebrow || "All features"}</p> */}
-            <h2 id={headingId}>
-              Everything you need to <span>{config.featuresCatalog.headline.action}</span>
+            {/* <p className="section-eyebrow">{config.featuresCatalog.eyebrow || "All features"}</p> */}
+            <h2 id={headingId} className="section-heading">
+              Everything you need to {config.featuresCatalog.headline.action}
             </h2>
-            <p className="mf-intro">{config.featuresCatalog.headline.description}</p>
+            <p className="section-description">{config.featuresCatalog.headline.description}</p>
           </header>
 
           {/* Live Search Bar */}
@@ -1116,85 +1361,144 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
 
         {/* Master-Detail Explorer */}
         {selected ? (
-          <div className="mf-explorer">
-            {/* Left Tabs List */}
-            <div
-              className="mf-nav"
-              ref={navRef}
-              role="tablist"
-              aria-label={`${config.moduleName} features`}
-              aria-orientation="vertical"
-            >
-              {filteredFeatures.map((feature, index) => (
-                <button
-                  type="button"
-                  role="tab"
-                  key={feature.id}
-                  id={`${config.slug}-tab-${feature.id}`}
-                  aria-selected={selected.id === feature.id}
-                  aria-controls={panelId}
-                  tabIndex={selected.id === feature.id ? 0 : -1}
-                  onClick={() => setSelectedId(feature.id)}
-                  onKeyDown={(event) => navigateFeatures(event, index)}
-                  className="mf-tab"
-                >
-                  <span className="mf-tile" data-tone={feature.visual.tone}>
-                    <FeatureIcon name={feature.visual.icon} />
-                  </span>
-                  <strong>{feature.visual.title}</strong>
-                  {selected.id === feature.id ? (
-                    <ArrowRight className="mf-tab-arrow" />
-                  ) : (
-                    <ChevronRight className="mf-tab-arrow" />
-                  )}
-                </button>
-              ))}
-            </div>
+          <>
+            {/* Smartphone Horizontal Pill Bar with Left/Right Arrows (Visible ONLY on < 768px) */}
+            <div className="md:hidden relative flex items-center gap-1.5 w-full mb-5 px-0.5">
+              {/* Left Arrow Button */}
+              <button
+                type="button"
+                onClick={() => stepMobileFeature(-1)}
+                className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-[#006fc9] hover:border-[#006fc9]/40 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+                aria-label="Previous feature"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
 
-            {/* Right Active Feature Panel */}
-            <div
-              id={panelId}
-              className="mf-panel"
-              role="tabpanel"
-              tabIndex={0}
-              aria-labelledby={`${config.slug}-tab-${selected.id}`}
-            >
-              <div className="mf-details">
-                <div className="mf-details-header">
-                  <span className="mf-tile" data-tone={selected.visual.tone}>
-                    <FeatureIcon name={selected.visual.icon} />
-                  </span>
-                  <div className="mf-heading-block">
-                    <span className="mf-category-badge">
-                      <i />
-                      {selected.categoryLabel}
-                    </span>
-                    <h3>{selected.visual.title}</h3>
-                  </div>
-                </div>
-                <p>{selected.description}</p>
-                <ul className="mf-benefits">
-                  {selected.bullets.map((bullet) => (
-                    <li key={bullet}>
-                      <span>
-                        <Check size={13} />
-                      </span>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-                <PopupCtaButton className="mf-primary-btn">
-                  Explore with a demo <ArrowRight size={17} />
-                </PopupCtaButton>
+              {/* Touch-Swipable Horizontal Scroll Area */}
+              <div
+                ref={mobileNavRef}
+                role="tablist"
+                aria-label={`${config.moduleName} features mobile`}
+                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth w-full py-1.5 px-0.5 snap-x snap-mandatory touch-pan-x"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {filteredFeatures.map((feature) => {
+                  const isActive = selected.id === feature.id;
+                  return (
+                    <button
+                      key={feature.id}
+                      type="button"
+                      id={`${config.slug}-tab-mobile-${feature.id}`}
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={panelId}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => setSelectedId(feature.id)}
+                      className={`ai-tab-pill whitespace-nowrap shrink-0 snap-center ${isActive ? "active" : ""}`}
+                    >
+                      <FeatureIcon
+                        name={feature.visual.icon}
+                        className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-slate-400"}`}
+                      />
+                      <span>{feature.visual.title}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* Dynamic Feature Mockup Illustration */}
-              <FeatureIllustration
-                visual={selected.visual}
-                moduleName={config.featuresCatalog.previewName}
-              />
+              {/* Right Arrow Button */}
+              <button
+                type="button"
+                onClick={() => stepMobileFeature(1)}
+                className="w-8.5 h-8.5 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:text-[#006fc9] hover:border-[#006fc9]/40 shrink-0 z-10 active:scale-95 transition-all cursor-pointer"
+                aria-label="Next feature"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
-          </div>
+
+            <div className="mf-explorer">
+              {/* Left Tabs List (Hidden on Smartphone < 768px) */}
+              <div className="hidden md:block">
+                <div
+                  className="mf-nav"
+                  ref={navRef}
+                  role="tablist"
+                  aria-label={`${config.moduleName} features`}
+                  aria-orientation="vertical"
+                >
+                  {filteredFeatures.map((feature, index) => (
+                    <button
+                      type="button"
+                      role="tab"
+                      key={feature.id}
+                      id={`${config.slug}-tab-${feature.id}`}
+                      aria-selected={selected.id === feature.id}
+                      aria-controls={panelId}
+                      tabIndex={selected.id === feature.id ? 0 : -1}
+                      onClick={() => setSelectedId(feature.id)}
+                      onKeyDown={(event) => navigateFeatures(event, index)}
+                      className="mf-tab"
+                    >
+                      <span className="mf-tile" data-tone={feature.visual.tone}>
+                        <FeatureIcon name={feature.visual.icon} />
+                      </span>
+                      <strong>{feature.visual.title}</strong>
+                      {selected.id === feature.id ? (
+                        <ArrowRight className="mf-tab-arrow" />
+                      ) : (
+                        <ChevronRight className="mf-tab-arrow" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Active Feature Panel */}
+              <div
+                id={panelId}
+                className="mf-panel"
+                role="tabpanel"
+                tabIndex={0}
+                aria-labelledby={`${config.slug}-tab-${selected.id}`}
+              >
+                <div className="mf-details">
+                  <div className="mf-details-header">
+                    <span className="mf-tile" data-tone={selected.visual.tone}>
+                      <FeatureIcon name={selected.visual.icon} />
+                    </span>
+                    <div className="mf-heading-block">
+                      <span className="mf-category-badge">
+                        <i />
+                        {selected.categoryLabel}
+                      </span>
+                      <h3>{selected.visual.title}</h3>
+                    </div>
+                  </div>
+                  <p>{selected.description}</p>
+                  <ul className="mf-benefits">
+                    {selected.bullets.map((bullet) => (
+                      <li key={bullet}>
+                        <span>
+                          <Check size={13} />
+                        </span>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                  <PopupCtaButton className="mf-primary-btn">
+                    Explore with a demo <ArrowRight size={17} />
+                  </PopupCtaButton>
+                </div>
+
+                {/* Dynamic Feature Mockup Illustration */}
+                <FeatureIllustration
+                  visual={selected.visual}
+                  moduleName={config.featuresCatalog.previewName}
+                />
+              </div>
+            </div>
+          </>
         ) : (
           <div className="mf-empty-state">
             <Search size={30} aria-hidden="true" />
@@ -1260,7 +1564,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
               {/* Left Column: Headline, Value Proposition, & CTAs */}
               <div className="w-full lg:flex-1 lg:max-w-[620px] space-y-6 text-left">
-                <h1 className="text-[34px] sm:text-[45px] lg:text-[41px] xl:text-[45px] font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.14]">
+                <h1 className="text-4xl sm:text-5xl lg:text-[44px] xl:text-5xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] font-sans">
                   {config.heroHeadline}{" "}
                   <span className="text-[#006fc9]">{config.heroHighlight}</span>
                 </h1>
@@ -1270,17 +1574,17 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                 </p>
 
                 {/* Hero CTAs */}
-                <div className="flex flex-wrap items-center gap-3 pt-2">
+                <div className="flex flex-nowrap items-center gap-2 sm:gap-3 pt-2">
                   <PopupCtaButton
                     intent="trial"
-                    className="px-7 py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-sm shadow-md shadow-[#006fc9]/25 transition-all inline-flex items-center gap-2 active:scale-95 cursor-pointer"
+                    className="px-3.5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-[11.5px] sm:text-sm shadow-md shadow-[#006fc9]/25 transition-all inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 active:scale-95 cursor-pointer"
                   >
                     <span>Start 14-Day Free Sandbox</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                   </PopupCtaButton>
                   <a
                     href="#features-matrix"
-                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm transition-all shadow-2xs inline-flex items-center gap-2 cursor-pointer"
+                    className="px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-[11.5px] sm:text-sm transition-all shadow-2xs inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     <span>Explore All {config.featuresCatalog.items.filter((item) => {
                       const spTitles = new Set(
@@ -1296,7 +1600,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                         !spTitles.has(item.id.toLowerCase().trim())
                       );
                     }).length} Features</span>
-                    <ArrowRight className="w-4 h-4 text-slate-500 rotate-90" />
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 rotate-90 shrink-0" />
                   </a>
                 </div>
               </div>
@@ -1378,43 +1682,73 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         {/* ========================================================================= */}
         <section
           id="contact"
-          className="module-detail-section bg-gradient-to-br from-[#0C1E38] via-[#0F294D] to-[#0A1728] text-white relative overflow-hidden"
+          className="module-detail-section !py-10 sm:!py-14 lg:!py-16 bg-gradient-to-br from-[#F3F8FD] via-[#EEF5FC] to-[#E8F1FB] text-[#0B172A] relative overflow-hidden border-t border-slate-200/70"
         >
-          {/* Ambient Tech Glow Circles */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#006fc9]/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+              {/* Left Column: CTA Copy, Action Buttons & Trust Bullets */}
+              <div className="lg:col-span-7 text-left space-y-5 sm:space-y-6">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#D3E5FA] text-[#0E2E5C] font-extrabold text-[11px] sm:text-xs tracking-wide uppercase">
+                  <span>{config.cta.pill}</span>
+                </div>
 
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#006fc9]/20 text-sky-200 font-extrabold text-xs border border-[#006fc9]/30">
-              <span>{config.cta.pill}</span>
-            </div>
+                <h2 className="text-[32px] sm:text-[42px] lg:text-[48px] xl:text-[52px] font-extrabold text-[#0B172A] tracking-[-0.03em] leading-[1.1] max-w-[620px]">
+                  {config.cta.title.includes("Mossie ERP") ? (
+                    <>
+                      {config.cta.title.split("Mossie ERP")[0]}
+                      <em className="not-italic text-[#169C6C]">Mossie ERP</em>
+                      {config.cta.title.split("Mossie ERP").slice(1).join("Mossie ERP")}
+                    </>
+                  ) : (
+                    config.cta.title
+                  )}
+                </h2>
 
-            <h2 className="text-[27px] sm:text-[33px] md:text-[42px] font-extrabold tracking-tight leading-tight">
-              {config.cta.title}
-            </h2>
+                <p className="text-[15px] sm:text-[17px] text-[#475569] leading-[1.6] font-normal max-w-[560px]">
+                  {config.cta.description}
+                </p>
 
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              {config.cta.description}
-            </p>
+                <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 pt-1">
+                  <PopupCtaButton
+                    className="px-6 sm:px-7 py-3.5 rounded-full bg-[#0066CC] hover:bg-[#0055B3] text-white font-bold text-[13.5px] sm:text-[15px] shadow-[0_6px_18px_rgba(0,102,204,0.25)] transition-all inline-flex items-center gap-2 active:scale-95 cursor-pointer"
+                  >
+                    <span>{config.cta.primaryCtaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </PopupCtaButton>
+                  <Link
+                    href="/modules"
+                    className="px-6 sm:px-7 py-3.5 rounded-full bg-transparent hover:bg-white/75 border border-[#64748B] text-[#0F172A] font-bold text-[13.5px] sm:text-[15px] transition-all inline-flex items-center justify-center"
+                  >
+                    <span>{config.cta.secondaryCtaText}</span>
+                  </Link>
+                </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-              <PopupCtaButton
-                className="px-8 py-3.5 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-sm shadow-xl shadow-[#006fc9]/30 transition-all inline-flex items-center gap-2 active:scale-95 cursor-pointer"
-              >
-                <span>{config.cta.primaryCtaText}</span>
-                <ArrowRight className="w-4 h-4" />
-              </PopupCtaButton>
-              <Link
-                href="/modules"
-                className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-all"
-              >
-                <span>{config.cta.secondaryCtaText}</span>
-              </Link>
-            </div>
+                <div className="pt-1 text-[12px] sm:text-[13px] text-[#475569] font-medium flex flex-wrap items-center gap-x-5 gap-y-2">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-[#475569] stroke-[2.2]" />
+                    <span>No credit card required</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-[#475569] stroke-[2.2]" />
+                    <span>14-day full feature sandbox</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-[#475569] stroke-[2.2]" />
+                    <span>Zero-lockin data export</span>
+                  </span>
+                </div>
+              </div>
 
-            <div className="pt-8 text-xs text-slate-400 flex items-center justify-center gap-6">
-              <span>✓ No credit card required</span>
-              <span>✓ 14-day full feature sandbox</span>
-              <span>✓ Zero-lockin data export</span>
+              {/* Right Column: High-Resolution Enhanced CTA Illustration */}
+              <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
+                <Image
+                  src="/images/modules/cta_illustration.png"
+                  alt="Fast-growing teams collaborating on Mossie ERP"
+                  width={1009}
+                  height={901}
+                  className="w-full max-w-[440px] lg:max-w-[520px] h-auto object-contain select-none"
+                />
+              </div>
             </div>
           </div>
         </section>

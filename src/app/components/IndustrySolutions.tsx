@@ -2,8 +2,8 @@
 
 import { PopupCtaButton } from "./popup-cta";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Laptop,
   UsersRound,
@@ -100,9 +100,126 @@ const INDUSTRIES: IndustryItem[] = [
   },
 ];
 
+function MobileIndustrySlider() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHolding, setIsHolding] = useState(false);
+
+  useEffect(() => {
+    if (!isHolding) return;
+    const handleRelease = () => setIsHolding(false);
+    window.addEventListener("mouseup", handleRelease);
+    window.addEventListener("touchend", handleRelease);
+    window.addEventListener("touchcancel", handleRelease);
+    return () => {
+      window.removeEventListener("mouseup", handleRelease);
+      window.removeEventListener("touchend", handleRelease);
+      window.removeEventListener("touchcancel", handleRelease);
+    };
+  }, [isHolding]);
+
+  useEffect(() => {
+    if (isHolding) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % INDUSTRIES.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [activeIndex, isHolding]);
+
+  const activeItem = INDUSTRIES[activeIndex];
+  const ActiveIcon = activeItem.icon;
+
+  return (
+    <div className="block sm:hidden mb-8">
+      <div
+        className="relative w-full max-w-[370px] mx-auto px-3 py-1 select-none [-webkit-touch-callout:none]"
+        onMouseDown={() => setIsHolding(true)}
+        onMouseUp={() => setIsHolding(false)}
+        onMouseLeave={() => setIsHolding(false)}
+        onTouchStart={() => setIsHolding(true)}
+        onTouchEnd={() => setIsHolding(false)}
+        onTouchCancel={() => setIsHolding(false)}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        {/* Recessed Left & Right Card Peeks matching reference frame depth */}
+        <div
+          className="absolute inset-y-5 left-0 right-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-y-5 left-6 right-0 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] pointer-events-none z-0"
+          aria-hidden="true"
+        />
+
+        {/* Active Foreground Card (Same card design, 2s auto-slider, pauses on press & hold) */}
+        <div className="relative z-10 min-h-[268px] flex">
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={activeItem.id}
+              initial={{ opacity: 0, x: 22, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -22, scale: 0.96 }}
+              transition={{ duration: 0.26, ease: "easeOut" }}
+              className={`group relative w-full ${activeItem.bgGradient} p-5.5 rounded-[20px] border transition-shadow duration-200 ${
+                isHolding
+                  ? "border-[#006fc9] shadow-[0_12px_32px_-6px_rgba(0,111,201,0.20)]"
+                  : "border-[#006fc9]/35 shadow-[0_10px_28px_-6px_rgba(0,111,201,0.12)]"
+              } flex flex-col justify-between select-none cursor-grab active:cursor-grabbing`}
+            >
+              <div>
+                {/* Top-Left Blue Rounded Icon Badge */}
+                <div className="w-10 h-10 rounded-[11px] bg-[#006fc9] text-white flex items-center justify-center mb-4 shadow-sm shadow-[#006fc9]/20">
+                  <ActiveIcon className="w-5 h-5 text-white stroke-[1.8]" />
+                </div>
+
+                {/* Industry Title */}
+                <h3 className="text-[17px] font-bold text-slate-900 tracking-tight leading-snug mb-2.5">
+                  {activeItem.title}
+                </h3>
+
+                {/* Industry Description */}
+                <p className="text-[13px] text-slate-600 leading-[1.65] font-normal mb-5">
+                  {activeItem.description}
+                </p>
+              </div>
+
+              {/* Card Divider & Learn More link */}
+              <div className="w-full border-t border-slate-200/75 pt-3 mt-auto flex items-center justify-between">
+                <PopupCtaButton className="text-[13px] font-semibold text-[#006fc9] transition-colors inline-flex items-center gap-1">
+                  Learn More{" "}
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    →
+                  </span>
+                </PopupCtaButton>
+              </div>
+            </motion.article>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Slider Progress Dots */}
+      <div className="flex items-center justify-center gap-1.5 mt-4">
+        {INDUSTRIES.map((item, idx) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setActiveIndex(idx)}
+            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+              idx === activeIndex
+                ? "w-5 bg-[#006fc9]"
+                : "w-1.5 bg-slate-300 hover:bg-slate-400"
+            }`}
+            aria-label={`Show ${item.title}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function IndustrySolutions() {
   return (
-    <section className="py-[20px] bg-[#F8FAFC] relative overflow-hidden" id="industries">
+    <section className="py-[20px] bg-white relative overflow-hidden" id="industries">
       {/* Ambient background tints */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-10 left-10 w-96 h-96 bg-blue-100/30 rounded-full blur-[100px]" />
@@ -126,7 +243,7 @@ export default function IndustrySolutions() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center mx-auto mb-8 sm:mb-10 max-w-2xl"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-3">
+          <h2 className="section-heading mb-3">
             Built for the way{" "}
             <br className="hidden sm:inline" />
             your{" "}
@@ -151,8 +268,11 @@ export default function IndustrySolutions() {
          
         </motion.div>
 
-        {/* 8-Card Grid matching media_1789198291120.png */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 mb-8 sm:mb-10">
+        {/* Smartphone 1.8s Auto Slider (< 640px) */}
+        <MobileIndustrySlider />
+
+        {/* 8-Card Grid on Tablet & Desktop (>= 640px) */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 mb-8 sm:mb-10">
           {INDUSTRIES.map((item, index) => {
             const Icon = item.icon;
             return (

@@ -62,7 +62,7 @@ const faqs = [
 function SectionIntro({ title, description, align = "left" }: { eyebrow?: string; title: string; description?: string; align?: "left" | "center" }) {
   return (
     <div className={align === "center" ? "section-intro section-intro-center" : "section-intro"}>
-      <h2>{title}</h2>
+      <h2 className="section-heading">{title}</h2>
       {description ? <p className="section-description">{description}</p> : null}
     </div>
   );
@@ -83,7 +83,7 @@ export default function HomePage() {
           <div className="w-full max-w-[1440px] px-4 sm:px-6 mx-auto relative z-10 flex flex-col items-center text-center">
 
             {/* Main Headline from Zoho screenshot 2 */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] max-w-5xl mx-auto mb-5">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] max-w-5xl mx-auto mb-5 font-sans">
               A new era of ERP software<br className="hidden sm:inline" />{" "}
               from Mossie ERP
             </h1>
@@ -97,12 +97,12 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8 sm:mb-10">
               <PopupCtaButton
                 intent="trial"
-                className="hero-btn-primary px-7 py-3 rounded-md bg-[#006fc9] hover:bg-[#005fae] text-white text-[14.5px] font-semibold shadow-md shadow-[#006fc9]/25 transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
+                className="hero-btn-primary px-7 py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white text-[14.5px] font-semibold shadow-md shadow-[#006fc9]/25 transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Start a Free Trial
               </PopupCtaButton>
               <PopupCtaButton
-                className="hero-btn-secondary px-7 py-3 rounded-md bg-white hover:bg-slate-50 text-slate-800 text-[14.5px] font-semibold border border-slate-300 hover:border-slate-400 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
+                className="hero-btn-secondary px-7 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 text-[14.5px] font-semibold border border-slate-300 hover:border-slate-400 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center cursor-pointer"
               >
                 Request a demo
               </PopupCtaButton>
@@ -165,7 +165,7 @@ export default function HomePage() {
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
             {/* Centered Headline matching reference layout */}
             <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-[38px] font-black uppercase tracking-tight text-[#0F172A] leading-tight sm:leading-snug">
+              <h2 className="section-heading">
                 Everything you need to know about our
                 <span className="block text-[#006fc9] mt-1 sm:mt-1.5">Enterprise ERP Solutions</span>
               </h2>
@@ -236,7 +236,7 @@ export default function HomePage() {
             <div className="final-cta">
               <div className="cta-grid-lines" aria-hidden="true" />
               <div className="cta-content">
-                <h2>Ready to bring your business together?</h2>
+                <h2 className="font-sans">Ready to bring your business together?</h2>
                 <p>Discover how a connected ERP platform can simplify your operations and help your business grow with confidence.</p>
                 <div className="hero-actions">
                   <PopupCtaButton className="button button-light">Book a Demo <ArrowRight /></PopupCtaButton>

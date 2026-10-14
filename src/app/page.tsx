@@ -113,7 +113,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="trust-strip" aria-label="Trusted by growing businesses">
+        {/* <section className="trust-strip" aria-label="Trusted by growing businesses">
           <div className="container">
             <div className="logo-row">
               <span><b className="logo-glyph">n</b> Northwind</span>
@@ -124,7 +124,7 @@ export default function HomePage() {
               <span><b className="logo-glyph logo-glyph-round">f</b> Ferroline</span>
             </div>
           </div>
-        </section>
+        </section> */}
         
         {/* AI-Powered Enterprise Product Showcase */}
         <ProductShowcase />

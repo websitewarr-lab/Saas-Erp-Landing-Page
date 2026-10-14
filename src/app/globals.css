@@ -170,16 +170,19 @@ body.modal-locked {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in oklab, var(--background) 76%, transparent);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: background .3s ease, box-shadow .3s ease, border-color .3s ease;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .site-header-scrolled {
-  background: color-mix(in oklab, var(--background) 91%, transparent);
-  border-color: var(--border);
-  box-shadow: 0 8px 28px -24px oklch(0.2 0.04 250 / 45%);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: rgba(226, 232, 240, 0.95);
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
 }
 
 .nav-inner {
@@ -354,8 +357,17 @@ body.modal-locked {
 .hero-zoho-section {
   position: relative;
   overflow: hidden;
-  padding: 20px 0 0;
-  background: #FFFFFF;
+  margin-top: -64px;
+  padding-top: 84px;
+  padding-bottom: 24px;
+  background: #F8FAFC;
+}
+
+@media (min-width: 960px) {
+  .hero-zoho-section {
+    margin-top: -72px;
+    padding-top: 92px;
+  }
 }
 
 .hero-btn-primary {
@@ -482,6 +494,10 @@ body.modal-locked {
 
 .sidebar-brand {
   margin-bottom: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .sidebar-icon {
@@ -491,11 +507,36 @@ body.modal-locked {
   place-items: center;
   border-radius: 8px;
   color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.sidebar-icon:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .sidebar-icon svg {
   width: 14px;
   height: 14px;
+  transition: transform 0.15s ease;
+}
+
+.sidebar-icon:hover:not(.active) {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+}
+
+.sidebar-icon:hover svg {
+  transform: scale(1.1);
+}
+
+.sidebar-icon:active:not(.active) {
+  transform: scale(0.95);
 }
 
 .sidebar-icon.active {
@@ -1600,7 +1641,11 @@ body.modal-locked {
   }
 
   .site-header {
-    background: color-mix(in oklab, var(--background) 92%, transparent);
+    background: rgba(255, 255, 255, 0.90);
+  }
+
+  .site-header-scrolled {
+    background: rgba(255, 255, 255, 0.98);
   }
 
   .nav-inner {
@@ -6102,6 +6147,177 @@ body.modal-locked {
   .hero-laptop-lid-open,
   .hero-screen-wake-overlay,
   .hero-card-emerge {
+    animation: none !important;
+  }
+}
+
+/* Responsive Panoramic Horizon for Hero Laptop Showcase on Tablet & Laptop */
+.hero-panoramic-scaler {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  .hero-panoramic-scaler {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .hero-panoramic-inner {
+    width: 1460px;
+    flex-shrink: 0;
+    transform-origin: top center;
+  }
+
+  /* SSR fallback before React hydration */
+  .hero-panoramic-inner:not([data-scaled="true"]) {
+    transform: scale(var(--fallback-scale, 1));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 911px) {
+  .hero-panoramic-scaler {
+    --fallback-scale: 0.50;
+    height: 185px;
+  }
+}
+
+@media (min-width: 912px) and (max-width: 1023px) {
+  .hero-panoramic-scaler {
+    --fallback-scale: 0.64;
+    height: 234px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-panoramic-scaler {
+    --fallback-scale: 0.76;
+    height: 277px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .hero-panoramic-scaler {
+    --fallback-scale: 0.88;
+    height: 321px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero-panoramic-scaler {
+    --fallback-scale: 1;
+  }
+}
+
+/* ========================================================================= */
+/* MODULE DETAILS PAGE: INTERACTIVE HERO SECTION STYLES & ANIMATIONS        */
+/* ========================================================================= */
+
+.dot-matrix-bg {
+  background-image: radial-gradient(#94a3b8 1.35px, transparent 1.35px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(ellipse 85% 85% at 72% 55%, rgba(0,0,0,0.55) 10%, rgba(0,0,0,0.2) 60%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 72% 55%, rgba(0,0,0,0.55) 10%, rgba(0,0,0,0.2) 60%, transparent 90%);
+}
+
+.hero-heading {
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.btn-primary-erp {
+  background: linear-gradient(180deg, #006fc9 0%, #005fae 100%);
+  box-shadow: 
+    0 10px 22px -4px rgba(0, 111, 201, 0.48),
+    0 2px 6px 0 rgba(0, 111, 201, 0.25),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary-erp:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 14px 28px -4px rgba(0, 111, 201, 0.58),
+    0 4px 10px 0 rgba(0, 111, 201, 0.3),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.45);
+}
+
+.btn-secondary-erp {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  transition: all 0.2s ease;
+}
+.btn-secondary-erp:hover {
+  background: #ffffff;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.crm-window-shadow {
+  box-shadow: 
+    0 28px 60px -12px rgba(15, 23, 42, 0.24),
+    0 12px 26px -8px rgba(0, 111, 201, 0.12),
+    0 0 0 1px rgba(226, 232, 240, 0.9);
+}
+
+.floating-card-left {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.92) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 
+    0 22px 45px -10px rgba(15, 23, 42, 0.28),
+    0 4px 14px -2px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+.floating-card-right {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 
+    0 20px 42px -10px rgba(0, 111, 201, 0.18),
+    0 8px 20px -6px rgba(15, 23, 42, 0.1),
+    0 0 0 1px rgba(226, 232, 240, 0.85);
+}
+
+.workflow-glow {
+  filter: drop-shadow(0 3px 6px rgba(0, 111, 201, 0.25));
+}
+
+@keyframes pulseHalo {
+  0%, 100% { transform: scale(1); opacity: 0.45; }
+  50% { transform: scale(1.18); opacity: 0.2; }
+}
+.pulse-ring {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: pulseHalo 3s ease-in-out infinite;
+}
+
+@keyframes scanLaser {
+  0%, 100% { top: 42%; opacity: 0.95; }
+  50% { top: 68%; opacity: 0.75; }
+}
+.scanner-laser {
+  animation: scanLaser 3.2s ease-in-out infinite;
+}
+
+@keyframes flowDash {
+  to { stroke-dashoffset: -40; }
+}
+.flow-active {
+  stroke-dasharray: 6 6;
+  animation: flowDash 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring,
+  .scanner-laser,
+  .flow-active {
     animation: none !important;
   }
 }

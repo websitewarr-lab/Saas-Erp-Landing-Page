@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useState, useEffect, useRef, type CSSProperties } from "react";
 import {
   Search,
   Bell,
@@ -204,11 +204,81 @@ function MacbookBaseDeck() {
 
 export default function HeroLaptopShowcase() {
   const [activeRange, setActiveRange] = useState("This Year");
+  const [scale, setScale] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window === "undefined") return;
+      const width = window.innerWidth;
+      if (width < 768) {
+        // Smartphone: do not apply panoramic scale, let laptop handle its own scale
+        setScale(null);
+        return;
+      }
+      if (width >= 1440) {
+        // PC: full unscaled size
+        setScale(1);
+        return;
+      }
+      // Tablet and Laptop screens (768px to 1439px):
+      // Measure actual available container width
+      const containerWidth = containerRef.current?.clientWidth ?? width;
+      const availableWidth = containerWidth - 12;
+      const BASE_WIDTH = 1460;
+      const calculatedScale = Math.min(1, Math.max(0.46, availableWidth / BASE_WIDTH));
+      setScale(calculatedScale);
+    };
+
+    updateScale();
+
+    // Use ResizeObserver for real-time accurate container monitoring
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && containerRef.current) {
+      observer = new ResizeObserver(() => {
+        updateScale();
+      });
+      observer.observe(containerRef.current);
+    }
+
+    window.addEventListener("resize", updateScale, { passive: true });
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", updateScale);
+    };
+  }, []);
+
+  const isScaled = scale !== null && scale < 1;
 
   return (
-    <div className="relative w-full max-w-[1440px] mx-auto pt-2 pb-6 sm:pb-8 select-none overflow-hidden md:overflow-visible">
-      {/* 5-Element Panoramic Horizon: [Card 1] [Card 2] [CENTER LAPTOP] [Card 3] [Card 4] */}
-      <div className="flex items-center justify-center w-full gap-3 xl:gap-4 px-2">
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-[1440px] mx-auto pt-2 pb-6 sm:pb-8 select-none overflow-hidden md:overflow-visible"
+    >
+      {/* Scaler wrapper: on screen >= 768px (tablets & laptops), scales the entire 5-element panoramic horizon to fit within the viewport without cutting off edges */}
+      <div
+        className="hero-panoramic-scaler"
+        style={
+          isScaled
+            ? {
+                height: `${Math.round(365 * (scale as number))}px`,
+              }
+            : undefined
+        }
+      >
+        {/* 5-Element Panoramic Horizon: [Card 1] [Card 2] [CENTER LAPTOP] [Card 3] [Card 4] */}
+        <div
+          data-scaled={isScaled ? "true" : undefined}
+          className="hero-panoramic-inner flex items-center justify-center w-full md:w-[1460px] shrink-0 gap-3 xl:gap-4 px-2"
+          style={
+            isScaled
+              ? {
+                  transform: `scale(${scale})`,
+                  transformOrigin: "top center",
+                }
+              : undefined
+          }
+        >
         
         {/* ========================================================================= */}
         {/* LEFT SIDE: 2 Squarish Glassmorphic Cards (Hidden on Mobile)               */}
@@ -228,18 +298,18 @@ export default function HeroLaptopShowcase() {
                 "--card-start-x": "465px",
                 "--card-delay": "760ms",
                 background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.74) 55%, rgba(255, 255, 255, 0.84) 100%)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
                 boxShadow:
-                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+                  "0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 20px rgba(255, 255, 255, 0.8) inset",
               } as CSSProperties
             }
           >
             {/* Card Header */}
             <div>
-              <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block">
+              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
                 Spend by travel mode
               </span>
             </div>
@@ -248,15 +318,15 @@ export default function HeroLaptopShowcase() {
             <div className="relative w-[180px] h-[175px] mx-auto flex items-center justify-center my-auto">
               
               {/* Floating Labels with pointer pins */}
-              <span className="absolute top-1 left-2 text-[11px] font-medium italic text-slate-500">Flight</span>
-              <span className="absolute top-5 right-2 text-[11px] font-medium italic text-slate-500">Hotel</span>
-              <span className="absolute bottom-5 right-2 text-[11px] font-medium italic text-slate-500">Train</span>
-              <span className="absolute -bottom-1 left-[38%] text-[11px] font-medium italic text-slate-500">Bus</span>
-              <span className="absolute top-[44%] left-0 text-[11px] font-medium italic text-slate-500">Car</span>
+              <span className="absolute top-1 left-2 text-[11.5px] font-bold text-slate-700">Flight</span>
+              <span className="absolute top-5 right-2 text-[11.5px] font-bold text-slate-700">Hotel</span>
+              <span className="absolute bottom-5 right-2 text-[11.5px] font-bold text-slate-700">Train</span>
+              <span className="absolute -bottom-1 left-[38%] text-[11.5px] font-bold text-slate-700">Bus</span>
+              <span className="absolute top-[44%] left-0 text-[11.5px] font-bold text-slate-700">Car</span>
 
               <svg className="w-full h-full overflow-visible" viewBox="0 0 160 160">
                 {/* Background Ring Track */}
-                <circle cx="80" cy="80" r="42" stroke="#E2E8F0" strokeWidth="9" fill="none" opacity="0.4" />
+                <circle cx="80" cy="80" r="42" stroke="#CBD5E1" strokeWidth="9" fill="none" opacity="0.6" />
                 
                 {/* Segment 1: Flight (Dark Navy Blue - top left) */}
                 <circle
@@ -316,24 +386,24 @@ export default function HeroLaptopShowcase() {
 
                 {/* Hairline Pointer Lines & Circular Nodes (exact Zoho detail) */}
                 {/* Flight pin */}
-                <circle cx="68" cy="40" r="2" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.5" />
-                <line x1="68" y1="40" x2="48" y2="24" stroke="#94A3B8" strokeWidth="0.85" />
+                <circle cx="68" cy="40" r="2.5" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.8" />
+                <line x1="68" y1="40" x2="48" y2="24" stroke="#475569" strokeWidth="1" />
 
                 {/* Hotel pin */}
-                <circle cx="110" cy="50" r="2" fill="#FFFFFF" stroke="#006fc9" strokeWidth="1.5" />
-                <line x1="110" y1="50" x2="128" y2="40" stroke="#94A3B8" strokeWidth="0.85" />
+                <circle cx="110" cy="50" r="2.5" fill="#FFFFFF" stroke="#006fc9" strokeWidth="1.8" />
+                <line x1="110" y1="50" x2="128" y2="40" stroke="#475569" strokeWidth="1" />
 
                 {/* Train pin */}
-                <circle cx="106" cy="116" r="2" fill="#FFFFFF" stroke="#38BDF8" strokeWidth="1.5" />
-                <line x1="106" y1="116" x2="126" y2="126" stroke="#94A3B8" strokeWidth="0.85" />
+                <circle cx="106" cy="116" r="2.5" fill="#FFFFFF" stroke="#38BDF8" strokeWidth="1.8" />
+                <line x1="106" y1="116" x2="126" y2="126" stroke="#475569" strokeWidth="1" />
 
                 {/* Bus pin */}
-                <circle cx="70" cy="122" r="2" fill="#FFFFFF" stroke="#7DD3FC" strokeWidth="1.5" />
-                <line x1="70" y1="122" x2="68" y2="140" stroke="#94A3B8" strokeWidth="0.85" />
+                <circle cx="70" cy="122" r="2.5" fill="#FFFFFF" stroke="#7DD3FC" strokeWidth="1.8" />
+                <line x1="70" y1="122" x2="68" y2="140" stroke="#475569" strokeWidth="1" />
 
                 {/* Car pin */}
-                <circle cx="38" cy="78" r="2" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.5" />
-                <line x1="38" y1="78" x2="22" y2="82" stroke="#94A3B8" strokeWidth="0.85" />
+                <circle cx="38" cy="78" r="2.5" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.8" />
+                <line x1="38" y1="78" x2="22" y2="82" stroke="#475569" strokeWidth="1" />
               </svg>
             </div>
           </div>
@@ -346,26 +416,26 @@ export default function HeroLaptopShowcase() {
                 "--card-start-x": "240px",
                 "--card-delay": "680ms",
                 background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.74) 55%, rgba(255, 255, 255, 0.84) 100%)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
                 boxShadow:
-                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+                  "0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 20px rgba(255, 255, 255, 0.8) inset",
               } as CSSProperties
             }
           >
             {/* Card Header & Numbers */}
             <div className="relative z-10">
-              <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block">
+              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
                 Net Revenue
               </span>
-              <div className="text-[25px] font-bold text-slate-800 tracking-tight mt-1">
+              <div className="text-[26px] font-extrabold text-[#0F172A] tracking-tight mt-1">
                 ₹39,00,000
               </div>
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-emerald-500/80 text-emerald-600 text-[11px] font-semibold mt-1.5 bg-emerald-50/20">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border border-emerald-500/50 text-emerald-700 text-[11px] font-bold mt-1.5 bg-emerald-50/90 shadow-2xs">
                 <span>6.23 ↑</span>
-                <span className="text-slate-500 font-normal text-[10px]">Year on year</span>
+                <span className="text-slate-700 font-semibold text-[10px]">Year on year</span>
               </div>
             </div>
 
@@ -673,72 +743,72 @@ export default function HeroLaptopShowcase() {
                 "--card-start-x": "-240px",
                 "--card-delay": "680ms",
                 background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.74) 55%, rgba(255, 255, 255, 0.84) 100%)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
                 boxShadow:
-                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+                  "0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 20px rgba(255, 255, 255, 0.8) inset",
               } as CSSProperties
             }
           >
             <div>
-              <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block mb-3">
+              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block mb-3">
                 Inventory Adjustment Reasons
               </span>
 
               {/* Progress overview bar from Screenshot */}
-              <div className="w-full h-2 rounded-full bg-slate-100 flex overflow-hidden mb-4 border border-white/60">
+              <div className="w-full h-2 rounded-full bg-slate-200/80 flex overflow-hidden mb-4 border border-white/80">
                 <div className="w-[25.5%] bg-[#006fc9] rounded-l-full" />
                 <div className="w-[74.5%] bg-sky-200/80 rounded-r-full" />
               </div>
               
               <div className="space-y-3">
                 <div>
-                  <div className="flex justify-between text-[11px] font-medium text-slate-600 mb-1">
+                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
                     <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-[#006fc9]" /> Expired Goods</span>
-                    <strong className="text-slate-800 font-bold">25.5%</strong>
+                    <strong className="text-[#0F172A] font-extrabold">25.5%</strong>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
                     <div className="h-full bg-[#006fc9] rounded-full w-[25.5%]" />
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-[11px] font-medium text-slate-600 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-sky-400" /> Stock Variance</span>
-                    <strong className="text-slate-800 font-bold">19.4%</strong>
+                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
+                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-sky-500" /> Stock Variance</span>
+                    <strong className="text-[#0F172A] font-extrabold">19.4%</strong>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full bg-sky-400 rounded-full w-[19.4%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] font-medium text-slate-600 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-indigo-500" /> Internal Usage</span>
-                    <strong className="text-slate-800 font-bold">15.2%</strong>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full bg-indigo-500 rounded-full w-[15.2%]" />
+                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
+                    <div className="h-full bg-sky-500 rounded-full w-[19.4%]" />
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-[11px] font-medium text-slate-600 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-teal-400" /> Revaluation</span>
-                    <strong className="text-slate-800 font-bold">14.5%</strong>
+                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
+                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-indigo-600" /> Internal Usage</span>
+                    <strong className="text-[#0F172A] font-extrabold">15.2%</strong>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full bg-teal-400 rounded-full w-[14.5%]" />
+                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
+                    <div className="h-full bg-indigo-600 rounded-full w-[15.2%]" />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
+                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-teal-600" /> Revaluation</span>
+                    <strong className="text-[#0F172A] font-extrabold">14.5%</strong>
+                  </div>
+                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
+                    <div className="h-full bg-teal-600 rounded-full w-[14.5%]" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-2 border-t border-white/60 text-[10px] text-slate-400 flex items-center justify-between">
-              <span>Overall Stock Health</span>
-              <span className="text-emerald-600 font-bold">98.2% Optimal</span>
+            <div className="pt-2 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
+              <span className="text-slate-700 font-semibold">Overall Stock Health</span>
+              <span className="text-emerald-700 font-extrabold">98.2% Optimal</span>
             </div>
           </div>
 
@@ -750,21 +820,21 @@ export default function HeroLaptopShowcase() {
                 "--card-start-x": "-465px",
                 "--card-delay": "760ms",
                 background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 55%, rgba(255, 255, 255, 0.48) 100%)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1.5px solid rgba(255, 255, 255, 0.85)",
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.74) 55%, rgba(255, 255, 255, 0.84) 100%)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
                 boxShadow:
-                  "0 20px 45px -15px rgba(2, 132, 199, 0.16), 0 0 18px rgba(255, 255, 255, 0.5) inset",
+                  "0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 20px rgba(255, 255, 255, 0.8) inset",
               } as CSSProperties
             }
           >
             <div>
-              <span className="text-[13.5px] font-medium italic text-slate-500 tracking-wide block">
+              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
                 AR Aging Summary
               </span>
-              <span className="text-[10.5px] text-slate-400 font-normal block mt-0.5">Total Receivables</span>
-              <div className="text-[24px] font-bold text-slate-800 tracking-tight mt-0.5">
+              <span className="text-[11px] text-slate-600 font-semibold block mt-0.5">Total Receivables</span>
+              <div className="text-[25px] font-extrabold text-[#0F172A] tracking-tight mt-0.5">
                 ₹45,000.00
               </div>
             </div>
@@ -775,49 +845,48 @@ export default function HeroLaptopShowcase() {
                 <div 
                   className="w-full rounded-t-sm h-[75%] border-t border-x border-white/80"
                   style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(56, 189, 248, 0.45) 100%)",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(56, 189, 248, 0.55) 100%)",
                   }}
                 />
-                <span className="text-[9.5px] text-slate-400 font-medium italic">Current</span>
+                <span className="text-[10px] text-slate-700 font-bold">Current</span>
               </div>
               <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
                 <div 
                   className="w-full rounded-t-sm h-[50%] border-t border-x border-white/80"
                   style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(56, 189, 248, 0.35) 100%)",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(56, 189, 248, 0.45) 100%)",
                   }}
                 />
-                <span className="text-[9.5px] text-slate-400 font-medium italic">1-15d</span>
+                <span className="text-[10px] text-slate-700 font-bold">1-15d</span>
               </div>
               <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
                 <div 
                   className="w-full rounded-t-sm h-[32%] border-t border-x border-white/80"
                   style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(56, 189, 248, 0.25) 100%)",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(56, 189, 248, 0.35) 100%)",
                   }}
                 />
-                <span className="text-[9.5px] text-slate-400 font-medium italic">16-30d</span>
+                <span className="text-[10px] text-slate-700 font-bold">16-30d</span>
               </div>
               <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
                 <div 
                   className="w-full rounded-t-sm h-[18%] border-t border-x border-white/80"
                   style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(56, 189, 248, 0.2) 100%)",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(56, 189, 248, 0.3) 100%)",
                   }}
                 />
-                <span className="text-[9.5px] text-slate-400 font-medium italic">30+d</span>
+                <span className="text-[10px] text-slate-700 font-bold">30+d</span>
               </div>
             </div>
 
-            <div className="pt-2 border-t border-white/60 text-[10px] text-slate-400 flex items-center justify-between">
-              <span>Collection Interval</span>
-              <span className="text-[#006fc9] font-bold">12 Days</span>
+            <div className="pt-2 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
+              <span className="text-slate-700 font-semibold">Collection Interval</span>
+              <span className="text-[#006fc9] font-extrabold">12 Days</span>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
+  </div>
   );
 }

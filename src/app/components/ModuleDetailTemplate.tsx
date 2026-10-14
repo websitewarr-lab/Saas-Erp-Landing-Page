@@ -61,6 +61,8 @@ import SiteFooter from "./SiteFooter";
 import { PopupCtaButton } from "./popup-cta";
 import ConnectedWorkflowFlow from "./modules/ConnectedWorkflowFlow";
 import { ModuleComparisonSection } from "./ModuleComparisonSection";
+import ModuleClientReviews from "./modules/ModuleClientReviews";
+import ModuleDetailHero from "./modules/ModuleDetailHero";
 import {
   MODULES_DATA,
   type EdgeSuperpower,
@@ -518,318 +520,6 @@ function FeatureIllustration({ visual, moduleName }: { visual: FeatureVisual; mo
   );
 }
 
-/* ========================================================================= */
-/* 3. HERO RIGHT-COLUMN INTERACTIVE PREVIEW MOCKUP                           */
-/* Clean, straight, high-density live operations preview window.             */
-/* Features a dark SaaS sidebar, top search bar, live KPIs, 3-column kanban, */
-/* and an interactive AI Sentinel dispatch action.                           */
-/* ========================================================================= */
-
-interface ModuleHeroPreviewProps {
-  config: ModulePageConfig;
-  sentinelApproved: boolean;
-  onApproveSentinel: () => void;
-}
-
-function ModuleHeroPreview({
-  config,
-  sentinelApproved,
-  onApproveSentinel,
-}: ModuleHeroPreviewProps) {
-  const tone = config.edge?.superpowers?.[0]?.visual?.tone || "blue";
-  const primaryIcon = config.featuresCatalog?.items?.[0]?.visual?.icon || "chart";
-
-  return (
-    <div
-      className="mf-hero-container max-w-[340px] sm:max-w-[674px]"
-      data-tone={tone}
-      role="region"
-      aria-label={`${config.moduleName} Live Operations Preview`}
-    >
-      {/* Compact Smartphone Window Preview (< 640px) — Uncluttered 2-column mini layout */}
-      <div className="flex sm:hidden flex-col w-full rounded-2xl bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 shadow-[0_14px_30px_-10px_rgba(15,23,42,0.10)] p-3 gap-2.5">
-        {/* Compact Top Header */}
-        <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-100">
-          <div className="min-w-0">
-            <span className="text-[9px] text-slate-400 font-bold tracking-wider uppercase block truncate">
-              {config.moduleName} / Live
-            </span>
-            <h4 className="text-[12.5px] font-extrabold text-slate-900 tracking-tight leading-tight truncate mt-0.5">
-              {config.mockup.windowTitle}
-            </h4>
-          </div>
-          <div className="flex items-center gap-1.5 shrink-0">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[8.5px] font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              LIVE
-            </span>
-            <span className="mf-hero-avatar !w-5 !h-5 !text-[8.5px]">MS</span>
-          </div>
-        </div>
-
-        {/* 1. Spacious 2-Column Top Metrics (instead of 3 cramped columns) */}
-        <div className="grid grid-cols-2 gap-2">
-          {config.mockup.topMetrics.slice(0, 2).map((tm, idx) => (
-            <div
-              key={idx}
-              className="bg-white px-2.5 py-2 rounded-xl border border-slate-200/90 shadow-2xs"
-            >
-              <div className="text-[9.5px] text-slate-500 font-medium truncate leading-tight">
-                {tm.label}
-              </div>
-              <div className="text-[13px] font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5 truncate">
-                {tm.value}
-              </div>
-              <div className={`text-[8.5px] leading-tight truncate font-bold ${tm.subColor}`}>
-                {tm.sub}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 2. Streamlined 2-Column Stage Tracker (instead of 3 squeezed columns) */}
-        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between text-[10px]">
-            <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
-              <span className="truncate">
-                {config.mockup.kanbanTitle.replace(/\s*\(.*?\)/, "")}
-              </span>
-            </span>
-            <span className="text-[8.5px] text-slate-400 font-semibold shrink-0">
-              Auto-Synced
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 text-left">
-            {config.mockup.columns.slice(1, 3).map((col, idx) => (
-              <div
-                key={idx}
-                className={`p-2 rounded-lg border space-y-1 ${
-                  col.isHighlighted
-                    ? "bg-blue-50/30 border-[#006fc9]/40"
-                    : "bg-emerald-50/40 border-emerald-200/70"
-                }`}
-              >
-                <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-1">
-                  <span className="truncate">{col.stageName}</span>
-                  <span className="font-mono text-slate-700 shrink-0">{col.amount}</span>
-                </div>
-                <div className="text-[10px] font-bold text-slate-900 leading-tight truncate">
-                  {col.cardTitle}
-                </div>
-                <span
-                  className={`inline-block px-1.5 py-0.5 rounded text-[8px] font-bold leading-none truncate max-w-full ${col.cardTagStyle}`}
-                >
-                  {col.cardTag}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 3. Compact AI Sentinel Row */}
-        <div className="bg-white px-2.5 py-1.5 rounded-xl border border-slate-200/90 flex items-center justify-between gap-2 shadow-2xs">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className="w-4.5 h-4.5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[8.5px] shrink-0">
-              AI
-            </span>
-            <span className="text-slate-700 font-medium text-[9.5px] truncate">
-              {config.mockup.alertText}
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={onApproveSentinel}
-            className={`px-2.5 py-1 rounded-full font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
-              sentinelApproved
-                ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
-            }`}
-          >
-            {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
-          </button>
-        </div>
-      </div>
-
-      {/* Full Tablet & Desktop Window Preview (>= 640px) */}
-      <div className="hidden sm:block w-full">
-        <div className="mf-hero-window">
-          {/* SaaS Dark Left Sidebar */}
-          <div className="mf-hero-sidebar" aria-hidden="true">
-            <div className="mf-sidebar-brand">
-              <span>M</span>Mossie ERP
-            </div>
-            <div className="mf-sidebar-item">
-              <LayoutDashboard size={14} />
-              <span>Overview</span>
-            </div>
-            <div className="mf-sidebar-item mf-sidebar-item-active">
-              <FeatureIcon name={primaryIcon} />
-              <span>{config.moduleName.replace(/ Management| Solutions| Suite/, "")}</span>
-            </div>
-            <div className="mf-sidebar-item">
-              <FeatureIcon name="chart" />
-              <span>Reports</span>
-            </div>
-            <div className="mf-sidebar-item">
-              <FeatureIcon name="refresh" />
-              <span>Automation</span>
-            </div>
-            <div className="mf-sidebar-item">
-              <FeatureIcon name="shield" />
-              <span>Audit Log</span>
-            </div>
-            <div className="mf-sidebar-status">
-              <Circle size={8} />
-              <span>Live engine</span>
-            </div>
-          </div>
-
-          {/* Inner Dashboard Canvas */}
-          <div className="mf-hero-main-canvas">
-            {/* Top App Bar */}
-            <div className="mf-hero-app-bar">
-              <div className="mf-hero-search-bar">
-                <Search size={12} className="text-slate-400 shrink-0" />
-                <span>Search {config.moduleName.toLowerCase()} records...</span>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="relative flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 hover:text-slate-700">
-                  <Bell size={12} />
-                  <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#006fc9]" />
-                </span>
-                <span className="mf-hero-avatar">MS</span>
-              </div>
-            </div>
-
-            {/* App Heading */}
-            <div className="mf-hero-app-heading">
-              <div className="min-w-0">
-                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">
-                  {config.moduleName} / Live Operations
-                </span>
-                <h4 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight truncate mt-0.5">
-                  {config.mockup.windowTitle}
-                </h4>
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[10px] font-bold shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                {config.mockup.liveBadge}
-              </span>
-            </div>
-
-            {/* 1. Top Metrics Row */}
-            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-              {config.mockup.topMetrics.map((tm, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 shadow-2xs"
-                >
-                  <div className="text-[9px] text-slate-500 font-medium truncate leading-tight">
-                    {tm.label}
-                  </div>
-                  <div className="text-xs sm:text-sm font-black text-slate-900 font-mono tracking-tight leading-tight my-0.5">
-                    {tm.value}
-                  </div>
-                  <div className={`text-[8px] leading-tight truncate font-bold ${tm.subColor}`}>
-                    {tm.sub}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* 2. Interactive Kanban Simulator */}
-            <div className="bg-white p-2 rounded-lg border border-slate-200/90 shadow-2xs space-y-1">
-              <div className="flex items-center justify-between text-[10px] pb-1 border-b border-slate-100">
-                <span className="font-extrabold text-slate-800 flex items-center gap-1.5 truncate">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#006fc9] shrink-0" />
-                  <span className="truncate">{config.mockup.kanbanTitle}</span>
-                </span>
-                <span className="text-[9px] text-slate-400 font-mono shrink-0 ml-2">
-                  {config.mockup.kanbanSubtitle}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-1.5 text-left">
-                {config.mockup.columns.map((col, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-1.5 rounded-lg border space-y-1 ${
-                      col.isHighlighted
-                        ? "bg-slate-50/80 border-slate-200/70"
-                        : idx === 2
-                        ? "bg-emerald-50/40 border-emerald-200/60"
-                        : "bg-slate-50/80 border-slate-200/70"
-                    }`}
-                  >
-                    <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider flex justify-between items-center gap-0.5">
-                      <span className="truncate">{col.stageName}</span>
-                      <span className="font-mono shrink-0">{col.amount}</span>
-                    </div>
-                    <div
-                      className={`bg-white p-1.5 rounded-md border shadow-2xs space-y-1 ${
-                        col.isHighlighted
-                          ? "border-[#006fc9] ring-1 ring-[#006fc9]/20"
-                          : idx === 2
-                          ? "border-emerald-300"
-                          : "border-slate-200"
-                      }`}
-                    >
-                      <div className="text-[9px] font-bold text-slate-900 leading-tight truncate">
-                        {col.cardTitle}
-                      </div>
-                      <div className="text-[8px] text-slate-400 leading-tight truncate">
-                        {col.cardDesc}
-                      </div>
-                      <span
-                        className={`inline-block px-1.5 py-0.5 rounded text-[7.5px] font-extrabold leading-none ${col.cardTagStyle}`}
-                      >
-                        {col.cardTag}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 3. Automated Activity Feed with Interactive Sentinel */}
-            <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200/90 text-[10px] flex items-center justify-between gap-2 shadow-2xs">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="w-5 h-5 rounded-full bg-[#006fc9]/10 text-[#006fc9] flex items-center justify-center font-black text-[9px] shrink-0">
-                  AI
-                </span>
-                <span className="text-slate-700 font-medium text-[9.5px] truncate">
-                  {config.mockup.alertText}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={onApproveSentinel}
-                className={`px-2.5 py-1 rounded-full font-bold text-[8.5px] transition-all shrink-0 active:scale-95 cursor-pointer ${
-                  sentinelApproved
-                    ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                    : "bg-[#006fc9] hover:bg-[#005fae] text-white shadow-xs"
-                }`}
-              >
-                {sentinelApproved ? "✓ Dispatched" : config.mockup.alertAction}
-              </button>
-            </div>
-
-            {/* Bottom Sync Bar */}
-            <div className="flex items-center justify-between text-[9px] text-slate-400 pt-1 border-t border-slate-200/60 mt-auto">
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live data feed connected
-              </span>
-              <span className="font-semibold text-slate-500">{config.badge}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ========================================================================= */
 /* 4. "THE MOSSIE ERP EDGE": HIGHLIGHTED SUPERPOWERS (MAX 5)                 */
@@ -1524,9 +1214,6 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
   const config: ModulePageConfig =
     (data && data.heroHeadline ? data : MODULES_DATA[data?.slug]) || MODULES_DATA.crm;
 
-  // Interactive state for hero preview AI sentinel dispatch
-  const [sentinelApproved, setSentinelApproved] = useState<boolean>(false);
-
   return (
     <div className="erp-site min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-[#006fc9] selection:text-white">
       {/* Global Site Header */}
@@ -1534,88 +1221,9 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
 
       <main id="main-content">
         {/* ========================================================================= */}
-        {/* 1. HIGH-IMPACT COMPACT HERO WITH INTERACTIVE MOCKUP                      */}
+        {/* 1. INTERACTIVE MODULE HERO WITH 680x540 DIAGRAM & WORKFLOW SIMULATOR      */}
         {/* ========================================================================= */}
-        <section className="relative module-detail-section module-detail-hero bg-gradient-to-br from-[#F8FAFC] via-[#EDF5FF] to-[#E2EFFF] overflow-hidden border-b border-slate-200/70">
-          {/* Ambient Blur Lighting Accents */}
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/80 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 right-[5%] w-[450px] h-[450px] bg-gradient-to-br from-[#006fc9]/20 via-indigo-300/20 to-purple-300/10 rounded-full blur-3xl pointer-events-none pulse-glow" />
-
-          <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Breadcrumb + Verified Sync Badge */}
-            <div className="flex items-center gap-2 mb-4">
-              <Link
-                href="/modules"
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
-              >
-                Modules
-              </Link>
-              <span className="text-slate-400 text-xs">/</span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-extrabold shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-[#006fc9]" />
-                {config.badge}
-              </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
-                ✓ Verified Real-Time Sync
-              </span>
-            </div>
-
-            {/* Flex Hero Container (Left Copy + Right Mockup) */}
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
-              {/* Left Column: Headline, Value Proposition, & CTAs */}
-              <div className="w-full lg:flex-1 lg:max-w-[620px] space-y-6 text-left">
-                <h1 className="text-4xl sm:text-5xl lg:text-[44px] xl:text-5xl font-extrabold text-[#0F172A] tracking-[-0.03em] leading-[1.12] font-sans">
-                  {config.heroHeadline}{" "}
-                  <span className="text-[#006fc9]">{config.heroHighlight}</span>
-                </h1>
-
-                <p className="text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                  {config.heroDescription}
-                </p>
-
-                {/* Hero CTAs */}
-                <div className="flex flex-nowrap items-center gap-2 sm:gap-3 pt-2">
-                  <PopupCtaButton
-                    intent="trial"
-                    className="px-3.5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#006fc9] hover:bg-[#005fae] text-white font-extrabold text-[11.5px] sm:text-sm shadow-md shadow-[#006fc9]/25 transition-all inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 active:scale-95 cursor-pointer"
-                  >
-                    <span>Start 14-Day Free Sandbox</span>
-                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                  </PopupCtaButton>
-                  <a
-                    href="#features-matrix"
-                    className="px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-[11.5px] sm:text-sm transition-all shadow-2xs inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 cursor-pointer"
-                  >
-                    <span>Explore All {config.featuresCatalog.items.filter((item) => {
-                      const spTitles = new Set(
-                        config.edge.superpowers.flatMap((sp) => [
-                          sp.title.toLowerCase().trim(),
-                          sp.visual.title.toLowerCase().trim(),
-                          sp.id.toLowerCase().trim(),
-                        ])
-                      );
-                      return (
-                        !spTitles.has(item.title.toLowerCase().trim()) &&
-                        !spTitles.has(item.visual.title.toLowerCase().trim()) &&
-                        !spTitles.has(item.id.toLowerCase().trim())
-                      );
-                    }).length} Features</span>
-                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 rotate-90 shrink-0" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Right Column: Hero Mockup Window */}
-              <div className="w-full lg:flex-1 flex items-center justify-center lg:justify-end">
-                <ModuleHeroPreview
-                  config={config}
-                  sentinelApproved={sentinelApproved}
-                  onApproveSentinel={() => setSentinelApproved(true)}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <ModuleDetailHero config={config} />
 
         {/* ========================================================================= */}
         {/* 2. "THE MOSSIE ERP EDGE": HIGHLIGHTED SUPERPOWERS (MAX 5)                 */}
@@ -1643,37 +1251,14 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         </section>
 
         {/* ========================================================================= */}
-        {/* 6. REAL SWITCHER TESTIMONIAL & QUANTIFIABLE ROI PROOF                    */}
+        {/* 6. CLIENT REVIEWS SECTION (Matches showcase carousel banner design)      */}
         {/* ========================================================================= */}
-        <section className="module-detail-section bg-white border-b border-slate-200/80">
+        <section className="py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              {/* Left: Switcher Quote */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-extrabold border border-emerald-200">
-                  <span>{config.testimonialAndRoi.testimonial.badge}</span>
-                </div>
-
-                <blockquote className="text-base sm:text-xl text-slate-600 leading-snug tracking-tight">
-                  &ldquo;{config.testimonialAndRoi.testimonial.quote}&rdquo;
-                </blockquote>
-
-                <div className="flex items-center gap-3 pt-2">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#006fc9] to-[#005fae] text-white font-extrabold text-sm flex items-center justify-center shadow-sm">
-                    {config.testimonialAndRoi.testimonial.initials}
-                  </div>
-                  <div>
-                    <div className="text-sm font-extrabold text-slate-900">
-                      {config.testimonialAndRoi.testimonial.userName}
-                    </div>
-                    <div className="text-xs text-slate-500 font-medium">
-                      {config.testimonialAndRoi.testimonial.userRole},{" "}
-                      {config.testimonialAndRoi.testimonial.userCompany}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ModuleClientReviews
+              activeTestimonial={config.testimonialAndRoi.testimonial}
+              moduleName={config.moduleName}
+            />
           </div>
         </section>
 
@@ -1696,7 +1281,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
                   {config.cta.title.includes("Mossie ERP") ? (
                     <>
                       {config.cta.title.split("Mossie ERP")[0]}
-                      <em className="not-italic text-[#169C6C]">Mossie ERP</em>
+                      <em className="not-italic text-[#006fc9] ">Mossie ERP</em>
                       {config.cta.title.split("Mossie ERP").slice(1).join("Mossie ERP")}
                     </>
                   ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 interface WorkflowStage {
   step: number;

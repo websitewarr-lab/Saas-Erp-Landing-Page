@@ -371,18 +371,6 @@ export default function ProductShowcase() {
     SHOWCASE_TABS.find((t) => t.id === activeTabId) ?? SHOWCASE_TABS[0];
   const Icon = currentTab.icon;
 
-  const sidebarIcons = [
-    LayoutDashboard,
-    Target,
-    Boxes,
-    ShoppingCart,
-    TrendingUp,
-    Factory,
-    FolderKanban,
-    ReceiptText,
-    UsersRound,
-  ];
-
   const handleScroll = (direction: "left" | "right") => {
     if (tabListRef.current) {
       const scrollAmount = direction === "left" ? -150 : 150;
@@ -543,21 +531,43 @@ export default function ProductShowcase() {
 
               {/* Dashboard Body with Sidebar and Content */}
               <div className="dashboard-body">
-                <aside className="dashboard-sidebar hidden sm:flex" aria-label="Product navigation">
-                  <div className="sidebar-brand">
+                <aside className="dashboard-sidebar hidden sm:flex" aria-label="Product navigation" role="tablist">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTabId("dashboard")}
+                    className="sidebar-brand cursor-pointer p-0 bg-transparent border-0 flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+                    title="Dashboard Overview"
+                    aria-label="Switch to Dashboard"
+                  >
                     <LogoMarkCompact />
-                  </div>
-                  {sidebarIcons.map((SideIcon, idx) => (
-                    <span
-                      className={idx === currentTab.navIndex ? "sidebar-icon active" : "sidebar-icon"}
-                      key={idx}
-                    >
-                      <SideIcon />
-                    </span>
-                  ))}
-                  <span className="sidebar-icon sidebar-bottom">
+                  </button>
+                  {SHOWCASE_TABS.map((tab) => {
+                    const SideIcon = tab.icon;
+                    const isActive = tab.id === activeTabId;
+                    return (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setActiveTabId(tab.id)}
+                        className={isActive ? "sidebar-icon active" : "sidebar-icon"}
+                        title={tab.label}
+                        aria-label={`Switch to ${tab.label}`}
+                        aria-selected={isActive}
+                        role="tab"
+                      >
+                        <SideIcon />
+                      </button>
+                    );
+                  })}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTabId("dashboard")}
+                    className="sidebar-icon sidebar-bottom cursor-pointer border-0 bg-transparent"
+                    title="Dashboard Overview"
+                    aria-label="Dashboard Overview"
+                  >
                     <Settings2 />
-                  </span>
+                  </button>
                 </aside>
 
                 <div className="dashboard-content">

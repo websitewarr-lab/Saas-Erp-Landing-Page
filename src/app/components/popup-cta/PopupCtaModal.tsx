@@ -232,7 +232,7 @@ export default function PopupCtaModal({
           <div className={styles.storyTop}>
             <div className={styles.logo}>
               <Image
-                src="/images/logo/mossie-erp-brand.jpeg"
+                src="/images/logo/mossie-erp-brand.webp"
                 alt="Mossie ERP"
                 width={1254}
                 height={1254}

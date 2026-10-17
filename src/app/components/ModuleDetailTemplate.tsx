@@ -916,6 +916,7 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navRef = useRef<HTMLDivElement>(null);
   const mobileNavRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
   const headingId = `${config.slug}-all-features-heading`;
   const panelId = `${config.slug}-feature-panel`;
 
@@ -953,26 +954,40 @@ function AllFeatures({ config }: { config: ModulePageConfig }) {
   );
   const selected = filteredFeatures.find((f) => f.id === selectedId) ?? filteredFeatures[0];
 
-  // Auto-scroll active tab into view in vertical explorer and horizontal mobile pill bar
+  // Auto-scroll active tab into view in vertical explorer and horizontal mobile pill bar ONLY when user selects a tab
   useEffect(() => {
+    // Prevent scrolling on initial page mount so the user always lands on the top hero section
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     if (!selected) return;
+
+    // Scroll vertical list container ONLY without scrolling the entire window
     const activeTab = navRef.current?.querySelector<HTMLButtonElement>(
       `[id="${config.slug}-tab-${selected.id}"]`
     );
-    if (activeTab && navRef.current) {
-      const nav = navRef.current;
+    const nav = navRef.current;
+    if (activeTab && nav) {
       const tabTop = activeTab.offsetTop;
       const tabBottom = tabTop + activeTab.offsetHeight;
-      if (tabTop < nav.scrollTop || tabBottom > nav.scrollTop + nav.clientHeight) {
-        activeTab.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      if (tabTop < nav.scrollTop) {
+        nav.scrollTo({ top: tabTop, behavior: "smooth" });
+      } else if (tabBottom > nav.scrollTop + nav.clientHeight) {
+        nav.scrollTo({ top: tabBottom - nav.clientHeight, behavior: "smooth" });
       }
     }
 
+    // Scroll horizontal mobile pill container ONLY without scrolling the entire window
     const activeMobileTab = mobileNavRef.current?.querySelector<HTMLButtonElement>(
       `[id="${config.slug}-tab-mobile-${selected.id}"]`
     );
-    if (activeMobileTab) {
-      activeMobileTab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    const mobileNav = mobileNavRef.current;
+    if (activeMobileTab && mobileNav) {
+      const targetLeft =
+        activeMobileTab.offsetLeft - (mobileNav.clientWidth - activeMobileTab.clientWidth) / 2;
+      mobileNav.scrollTo({ left: targetLeft, behavior: "smooth" });
     }
   }, [selected, config.slug]);
 
@@ -1214,6 +1229,13 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
   const config: ModulePageConfig =
     (data && data.heroHeadline ? data : MODULES_DATA[data?.slug]) || MODULES_DATA.crm;
 
+  useEffect(() => {
+    // If not arriving with an anchor hash (like #features-matrix), ensure page lands on the hero section at top
+    if (typeof window !== "undefined" && !window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [config.slug]);
+
   return (
     <div className="erp-site min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-[#006fc9] selection:text-white">
       {/* Global Site Header */}
@@ -1327,10 +1349,11 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               {/* Right Column: High-Resolution Enhanced CTA Illustration */}
               <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
                 <Image
-                  src="/images/modules/cta_illustration.png"
+                  src="/images/modules/cta_illustration.webp"
                   alt="Fast-growing teams collaborating on Mossie ERP"
                   width={1009}
                   height={901}
+                  loading="lazy"
                   className="w-full max-w-[440px] lg:max-w-[520px] h-auto object-contain select-none"
                 />
               </div>

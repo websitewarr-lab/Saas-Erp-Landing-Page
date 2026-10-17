@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, type CSSProperties } from "react";
+import Image from "next/image";
 import {
   Search,
   Bell,
@@ -493,9 +494,12 @@ export default function HeroLaptopShowcase() {
                 {/* Left: Brand & Search */}
                 <div className="flex items-center gap-2.5 flex-1 pr-12">
                   <div className="flex items-center gap-1.5 font-bold tracking-tight text-white">
-                    <img
-                      src="/images/logo/mossierplogo"
+                    <Image
+                      src="/images/logo/mossierplogo.webp"
                       alt="Mossie ERP Logo"
+                      width={28}
+                      height={18}
+                      priority
                       className="h-4.5 w-auto object-contain"
                     />
                     <span className="text-[12px] font-extrabold tracking-wider text-slate-100">ERP</span>

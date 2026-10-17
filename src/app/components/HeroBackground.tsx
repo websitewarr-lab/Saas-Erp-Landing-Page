@@ -4,11 +4,11 @@ export default function HeroBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 select-none">
       <Image
-        src="/hero.png"
+        src="/hero.webp"
         alt=""
         fill
         priority
-        quality={90}
+        quality={85}
         sizes="100vw"
         className="object-cover object-top select-none pointer-events-none"
       />

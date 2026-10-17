@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BRAND_ICONS } from "./integrations-icons";
@@ -536,9 +537,12 @@ function MobileOrbitalSlider() {
           {/* Continuous soft breathing halo */}
           <div className="absolute inset-[-7px] rounded-full border border-[#006fc9]/25 animate-pulse" />
           <div className="w-full h-full rounded-full bg-white border border-[#006fc9]/40 shadow-[0_8px_26px_rgba(0,111,201,0.22),inset_0_2px_4px_white] flex flex-col items-center justify-center p-2">
-            <img
-              src="/images/logo/mossierplogo"
+            <Image
+              src="/images/logo/mossierplogo.webp"
               alt="Mossie ERP"
+              width={46}
+              height={31}
+              loading="lazy"
               className="w-[46px] h-auto object-contain"
             />
             <span className="text-[9.5px] font-extrabold text-[#006fc9] tracking-tight mt-0.5 leading-none">
@@ -1042,10 +1046,13 @@ export default function IntegrationsEcosystem() {
               <div className="hub-ring ring-close" />
               <div className="hub-wave" />
               <div className="hub-card">
-                <img
+                <Image
                   className="hub-logo"
-                  src="/images/logo/mossierplogo"
+                  src="/images/logo/mossierplogo.webp"
                   alt="Mossie ERP"
+                  width={46}
+                  height={31}
+                  loading="lazy"
                 />
               </div>
               <div className="hub-caption" aria-hidden="true">

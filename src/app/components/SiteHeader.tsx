@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { PopupCtaButton } from "./popup-cta";
 import {
@@ -47,9 +48,12 @@ export const headerIndustries = [
 export function LogoMark({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-2.5">
-      <img
-        src="/images/logo/mossierplogo"
+      <Image
+        src="/images/logo/mossierplogo.webp"
         alt="Mossie ERP Logo"
+        width={compact ? 42 : 54}
+        height={compact ? 28 : 36}
+        priority
         className={compact ? "h-7 w-auto object-contain" : "h-9 w-auto object-contain"}
       />
       <span className="font-black tracking-tight text-slate-900 text-xl leading-none">
@@ -89,7 +93,7 @@ export default function SiteHeader() {
               href="/modules"
               onClick={closeMenu}
               aria-haspopup="true"
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006fc9] rounded-md px-1"
+              className="inline-flex items-center gap-1.5 transition-colors cursor-pointer group-hover:text-[#006fc9]"
             >
               <span>Modules</span>
               <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform duration-200" />
@@ -149,7 +153,7 @@ export default function SiteHeader() {
               href="/#industries"
               onClick={closeMenu}
               aria-haspopup="true"
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer font-semibold text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006fc9] rounded-md px-1"
+              className="inline-flex items-center gap-1.5 transition-colors cursor-pointer group-hover:text-[#006fc9]"
             >
               <span>Industries</span>
               <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform duration-200" />

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail, ChevronRight } from "lucide-react";
 
@@ -33,9 +34,12 @@ export default function SiteFooter() {
           {/* Brand Column (Span 4) */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="inline-flex items-center gap-2.5 py-1" aria-label="Mossie ERP home">
-              <img
-                src="/images/logo/mossierplogo"
+              <Image
+                src="/images/logo/mossierplogo.webp"
                 alt="Mossie ERP Logo"
+                width={54}
+                height={36}
+                loading="lazy"
                 className="h-9 w-auto object-contain brightness-0 invert"
               />
               <span className="font-black tracking-tight text-white text-xl leading-none">

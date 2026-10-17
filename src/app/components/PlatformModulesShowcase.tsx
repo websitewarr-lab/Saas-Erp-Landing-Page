@@ -34,7 +34,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "SALES PIPELINE",
     description: "Turn leads into lasting customer relationships with automated scoring and pipeline visibility.",
     features: ["Lead scoring", "Pipelines", "360° accounts"],
-    image: "/images/modules/crm_sales.jpg",
+    image: "/images/modules/crm_sales.webp",
     icon: Target,
     link: "/modules/crm",
   },
@@ -44,7 +44,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "ORDER FULFILLMENT",
     description: "Multi-channel quotations, sales orders, pricing rules, and seamless dispatch invoicing.",
     features: ["Quotations", "Sales orders", "Fulfillment"],
-    image: "/images/modules/sales_orders.jpg",
+    image: "/images/modules/sales_orders.webp",
     icon: Target,
     link: "/modules/sales",
   },
@@ -54,7 +54,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PROCUREMENT & VENDORS",
     description: "Manage vendors, purchase requisitions, RFQs, purchase orders, and 3-way matching approvals.",
     features: ["Vendors & RFQs", "Purchase orders", "3-way matching"],
-    image: "/images/modules/purchase.jpg",
+    image: "/images/modules/purchase.webp",
     icon: ClipboardCheck,
     link: "/modules/purchase",
   },
@@ -64,7 +64,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "WAREHOUSE & ASSETS",
     description: "Track stock levels, multi-warehouse movements, batch serials, and inventory valuation.",
     features: ["Stock levels", "Multi-warehouse", "Batch & serials"],
-    image: "/images/modules/inventory.jpg",
+    image: "/images/modules/inventory.webp",
     icon: Boxes,
     link: "/modules/inventory",
   },
@@ -74,7 +74,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PRODUCTION & BOMS",
     description: "Plan production schedules, manage multi-level BOMs, work orders, and shop-floor MES operations.",
     features: ["BOM & Routings", "Work orders", "Shopfloor MES"],
-    image: "/images/modules/manufacturing.jpg",
+    image: "/images/modules/manufacturing.webp",
     icon: Settings2,
     link: "/modules/production",
   },
@@ -84,7 +84,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "FINANCIAL OPERATIONS",
     description: "General ledger, invoicing, multi-entity journals, tax compliance, and automated financial statements.",
     features: ["General ledger", "Invoices & taxes", "Financial reports"],
-    image: "/images/modules/finance.jpg",
+    image: "/images/modules/finance.webp",
     icon: CircleDollarSign,
     link: "/modules/accounting",
   },
@@ -94,7 +94,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PEOPLE OPERATIONS",
     description: "Employee records, attendance, leave, performance appraisals, and statutory Indian payroll in sync.",
     features: ["Attendance & leaves", "KRA & OKRs", "Statutory payroll"],
-    image: "/images/modules/hr_payroll.jpg",
+    image: "/images/modules/hr_payroll.webp",
     icon: UsersRound,
     link: "/modules/hrms",
   },
@@ -104,7 +104,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "COLLABORATION & TASKS",
     description: "Coordinate team projects, milestones, tasks, timesheets, and project profitability in one flow.",
     features: ["Milestones & tasks", "Timesheets", "Project costing"],
-    image: "/images/modules/projects.jpg",
+    image: "/images/modules/projects.webp",
     icon: KanbanSquare,
     link: "/modules/project",
   },
@@ -235,6 +235,8 @@ export default function PlatformModulesShowcase() {
                       <img
                         src={mod.image}
                         alt={mod.title}
+                        loading="lazy"
+                        decoding="async"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
                       />
 
@@ -379,6 +381,8 @@ export default function PlatformModulesShowcase() {
                       <img
                         src={mod.image}
                         alt={mod.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

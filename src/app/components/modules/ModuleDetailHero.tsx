@@ -13,7 +13,6 @@ import {
   Users,
   Kanban,
   Receipt,
-  RotateCw,
 } from "lucide-react";
 import { PopupCtaButton } from "../popup-cta";
 import type { ModulePageConfig } from "./moduleData";

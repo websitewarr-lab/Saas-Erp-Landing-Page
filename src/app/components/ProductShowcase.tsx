@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -355,9 +356,12 @@ const SHOWCASE_TABS: ShowcaseTabItem[] = [
 
 function LogoMarkCompact() {
   return (
-    <img
-      src="/images/logo/mossierplogo"
+    <Image
+      src="/images/logo/mossierplogo.webp"
       alt="Mossie ERP Logo"
+      width={36}
+      height={24}
+      loading="lazy"
       className="h-6 w-auto object-contain"
     />
   );

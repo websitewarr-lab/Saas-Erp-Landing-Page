@@ -24,7 +24,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Litton Industries / Northrop Grumman Corp.",
     quote:
       "I have known and worked closely with Rick and Liza Looser, and the fine folks at The Agency, for almost two decades and feel fully confident in expressing my endorsement. There is not a finer, more dedicated group of people offering marketing communications and public affairs capabilities and services. I first met Rick and Liza when I managed earned and paid media relations for Litton Industries, now Northrop Grumman Corporation.",
-    image: "/images/testimonials/nina_perry.jpg",
+    image: "/images/testimonials/nina_perry.webp",
     badge: "✓ VERIFIED STRATEGIC PARTNER",
   },
   {
@@ -34,7 +34,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Zenith Industrial Systems (Turnover ₹120 Cr)",
     quote:
       "We spent 9 painful months struggling with our previous enterprise ERP's clunky UI and endless consultant bills. Moving to Mossie ERP took less than 3 weeks. Our sales and operations teams actually log their daily transactions now, and the automated stock check on quotation creation saved us from two major fulfillment disasters last quarter.",
-    image: "/images/testimonials/vikramaditya_roy.jpg",
+    image: "/images/testimonials/vikramaditya_roy.webp",
     badge: "✓ VERIFIED SWITCHER FROM LEGACY ENTERPRISE ERP",
   },
   {
@@ -44,7 +44,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Kaveri Precision Components (Turnover ₹140 Cr)",
     quote:
       "Month-end close used to take our finance team 18 sleepless days. With Mossie ERP's auto-posting event bus and live bank reconciliation feeds, our books close on the 2nd of every month. Our statutory auditor praised the clean audit trail and automated tax ledger accuracy.",
-    image: "/images/testimonials/radhika_mehra.jpg",
+    image: "/images/testimonials/radhika_mehra.webp",
     badge: "✓ VERIFIED SWITCHER FROM DESKTOP SPREADSHEETS",
   },
   {
@@ -54,7 +54,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Orbital Precision Technologies (Turnover ₹145 Cr)",
     quote:
       "Before Mossie ERP, our planners spent all day building disconnected spreadsheets while operators filled out paper job travelers that were entered 2 days late. Mossie ERP's finite-capacity scheduling and tablet MES consoles gave us real-time OEE visibility and eliminated line starvation completely. Our plant throughput jumped 31% in our first quarter.",
-    image: "/images/testimonials/devendra_patil.jpg",
+    image: "/images/testimonials/devendra_patil.webp",
     badge: "✓ VERIFIED SWITCHER FROM LEGACY MANUFACTURING ERP",
   },
   {
@@ -64,7 +64,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Prism Polymers & Packaging (Turnover ₹85 Cr)",
     quote:
       "Before Mossie ERP, our sales reps had to call the warehouse five times a day to confirm whether stock was actually available. Now the second an order is approved, stock is locked and E-Way bills are ready before the truck arrives.",
-    image: "/images/testimonials/suresh_kulkarni.jpg",
+    image: "/images/testimonials/suresh_kulkarni.webp",
     badge: "✓ VERIFIED SWITCHER FROM DESKTOP TOOLS & SPREADSHEETS",
   },
   {
@@ -74,7 +74,7 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Matrix Automotive Components (Turnover ₹72 Cr)",
     quote:
       "Running payroll for 380 factory and sales staff used to take my HR executive 6 full days every month. With Mossie ERP, biometric data syncs automatically, statutory ECRs are ready instantly, and payroll is disbursed in 10 minutes flat.",
-    image: "/images/testimonials/ananya_deshmukh.jpg",
+    image: "/images/testimonials/ananya_deshmukh.webp",
     badge: "✓ VERIFIED SWITCHER FROM MANUAL PAYROLL",
   },
   {
@@ -84,22 +84,22 @@ const DEFAULT_REVIEWS: ClientReviewItem[] = [
     company: "Apex Infrastructure Solutions (Turnover ₹115 Cr)",
     quote:
       "With standalone task apps, we knew who was doing what task, but had no idea if our EPC projects were making or losing money until the final audit. Mossie ERP's real-time budget burn and 1-click milestone invoicing improved our cash flow by ₹65L.",
-    image: "/images/testimonials/venkatesh_raman.jpg",
+    image: "/images/testimonials/venkatesh_raman.webp",
     badge: "✓ VERIFIED SWITCHER FROM STANDALONE TASK APPS",
   },
 ];
 
 function getMatchingImage(name: string): string {
   const lower = name.toLowerCase();
-  if (lower.includes("vikramaditya")) return "/images/testimonials/vikramaditya_roy.jpg";
-  if (lower.includes("radhika")) return "/images/testimonials/radhika_mehra.jpg";
-  if (lower.includes("devendra")) return "/images/testimonials/devendra_patil.jpg";
-  if (lower.includes("suresh")) return "/images/testimonials/suresh_kulkarni.jpg";
-  if (lower.includes("ananya")) return "/images/testimonials/ananya_deshmukh.jpg";
-  if (lower.includes("venkatesh")) return "/images/testimonials/venkatesh_raman.jpg";
-  if (lower.includes("gautam")) return "/images/testimonials/devendra_patil.jpg";
-  if (lower.includes("manish")) return "/images/testimonials/suresh_kulkarni.jpg";
-  return "/images/testimonials/nina_perry.jpg";
+  if (lower.includes("vikramaditya")) return "/images/testimonials/vikramaditya_roy.webp";
+  if (lower.includes("radhika")) return "/images/testimonials/radhika_mehra.webp";
+  if (lower.includes("devendra")) return "/images/testimonials/devendra_patil.webp";
+  if (lower.includes("suresh")) return "/images/testimonials/suresh_kulkarni.webp";
+  if (lower.includes("ananya")) return "/images/testimonials/ananya_deshmukh.webp";
+  if (lower.includes("venkatesh")) return "/images/testimonials/venkatesh_raman.webp";
+  if (lower.includes("gautam")) return "/images/testimonials/devendra_patil.webp";
+  if (lower.includes("manish")) return "/images/testimonials/suresh_kulkarni.webp";
+  return "/images/testimonials/nina_perry.webp";
 }
 
 interface ModuleClientReviewsProps {
@@ -217,7 +217,7 @@ export default function ModuleClientReviews({
                   fill
                   sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 240px"
                   className="object-cover"
-                  priority
+                  loading="lazy"
                 />
               </div>
             </div>

@@ -6,7 +6,7 @@ import PlatformModulesShowcase from "./components/PlatformModulesShowcase";
 import ProductShowcase from "./components/ProductShowcase";
 import IndustrySolutions from "./components/IndustrySolutions";
 import ConnectedWorkflow from "./components/ConnectedWorkflow";
-import IntegrationsEcosystem from "./components/IntegrationsEcosystem";
+// import IntegrationsEcosystem from "./components/IntegrationsEcosystem";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import { PopupCtaButton } from "./components/popup-cta";
@@ -153,7 +153,7 @@ export default function HomePage() {
         <ConnectedWorkflow />
 
         {/* Built-in Ecosystem & Live Integration Circuit Matrix */}
-        <IntegrationsEcosystem />
+        {/* <IntegrationsEcosystem /> */}
 
        
 

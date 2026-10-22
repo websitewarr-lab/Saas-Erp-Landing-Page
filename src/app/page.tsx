@@ -1,14 +1,21 @@
 "use client";
 import { useState, type ComponentType } from "react";
+import dynamic from "next/dynamic";
 import HeroLaptopShowcase from "./components/HeroLaptopShowcase";
 import HeroBackground from "./components/HeroBackground";
 import PlatformModulesShowcase from "./components/PlatformModulesShowcase";
-import ProductShowcase from "./components/ProductShowcase";
-import IndustrySolutions from "./components/IndustrySolutions";
-import ConnectedWorkflow from "./components/ConnectedWorkflow";
-// import IntegrationsEcosystem from "./components/IntegrationsEcosystem";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+
+const ProductShowcase = dynamic(() => import("./components/ProductShowcase"), {
+  ssr: true,
+});
+const ConnectedWorkflow = dynamic(() => import("./components/ConnectedWorkflow"), {
+  ssr: true,
+});
+const IndustrySolutions = dynamic(() => import("./components/IndustrySolutions"), {
+  ssr: true,
+});
 import { PopupCtaButton } from "./components/popup-cta";
 import {
   ArrowRight,

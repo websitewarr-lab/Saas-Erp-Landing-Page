@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ModulePageConfig, ComparisonRow } from "./modules/moduleData";
@@ -388,9 +389,13 @@ export function ModuleComparisonSection({ config }: ModuleComparisonSectionProps
             <div className="flex items-center justify-between gap-2 max-w-[390px] mx-auto mb-3 px-1">
               <div className="min-w-0">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#f0f7ff] border border-[#bfdbfe] text-[#006fc9] text-[11px] font-bold">
-                  <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 48 48" aria-hidden="true">
-                    <use href="#crown" />
-                  </svg>
+                  <Image
+                    src="/images/logo/mossierplogo.webp"
+                    alt="Mossie ERP Logo"
+                    width={18}
+                    height={12}
+                    className="h-3.5 w-auto object-contain shrink-0"
+                  />
                   <span>Mossie ERP vs Alternatives</span>
                 </div>
               </div>
@@ -515,10 +520,14 @@ export function ModuleComparisonSection({ config }: ModuleComparisonSectionProps
                               </svg>
                             </span>
                             <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1 text-[9.5px] font-extrabold uppercase tracking-wider text-[#006fc9]">
-                                <svg className="w-3 h-3 shrink-0" viewBox="0 0 48 48" aria-hidden="true">
-                                  <use href="#crown" />
-                                </svg>
+                              <div className="flex items-center gap-1.5 text-[9.5px] font-extrabold uppercase tracking-wider text-[#006fc9]">
+                                <Image
+                                  src="/images/logo/mossierplogo.webp"
+                                  alt="Mossie ERP Logo"
+                                  width={16}
+                                  height={11}
+                                  className="h-3 w-auto object-contain shrink-0"
+                                />
                                 <span>Mossie ERP</span>
                               </div>
                               <div className="text-[13px] font-bold text-slate-900 leading-snug">
@@ -617,9 +626,13 @@ export function ModuleComparisonSection({ config }: ModuleComparisonSectionProps
                       Key Capability
                     </th>
                     <th className="comparison-th vendor-heading mossie-heading" scope="col" role="columnheader">
-                      <svg className="vendor-icon" aria-hidden="true">
-                        <use href="#crown" />
-                      </svg>
+                      <Image
+                        src="/images/logo/mossierplogo.webp"
+                        alt="Mossie ERP Logo"
+                        width={48}
+                        height={32}
+                        className="h-8 w-auto object-contain shrink-0"
+                      />
                       <span className="brand-name">Mossie ERP</span>
                     </th>
                     <th className="comparison-th vendor-heading standalone-heading" scope="col" role="columnheader">

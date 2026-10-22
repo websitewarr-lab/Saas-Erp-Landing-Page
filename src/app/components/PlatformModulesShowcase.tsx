@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   CircleDollarSign,
@@ -231,13 +232,13 @@ export default function PlatformModulesShowcase() {
                     
                     {/* FRONT SIDE */}
                     <div className="absolute inset-0 w-full h-full rounded-[22px] overflow-hidden border border-slate-200/80 shadow-md flex flex-col justify-between [backface-visibility:hidden] bg-slate-900">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={mod.image}
                         alt={mod.title}
+                        fill
+                        sizes="(max-width: 1024px) 340px, 360px"
                         loading="lazy"
-                        decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
                       />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#06080E] via-[#06080E]/60 to-black/35" />
@@ -315,7 +316,7 @@ export default function PlatformModulesShowcase() {
           <div className="flex items-center justify-between text-xs text-slate-500 pt-6 border-t border-slate-100 mt-4">
             <Link
               href="/#showcase"
-              className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+              className="inline-flex items-center gap-1 text-[#006fc9] hover:text-[#005fb0] font-semibold transition-colors"
             >
               Explore all 8 modules <ChevronRight className="w-3.5 h-3.5" />
             </Link>
@@ -377,13 +378,13 @@ export default function PlatformModulesShowcase() {
                   <div>
                     {/* Top Preview Image */}
                     <div className="relative h-40 w-full rounded-[18px] overflow-hidden mb-3.5 border border-slate-100 shadow-xs bg-slate-900">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={mod.image}
                         alt={mod.title}
+                        fill
+                        sizes="(max-width: 640px) 310px, 340px"
                         loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover"
+                        className="object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       <div className="absolute bottom-3 left-3 w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white">
@@ -392,7 +393,7 @@ export default function PlatformModulesShowcase() {
                     </div>
 
                     {/* Category Watermark Tag */}
-                    <span className="text-[10px] font-extrabold tracking-widest text-blue-600 uppercase block mb-1">
+                    <span className="text-[10px] font-extrabold tracking-widest text-[#006fc9] uppercase block mb-1">
                       {mod.watermark}
                     </span>
 

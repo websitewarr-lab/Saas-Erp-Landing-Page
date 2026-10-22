@@ -8,7 +8,7 @@ export default function HeroBackground() {
         alt=""
         fill
         priority
-        quality={85}
+        quality={75}
         sizes="100vw"
         className="object-cover object-top select-none pointer-events-none"
       />

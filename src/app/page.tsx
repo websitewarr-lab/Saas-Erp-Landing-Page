@@ -168,7 +168,7 @@ export default function HomePage() {
         <IndustrySolutions />
 
 
-        <section className="py-[20px] bg-white relative overflow-hidden" id="faq">
+        <section className="py-[40px] bg-white relative overflow-hidden" id="faq">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
             {/* Centered Headline matching reference layout */}
             <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">

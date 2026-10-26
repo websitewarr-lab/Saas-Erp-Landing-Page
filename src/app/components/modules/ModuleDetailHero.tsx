@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -319,40 +319,19 @@ export default function ModuleDetailHero({ config }: { config: ModulePageConfig 
   const imageMeta = MODULE_PREVIEW_IMAGES[slug];
 
   const [isApproved, setIsApproved] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const featureCount = config?.featuresCatalog?.items?.length || 6;
 
-  const showToast = (message: string) => {
-    setToastMessage(message);
-    if (toastTimeoutRef.current) {
-      clearTimeout(toastTimeoutRef.current);
-    }
-    toastTimeoutRef.current = setTimeout(() => {
-      setToastMessage(null);
-    }, 4200);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (toastTimeoutRef.current) {
-        clearTimeout(toastTimeoutRef.current);
-      }
-    };
-  }, []);
-
   const handleApprove = () => {
-    setIsApproved(true);
-    showToast(heroData.leftCard.approvedMessage);
+    setIsApproved((prev) => !prev);
   };
 
   const handleReview = () => {
-    showToast(heroData.leftCard.reviewMessage);
+    setIsApproved(false);
   };
 
   return (
-    <section className="relative z-20 overflow-hidden bg-gradient-to-b from-[#ffffff] via-[#f4f9ff] to-[#eaf3ff] border-b border-slate-200/70 pt-8 sm:pt-12 lg:pt-14 pb-14 sm:pb-20 lg:pb-24">
+    <section className="module-detail-hero relative z-20 overflow-hidden bg-gradient-to-b from-[#ffffff] via-[#f4f9ff] to-[#eaf3ff] border-b border-slate-200/70 pt-8 sm:pt-12 lg:pt-14 pb-[40px]">
       {/* Background Centered Dot Matrix Overlay */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-70"
@@ -541,14 +520,6 @@ export default function ModuleDetailHero({ config }: { config: ModulePageConfig 
           </div>
         </div>
       </div>
-
-      {/* Floating Notification Toast */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 max-w-sm sm:max-w-md bg-slate-900/95 backdrop-blur-md text-white text-[12.5px] px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700 animate-in fade-in slide-in-from-bottom-3 duration-300">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span className="leading-snug">{toastMessage}</span>
-        </div>
-      )}
     </section>
   );
 }

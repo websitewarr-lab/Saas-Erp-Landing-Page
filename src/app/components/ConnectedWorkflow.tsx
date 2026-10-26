@@ -524,7 +524,7 @@ export default function ConnectedWorkflow() {
   }, []);
 
   return (
-    <section className="relative py-[20px] bg-white overflow-hidden flex flex-col items-center" id="flow">
+    <section className="relative py-[40px] bg-white overflow-hidden flex flex-col items-center" id="flow">
       <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Connected Business Flow Showcase Card */}
         <div className="w-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(15,23,42,0.04)] pt-6 sm:pt-8 pb-5 sm:pb-6 px-4 sm:px-6">

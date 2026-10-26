@@ -256,7 +256,7 @@ export default function ModulesDirectoryShowcase() {
       {/* ======================================================================= */}
       {/* SECTION 1: HERO SECTION WITH INTERACTIVE 8-NODE ORBIT GRAPHIC          */}
       {/* ======================================================================= */}
-      <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-12 sm:pt-16 pb-[40px] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           {/* Left Column: Heading, Value Copy & Interactive Status Pill */}
@@ -492,7 +492,7 @@ export default function ModulesDirectoryShowcase() {
       {/* ======================================================================= */}
       {/* SECTION 2: 8 ENTERPRISE MODULES GRID                                    */}
       {/* ======================================================================= */}
-      <section id="modules-grid" className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="modules-grid" className="py-[40px] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
           
           <h2 className="font-sans font-extrabold text-[28px] sm:text-[36px] text-[#0F172A] tracking-[-0.025em] leading-[1.2]">
@@ -574,7 +574,7 @@ export default function ModulesDirectoryShowcase() {
       {/* ======================================================================= */}
       {/* SECTION 5: HIGH-IMPACT ENTERPRISE CTA BANNER                            */}
       {/* ======================================================================= */}
-      <section id="cta" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <section id="cta" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-[40px]">
         <div className="rounded-3xl p-8 sm:p-12 text-white shadow-2xl shadow-[#006fc9]/25 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative overflow-hidden bg-gradient-to-r from-[#004e8f] via-[#006fc9] to-[#3b9fe5]">
           {/* Ambient Lighting Gradients */}
           <div className="absolute -right-12 -top-24 w-96 h-96 rounded-full bg-white/10 blur-2xl pointer-events-none" />

@@ -207,9 +207,36 @@ export default function SiteHeader() {
             </div>
           </div>
 
-          <Link href="/#features" onClick={closeMenu}>
-            Features
-          </Link>
+          {/* AI Features Button with Hover Gradient Edge Light Animation (No Bottom Line Animation) */}
+          <div className="flex items-center">
+            <Link
+              href="/#features"
+              onClick={closeMenu}
+              style={{ padding: "2px", background: "transparent", border: "none" }}
+              className="group relative inline-flex items-center justify-center rounded-full overflow-hidden shadow-[0_4px_14px_rgba(33,142,242,0.28)] hover:shadow-[0_6px_22px_rgba(56,189,248,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 no-underline after:!hidden before:!hidden after:!content-none before:!content-none after:!w-0 after:!h-0"
+            >
+              {/* Animated Gradient Edge Light (runs on hover) */}
+              <span
+                aria-hidden="true"
+                style={{ animationDuration: "2s" }}
+                className="pointer-events-none absolute inset-[-180%] bg-[conic-gradient(from_0deg,transparent_0deg,#38bdf8_45deg,#ffffff_85deg,#60a5fa_120deg,transparent_180deg,#38bdf8_225deg,#ffffff_265deg,#60a5fa_300deg,transparent_360deg)] opacity-0 group-hover:opacity-100 animate-spin transition-opacity duration-300"
+              />
+
+              {/* Lighter, Brighter Blue Inner Pill */}
+              <span className="relative z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-b from-[#52b9ff] via-[#218ef2] to-[#1179d8] group-hover:from-[#62c0ff] group-hover:via-[#2c97f7] group-hover:to-[#1681e2] !text-white font-semibold text-[13.5px] leading-none tracking-tight shadow-[inset_0_1.5px_2px_rgba(255,255,255,0.55)] transition-colors duration-200">
+                <svg
+                  className="w-4 h-4 shrink-0 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.12)] group-hover:scale-110 group-hover:rotate-6 transition-transform duration-200"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M7.5 2.5C7.9 5.3 9.2 6.6 12 7C9.2 7.4 7.9 8.7 7.5 11.5C7.1 8.7 5.8 7.4 3 7C5.8 6.6 7.1 5.3 7.5 2.5Z" />
+                  <path d="M15.5 8.5C16.1 12.5 18 14.4 22 15C18 15.6 16.1 17.5 15.5 21.5C14.9 17.5 13 15.6 9 15C13 14.4 14.9 12.5 15.5 8.5Z" />
+                </svg>
+                <span className="!text-white">AI Features</span>
+              </span>
+            </Link>
+          </div>
         </nav>
         <div className="nav-actions">
           <PopupCtaButton className="button button-primary button-small" onClick={closeMenu}>

@@ -363,13 +363,13 @@ body.modal-locked {
   overflow: hidden;
   margin-top: -64px;
   padding-top: 84px;
-  padding-bottom: 24px;
+  padding-bottom: 40px;
   background: #F8FAFC;
 }
 
 @media (min-width: 960px) {
   .hero-zoho-section {
-    margin-top: -72px;
+    margin-top: -2px;
     padding-top: 92px;
   }
 }
@@ -927,7 +927,7 @@ body.modal-locked {
 }
 
 .section {
-  padding: 20px 0;
+  padding: 40px 0;
 }
 
 .section-intro {
@@ -1170,7 +1170,7 @@ body.modal-locked {
   background-color: #F8FAFC;
   border-top: 1px solid #E2E8F0;
   border-bottom: 1px solid #E2E8F0;
-  padding: 20px 0;
+  padding: 40px 0;
   overflow: hidden;
 }
 
@@ -1538,8 +1538,8 @@ body.modal-locked {
 }
 
 .final-cta-section {
-  padding-top: 15px;
-  padding-bottom: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   background: var(--surface-raised);
 }
 
@@ -1762,7 +1762,7 @@ body.modal-locked {
   }
 
   .section {
-    padding: 15px 0;
+    padding: 40px 0;
   }
 
   .section-heading-row {
@@ -1836,8 +1836,8 @@ body.modal-locked {
   }
 
   .final-cta-section {
-    padding-top: 0;
-    padding-bottom: 75px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .final-cta {
@@ -1939,55 +1939,51 @@ body.modal-locked {
 
 /* ========================================================================= */
 /* MODULE DETAILS PAGE - GLOBAL SECTION SPACING CONFIGURATION                */
-/* Total vertical space between any 2 sections = 30px max (15px pb + 15px pt) */
-/* Total vertical space between any 2 sections = 40px max (20px pb + 20px pt) */
+/* Total vertical space between any 2 sections = 80px combined (40px pb + 40px pt) */
 /* Modify --module-section-py to change spacing across all module detail pages */
 /* ========================================================================= */
 :root {
-  --module-section-py: 15px;
-  /* 15px top + 15px bottom = 30px max gap between 2 sections */
-  --module-section-py: 20px;
-  /* 20px top + 20px bottom = 40px max gap between 2 sections */
+  --module-section-py: 40px;
+  /* 40px top + 40px bottom = 80px combined gap between 2 sections */
   --module-section-pt: var(--module-section-py);
   --module-section-pb: var(--module-section-py);
-  --module-section-header-mb: 20px;
+  --module-section-header-mb: 24px;
 }
 
 .module-detail-section,
 #edge-section,
 #features-matrix,
 #comparison-section,
-#workflow-section {
+#workflow-section,
+#reviews-section,
+#contact {
   padding-top: var(--module-section-pt) !important;
   padding-bottom: var(--module-section-pb) !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
-/* Highlighted features (#edge-section) and All features (#features-matrix) sections: increased size by 15px */
 #edge-section,
 #features-matrix,
 .mf-highlights,
 .mf-catalog {
-  padding-top: 35px !important;
-  padding-bottom: 35px !important;
-  padding-block: 35px !important;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+  padding-block: 40px !important;
 }
 
 .module-section-header {
   margin-bottom: var(--module-section-header-mb) !important;
 }
 
-/* Hero section on module detail pages: increased height by at least 10px */
+/* Hero section on module detail pages: 40px bottom padding to match 80px combined gap */
 .module-detail-hero {
-  padding-top: 25px !important;
-  padding-bottom: 25px !important;
+  padding-bottom: 40px !important;
 }
 
 @media (min-width: 768px) {
   .module-detail-hero {
-    padding-top: 28px !important;
-    padding-bottom: 24px !important;
+    padding-bottom: 40px !important;
   }
 }
 
@@ -3319,7 +3315,7 @@ body.modal-locked {
 
 /* --- 2. The Mossie ERP Edge (Superpowers Grid) --- */
 .mf-highlights {
-  padding-block: 35px;
+  padding-block: 40px;
   background: radial-gradient(ellipse at 50% 100%, var(--feature-soft), transparent 70%), var(--card);
 }
 
@@ -3440,7 +3436,7 @@ body.modal-locked {
 
 /* --- 3. All Features Matrix (Searchable & Tabbed Explorer) --- */
 .mf-catalog {
-  padding-block: 35px;
+  padding-block: 40px;
   background: radial-gradient(ellipse at 90% 60%, color-mix(in oklch, var(--soft-blue) 75%, var(--card)), transparent 55%), linear-gradient(115deg, var(--card), var(--feature-soft));
   overflow: clip;
 }
@@ -5088,9 +5084,9 @@ body.modal-locked {
   .mf-catalog,
   #edge-section,
   #features-matrix {
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    padding-block: 30px !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    padding-block: 40px !important;
   }
 
   .mf-cards:has(> :nth-child(5)) {
@@ -5436,14 +5432,14 @@ body.modal-locked {
   background:
     radial-gradient(ellipse at 50% 44%, rgba(0, 111, 201, 0.03), transparent 72%),
     #f8fafc;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
 #features-matrix {
-  padding-bottom: 20px !important;
+  padding-bottom: 40px !important;
   margin-bottom: 0 !important;
 }
 

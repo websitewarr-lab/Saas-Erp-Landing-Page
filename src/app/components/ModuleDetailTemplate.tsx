@@ -1275,7 +1275,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         {/* ========================================================================= */}
         {/* 6. CLIENT REVIEWS SECTION (Matches showcase carousel banner design)      */}
         {/* ========================================================================= */}
-        <section className="py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+        <section id="reviews-section" className="module-detail-section py-[40px] bg-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ModuleClientReviews
               activeTestimonial={config.testimonialAndRoi.testimonial}
@@ -1289,7 +1289,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
         {/* ========================================================================= */}
         <section
           id="contact"
-          className="module-detail-section !py-10 sm:!py-14 lg:!py-16 bg-gradient-to-br from-[#F3F8FD] via-[#EEF5FC] to-[#E8F1FB] text-[#0B172A] relative overflow-hidden border-t border-slate-200/70"
+          className="module-detail-section py-[40px] bg-gradient-to-br from-[#F3F8FD] via-[#EEF5FC] to-[#E8F1FB] text-[#0B172A] relative overflow-hidden border-t border-slate-200/70"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">

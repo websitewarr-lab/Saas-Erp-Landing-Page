@@ -51,7 +51,7 @@ export default function SiteFooter() {
             </p>
             <div className="flex items-center gap-5 text-white pt-2">
               {/* LinkedIn */}
-              <a
+              {/* <a
                 href="https://www.linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -61,9 +61,9 @@ export default function SiteFooter() {
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                 </svg>
-              </a>
+              </a> */}
               {/* Facebook */}
-              <a
+              {/* <a
                 href="https://www.facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -73,7 +73,7 @@ export default function SiteFooter() {
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.704 0-1.233.125-1.57.373-.34.249-.51.696-.51 1.341v2.266h4.295l-.657 3.667h-3.638v7.98H9.101Z" />
                 </svg>
-              </a>
+              </a> */}
               {/* Instagram */}
               <a
                 href="https://www.instagram.com"

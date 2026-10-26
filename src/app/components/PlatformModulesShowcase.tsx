@@ -170,7 +170,7 @@ export default function PlatformModulesShowcase() {
   };
 
   return (
-    <section className="relative py-[20px] bg-white overflow-hidden" id="modules">
+    <section className="relative py-[40px] bg-white overflow-hidden" id="modules">
       {/* Ambient Backlight */}
       <div 
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[300px] pointer-events-none blur-[140px] opacity-40 bg-gradient-to-b from-blue-100 to-indigo-100"
@@ -313,14 +313,7 @@ export default function PlatformModulesShowcase() {
             })}
           </div>
 
-          <div className="flex items-center justify-between text-xs text-slate-500 pt-6 border-t border-slate-100 mt-4">
-            <Link
-              href="/#showcase"
-              className="inline-flex items-center gap-1 text-[#006fc9] hover:text-[#005fb0] font-semibold transition-colors"
-            >
-              Explore all 8 modules <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+          
         </div>
 
         {/* ======================================================== */}

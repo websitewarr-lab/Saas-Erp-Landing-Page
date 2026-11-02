@@ -37,7 +37,6 @@ This repository contains the marketing, landing page, and product module showcas
 │       │   ├── SiteHeader.tsx             # Main navigation bar & mobile menu
 │       │   ├── SiteFooter.tsx             # Site footer with module/legal links
 │       │   ├── HeroLaptopShowcase.tsx     # Hero interactive laptop / ERP mockup
-│       │   ├── HeroBackground.tsx         # Ambient visual background / gradients
 │       │   ├── PlatformModulesShowcase.tsx# ERP module tabbed switcher
 │       │   ├── ConnectedWorkflow.tsx      # Cross-module workflow visualization
 │       │   ├── IntegrationsEcosystem.tsx  # Third-party integrations grid

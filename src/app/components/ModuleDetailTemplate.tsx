@@ -1349,7 +1349,7 @@ export default function ModuleDetailTemplate({ data }: { data: ModulePageConfig 
               {/* Right Column: High-Resolution Enhanced CTA Illustration */}
               <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
                 <Image
-                  src="/images/modules/cta_illustration.webp"
+                  src="/images/our-servicesimg/cta_illustration.webp"
                   alt="Fast-growing teams collaborating on Mossie ERP"
                   width={1009}
                   height={901}

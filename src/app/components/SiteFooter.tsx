@@ -18,6 +18,7 @@ export default function SiteFooter() {
   ];
 
   const companyLinks = [
+    { label: "AI Features & Copilot", href: "/ai-features" },
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms & Conditions", href: "/terms-and-conditions" },
     { label: "Cancellation Policy", href: "/cancellation-policy" },

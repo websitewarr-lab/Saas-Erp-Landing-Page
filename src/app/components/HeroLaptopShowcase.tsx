@@ -28,6 +28,57 @@ const SLEEK_KEY_ROWS: { y: number; h: number; keys: KeySpec[] }[] = [
   { y: 20.8, h: 3.3, keys: [{ w: 1.15 }, { w: 1.15 }, { w: 1.25 }, { w: 1.45 }, { w: 6.8 }, { w: 1.45 }, { w: 1.25 }, { w: 2.0 }] },
 ];
 
+export const HERO_CARDS_DATA = {
+  leadPipeline: {
+    title: "Lead Pipeline",
+    stages: [
+      { label: "New Leads", value: "1,540", count: 1540, gradient: ["#005ce6", "#1479ff"], dotColor: "#0d6efd" },
+      { label: "Qualified", value: "892", count: 892, gradient: ["#0b84f3", "#229dff"], dotColor: "#0d74e7" },
+      { label: "Proposal", value: "420", count: 420, gradient: ["#29b0fc", "#4bc3ff"], dotColor: "#2aa8f5" },
+      { label: "Negotiation", value: "210", count: 210, gradient: ["#42d4ee", "#60e3f7"], dotColor: "#3fd0eb" },
+      { label: "Won", value: "145", count: 145, gradient: ["#45e3bd", "#5ef2cd"], dotColor: "#20c997" }
+    ]
+  },
+  salesConversion: {
+    title: "Sales Conversion",
+    totalValue: "1,248",
+    unit: "Leads",
+    badge: { change: "12.4% ↑", label: "Year on year" },
+    yAxisTicks: [1250, 1000, 750, 500, 250, 0],
+    series: [
+      { month: "Jan", value: 250 },
+      { month: "Feb", value: 460 },
+      { month: "Mar", value: 660 },
+      { month: "Apr", value: 575 },
+      { month: "May", value: 920 },
+      { month: "Jun", value: 1230 }
+    ]
+  },
+  inventoryAdjustments: {
+    title: "Inventory Adjustment Reasons",
+    reasons: [
+      { label: "Expired Goods", percentage: "25.5%", barWidth: "31%", color: "#0070f3" },
+      { label: "Stock Variance", percentage: "19.4%", barWidth: "26%", color: "#00b4f5" },
+      { label: "Internal Usage", percentage: "15.2%", barWidth: "19.5%", color: "#6c47ff" },
+      { label: "Revaluation", percentage: "14.5%", barWidth: "18.5%", color: "#00a878" }
+    ],
+    footer: { label: "Overall Stock Health", status: "98.2% Optimal" }
+  },
+  inventoryOverview: {
+    title: "Inventory Overview",
+    totalValue: "2,854",
+    unit: "Items",
+    badge: "↑ +6.3%",
+    segments: [
+      { label: "In Stock", percentage: "62.4%", value: 62.4, color: "#0074f8", position: "right" },
+      { label: "Low Stock", percentage: "18.6%", value: 18.6, color: "#2b99ff", position: "bottom-left" },
+      { label: "Reorder Soon", percentage: "11.2%", value: 11.2, color: "#67dcff", position: "mid-left" },
+      { label: "Out of Stock", percentage: "7.8%", value: 7.8, color: "#004494", position: "top-left" }
+    ],
+    footer: { label: "Stock Health", status: "98.2% Optimal" }
+  }
+};
+
 function MacbookBaseDeck() {
   return (
     <div className="w-full relative select-none">
@@ -291,7 +342,7 @@ export default function HeroLaptopShowcase() {
             transformOrigin: "right center",
           }}
         >
-          {/* Card 1: Spend by travel mode (Emerges from behind laptop to outer left) */}
+          {/* Card 1: Lead Pipeline (SET 1 — Left Card) */}
           <div
             className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
             style={
@@ -310,106 +361,105 @@ export default function HeroLaptopShowcase() {
           >
             {/* Card Header */}
             <div>
-              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
-                Spend by travel mode
+              <span className="text-[13.5px] font-bold text-[#08142C] tracking-tight block">
+                {HERO_CARDS_DATA.leadPipeline.title}
               </span>
             </div>
 
-            {/* Donut Chart with precise pointer lines from media_1789034196698.png */}
-            <div className="relative w-[180px] h-[175px] mx-auto flex items-center justify-center my-auto">
-              
-              {/* Floating Labels with pointer pins */}
-              <span className="absolute top-1 left-2 text-[11.5px] font-bold text-slate-700">Flight</span>
-              <span className="absolute top-5 right-2 text-[11.5px] font-bold text-slate-700">Hotel</span>
-              <span className="absolute bottom-5 right-2 text-[11.5px] font-bold text-slate-700">Train</span>
-              <span className="absolute -bottom-1 left-[38%] text-[11.5px] font-bold text-slate-700">Bus</span>
-              <span className="absolute top-[44%] left-0 text-[11.5px] font-bold text-slate-700">Car</span>
+            {/* 5-Tier Vertically Stacked Funnel with Horizontal Connector Lines */}
+            <div className="relative flex items-center justify-between gap-1.5 my-auto py-1">
+              {/* Funnel SVG on Left */}
+              <svg className="w-[52px] xl:w-[58px] h-[190px] xl:h-[200px] shrink-0 overflow-visible" viewBox="0 0 58 190">
+                <defs>
+                  <linearGradient id="funnelTier0" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#005CE6" />
+                    <stop offset="100%" stopColor="#1479FF" />
+                  </linearGradient>
+                  <linearGradient id="funnelTier1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#0B84F3" />
+                    <stop offset="100%" stopColor="#229DFF" />
+                  </linearGradient>
+                  <linearGradient id="funnelTier2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#29B0FC" />
+                    <stop offset="100%" stopColor="#4BC3FF" />
+                  </linearGradient>
+                  <linearGradient id="funnelTier3" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#42D4EE" />
+                    <stop offset="100%" stopColor="#60E3F7" />
+                  </linearGradient>
+                  <linearGradient id="funnelTier4" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#45E3BD" />
+                    <stop offset="100%" stopColor="#5EF2CD" />
+                  </linearGradient>
+                </defs>
 
-              <svg className="w-full h-full overflow-visible" viewBox="0 0 160 160">
-                {/* Background Ring Track */}
-                <circle cx="80" cy="80" r="42" stroke="#CBD5E1" strokeWidth="9" fill="none" opacity="0.6" />
-                
-                {/* Segment 1: Flight (Dark Navy Blue - top left) */}
-                <circle
-                  cx="80"
-                  cy="80"
-                  r="42"
-                  stroke="#005fae"
-                  strokeWidth="10"
-                  fill="none"
-                  strokeDasharray="263.89"
-                  strokeDashoffset="185"
-                  strokeLinecap="round"
-                  className="-rotate-90 origin-center"
+                {/* Tier 1 (Royal Blue #005CE6 → #1479FF) */}
+                <polygon
+                  points="2,4 56,4 50,34 8,34"
+                  fill="url(#funnelTier0)"
+                  stroke="url(#funnelTier0)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
                 />
 
-                {/* Segment 2: Hotel (Brand Accent Blue - top right) */}
-                <circle
-                  cx="80"
-                  cy="80"
-                  r="42"
-                  stroke="#006fc9"
-                  strokeWidth="10"
-                  fill="none"
-                  strokeDasharray="263.89"
-                  strokeDashoffset="205"
-                  strokeLinecap="round"
-                  className="rotate-0 origin-center"
+                {/* Tier 2 (Bright Blue #0B84F3 → #229DFF) */}
+                <polygon
+                  points="7,42 51,42 46,72 12,72"
+                  fill="url(#funnelTier1)"
+                  stroke="url(#funnelTier1)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
                 />
 
-                {/* Segment 3: Train (Sky Blue - bottom right) */}
-                <circle
-                  cx="80"
-                  cy="80"
-                  r="42"
-                  stroke="#38BDF8"
-                  strokeWidth="10"
-                  fill="none"
-                  strokeDasharray="263.89"
-                  strokeDashoffset="218"
-                  strokeLinecap="round"
-                  className="rotate-90 origin-center"
+                {/* Tier 3 (Sky Cyan #29B0FC → #4BC3FF) */}
+                <polygon
+                  points="12,80 46,80 41,110 17,110"
+                  fill="url(#funnelTier2)"
+                  stroke="url(#funnelTier2)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
                 />
 
-                {/* Segment 4: Bus (Cyan - bottom) */}
-                <circle
-                  cx="80"
-                  cy="80"
-                  r="42"
-                  stroke="#7DD3FC"
-                  strokeWidth="10"
-                  fill="none"
-                  strokeDasharray="263.89"
-                  strokeDashoffset="238"
-                  strokeLinecap="round"
-                  className="rotate-[145deg] origin-center"
+                {/* Tier 4 (Aqua #42D4EE → #60E3F7) */}
+                <polygon
+                  points="17,118 41,118 37,148 21,148"
+                  fill="url(#funnelTier3)"
+                  stroke="url(#funnelTier3)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
                 />
 
-                {/* Hairline Pointer Lines & Circular Nodes (exact Zoho detail) */}
-                {/* Flight pin */}
-                <circle cx="68" cy="40" r="2.5" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.8" />
-                <line x1="68" y1="40" x2="48" y2="24" stroke="#475569" strokeWidth="1" />
-
-                {/* Hotel pin */}
-                <circle cx="110" cy="50" r="2.5" fill="#FFFFFF" stroke="#006fc9" strokeWidth="1.8" />
-                <line x1="110" y1="50" x2="128" y2="40" stroke="#475569" strokeWidth="1" />
-
-                {/* Train pin */}
-                <circle cx="106" cy="116" r="2.5" fill="#FFFFFF" stroke="#38BDF8" strokeWidth="1.8" />
-                <line x1="106" y1="116" x2="126" y2="126" stroke="#475569" strokeWidth="1" />
-
-                {/* Bus pin */}
-                <circle cx="70" cy="122" r="2.5" fill="#FFFFFF" stroke="#7DD3FC" strokeWidth="1.8" />
-                <line x1="70" y1="122" x2="68" y2="140" stroke="#475569" strokeWidth="1" />
-
-                {/* Car pin */}
-                <circle cx="38" cy="78" r="2.5" fill="#FFFFFF" stroke="#005fae" strokeWidth="1.8" />
-                <line x1="38" y1="78" x2="22" y2="82" stroke="#475569" strokeWidth="1" />
+                {/* Tier 5 (Mint #45E3BD → #5EF2CD) */}
+                <polygon
+                  points="21,156 37,156 33,186 25,186"
+                  fill="url(#funnelTier4)"
+                  stroke="url(#funnelTier4)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
+                />
               </svg>
+
+              {/* Stage labels & counts with connector lines */}
+              <div className="flex-1 flex flex-col justify-between h-[190px] xl:h-[200px] py-1">
+                {HERO_CARDS_DATA.leadPipeline.stages.map((stage, sIdx) => (
+                  <div key={sIdx} className="flex items-center gap-1.5 w-full">
+                    {/* Horizontal Connector Line */}
+                    <div className="w-2.5 xl:w-3 border-t border-dashed border-slate-300 shrink-0" />
+                    <div className="flex-1 flex items-center justify-between min-w-0">
+                      <span className="text-[10px] xl:text-[10.5px] font-bold text-slate-700 truncate">
+                        {stage.label}
+                      </span>
+                      <span className="text-[10.5px] xl:text-[11.5px] font-extrabold text-[#08142C] ml-1 shrink-0">
+                        {stage.value}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Card 2: Net Revenue (Emerges from behind laptop to inner left) */}
+          {/* Card 2: Sales Conversion (SET 1 — Right Card) */}
           <div
             className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
             style={
@@ -426,40 +476,91 @@ export default function HeroLaptopShowcase() {
               } as CSSProperties
             }
           >
-            {/* Card Header & Numbers */}
+            {/* Card Header & Primary Metric */}
             <div className="relative z-10">
-              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
-                Net Revenue
+              <span className="text-[13.5px] font-bold text-[#08142C] tracking-tight block">
+                {HERO_CARDS_DATA.salesConversion.title}
               </span>
-              <div className="text-[26px] font-extrabold text-[#0F172A] tracking-tight mt-1">
-                ₹39,00,000
+              <div className="flex items-baseline gap-1.5 mt-1">
+                <span className="text-[25px] xl:text-[27px] font-extrabold text-[#08142C] tracking-tight leading-none">
+                  {HERO_CARDS_DATA.salesConversion.totalValue}
+                </span>
+                <span className="text-[14px] xl:text-[15px] font-bold text-[#08142C]">
+                  {HERO_CARDS_DATA.salesConversion.unit}
+                </span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border border-emerald-500/50 text-emerald-700 text-[11px] font-bold mt-1.5 bg-emerald-50/90 shadow-2xs">
-                <span>6.23 ↑</span>
-                <span className="text-slate-700 font-semibold text-[10px]">Year on year</span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[#8CE0B9] text-[#0E9F6E] text-[10.5px] font-bold mt-1.5 bg-[#EBFAF4] shadow-2xs">
+                <span>{HERO_CARDS_DATA.salesConversion.badge.change}</span>
+                <span className="text-slate-600 font-semibold text-[10px]">
+                  {HERO_CARDS_DATA.salesConversion.badge.label}
+                </span>
               </div>
             </div>
 
-            {/* Frosted Wave Hill from media_1789034196698.png */}
-            <div className="absolute inset-x-0 bottom-0 h-44 overflow-hidden pointer-events-none">
-              <svg className="w-full h-full" viewBox="0 0 240 150" preserveAspectRatio="none">
+            {/* Smooth Spline Line + Area Chart with Dashed Grid Lines & Circular Nodes */}
+            <div className="w-full h-[155px] xl:h-[165px] relative mt-1">
+              <svg className="w-full h-full overflow-visible" viewBox="0 0 205 135" preserveAspectRatio="none">
                 <defs>
-                  <linearGradient id="zohoFrostedHill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.82" />
-                    <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.2" />
+                  <linearGradient id="salesSplineGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#0A75F8" stopOpacity="0.28" />
+                    <stop offset="70%" stopColor="#0A75F8" stopOpacity="0.06" />
+                    <stop offset="100%" stopColor="#0A75F8" stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
+
+                {/* Horizontal Dashed Grid Lines & Y-Axis Ticks (1250, 1000, 750, 500, 250, 0) */}
+                <g opacity="0.65">
+                  <line x1="26" y1="10" x2="200" y2="10" stroke="#E2E8F0" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <line x1="26" y1="28" x2="200" y2="28" stroke="#E2E8F0" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <line x1="26" y1="46" x2="200" y2="46" stroke="#E2E8F0" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <line x1="26" y1="64" x2="200" y2="64" stroke="#E2E8F0" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <line x1="26" y1="82" x2="200" y2="82" stroke="#E2E8F0" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <line x1="26" y1="100" x2="200" y2="100" stroke="#CBD5E1" strokeWidth="1" />
+                </g>
+
+                {/* Y-Axis Tick Text */}
+                <g fill="#94A3B8" fontSize="7.5" fontWeight="600" textAnchor="end">
+                  <text x="21" y="12.5">1,250</text>
+                  <text x="21" y="30.5">1,000</text>
+                  <text x="21" y="48.5">750</text>
+                  <text x="21" y="66.5">500</text>
+                  <text x="21" y="84.5">250</text>
+                  <text x="21" y="102.5">0</text>
+                </g>
+
+                {/* Smooth Area Gradient Fill */}
                 <path
-                  d="M 0 150 L 0 120 Q 35 110 65 92 T 120 78 T 175 42 T 240 32 L 240 150 Z"
-                  fill="url(#zohoFrostedHill)"
+                  d="M 36 82 C 50 78, 56 69, 68 66.9 C 80 63, 86 55, 100 52.5 C 114 50, 120 60, 132 58.6 C 146 57, 152 38, 164 33.8 C 176 27, 184 16, 194 11.4 L 194 100 L 36 100 Z"
+                  fill="url(#salesSplineGrad)"
                 />
+
+                {/* Smooth Spline Stroke Line */}
                 <path
-                  d="M 0 120 Q 35 110 65 92 T 120 78 T 175 42 T 240 32"
+                  d="M 36 82 C 50 78, 56 69, 68 66.9 C 80 63, 86 55, 100 52.5 C 114 50, 120 60, 132 58.6 C 146 57, 152 38, 164 33.8 C 176 27, 184 16, 194 11.4"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.95)"
-                  strokeWidth="1.5"
+                  stroke="#0A75F8"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
+
+                {/* Circular Nodes with White Centers (Jan: 250, Feb: 460, Mar: 660, Apr: 575, May: 920, Jun: 1230) */}
+                <circle cx="36" cy="82" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+                <circle cx="68" cy="66.9" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+                <circle cx="100" cy="52.5" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+                <circle cx="132" cy="58.6" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+                <circle cx="164" cy="33.8" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+                <circle cx="194" cy="11.4" r="3" fill="#FFFFFF" stroke="#0A75F8" strokeWidth="2" />
+
+                {/* X-Axis Month Labels */}
+                <g fill="#64748B" fontSize="8.5" fontWeight="600" textAnchor="middle">
+                  <text x="36" y="117">Jan</text>
+                  <text x="68" y="117">Feb</text>
+                  <text x="100" y="117">Mar</text>
+                  <text x="132" y="117">Apr</text>
+                  <text x="164" y="117">May</text>
+                  <text x="194" y="117">Jun</text>
+                </g>
               </svg>
             </div>
           </div>
@@ -739,7 +840,7 @@ export default function HeroLaptopShowcase() {
             transformOrigin: "left center",
           }}
         >
-          {/* Card 3: Inventory Adjustment Reasons (Emerges from behind laptop to inner right) */}
+          {/* Card 3: Inventory Adjustment Reasons (SET 2 — Left Card) */}
           <div
             className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
             style={
@@ -757,66 +858,40 @@ export default function HeroLaptopShowcase() {
             }
           >
             <div>
-              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block mb-3">
-                Inventory Adjustment Reasons
+              <span className="text-[13.5px] font-bold text-[#08142C] tracking-tight block mb-4">
+                {HERO_CARDS_DATA.inventoryAdjustments.title}
               </span>
 
-              {/* Progress overview bar from Screenshot */}
-              <div className="w-full h-2 rounded-full bg-slate-200/80 flex overflow-hidden mb-4 border border-white/80">
-                <div className="w-[25.5%] bg-[#006fc9] rounded-l-full" />
-                <div className="w-[74.5%] bg-sky-200/80 rounded-r-full" />
-              </div>
-              
-              <div className="space-y-3">
-                <div>
-                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-[#006fc9]" /> Expired Goods</span>
-                    <strong className="text-[#0F172A] font-extrabold">25.5%</strong>
+              {/* 4 Horizontal Progress Bar Rows */}
+              <div className="space-y-3.5">
+                {HERO_CARDS_DATA.inventoryAdjustments.reasons.map((item, rIdx) => (
+                  <div key={rIdx}>
+                    <div className="flex justify-between text-[11px] xl:text-[11.5px] font-bold text-slate-700 mb-1">
+                      <span className="flex items-center gap-1.5 truncate">
+                        <i className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                        <span className="truncate">{item.label}</span>
+                      </span>
+                      <strong className="text-[#08142C] font-extrabold ml-1 shrink-0">{item.percentage}</strong>
+                    </div>
+                    <div className="w-full h-1.5 rounded-full bg-[#E3EAF3] overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ width: item.barWidth, backgroundColor: item.color }}
+                      />
+                    </div>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
-                    <div className="h-full bg-[#006fc9] rounded-full w-[25.5%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-sky-500" /> Stock Variance</span>
-                    <strong className="text-[#0F172A] font-extrabold">19.4%</strong>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
-                    <div className="h-full bg-sky-500 rounded-full w-[19.4%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-indigo-600" /> Internal Usage</span>
-                    <strong className="text-[#0F172A] font-extrabold">15.2%</strong>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
-                    <div className="h-full bg-indigo-600 rounded-full w-[15.2%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11.5px] font-bold text-slate-700 mb-1">
-                    <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-teal-600" /> Revaluation</span>
-                    <strong className="text-[#0F172A] font-extrabold">14.5%</strong>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-200/70 overflow-hidden">
-                    <div className="h-full bg-teal-600 rounded-full w-[14.5%]" />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            <div className="pt-2 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
-              <span className="text-slate-700 font-semibold">Overall Stock Health</span>
-              <span className="text-emerald-700 font-extrabold">98.2% Optimal</span>
+            {/* Bottom Footer */}
+            <div className="pt-2.5 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
+              <span className="text-slate-700 font-semibold">{HERO_CARDS_DATA.inventoryAdjustments.footer.label}</span>
+              <span className="text-[#0D8A5E] font-extrabold">{HERO_CARDS_DATA.inventoryAdjustments.footer.status}</span>
             </div>
           </div>
 
-          {/* Card 4: AR Aging Summary (Emerges from behind laptop to outer right) */}
+          {/* Card 4: Inventory Overview (SET 2 — Right Card) */}
           <div
             className="hero-card-emerge w-[215px] xl:w-[235px] h-[285px] xl:h-[295px] rounded-[22px] p-4.5 flex flex-col justify-between relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
             style={
@@ -834,58 +909,113 @@ export default function HeroLaptopShowcase() {
             }
           >
             <div>
-              <span className="text-[13.5px] font-bold text-slate-800 tracking-tight block">
-                AR Aging Summary
+              <span className="text-[13.5px] font-bold text-[#08142C] tracking-tight block">
+                {HERO_CARDS_DATA.inventoryOverview.title}
               </span>
-              <span className="text-[11px] text-slate-600 font-semibold block mt-0.5">Total Receivables</span>
-              <div className="text-[25px] font-extrabold text-[#0F172A] tracking-tight mt-0.5">
-                ₹45,000.00
+              {/* Header Row: Left metric + Right mint pill badge */}
+              <div className="flex items-center justify-between mt-1">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-[22px] xl:text-[24px] font-extrabold text-[#08142C] tracking-tight leading-none">
+                    {HERO_CARDS_DATA.inventoryOverview.totalValue}
+                  </span>
+                  <span className="text-[13px] font-bold text-slate-600">
+                    {HERO_CARDS_DATA.inventoryOverview.unit}
+                  </span>
+                </div>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full border border-[#6FD8A8] bg-[#EEFCF6] text-[#0D9F6E] text-[10.5px] font-bold">
+                  {HERO_CARDS_DATA.inventoryOverview.badge}
+                </span>
               </div>
             </div>
 
-            {/* Vertical Frosted Pillars from Reference Image */}
-            <div className="h-32 flex items-end justify-between gap-3 pt-3 px-1.5 pb-1">
-              <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                <div 
-                  className="w-full rounded-t-sm h-[75%] border-t border-x border-white/80"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(56, 189, 248, 0.55) 100%)",
-                  }}
+            {/* 4-Segment Donut Chart with Elbow Callout Leader Lines */}
+            <div className="relative w-full h-[145px] xl:h-[155px] mx-auto flex items-center justify-center my-auto">
+              <svg className="w-full h-full overflow-visible" viewBox="0 0 205 130">
+                {/* Background Ring Track */}
+                <circle cx="102" cy="65" r="32" stroke="#E2E8F0" strokeWidth="10" fill="none" opacity="0.6" />
+
+                {/* Segment 1: In Stock (62.4%, #0074F8) */}
+                <circle
+                  cx="102"
+                  cy="65"
+                  r="32"
+                  stroke="#0074F8"
+                  strokeWidth="11"
+                  fill="none"
+                  strokeDasharray="125.46 201.06"
+                  strokeDashoffset="0"
+                  className="-rotate-90 origin-[102px_65px]"
                 />
-                <span className="text-[10px] text-slate-700 font-bold">Current</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                <div 
-                  className="w-full rounded-t-sm h-[50%] border-t border-x border-white/80"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(56, 189, 248, 0.45) 100%)",
-                  }}
+
+                {/* Segment 2: Low Stock (18.6%, #2B99FF) */}
+                <circle
+                  cx="102"
+                  cy="65"
+                  r="32"
+                  stroke="#2B99FF"
+                  strokeWidth="11"
+                  fill="none"
+                  strokeDasharray="37.4 201.06"
+                  strokeDashoffset="-125.46"
+                  className="-rotate-90 origin-[102px_65px]"
                 />
-                <span className="text-[10px] text-slate-700 font-bold">1-15d</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                <div 
-                  className="w-full rounded-t-sm h-[32%] border-t border-x border-white/80"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(56, 189, 248, 0.35) 100%)",
-                  }}
+
+                {/* Segment 3: Reorder Soon (11.2%, #67DCFF) */}
+                <circle
+                  cx="102"
+                  cy="65"
+                  r="32"
+                  stroke="#67DCFF"
+                  strokeWidth="11"
+                  fill="none"
+                  strokeDasharray="22.52 201.06"
+                  strokeDashoffset="-162.86"
+                  className="-rotate-90 origin-[102px_65px]"
                 />
-                <span className="text-[10px] text-slate-700 font-bold">16-30d</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                <div 
-                  className="w-full rounded-t-sm h-[18%] border-t border-x border-white/80"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(56, 189, 248, 0.3) 100%)",
-                  }}
+
+                {/* Segment 4: Out of Stock (7.8%, #004494) */}
+                <circle
+                  cx="102"
+                  cy="65"
+                  r="32"
+                  stroke="#004494"
+                  strokeWidth="11"
+                  fill="none"
+                  strokeDasharray="15.68 201.06"
+                  strokeDashoffset="-185.38"
+                  className="-rotate-90 origin-[102px_65px]"
                 />
-                <span className="text-[10px] text-slate-700 font-bold">30+d</span>
-              </div>
+
+                {/* Callout 1: In Stock (Right callout) */}
+                <circle cx="134" cy="65" r="2" fill="#FFFFFF" stroke="#0074F8" strokeWidth="1.5" />
+                <polyline points="134,65 146,65 154,65" fill="none" stroke="#64748B" strokeWidth="1" />
+                <text x="157" y="62" fill="#334155" fontSize="8" fontWeight="700">In Stock</text>
+                <text x="157" y="72" fill="#0074F8" fontSize="8.5" fontWeight="800">62.4%</text>
+
+                {/* Callout 2: Low Stock (Bottom-left callout) */}
+                <circle cx="78" cy="88" r="2" fill="#FFFFFF" stroke="#2B99FF" strokeWidth="1.5" />
+                <polyline points="78,88 64,104 46,104" fill="none" stroke="#64748B" strokeWidth="1" />
+                <text x="43" y="101" fill="#334155" fontSize="8" fontWeight="700" textAnchor="end">Low Stock</text>
+                <text x="43" y="111" fill="#2B99FF" fontSize="8.5" fontWeight="800" textAnchor="end">18.6%</text>
+
+                {/* Callout 3: Reorder Soon (Mid-left callout) */}
+                <circle cx="70" cy="62" r="2" fill="#FFFFFF" stroke="#67DCFF" strokeWidth="1.5" />
+                <polyline points="70,62 58,62 42,62" fill="none" stroke="#64748B" strokeWidth="1" />
+                <text x="39" y="59" fill="#334155" fontSize="8" fontWeight="700" textAnchor="end">Reorder</text>
+                <text x="39" y="69" fill="#0284C7" fontSize="8.5" fontWeight="800" textAnchor="end">11.2%</text>
+
+                {/* Callout 4: Out of Stock (Top-left callout) */}
+                <circle cx="88" cy="36" r="2" fill="#FFFFFF" stroke="#004494" strokeWidth="1.5" />
+                <polyline points="88,36 78,22 52,22" fill="none" stroke="#64748B" strokeWidth="1" />
+                <text x="49" y="19" fill="#334155" fontSize="8" fontWeight="700" textAnchor="end">Out of Stock</text>
+                <text x="49" y="29" fill="#004494" fontSize="8.5" fontWeight="800" textAnchor="end">7.8%</text>
+              </svg>
             </div>
 
-            <div className="pt-2 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
-              <span className="text-slate-700 font-semibold">Collection Interval</span>
-              <span className="text-[#006fc9] font-extrabold">12 Days</span>
+            {/* Bottom Footer */}
+            <div className="pt-2.5 border-t border-slate-200/80 text-[10.5px] flex items-center justify-between">
+              <span className="text-slate-700 font-semibold">{HERO_CARDS_DATA.inventoryOverview.footer.label}</span>
+              <span className="text-[#0D8A5E] font-extrabold">{HERO_CARDS_DATA.inventoryOverview.footer.status}</span>
             </div>
           </div>
         </div>

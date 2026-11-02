@@ -21,7 +21,58 @@ import {
   Megaphone,
   Newspaper,
   Truck,
+  Briefcase,
+  Code2,
+  Rocket,
+  ArrowRightLeft,
+  Puzzle,
+  Layers3,
 } from "lucide-react";
+
+export const headerSolutions = [
+  {
+    name: "ERP Consulting Services",
+    desc: "Advisory, roadmap & process audit",
+    href: "/#solutions",
+    icon: Briefcase,
+    color: "text-[#006fc9] bg-[#006fc9]/10",
+  },
+  {
+    name: "Custom ERP Software Development",
+    desc: "Tailored architecture & bespoke features",
+    href: "/#solutions",
+    icon: Code2,
+    color: "text-violet-600 bg-violet-50",
+  },
+  {
+    name: "ERP Implementation Services",
+    desc: "End-to-end deployment & onboarding",
+    href: "/#solutions",
+    icon: Rocket,
+    color: "text-teal-600 bg-teal-50",
+  },
+  {
+    name: "ERP Migration Solutions",
+    desc: "Seamless legacy data transfer & validation",
+    href: "/#solutions",
+    icon: ArrowRightLeft,
+    color: "text-purple-600 bg-purple-50",
+  },
+  {
+    name: "ERP Extension & Plugin Development",
+    desc: "Add-ons, APIs & third-party connectors",
+    href: "/#solutions",
+    icon: Puzzle,
+    color: "text-amber-600 bg-amber-50",
+  },
+  {
+    name: "ERP Application Development",
+    desc: "Scalable cloud enterprise web & mobile",
+    href: "/#solutions",
+    icon: Layers3,
+    color: "text-emerald-600 bg-emerald-50",
+  },
+];
 
 export const headerModules = [
   { name: "CRM", desc: "Pipeline, leads & accounts", href: "/modules/crm", icon: Target, color: "text-violet-600 bg-violet-50" },
@@ -83,9 +134,57 @@ export default function SiteHeader() {
           <LogoMark />
         </Link>
         <nav className={menuOpen ? "main-nav main-nav-open" : "main-nav"} aria-label="Primary navigation">
-          <Link href="/#solutions" onClick={closeMenu}>
-            Solutions
-          </Link>
+          {/* Solutions Dropdown Menu */}
+          <div className="relative group py-2">
+            <Link
+              href="/#solutions"
+              onClick={closeMenu}
+              aria-haspopup="true"
+              className="inline-flex items-center gap-1.5 transition-colors cursor-pointer group-hover:text-[#006fc9]"
+            >
+              <span>Solutions</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform duration-200" />
+            </Link>
+
+            {/* Mega Dropdown Panel */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 w-[92vw] sm:w-[640px] md:w-[700px] lg:w-[720px] max-w-[740px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
+              <div className="bg-white/98 backdrop-blur-xl rounded-[22px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4 sm:p-5 sm:min-h-[385px] flex flex-col justify-between">
+                <div className="px-3 py-2 mb-2.5 border-b border-slate-100 flex items-center justify-between">
+                  <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
+                    Solutions & Services
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-3 gap-2 sm:gap-2.5 flex-1">
+                  {headerSolutions.map((item) => {
+                    const ItemIcon = item.icon;
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={closeMenu}
+                        className="flex items-center gap-3.5 p-3 sm:px-4 rounded-[14px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item h-full"
+                      >
+                        <div
+                          className={`p-2.5 rounded-[12px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs`}
+                        >
+                          <ItemIcon className="w-4.5 h-4.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-[13.5px] sm:text-[14px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors leading-snug">
+                            {item.name}
+                          </div>
+                          <div className="text-[11.5px] sm:text-[12px] text-slate-500 font-normal leading-relaxed mt-0.5">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Modules Dropdown Menu */}
           <div className="relative group py-2">
@@ -100,23 +199,15 @@ export default function SiteHeader() {
             </Link>
 
             {/* Mega Dropdown Panel */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
-              <div className="bg-white/98 backdrop-blur-xl rounded-[20px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4">
-                <div className="px-2.5 py-1.5 mb-2 border-b border-slate-100 flex items-center justify-between">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 w-[92vw] sm:w-[640px] md:w-[700px] lg:w-[720px] max-w-[740px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
+              <div className="bg-white/98 backdrop-blur-xl rounded-[22px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4 sm:p-5 sm:min-h-[385px] flex flex-col justify-between">
+                <div className="px-3 py-2 mb-2.5 border-b border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
                     Enterprise Modules
                   </span>
-                  <Link
-                    href="/modules"
-                    onClick={closeMenu}
-                    className="text-[11px] text-[#006fc9] font-bold bg-[#006fc9]/10 hover:bg-[#006fc9]/15 px-3 py-1 rounded-full border border-[#006fc9]/20 transition-colors flex items-center gap-1"
-                  >
-                    <span>View All 8 Apps</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1">
                   {headerModules.map((item) => {
                     const ItemIcon = item.icon;
                     return (
@@ -124,18 +215,18 @@ export default function SiteHeader() {
                         key={item.name}
                         href={item.href}
                         onClick={closeMenu}
-                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
+                        className="flex items-start gap-3.5 p-3 rounded-[14px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
                       >
                         <div
-                          className={`p-2 rounded-[10px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs`}
+                          className={`p-2.5 rounded-[12px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs mt-0.5`}
                         >
-                          <ItemIcon className="w-4 h-4" />
+                          <ItemIcon className="w-4.5 h-4.5" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors line-clamp-1">
+                          <div className="text-[13.5px] sm:text-[14px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors leading-snug">
                             {item.name}
                           </div>
-                          <div className="text-[11px] text-slate-500 line-clamp-1 font-normal">
+                          <div className="text-[11.5px] sm:text-[12px] text-slate-500 font-normal leading-relaxed mt-0.5">
                             {item.desc}
                           </div>
                         </div>
@@ -160,23 +251,15 @@ export default function SiteHeader() {
             </Link>
 
             {/* Mega Dropdown Panel */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 min-w-[340px] sm:min-w-[460px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
-              <div className="bg-white/98 backdrop-blur-xl rounded-[20px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4">
-                <div className="px-2.5 py-1.5 mb-2 border-b border-slate-100 flex items-center justify-between">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 w-[92vw] sm:w-[640px] md:w-[700px] lg:w-[720px] max-w-[740px] pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto">
+              <div className="bg-white/98 backdrop-blur-xl rounded-[22px] border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] p-4 sm:p-5 sm:min-h-[385px] flex flex-col justify-between">
+                <div className="px-3 py-2 mb-2.5 border-b border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase">
                     Industry we serve
                   </span>
-                  <Link
-                    href="/#industries"
-                    onClick={closeMenu}
-                    className="text-[11px] text-[#006fc9] font-bold bg-[#006fc9]/10 hover:bg-[#006fc9]/15 px-3 py-1 rounded-full border border-[#006fc9]/20 transition-colors flex items-center gap-1"
-                  >
-                    <span>View All Industries</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1">
                   {headerIndustries.map((item) => {
                     const ItemIcon = item.icon;
                     return (
@@ -184,18 +267,18 @@ export default function SiteHeader() {
                         key={item.name}
                         href={item.href}
                         onClick={closeMenu}
-                        className="flex items-start gap-3 p-2.5 rounded-[12px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
+                        className="flex items-start gap-3.5 p-3 rounded-[14px] hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#006fc9] transition-all duration-150 group/item"
                       >
                         <div
-                          className={`p-2 rounded-[10px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs`}
+                          className={`p-2.5 rounded-[12px] ${item.color} transition-transform group-hover/item:scale-105 shrink-0 shadow-2xs mt-0.5`}
                         >
-                          <ItemIcon className="w-4 h-4" />
+                          <ItemIcon className="w-4.5 h-4.5" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[13px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors line-clamp-1">
+                          <div className="text-[13.5px] sm:text-[14px] font-bold text-slate-800 group-hover/item:text-[#006fc9] transition-colors leading-snug">
                             {item.name}
                           </div>
-                          <div className="text-[11px] text-slate-500 line-clamp-1 font-normal">
+                          <div className="text-[11.5px] sm:text-[12px] text-slate-500 font-normal leading-relaxed mt-0.5">
                             {item.desc}
                           </div>
                         </div>
@@ -210,7 +293,7 @@ export default function SiteHeader() {
           {/* AI Features Button with Hover Gradient Edge Light Animation (No Bottom Line Animation) */}
           <div className="flex items-center">
             <Link
-              href="/#features"
+              href="/ai-features"
               onClick={closeMenu}
               style={{ padding: "2px", background: "transparent", border: "none" }}
               className="group relative inline-flex items-center justify-center rounded-full overflow-hidden shadow-[0_4px_14px_rgba(33,142,242,0.28)] hover:shadow-[0_6px_22px_rgba(56,189,248,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 no-underline after:!hidden before:!hidden after:!content-none before:!content-none after:!w-0 after:!h-0"

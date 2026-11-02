@@ -1,0 +1,87 @@
+/* AI Features Page Styles */
+.heroSurface {
+  background:
+    radial-gradient(circle at 74% 44%, rgba(216, 224, 255, 0.72) 0%, rgba(232, 240, 255, 0.45) 38%, rgba(246, 249, 255, 0) 70%),
+    linear-gradient(180deg, #f5f8ff 0%, #eef4ff 62%, #e9f2ff 100%);
+}
+
+.heroIllustrationMask {
+  mask-image: radial-gradient(ellipse 92% 90% at 54% 50%, #000 76%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 90% at 54% 50%, #000 76%, transparent 100%);
+}
+
+.speechBubble {
+  position: relative;
+}
+
+.speechBubble::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  right: 48px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  transform: rotate(45deg);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  border-right: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.featureItem {
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.featureItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(30, 58, 138, 0.08);
+}
+
+.suiteNavBtn {
+  transition: all 0.2s ease;
+}
+
+.suiteNavBtnActive {
+  background: #ffffff !important;
+  border-color: rgba(0, 111, 201, 0.32) !important;
+  box-shadow: 0 12px 28px -8px rgba(0, 111, 201, 0.16) !important;
+}
+
+.suiteIndicatorActive {
+  background-color: #006fc9 !important;
+  width: 4px !important;
+}
+
+.viewModeBtnActive {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+}
+
+.compTileActive {
+  border-color: #d97706 !important;
+  background-color: #fffbeb !important;
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.12) !important;
+}
+
+.otsStepActive {
+  border-color: #7c3aed !important;
+  background-color: #f5f3ff !important;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.12) !important;
+}
+
+.deptBtn {
+  transition: transform 0.18s ease;
+}
+
+.deptBtn:hover {
+  transform: translateY(-3px);
+}
+
+.deptBtnActive {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px #006fc9 !important;
+}
+
+.barCol {
+  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease;
+}
+

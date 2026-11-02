@@ -1,9 +1,9 @@
 "use client";
 import { useState, type ComponentType } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import HeroLaptopShowcase from "./components/HeroLaptopShowcase";
-import HeroBackground from "./components/HeroBackground";
-import PlatformModulesShowcase from "./components/PlatformModulesShowcase";
+import PlatformServicesShowcase from "./components/PlatformServicesShowcase";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 
@@ -27,6 +27,7 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
+
 
 type IconType = ComponentType<{ className?: string; strokeWidth?: number }>;
 
@@ -85,7 +86,17 @@ export default function HomePage() {
       <main id="main-content">
         <section className="hero-zoho-section" id="solutions">
           {/* Ambient Lighting, Gradients, Tech Patterns & 3D Perspective Grid Floor */}
-          <HeroBackground />
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 select-none">
+            <Image
+              src="/hero.webp"
+              alt=""
+              fill
+              priority
+              quality={75}
+              sizes="100vw"
+              className="object-cover object-top select-none pointer-events-none"
+            />
+          </div>
 
           <div className="w-full max-w-[1440px] px-4 sm:px-6 mx-auto relative z-10 flex flex-col items-center text-center">
 
@@ -154,7 +165,7 @@ export default function HomePage() {
         
         
         {/* 8-Card Interactive Platform Modules Deck */}
-        <PlatformModulesShowcase />
+        <PlatformServicesShowcase/>
 
         {/* Connected Workflow Interactive Engine */}
         <ConnectedWorkflow />

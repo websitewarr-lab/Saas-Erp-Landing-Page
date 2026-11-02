@@ -35,7 +35,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "SALES PIPELINE",
     description: "Turn leads into lasting customer relationships with automated scoring and pipeline visibility.",
     features: ["Lead scoring", "Pipelines", "360° accounts"],
-    image: "/images/modules/crm_sales.webp",
+    image: "/images/our-servicesimg/crm_sales.webp",
     icon: Target,
     link: "/modules/crm",
   },
@@ -45,7 +45,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "ORDER FULFILLMENT",
     description: "Multi-channel quotations, sales orders, pricing rules, and seamless dispatch invoicing.",
     features: ["Quotations", "Sales orders", "Fulfillment"],
-    image: "/images/modules/sales_orders.webp",
+    image: "/images/our-servicesimg/sales_orders.webp",
     icon: Target,
     link: "/modules/sales",
   },
@@ -55,7 +55,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PROCUREMENT & VENDORS",
     description: "Manage vendors, purchase requisitions, RFQs, purchase orders, and 3-way matching approvals.",
     features: ["Vendors & RFQs", "Purchase orders", "3-way matching"],
-    image: "/images/modules/purchase.webp",
+    image: "/images/our-servicesimg/purchase.webp",
     icon: ClipboardCheck,
     link: "/modules/purchase",
   },
@@ -65,7 +65,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "WAREHOUSE & ASSETS",
     description: "Track stock levels, multi-warehouse movements, batch serials, and inventory valuation.",
     features: ["Stock levels", "Multi-warehouse", "Batch & serials"],
-    image: "/images/modules/inventory.webp",
+    image: "/images/our-servicesimg/inventory.webp",
     icon: Boxes,
     link: "/modules/inventory",
   },
@@ -75,7 +75,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PRODUCTION & BOMS",
     description: "Plan production schedules, manage multi-level BOMs, work orders, and shop-floor MES operations.",
     features: ["BOM & Routings", "Work orders", "Shopfloor MES"],
-    image: "/images/modules/manufacturing.webp",
+    image: "/images/our-servicesimg/manufacturing.webp",
     icon: Settings2,
     link: "/modules/production",
   },
@@ -85,7 +85,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "FINANCIAL OPERATIONS",
     description: "General ledger, invoicing, multi-entity journals, tax compliance, and automated financial statements.",
     features: ["General ledger", "Invoices & taxes", "Financial reports"],
-    image: "/images/modules/finance.webp",
+    image: "/images/our-servicesimg/finance.webp",
     icon: CircleDollarSign,
     link: "/modules/accounting",
   },
@@ -95,7 +95,7 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "PEOPLE OPERATIONS",
     description: "Employee records, attendance, leave, performance appraisals, and statutory Indian payroll in sync.",
     features: ["Attendance & leaves", "KRA & OKRs", "Statutory payroll"],
-    image: "/images/modules/hr_payroll.webp",
+    image: "/images/our-servicesimg/hr_payroll.webp",
     icon: UsersRound,
     link: "/modules/hrms",
   },
@@ -105,13 +105,13 @@ const PLATFORM_MODULES: PlatformModule[] = [
     watermark: "COLLABORATION & TASKS",
     description: "Coordinate team projects, milestones, tasks, timesheets, and project profitability in one flow.",
     features: ["Milestones & tasks", "Timesheets", "Project costing"],
-    image: "/images/modules/projects.webp",
+    image: "/images/our-servicesimg/projects.webp",
     icon: KanbanSquare,
     link: "/modules/project",
   },
 ];
 
-export default function PlatformModulesShowcase() {
+export default function PlatformServicesShowcase() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
